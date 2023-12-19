@@ -41,22 +41,22 @@ class Editar extends ModalComponent
             'telefono' => 'required',
             'correo' => 'required|email',
         ]);
-try {
-    
-    $usuario = User::find($this->id);
-    $usuario->codigo = $this->codigo;
-    $usuario->nombre = $this->nombre;
-    $usuario->apellido = $this->apellido;
-    $usuario->telefono = $this->telefono;
-    $usuario->correo = $this->correo;
-    $usuario->save();
+        try {
 
-    $this->dispatch('actualizar_tabla_usuarios');
-    $this->closeModal();
-    $this->dispatch('success', mensaje: 'Se actualizo el usuario exitosamente');
-} catch (\Throwable $th) {
-    $this->closeModal();
+            $usuario = User::find($this->id);
+            $usuario->codigo = $this->codigo;
+            $usuario->nombre = $this->nombre;
+            $usuario->apellido = $this->apellido;
+            $usuario->telefono = $this->telefono;
+            $usuario->correo = $this->correo;
+            $usuario->save();
+
+            $this->dispatch('actualizar_tabla_usuarios');
+            $this->closeModal();
+            $this->dispatch('success', mensaje: 'Se actualizo el usuario exitosamente');
+        } catch (\Throwable $th) {
+            $this->closeModal();
             $this->dispatch('error', mensaje: $th);
-}
+        }
     }
 }

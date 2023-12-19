@@ -23,9 +23,27 @@ class User extends Authenticatable
         'apellido',
         'telefono',
         'correo',
+        'rol',
+        'planta_id',
+        'division_id',
         'password',
     ];
-
+    public function planta()
+    {
+        return $this->belongsTo(Planta::class);
+    }
+    public function division()
+    {
+        return $this->belongsTo(Division::class);
+    }
+    public function solicitudAnalisisLinea()
+    {
+        return $this->hasMany(SolicitudAnalisisLinea::class);
+    }
+    public function analisisLinea()
+    {
+        return $this->hasMany(AnalisisLinea::class);
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

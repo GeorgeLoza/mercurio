@@ -7,14 +7,14 @@
     @endisset
 
     <div
-            x-data="LivewireUIModal()"
+            x-data="LivewireUIModal()"  
             x-on:close.stop="setShowPropertyTo(false)"
             x-on:keydown.escape.window="closeModalOnEscape()"
             x-show="show"
-            class="fixed inset-0 z-50 overflow-y-auto"
+            class="fixed inset-0 z-40 overflow-y-auto"
             style="display: none;"
     >
-        <div class="flex items-center justify-center mx-auto sm:w-4/5 md:w-2/3 lg:w-3/5 text-center  ">
+        <div class="flex items-center justify-center mx-auto w-auto p-12 sm:p-0 sm:w-2/4 md:w-2/3 lg:w-1/2 text-center  ">
             <div
                     x-show="show"
                     x-on:click="closeModalOnClickAway()"

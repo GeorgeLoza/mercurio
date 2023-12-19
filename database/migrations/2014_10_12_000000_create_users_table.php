@@ -18,7 +18,10 @@ return new class extends Migration
             $table->string('apellido');
             $table->integer('telefono');
             $table->string('correo')->unique();
+            $table->string('rol');
             $table->string('password');
+            $table->foreignId('planta_id')->nullable()->constrained()->onDelete('restrict');
+            $table->foreignId('division_id')->nullable()->constrained()->onDelete('restrict');
             $table->rememberToken();
             $table->timestamps();
         });

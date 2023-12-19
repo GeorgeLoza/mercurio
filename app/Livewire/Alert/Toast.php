@@ -33,6 +33,11 @@ class Toast extends Component
     }
     public function cerrar_success(){
         $this->show_success = false;
-        
+    }
+    public function cerrar_error(){
+        $this->show_error = false;
+    }
+    public function cerrar_warning(){
+        $this->show_warning = false;
     }
 }

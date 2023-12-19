@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Division;
+use App\Models\Planta;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -13,10 +15,13 @@ class RegisterController extends Controller
     //
     public function index()
     {
-        return view('auth.register');
+        $plantas = Planta::all();
+        $divisiones = Division::all();
+        return view('auth.register', compact(['plantas', 'divisiones']));
     }
     public function store(Request $request)
     {
+        
         //validation
         $this->validate($request, [
             'codigo' => 'required|unique:users',
@@ -24,6 +29,9 @@ class RegisterController extends Controller
             'apellido' => 'required',
             'telefono' => 'required',
             'correo' => 'email|required',
+            'planta_id' => 'required',
+            'division_id' => 'required',
+            'rol' => 'required',
             'password' => 'required|confirmed'
         ]);
 
@@ -35,6 +43,9 @@ class RegisterController extends Controller
             'apellido' => $request->apellido,
             'telefono' => $request->telefono,
             'correo' => $request->correo,
+            'rol' => $request->rol,
+            'planta_id' => $request->planta_id,
+            'division_id' => $request->division_id,
             'password' => Hash::make($request->password),
         ]);
         

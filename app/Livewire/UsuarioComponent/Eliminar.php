@@ -20,11 +20,10 @@ class Eliminar extends ModalComponent
         try {
             User::find($this->id)->delete();
             $this->dispatch('actualizar_tabla_usuarios');
-    $this->closeModal();
-    $this->dispatch('success', mensaje: 'Se Elimino el usuario exitosamente');
+            $this->closeModal();
+            $this->dispatch('success', mensaje: 'Se Elimino el usuario exitosamente');
         } catch (\Throwable $th) {
             $this->dispatch('error', mensaje: $th);
         }
-        
     }
 }

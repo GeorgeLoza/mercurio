@@ -2,6 +2,8 @@
 
 namespace App\Livewire\UsuarioComponent;
 
+use App\Models\Division;
+use App\Models\Planta;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\Attributes\Modelable;
@@ -10,12 +12,25 @@ use LivewireUI\Modal\ModalComponent;
 
 class Crear extends ModalComponent
 {
+    //inputs
     public $codigo;
     public $nombre;
     public $apellido;
     public $telefono;
     public $correo;
+    public $rol;
+    public $planta_id;
+    public $division_id;
     public $password;
+    //valores para cargar selects
+    public $plantas;
+    public $divisiones;
+
+    public function mount()
+    {
+        $this->plantas = Planta::all();
+        $this->divisiones = Division::all();
+    }
 
     public function render()
     {
@@ -31,6 +46,9 @@ class Crear extends ModalComponent
             'apellido' => 'required',
             'telefono' => 'required',
             'correo' => 'required|email',
+            'planta_id' => 'required',
+            'division_id' => 'required',
+            'rol' => 'required',
             'password' => 'required'
         ]);
         try {
@@ -41,12 +59,14 @@ class Crear extends ModalComponent
                 'apellido' => $this->apellido,
                 'telefono' => $this->telefono,
                 'correo' => $this->correo,
+                'rol' => $this->rol,
+                'planta_id' => $this->planta_id,
+                'division_id' => $this->division_id,
                 'password' => Hash::make($this->password),
             ]);
             $this->dispatch('actualizar_tabla_usuarios');
             $this->closeModal();
             $this->dispatch('success', mensaje: 'Usuario registrado exitosamente');
-            
         } catch (\Throwable $th) {
             $this->closeModal();
             $this->dispatch('error', mensaje: $th);

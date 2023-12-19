@@ -1,11 +1,4 @@
-import '../../vendor/masmerise/livewire-toaster/resources/js';
-window.toastr = require('toastr');
 
-toastr.options = {
-    closeButton: true,
-    progressBar: true,
-    positionClass: 'toast-top-right',
-};
 /* Modo Oscuro */
 document.addEventListener('DOMContentLoaded', function () {
     const darkButton = document.querySelector('#darkButton');
