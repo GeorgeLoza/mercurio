@@ -42,6 +42,11 @@ class Tabla extends Component
         $this->sortField = $field;
     }
 
+     public function mount()
+    {
+        $this->sortField = 'created_at';
+        $this->sortAsc = false;
+    }
 
     #[On('actualizar_tabla_analisisLineas')]
     public function render()

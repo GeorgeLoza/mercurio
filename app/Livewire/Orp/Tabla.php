@@ -54,6 +54,12 @@ class Tabla extends Component
         $registro->save();
     }
 
+    public function mount()
+    {
+        $this->sortField = 'created_at';
+        $this->sortAsc = false;
+    }
+
 
     #[On('actualizar_tabla_orps')]
     public function render()

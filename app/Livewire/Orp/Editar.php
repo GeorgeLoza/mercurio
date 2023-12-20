@@ -27,6 +27,8 @@ class Editar extends ModalComponent
 
     public function mount()
     {
+
+        
         $this->productos = Producto::all();
 
         $orp = Orp::where('id', $this->id)->first();

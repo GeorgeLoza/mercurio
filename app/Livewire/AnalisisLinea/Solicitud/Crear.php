@@ -75,7 +75,9 @@ class Crear extends ModalComponent
             AnalisisLinea::create([
                 'solicitud_analisis_linea_id' => $id,
             ]);
+           
             $this->dispatch('actualizar_tabla_solicitudAnalisisLineas');
+            $this->dispatch('actualizar_tabla_analisisLineas');
             $this->closeModal();
             $this->dispatch('success', mensaje: 'Solicitud registrado exitosamente');
         } catch (\Throwable $th) {

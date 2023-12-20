@@ -41,6 +41,11 @@ class Tabla extends Component
 
         $this->sortField = $field;
     }
+    public function mount()
+    {
+        $this->sortField = 'created_at';
+        $this->sortAsc = false;
+    }
 
 
     #[On('actualizar_tabla_solicitudAnalisisLineas')]
@@ -53,9 +58,11 @@ class Tabla extends Component
                 });
             })
             ->when($this->f_producto, function ($query) {
-                return $query->whereHas('producto', function ($query) {
+                return $query->whereHas('orp', function ($query) {
+                $query->whereHas('producto', function ($query) {
                     $query->where('nombre', 'like', '%' . $this->f_producto . '%');
                 });
+            });
             })
             ->when($this->f_tiempo, function ($query) {
                 return $query->where('tiempo', 'like', '%' . $this->f_tiempo . '%');

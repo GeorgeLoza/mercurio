@@ -39,7 +39,7 @@ class Editar extends ModalComponent
 
     public function update()
     {
-        dd(now());
+    
         if ($this->color) {
             $this->color = 1;
         } else {
@@ -77,6 +77,10 @@ class Editar extends ModalComponent
             $analisis->observaciones = $this->observaciones;
             $analisis->save();
 
+            $solicitud = SolicitudAnalisisLinea::find($analisis->solicitud_analisis_linea_id);
+            $solicitud->estado = 'Completado';
+            $solicitud->save();
+            
             $this->dispatch('actualizar_tabla_analisisLineas');
             $this->closeModal();
             $this->dispatch('success', mensaje: 'Analisis realizado exitosamente.');

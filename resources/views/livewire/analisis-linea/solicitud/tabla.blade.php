@@ -93,7 +93,7 @@
                         {{$solicitud->orp->producto->nombre}}
                     </td>
                     <td class="px-6 py-2" nowrap>
-                        {{$solicitud->tiempo}}
+                        {{\Carbon\Carbon::parse($solicitud->tiempo)->isoFormat('HH:mm  D/M/YYYY', 0, 'es') }}
                     </td>
                     <td class="px-6 py-2" nowrap>
                         {{$solicitud->user->nombre}} {{$solicitud->user->apellido}}

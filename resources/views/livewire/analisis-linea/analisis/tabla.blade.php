@@ -3,19 +3,19 @@
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
             <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    <th scope="col" class="px-3 py-3 sticky top-0 bg-white dark:bg-gray-700" 
-                    wire:click="sortBy('codigo')">
+                    <th scope="col" class="px-3 py-3 sticky top-0 bg-white dark:bg-gray-700"
+                        wire:click="sortBy('codigo')">
                         ORP
                     </th>
-                    <th scope="col" class="px-3 py-3 sticky top-0 bg-white dark:bg-gray-700" 
-                    wire:click="sortBy('codigo')">
+                    <th scope="col" class="px-3 py-3 sticky top-0 bg-white dark:bg-gray-700"
+                        wire:click="sortBy('codigo')">
                         producto
                     </th>
                     <th scope="col" class="px-3 py-3 sticky top-0 bg-white dark:bg-gray-700">
                         preparacion
                     </th>
                     <th scope="col" class="px-3 py-3 sticky top-0 bg-white dark:bg-gray-700"
-                    wire:click="sortBy('tiempo')">
+                        wire:click="sortBy('tiempo')">
                         origen
                     </th>
                     <th scope="col" class="px-3 py-3 sticky top-0 bg-white dark:bg-gray-700">
@@ -70,6 +70,12 @@
                     </th>
                     <th scope="col" class="px-3 py-3 sticky top-0 bg-white dark:bg-gray-700">
                         observaciones
+                    </th>
+                    <th scope="col" class="px-3 py-3 sticky top-0 bg-white dark:bg-gray-700">
+                        solicitante
+                    </th>
+                    <th scope="col" class="px-3 py-3 sticky top-0 bg-white dark:bg-gray-700">
+                        analista
                     </th>
                 </tr>
             </thead>
@@ -126,26 +132,30 @@
                     </td>
                     <td class="px-3 py-2 text-center" nowrap>
                         {{$analisis->solicitudAnalisisLinea->origen->alias}}
-                  
                     <td class="px-3 py-2 text-center">
                         @if($analisis->solicitudAnalisisLinea->estado == 'Pendiente')
-                        <span class="flex items-center text-sm font-medium me-3"><span class="flex w-2.5 h-2.5 bg-yellow-500 rounded-full me-1.5 flex-shrink-0"></span>{{$analisis->solicitudAnalisisLinea->estado}}</span>
+                        <span class="flex items-center text-sm font-medium me-3"><span
+                                class="flex w-2.5 h-2.5 bg-yellow-500 rounded-full me-1.5 flex-shrink-0"></span>{{$analisis->solicitudAnalisisLinea->estado}}</span>
                         @endif
 
                         @if($analisis->solicitudAnalisisLinea->estado == 'En proceso')
-                        <span class="flex items-center text-sm font-medium me-3"><span class="flex w-2.5 h-2.5 bg-blue-600 rounded-full me-1.5 flex-shrink-0"></span>{{$analisis->solicitudAnalisisLinea->estado}}</span>
+                        <span class="flex items-center text-sm font-medium me-3"><span
+                                class="flex w-2.5 h-2.5 bg-blue-600 rounded-full me-1.5 flex-shrink-0"></span>{{$analisis->solicitudAnalisisLinea->estado}}</span>
                         @endif
 
-                        @if($analisis->estado == 'Completado')
-                        <span class="flex items-center text-sm font-medium me-3"><span class="flex w-2.5 h-2.5 bg-green-500 rounded-full me-1.5 flex-shrink-0"></span>{{$analisis->solicitudAnalisisLinea->estado}}</span>
+                        @if($analisis->solicitudAnalisisLinea->estado == 'Completado')
+                        <span class="flex items-center text-sm font-medium me-3"><span
+                                class="flex w-2.5 h-2.5 bg-green-500 rounded-full me-1.5 flex-shrink-0"></span>{{$analisis->solicitudAnalisisLinea->estado}}</span>
                         @endif
 
                         @if($analisis->solicitudAnalisisLinea->estado == 'Rechazado')
-                        <span class="flex items-center text-sm font-medium me-3"><span class="flex w-2.5 h-2.5 bg-red-500 rounded-full me-1.5 flex-shrink-0"></span>{{$analisis->solicitudAnalisisLinea->estado}}</span>
+                        <span class="flex items-center text-sm font-medium me-3"><span
+                                class="flex w-2.5 h-2.5 bg-red-500 rounded-full me-1.5 flex-shrink-0"></span>{{$analisis->solicitudAnalisisLinea->estado}}</span>
                         @endif
 
                         @if($analisis->solicitudAnalisisLinea->estado == 'Cancelado')
-                        <span class="flex items-center text-sm font-medium me-3"><span class="flex w-2.5 h-2.5 bg-gray-600 rounded-full me-1.5 flex-shrink-0"></span>{{$analisis->solicitudAnalisisLinea->estado}}</span>
+                        <span class="flex items-center text-sm font-medium me-3"><span
+                                class="flex w-2.5 h-2.5 bg-gray-600 rounded-full me-1.5 flex-shrink-0"></span>{{$analisis->solicitudAnalisisLinea->estado}}</span>
                         @endif
                     </td>
                     <td class="flex items-center justify-center px-3 py-2 gap-2 ">
@@ -202,7 +212,17 @@
                     <td class="px-3 py-2" nowrap>
                         {{$analisis->observaciones}}
                     </td>
-                 
+                    <td class="px-3 py-2 text-center" nowrap>
+                        {{$analisis->solicitudAnalisisLinea->user->nombre}}
+                        {{$analisis->solicitudAnalisisLinea->user->apellido}}
+                    </td>
+                    <td class="px-3 py-2" nowrap>
+                        @if($analisis->user)
+                        {{$analisis->user->nombre}}
+                        @endif
+                    </td>
+
+
                 </tr>
                 @endforeach
 
