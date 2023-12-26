@@ -42,7 +42,7 @@ class Crear extends ModalComponent
         } catch (\Throwable $th) {
             $this->closeModal();
            
-            $this->dispatch('error', mensaje: $th);
+            $this->dispatch('error', mensaje: 'Error'. $th);
         }
     }
     

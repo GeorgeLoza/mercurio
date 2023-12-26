@@ -21,7 +21,7 @@ class Eliminar extends ModalComponent
             $this->closeModal();
             $this->dispatch('success', mensaje: 'Se Elimino el parametro exitosamente');
         } catch (\Throwable $th) {
-            $this->dispatch('error', mensaje: $th);
+            $this->dispatch('error', mensaje: 'Error'. $th);
         }
     }
 }

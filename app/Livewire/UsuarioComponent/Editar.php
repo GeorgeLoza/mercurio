@@ -56,7 +56,7 @@ class Editar extends ModalComponent
             $this->dispatch('success', mensaje: 'Se actualizo el usuario exitosamente');
         } catch (\Throwable $th) {
             $this->closeModal();
-            $this->dispatch('error', mensaje: $th);
+            $this->dispatch('error', mensaje: 'Error'. $th);
         }
     }
 }

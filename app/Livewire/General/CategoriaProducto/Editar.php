@@ -46,7 +46,7 @@ class Editar extends ModalComponent
         } catch (\Throwable $th) {
             $this->closeModal();
             dd($th);
-            $this->dispatch('error', mensaje: $th);
+            $this->dispatch('error', mensaje: 'Error'. $th);
         }
     }
     public function render()

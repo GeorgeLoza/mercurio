@@ -5,11 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    @if(app()->environment('production'))
-    <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}">
-    @else
-    @vite('resources/css/app.css')
-    @endif
+
+    <link rel="stylesheet" href="{{ asset('build/assets/app-196cc6d3.css') }}">
+    <script src="{{ asset('build/assets/app-888cccd0.js') }}" defer></script>
+    
 
     <script src="{{asset('js/app.js')}}"></script>
     <script src="{{asset('js/flowbite.js')}}"></script>

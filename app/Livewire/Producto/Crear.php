@@ -59,7 +59,7 @@ class Crear extends ModalComponent
             $this->dispatch('success', mensaje: 'Producto registrado exitosamente');
         } catch (\Throwable $th) {
             $this->closeModal();
-            $this->dispatch('error', mensaje: $th);
+            $this->dispatch('error', mensaje: 'Error'. $th);
         }
     }
 }
