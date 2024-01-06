@@ -74,6 +74,9 @@
                                 <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
                                     {{auth()->user()->correo}}
                                 </p>
+                                <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
+                                    {{auth()->user()->rol}}
+                                </p>
                             </div>
                             <ul class="py-1" role="none">
                                 <li>
@@ -102,7 +105,7 @@
         aria-label="Sidebar">
         <div class="h-full px-3 pb-4 pt-2 overflow-y-auto bg-gray-100 dark:bg-gray-900">
             <ul class="space-y-2 font-medium text-sm">
-
+                @if(in_array(auth()->user()->rol, ['Admi', 'Jef']))
                 <!--usuarios-->
                 <li>
                     <a href="{{route('usuario.index') }}"
@@ -116,6 +119,9 @@
                         <span class="ms-3">Usuarios</span>
                     </a>
                 </li>
+                @endif
+
+                @if(in_array(auth()->user()->rol, ['Admi']))
                 <!--configuracion-->
                 <li>
                     <a href="{{route('general.index') }}"
@@ -126,9 +132,13 @@
                             <path
                                 d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm88 64v64H64V96h88zm56 0h88v64H208V96zm240 0v64H360V96h88zM64 224h88v64H64V224zm232 0v64H208V224h88zm64 0h88v64H360V224zM152 352v64H64V352h88zm56 0h88v64H208V352zm240 0v64H360V352h88z" />
                         </svg>
-                        <span class="ms-3">Configuracion</span>
+                        <span class="ms-3">
+
+                            Configuracion</span>
                     </a>
                 </li>
+
+
                 <!--Origen o punto de control   -->
                 <li>
                     <a href="{{route('origen.index') }}"
@@ -142,6 +152,8 @@
                         <span class="ms-3">Origen</span>
                     </a>
                 </li>
+                @endif
+
                 <!--producto-->
                 <li>
                     <a href="{{route('producto.index') }}"
@@ -166,7 +178,7 @@
                             <path
                                 d="M.2 468.9C2.7 493.1 23.1 512 48 512l96 0 320 0c26.5 0 48-21.5 48-48l0-96c0-26.5-21.5-48-48-48l-48 0 0 80c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-80-64 0 0 80c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-80-64 0 0 80c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-80-80 0c-8.8 0-16-7.2-16-16s7.2-16 16-16l80 0 0-64-80 0c-8.8 0-16-7.2-16-16s7.2-16 16-16l80 0 0-64-80 0c-8.8 0-16-7.2-16-16s7.2-16 16-16l80 0 0-48c0-26.5-21.5-48-48-48L48 0C21.5 0 0 21.5 0 48L0 368l0 96c0 1.7 .1 3.3 .2 4.9z" />
                         </svg>
-                        
+
                         <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Parametros</span>
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 10 6">
@@ -177,7 +189,8 @@
                     <ul id="dropdown-example" class="hidden py-2 space-y-2">
                         <li>
                             <a href="#"
-                                class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">En Linea</a>
+                                class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">En
+                                Linea</a>
                         </li>
                         <li>
                             <a href="#"
@@ -202,6 +215,7 @@
                         <span class="ms-3">ORP</span>
                     </a>
                 </li>
+                @if(in_array(auth()->user()->rol, ['Admi','Sup','Jef', 'FQ']))
                 <!--solicitud de analisis en linea-->
                 <li>
                     <a href="{{route('solicitudLinea.index') }}"
@@ -228,6 +242,7 @@
                         <span class="ms-3">Analisis linea</span>
                     </a>
                 </li>
+                @endif
 
             </ul>
         </div>

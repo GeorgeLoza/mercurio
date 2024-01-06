@@ -3,8 +3,8 @@
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700" 
-                    wire:click="sortBy('codigo')">
+                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
+                        wire:click="sortBy('codigo')">
                         ORP
                     </th>
                     <th scope="col" nowrap class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
@@ -103,25 +103,30 @@
                         {{$orp->lote/1}}
                     </td>
                     <td class="px-6 py-2" nowrap>
-                        
+
                         @if($orp->estado == 'Pendiente')
-                        <span class="flex items-center text-sm font-medium me-3"><span class="flex w-2.5 h-2.5 bg-yellow-500 rounded-full me-1.5 flex-shrink-0"></span>{{$orp->estado}}</span>
+                        <span class="flex items-center text-sm font-medium me-3"><span
+                                class="flex w-2.5 h-2.5 bg-yellow-500 rounded-full me-1.5 flex-shrink-0"></span>{{$orp->estado}}</span>
                         @endif
 
                         @if($orp->estado == 'En proceso')
-                        <span class="flex items-center text-sm font-medium me-3"><span class="flex w-2.5 h-2.5 bg-blue-600 rounded-full me-1.5 flex-shrink-0"></span>{{$orp->estado}}</span>
+                        <span class="flex items-center text-sm font-medium me-3"><span
+                                class="flex w-2.5 h-2.5 bg-blue-600 rounded-full me-1.5 flex-shrink-0"></span>{{$orp->estado}}</span>
                         @endif
 
                         @if($orp->estado == 'Completado')
-                        <span class="flex items-center text-sm font-medium me-3"><span class="flex w-2.5 h-2.5 bg-green-500 rounded-full me-1.5 flex-shrink-0"></span>{{$orp->estado}}</span>
+                        <span class="flex items-center text-sm font-medium me-3"><span
+                                class="flex w-2.5 h-2.5 bg-green-500 rounded-full me-1.5 flex-shrink-0"></span>{{$orp->estado}}</span>
                         @endif
 
                         @if($orp->estado == 'Rechazado')
-                        <span class="flex items-center text-sm font-medium me-3"><span class="flex w-2.5 h-2.5 bg-red-500 rounded-full me-1.5 flex-shrink-0"></span>{{$orp->estado}}</span>
+                        <span class="flex items-center text-sm font-medium me-3"><span
+                                class="flex w-2.5 h-2.5 bg-red-500 rounded-full me-1.5 flex-shrink-0"></span>{{$orp->estado}}</span>
                         @endif
 
                         @if($orp->estado == 'Cancelado')
-                        <span class="flex items-center text-sm font-medium me-3"><span class="flex w-2.5 h-2.5 bg-red-600 rounded-full me-1.5 flex-shrink-0"></span>{{$orp->estado}}</span>
+                        <span class="flex items-center text-sm font-medium me-3"><span
+                                class="flex w-2.5 h-2.5 bg-red-600 rounded-full me-1.5 flex-shrink-0"></span>{{$orp->estado}}</span>
                         @endif
                     </td>
                     <td class="px-6 py-2">
@@ -134,10 +139,9 @@
                         {{$orp->fecha_vencimiento2}}
                     </td>
                     <td class="flex items-center px-6 py-2 gap-2">
-                         <!--boton para cancelar-->
-                         <button class="p-2 rounded-md " wire:click="cancelar({{$orp->id}})">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-red-500 h-5 w-5"
-                                viewBox="0 0 512 512">
+                        <!--boton para cancelar-->
+                        <button class="p-2 rounded-md " wire:click="cancelar({{$orp->id}})">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-red-500 h-5 w-5" viewBox="0 0 512 512">
                                 <path
                                     d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z" />
                             </svg>
@@ -158,12 +162,14 @@
                             <path
                                 d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z" />
                         </svg>
+                        @if(in_array(auth()->user()->rol, ['Admi']))
                         <svg onclick="Livewire.dispatch('openModal', { component: 'orp.eliminar', arguments: { id: {{ $orp->id}} } })"
                             xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-red-600 dark:fill-red-500"
                             viewBox="0 0 448 512">
                             <path
                                 d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" />
                         </svg>
+                        @endif
                     </td>
                 </tr>
                 @endforeach

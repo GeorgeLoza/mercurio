@@ -87,6 +87,7 @@
                             <option value="FQ" class="bg-gray-100 dark:bg-gray-800">Analista Fisicoquimico</option>
                             <option value="MB" class="bg-gray-100 dark:bg-gray-800">Analista Microbiologico</option>
                             <option value="Sup" class="bg-gray-100 dark:bg-gray-800">Supervisor</option>
+                            <option value="Jef" class="bg-gray-100 dark:bg-gray-800">Jefe de Area</option>
                         </select>
                         @error('rol')
                         <p class="text-red-500 text-xs">* {{$message}}</p>

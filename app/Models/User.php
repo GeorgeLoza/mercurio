@@ -44,6 +44,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(AnalisisLinea::class);
     }
+    public function hasRole($role)
+    {
+        return $this->rol === $role;
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

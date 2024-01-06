@@ -28,17 +28,25 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
         return view('welcome');
     });
-    /*ruta para generalidades */
-    Route::get('/general', [GeneralController::class, 'index'])->name('general.index');
+    
+
+    Route::middleware(['roles:Admi'])->group(function () {
+        /*ruta para generalidades */
+        Route::get('/general', [GeneralController::class, 'index'])->name('general.index');
+    });
+    Route::middleware(['roles:Admi,Jef'])->group(function () {
+        /*User Crud*/
+        Route::get('/usuario', [UsuarioController::class, 'index'])->name('usuario.index');
+    });
     /*ruta para productos */
     Route::get('/producto', [ProductoController::class, 'index'])->name('producto.index');
     /*ruta para orp */
     Route::get('/orp', [OrpController::class, 'index'])->name('orp.index');
-    
+
     /*ruta para origen */
     Route::get('/origen', [OrigenController::class, 'index'])->name('origen.index');
-     /*ruta para parametro en linea */
-     Route::get('/parametroLinea', [ParametroLineaController::class, 'index'])->name('parametroLinea.index');
+    /*ruta para parametro en linea */
+    Route::get('/parametroLinea', [ParametroLineaController::class, 'index'])->name('parametroLinea.index');
 
     /*ruta para Solicicitud de analisis en linea */
     Route::get('/solicitudLinea', [SolicitudAnalisisLineaController::class, 'index'])->name('solicitudLinea.index');
@@ -48,8 +56,8 @@ Route::middleware(['auth'])->group(function () {
     /*Rutas de salida login */
     Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
 
-    /*User Crud*/
-    Route::get('/usuario', [UsuarioController::class, 'index'])->name('usuario.index');
+    
+    
 });
 
 
