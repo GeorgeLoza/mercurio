@@ -87,10 +87,10 @@
                 <tr
                     class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                     <th scope="row" class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{$solicitud->orp->codigo}}
+                        {{$solicitud->estadoPlanta->orp->codigo}}
                     </th>
                     <td class="px-6 py-2" nowrap>
-                        {{$solicitud->orp->producto->nombre}}
+                        {{$solicitud->estadoPlanta->orp->producto->nombre}}
                     </td>
                     <td class="px-6 py-2" nowrap>
                         {{\Carbon\Carbon::parse($solicitud->tiempo)->isoFormat('HH:mm D/M/YYYY', 0, 'es') }}
@@ -99,14 +99,14 @@
                         {{$solicitud->user->nombre}} {{$solicitud->user->apellido}}
                     </td>
                     <td class="px-6 py-2" nowrap>
-                        {{$solicitud->preparacion}}
+                        {{$solicitud->estadoPlanta->preparacion}}
                     </td>
 
                     <td class="px-6 py-2" nowrap>
-                        {{$solicitud->origen->alias}}
+                        {{$solicitud->estadoPlanta->origen->alias}}
                     </td>
                     <td class="px-6 py-2" nowrap>
-                        {{$solicitud->etapa->nombre}}
+                        {{$solicitud->estadoPlanta->etapa->nombre}}
                     </td>
                     <td class="px-6 py-2">
                         @if($solicitud->estado == 'Pendiente')

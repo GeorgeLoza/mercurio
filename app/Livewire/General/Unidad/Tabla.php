@@ -30,9 +30,6 @@ class Tabla extends Component
     }
 
     #[On('actualizar_tabla_unidad')]
-
-
-
     public function render()
     {
 

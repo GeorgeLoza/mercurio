@@ -21,8 +21,12 @@ class Orp extends Model
     {
         return $this->belongsTo(Producto::class);
     }
-    public function solicitudAnalisisLinea()
+    public function estadoPlanta()
     {
-        return $this->belongsTo(SolicitudAnalisisLinea::class);
+        return $this->hasMany(EstadoPlanta::class);
+    }
+    public function contador()
+    {
+        return $this->hasMany(Contador::class);
     }
 }

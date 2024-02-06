@@ -2,90 +2,78 @@
 
 namespace App\Livewire\AnalisisLinea\Solicitud;
 
+use App\Livewire\Contador\Productoterminado\EstadoOrp;
 use App\Models\AnalisisLinea;
-use App\Models\Etapa;
+use App\Models\EstadoPlanta;
 use App\Models\Origen;
-use App\Models\User;
-use App\Models\Orp;
-use App\Models\ParametroLinea;
 use App\Models\SolicitudAnalisisLinea;
-use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
 
 class Crear extends ModalComponent
 {
-
-    public $orp_id; 
-    public $tiempo;
-    public $usuario_id;
-    public $preparacion;
     public $origen_id;
-    public $etapa_id;
-    
-   //valores para cargar selects
-   public $orps;
-   public $origenes = [];
-   public $etapas  = [];
-   public $usuarios;
-   
-   public function mount()
-   {
-       $this->orps = Orp::where('estado','En proceso')->get();
-       $this->origenes = Origen::all();
-       $this->usuarios = User::all();
-       
-   }
+
+    public $informacion = null;
+    //valores para cargar selects
+    public $origenes;
+
+    public function mount()
+    {
+        $this->origenes = Origen::all();
+    }
 
     public function render()
     {
-        if ($this->orp_id) {
-            
-            $orp_extra = Orp::where('id', $this->orp_id)->first();
-            $this->etapas = ParametroLinea::where('producto_id', $orp_extra->producto_id)->get();
-          
+        if ($this->origen_id) {
+
+            $this->informacion = EstadoPlanta::where('origen_id', $this->origen_id)
+                ->latest() // Ordena los resultados por fecha de creación en orden descendente
+                ->first();
         }
-        
+
         return view('livewire.analisis-linea.solicitud.crear', [
-            'etapas' => $this->etapas
+            'informacion' => $this->informacion
         ]);
     }
     public function save()
     {
-       
         $this->validate([
-            'orp_id' => 'required',
-            'usuario_id' => 'required',
-            'preparacion' => 'required',
             'origen_id' => 'required',
-            'etapa_id' => 'required',
         ]);
-       
-        try {
-            $solicitud = SolicitudAnalisisLinea::create([
-                'orp_id' => $this->orp_id,
-                'tiempo' => now(),
-                'user_id' => $this->usuario_id,
-                'preparacion' =>$this->preparacion,
-                'origen_id' => $this->origen_id,
-                'estado' => 'Pendiente',
-                'etapa_id' => $this->etapa_id,
-            ]);
-            $id = $solicitud->id;
 
-            AnalisisLinea::create([
-                'solicitud_analisis_linea_id' => $id,
-            ]);
-           
-            $this->dispatch('actualizar_tabla_solicitudAnalisisLineas');
-            $this->dispatch('actualizar_tabla_analisisLineas');
-            $this->closeModal();
-            $this->dispatch('success', mensaje: 'Solicitud registrado exitosamente');
+        try {
+            if ($this->origen_id) {
+                $this->informacion = EstadoPlanta::where('origen_id', $this->origen_id)
+                    ->latest()
+                    ->first();
+
+                // Asegúrate de que $informacion no sea null antes de acceder a sus propiedades
+                if ($this->informacion) {
+                    $solicitud = SolicitudAnalisisLinea::create([
+                        'tiempo' => now(),
+                        'user_id' => auth()->user()->id,
+                        'estado_planta_id' => $this->informacion->id,
+                        'estado' => 'Pendiente',
+                    ]);
+                    $id = $solicitud->id;
+
+                    AnalisisLinea::create([
+                        'solicitud_analisis_linea_id' => $id,
+                    ]);
+
+                    $this->dispatch('actualizar_tabla_solicitudAnalisisLineas');
+                    $this->dispatch('actualizar_tabla_analisisLineas');
+                    $this->closeModal();
+                    $this->dispatch('success', mensaje: 'Solicitud registrado exitosamente');
+                } else {
+                    // Manejar el caso donde $informacion es null
+                    $this->dispatch('error', mensaje: 'No se encontró información para el origen seleccionado.');
+                }
+            }
         } catch (\Throwable $th) {
             $this->closeModal();
             dd($th);
-            $this->dispatch('error', mensaje: 'Error: '.$th);
+            $this->dispatch('error', mensaje: 'Error: ' . $th);
         }
     }
-
-
 }

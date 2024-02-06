@@ -9,32 +9,22 @@ class SolicitudAnalisisLinea extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'orp_id',
         'tiempo',
         'user_id',
-        'preparacion',
-        'origen_id',
+        'estado_planta_id',
         'estado',
-        'etapa_id',
     ];
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-    public function origen()
-    {
-        return $this->belongsTo(Origen::class);
-    }
-    public function orp()
-    {
-        return $this->belongsTo(Orp::class);
-    }
     public function analisisLinea()
     {
         return $this->hasMany(AnalisisLinea::class);
     }
-    public function etapa()
+    public function estadoPlanta()
     {
-        return $this->belongsTo(Etapa::class);
+        return $this->belongsTo(EstadoPlanta::class);
     }
+    
 }

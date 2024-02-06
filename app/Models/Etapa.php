@@ -18,8 +18,8 @@ class Etapa extends Model
     {
         return $this->hasMany(ParametroLinea::class);
     }
-    public function solicitudAnalisisLinea()
+    public function estadoPlanta()
     {
-        return $this->hasMany(SolicitudAnalisisLinea::class);
+        return $this->hasMany(EstadoPlanta::class);
     }
 }

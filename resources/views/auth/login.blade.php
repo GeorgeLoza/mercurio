@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-196cc6d3.css') }}">
-    <script src="{{ asset('build/assets/app-888cccd0.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ asset('build/assets/app-9d59bb36.css') }}">
+    <script src="{{ asset('build/assets/app-9d59bb36.js') }}" defer></script>
     <script src="{{asset('js/app.js')}}"></script>
     <script src="{{asset('js/flowbite.js')}}"></script>
 

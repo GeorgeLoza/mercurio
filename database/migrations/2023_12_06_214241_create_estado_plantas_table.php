@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('solicitud_analisis_lineas', function (Blueprint $table) {
+        Schema::create('estado_plantas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('orp_id')->nullable()->constrained()->onDelete('restrict');
             $table->dateTime('tiempo');
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('restrict');
-            $table->string('preparacion');
             $table->foreignId('origen_id')->nullable()->constrained()->onDelete('restrict');
-            $table->string('estado')->nullable();
+            $table->string('proceso');
+            $table->foreignId('orp_id')->nullable()->constrained()->onDelete('restrict');
             $table->foreignId('etapa_id')->nullable()->constrained()->onDelete('restrict');
+            $table->string('preparacion');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('solicitud_analisis_lineas');
+        Schema::dropIfExists('estado_plantas');
     }
 };

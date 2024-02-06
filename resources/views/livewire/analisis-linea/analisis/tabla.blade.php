@@ -122,16 +122,16 @@
                 <tr
                     class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                     <th scope="row" class="px-3 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{$analisis->solicitudAnalisisLinea->orp->codigo}}
+                        {{$analisis->solicitudAnalisisLinea->estadoPlanta->orp->codigo}}
                     </th>
                     <td class="px-3 py-2" nowrap>
-                        {{$analisis->solicitudAnalisisLinea->orp->producto->nombre}}
+                        {{$analisis->solicitudAnalisisLinea->estadoPlanta->orp->producto->nombre}}
                     </td>
                     <td class="px-3 py-2 text-center" nowrap>
-                        {{$analisis->solicitudAnalisisLinea->preparacion}}
+                        {{$analisis->solicitudAnalisisLinea->estadoPlanta->preparacion}}
                     </td>
                     <td class="px-3 py-2 text-center" nowrap>
-                        {{$analisis->solicitudAnalisisLinea->origen->alias}}
+                        {{$analisis->solicitudAnalisisLinea->estadoPlanta->origen->alias}}
                     <td class="px-3 py-2 text-center">
                         @if($analisis->solicitudAnalisisLinea->estado == 'Pendiente')
                         <span class="flex items-center text-sm font-medium me-3"><span

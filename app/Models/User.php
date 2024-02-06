@@ -36,13 +36,21 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Division::class);
     }
-    public function solicitudAnalisisLinea()
+    public function estadoPlanta()
     {
-        return $this->hasMany(SolicitudAnalisisLinea::class);
+        return $this->hasMany(EstadoPlanta::class);
     }
     public function analisisLinea()
     {
         return $this->hasMany(AnalisisLinea::class);
+    }
+    public function contador()
+    {
+        return $this->hasMany(Contador::class);
+    }
+    public function recepcion_leche()
+    {
+        return $this->hasMany(RecepcionLeche::class);
     }
     public function hasRole($role)
     {

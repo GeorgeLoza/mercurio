@@ -92,7 +92,6 @@ class Tabla extends Component
             })
             ->get();
 
-
         return view('livewire.analisis-linea.analisis.tabla', [
             'analisis' => $analisis
         ]);

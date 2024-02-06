@@ -43,7 +43,7 @@ class Crear extends ModalComponent
                 'codigo' => $this->codigo,
                 'producto_id' => $this->producto_id,
                 'lote' => $this->lote,
-                'estado' => 'Planificado',
+                'estado' => 'Pendiente',
                 'tiempo_elaboracion' => $this->tiempo_elaboracion,
                 'fecha_vencimiento1' => $this->fecha_vencimiento1,
                 'fecha_vencimiento2' => $this->fecha_vencimiento2,

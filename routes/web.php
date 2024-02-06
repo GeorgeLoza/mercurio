@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Controllers\AlmacenProductoTerminadoController;
 use App\Http\Controllers\AnalisisLineaController;
+use App\Http\Controllers\ContadorController;
+use App\Http\Controllers\EstadoPlantaController;
 use App\Http\Controllers\GeneralController;
+use App\Http\Controllers\LecheController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
@@ -28,7 +32,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
         return view('welcome');
     });
-    
+
 
     Route::middleware(['roles:Admi'])->group(function () {
         /*ruta para generalidades */
@@ -42,6 +46,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/producto', [ProductoController::class, 'index'])->name('producto.index');
     /*ruta para orp */
     Route::get('/orp', [OrpController::class, 'index'])->name('orp.index');
+    /*ruta para estado de la planta */
+    Route::get('/estado', [EstadoPlantaController::class, 'index'])->name('estado.index');
 
     /*ruta para origen */
     Route::get('/origen', [OrigenController::class, 'index'])->name('origen.index');
@@ -52,12 +58,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/solicitudLinea', [SolicitudAnalisisLineaController::class, 'index'])->name('solicitudLinea.index');
     /*ruta para  analisis en linea */
     Route::get('/analisisLinea', [AnalisisLineaController::class, 'index'])->name('analisisLinea.index');
+    /*ruta para  almacen */
+    Route::get('/almacen/productoTerminado', [AlmacenProductoTerminadoController::class, 'index'])->name('almacenProductoTerminado.index');
+    /*ruta para  contador */
+    Route::get('/contador/productoTerminado', [ContadorController::class, 'index'])->name('contadorProductoTerminado.index');
+    /*leche */
+    Route::get('/leche/recepcion', [LecheController::class, 'recepcion'])->name('leche_recepcion.index');
+    /*ruta para  analisis en linea */
+    Route::get('/leche/analisis', [LecheController::class, 'analisis'])->name('leche_analisis.index');
+
 
     /*Rutas de salida login */
     Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
-
-    
-    
 });
 
 

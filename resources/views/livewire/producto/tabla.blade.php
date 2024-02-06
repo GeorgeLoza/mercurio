@@ -84,7 +84,7 @@
                     <th scope="row" class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {{$producto->codigo}}
                     </th>
-                    <td class="px-6 py-2" nowrap>
+                    <td class="px-6 py-2 max-w-xs overflow-x-auto" nowrap>
                         {{$producto->nombre}}
                     </td>
                     <td class="px-6 py-2">
@@ -98,12 +98,12 @@
                     <td class="px-6 py-2">
                         {{$producto->empaque}}
                     </td>
-                    <td class="px-6 py-2">
+                    <td class="px-6 py-2" nowrap>
                         @if($producto->categoriaProducto !=null)
                         {{$producto->categoriaProducto->nombre}}
                         @endif
                     </td>
-                    <td class="px-6 py-2">
+                    <td class="px-6 py-2" nowrap>
                         @if($producto->destinoProducto !=null)
                         {{$producto->destinoProducto->nombre}}
                         @endif

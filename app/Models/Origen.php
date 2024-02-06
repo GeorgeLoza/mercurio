@@ -14,9 +14,9 @@ class Origen extends Model
         'codigo_maquina',
     ];
     
-    public function solicitudAnalisisLinea()
+    public function estadoPlanta()
     {
-        return $this->hasMany(SolicitudAnalisisLinea::class);
+        return $this->hasMany(EstadoPlanta::class);
     }
     public function parametroLinea()
     {
