@@ -1,6 +1,6 @@
 <div>
     
-    <h2 class="text-2xl mb-4 text-gray-800 dark:text-gray-200 font-bold ">Actualizar Destino</h2>
+    <h2 class="text-2xl mb-4 text-gray-800 dark:text-gray-200 font-bold ">Actualizar Destíno</h2>
     <div>
         <form wire:submit="update" novalidate>
             @csrf

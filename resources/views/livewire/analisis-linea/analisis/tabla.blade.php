@@ -12,11 +12,11 @@
                         producto
                     </th>
                     <th scope="col" class="px-3 py-3 sticky top-0 bg-white dark:bg-gray-700">
-                        preparacion
+                        preparación
                     </th>
                     <th scope="col" class="px-3 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('tiempo')">
-                        origen
+                        orígen
                     </th>
                     <th scope="col" class="px-3 py-3 sticky top-0 bg-white dark:bg-gray-700">
                         Estado

@@ -18,10 +18,10 @@
                         Solicitante
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
-                        Preparacion
+                        Preparación
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
-                        origen
+                        orígen
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
                         etapa
@@ -53,31 +53,31 @@
                             class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     </th>
                     <th class="p-1">
-                        <input type="text" wire:model.live='f_producto' placeholder="Filtrar por codigo"
+                        <input type="text" wire:model.live='f_producto' placeholder="Filtrar por producto"
                             class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     </th>
                     <th class="p-1">
-                        <input type="number" wire:model.live='f_tiempo' placeholder="Filtrar por Nombre"
+                        <input type="number" wire:model.live='f_tiempo' placeholder="Filtrar por fecha hora"
                             class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     </th>
                     <th class="p-1">
-                        <input type="text" wire:model.live='f_user' placeholder="Filtrar por Lote"
+                        <input type="text" wire:model.live='f_user' placeholder="Filtrar por solicitante"
                             class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     </th>
                     <th class="p-1">
-                        <input type="text" wire:model.live='f_preparacion' placeholder="Filtrar por Estado"
+                        <input type="text" wire:model.live='f_preparacion' placeholder="Filtrar por Preparación"
                             class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     </th>
                     <th class="p-1">
-                        <input type="text" wire:model.live='f_origen' placeholder="Filtrar por Elaboracion"
+                        <input type="text" wire:model.live='f_orgen' placeholder="Filtrar por origen"
                             class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     </th>
                     <th class="p-1">
-                        <input type="text" wire:model.live='f_estado' placeholder="Filtrar por Vencimiento"
+                        <input type="text" wire:model.live='f_estado' placeholder="Filtrar por estapa"
                             class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     </th>
                     <th class="p-1">
-                        <input type="text" wire:model.live='f_etapa' placeholder="Filtrar por Vencimiento"
+                        <input type="text" wire:model.live='f_etapa' placeholder="Filtrar por estado"
                             class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     </th>
 

@@ -1,14 +1,14 @@
 @extends('layout.app')
 
 @section('titulo')
-Configuracion Inicial
+Configuración Inicial
 @endsection
 
 @section('contenido')
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-2">
     <!--Categoria inicio-->
     <div class="">
-        <h2 class="text-xl">Categoria</h2>
+        <h2 class="text-xl">Categoría</h2>
         <div class="flex justify-end mb-2">
             <!--Boton Crear -->
             <button class="p-2 bg-green-500 rounded-lg"
@@ -45,7 +45,7 @@ Configuracion Inicial
     <!--Destino fin-->
     <!--Division inicio-->
     <div class="">
-        <h2 class="text-xl">Division</h2>
+        <h2 class="text-xl">División</h2>
         <div class="flex justify-end mb-2">
             <!--Boton Crear -->
             <button class="p-2 bg-green-500 rounded-lg"
@@ -64,7 +64,7 @@ Configuracion Inicial
 
     <!--Etapa inicio-->
     <div class="">
-        <h2 class="text-xl">Etapa</h2>
+        <h2 class="text-xl">Etápa</h2>
         <div class="flex justify-end mb-2">
             <!--Boton Crear -->
             <button class="p-2 bg-green-500 rounded-lg"

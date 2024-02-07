@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('titulo')
-Analisis de leche
+Análisis de leche
 @endsection
 
 @section('contenido')

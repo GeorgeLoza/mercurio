@@ -5,7 +5,7 @@
                 <tr>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('codigo')">
-                        codigo
+                        código
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('nombre')">
@@ -26,7 +26,7 @@
                         planta
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
-                        division
+                        división
                     </th>
 
                     <th scope="col" class=" flex gap-2 px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
@@ -47,7 +47,7 @@
                 <!-- fila de filtros -->
                 <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                     <th class="p-1">
-                        <input type="text" wire:model.live='f_codigo' placeholder="Filtrar por Codigo"
+                        <input type="text" wire:model.live='f_codigo' placeholder="Filtrar por Código"
                             class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     </th>
                     <th class="p-1">
@@ -71,7 +71,7 @@
                             class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     </th>
                     <th class="p-1">
-                        <input type="text" wire:model.live='f_division' placeholder="Filtrar por Division"
+                        <input type="text" wire:model.live='f_division' placeholder="Filtrar por División"
                             class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     </th>
 

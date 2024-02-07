@@ -1,5 +1,5 @@
 <div>
-    <h2 class="text-2xl mb-4 text-gray-800 dark:text-gray-200 font-bold ">Crear Nuevo ORP</h2>
+    <h2 class="text-2xl mb-4 text-gray-800 dark:text-gray-200 font-bold ">Importar ORP</h2>
     <div>
         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                             for="file_input">Subir:</label>
