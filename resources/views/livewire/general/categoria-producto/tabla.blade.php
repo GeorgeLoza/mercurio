@@ -8,7 +8,7 @@
                         nombre
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700" wire:click="sortBy('descripcion')">
-                        descripcion
+                        descripción
                     </th>
                    
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
@@ -26,7 +26,7 @@
                             class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     </th>
                     <th class="p-1">
-                        <input type="text"  wire:model.live='f_descripcion' placeholder="Filtrar por descripcion"
+                        <input type="text"  wire:model.live='f_descripcion' placeholder="Filtrar por descripción"
                             class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     </th>
                 

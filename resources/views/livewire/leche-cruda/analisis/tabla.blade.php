@@ -56,7 +56,7 @@
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('tram_inicio')" nowrap>
-                        TRAM inicio
+                        TRAM início
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('tram_fin')" nowrap>
@@ -68,7 +68,7 @@
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('temperatura_congelacion')" nowrap>
-                        temperatura de congelacion
+                        temperatura de congelación
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('porcentaje_agua')" nowrap>

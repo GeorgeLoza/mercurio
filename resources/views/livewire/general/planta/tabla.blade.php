@@ -8,7 +8,7 @@
                         nombre
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700" wire:click="sortBy('direccion')">
-                        direccion
+                        dirección
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700" wire:click="sortBy('abreviatura')">
                         abreviatura

@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('titulo')
-Solicitud Analisis Linea
+Solicitud Análisis Línea
 @endsection
 
 @section('contenido')

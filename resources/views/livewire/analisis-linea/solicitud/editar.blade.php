@@ -1,5 +1,5 @@
 <div>
-    <h2 class="text-2xl mb-4 text-gray-800 dark:text-gray-200 font-bold ">Crear Nueva Solicitud</h2>
+    <h2 class="text-2xl mb-4 text-gray-800 dark:text-gray-200 font-bold ">Actualizar Solicitud</h2>
     <div>
         <form wire:submit="update" novalidate>
             @csrf
@@ -9,7 +9,7 @@
                         class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">ORP</label>
                     <select id="orp_id" wire:model="orp_id"
                         class=" block py-2.5 px-0 w-full text-sm text-gray-600 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                        <option selected class="bg-gray-100 dark:bg-gray-800">Escoge una opcion</option>
+                        <option selected class="bg-gray-100 dark:bg-gray-800">Escoge una opción</option>
                         @foreach ($orps as $orp)
                         <option value="{{$orp->id}}" class="bg-gray-100 dark:bg-gray-800"> {{$orp->codigo}} - {{$orp->producto->nombre}}
                         </option>
@@ -28,7 +28,7 @@
                         class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Solicitante</label>
                     <select id="usuario_id" wire:model="user_id"
                         class=" block py-2.5 px-0 w-full text-sm text-gray-600 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                        <option selected class="bg-gray-100 dark:bg-gray-800">Escoge una opcion</option>
+                        <option selected class="bg-gray-100 dark:bg-gray-800">Escoge una opción</option>
                         @foreach ($usuarios as $usuario)
                         <option value="{{$usuario->id}}" class="bg-gray-100 dark:bg-gray-800"> {{$usuario->codigo}} - {{$usuario->nombre}}
                         </option>
@@ -46,7 +46,7 @@
                         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" " required />
                     <label for="preparacion"
-                        class="peer-focus:font-medium absolute text-sm text-gray-500  dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Preparacion
+                        class="peer-focus:font-medium absolute text-sm text-gray-500  dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Preparación
                     </label>
                     @error('preparacion')
                     <p class="text-red-500 text-xs">* {{$message}}</p>
@@ -56,10 +56,10 @@
             <div class="px-3 mb-5">
                 <div class="relative z-0 w-full mb-5 group">
                     <label for="origen_id"
-                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Origen</label>
+                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Orígen</label>
                     <select id="origen_id" wire:model="origen_id"
                         class=" block py-2.5 px-0 w-full text-sm text-gray-600 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                        <option selected class="bg-gray-100 dark:bg-gray-800">Escoge una opcion</option>
+                        <option selected class="bg-gray-100 dark:bg-gray-800">Escoge una opción</option>
                         @foreach ($origenes as $origen)
                         <option value="{{$origen->id}}" class="bg-gray-100 dark:bg-gray-800">{{$origen->alias}}
                         </option>
@@ -73,10 +73,10 @@
             <div class="px-3 mb-5">
                 <div class="relative z-0 w-full mb-5 group">
                     <label for="etapa_id"
-                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Etapa</label>
+                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Etápa</label>
                     <select id="etapa_id" wire:model="etapa_id"
                         class=" block py-2.5 px-0 w-full text-sm text-gray-600 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                        <option selected class="bg-gray-100 dark:bg-gray-800">Escoge una opcion</option>
+                        <option selected class="bg-gray-100 dark:bg-gray-800">Escoge una opción</option>
                         @foreach ($etapas as $etapa)
                         <option value="{{$etapa->id}}" class="bg-gray-100 dark:bg-gray-800">{{$etapa->nombre}}
                         </option>

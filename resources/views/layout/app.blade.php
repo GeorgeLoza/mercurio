@@ -35,7 +35,7 @@
                     </button>
                     <a href="{{route('general.index')}}" class="flex ms-2 md:me-24">
                         <span
-                            class="self-center text-base font-semibold sm:text-base whitespace-nowrap dark:text-white">SOALPRO LACTEOS</span>
+                            class="self-center text-base font-semibold sm:text-base whitespace-nowrap dark:text-white">SOALPRO LÁCTEOS</span>
                     </a>
                 </div>
                 <div class="flex items-center">
@@ -88,7 +88,7 @@
                                     <form action="{{route('logout')}}" method="POST"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white">
                                         @csrf
-                                        <button type="submit" role="menuitem">Cerrar Sesion</button>
+                                        <button type="submit" role="menuitem">Cerrar Sesión</button>
                                     </form>
                                 </li>
 
@@ -147,7 +147,7 @@
                         </svg>
                         <span class="ms-3">
 
-                            Configuracion</span>
+                            Configuración</span>
                     </a>
                 </li>
 
@@ -162,7 +162,7 @@
                             <path
                                 d="M256 0c17.7 0 32 14.3 32 32V66.7C368.4 80.1 431.9 143.6 445.3 224H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H445.3C431.9 368.4 368.4 431.9 288 445.3V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V445.3C143.6 431.9 80.1 368.4 66.7 288H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H66.7C80.1 143.6 143.6 80.1 224 66.7V32c0-17.7 14.3-32 32-32zM128 256a128 128 0 1 0 256 0 128 128 0 1 0 -256 0zm128-80a80 80 0 1 1 0 160 80 80 0 1 1 0-160z" />
                         </svg>
-                        <span class="ms-3">Origen</span>
+                        <span class="ms-3">Orígen</span>
                     </a>
                 </li>
                 @endif
@@ -203,7 +203,7 @@
                         <li>
                             <a href="{{route('parametroLinea.index')}}"
                                 class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">En
-                                Linea</a>
+                                Línea</a>
                         </li>
                         <li>
                             <a href="#"
@@ -240,7 +240,7 @@
                             <path
                                 d="M96 0C43 0 0 43 0 96V416c0 53 43 96 96 96H384h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V384c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H384 96zm0 384H352v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32zm32-240c0-8.8 7.2-16 16-16H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16zm16 48H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16z" />
                         </svg>
-                        <span class="ms-3">Solicitud Analisis linea</span>
+                        <span class="ms-3">Solicitud Análisis línea</span>
                     </a>
                 </li>
                 <!--analisis en linea-->
@@ -253,7 +253,7 @@
                             <path
                                 d="M0 64C0 46.3 14.3 32 32 32H96h64 64c17.7 0 32 14.3 32 32s-14.3 32-32 32V266.8c-20.2 28.6-32 63.5-32 101.2c0 25.2 5.3 49.1 14.8 70.8C189.5 463.7 160.6 480 128 480c-53 0-96-43-96-96V96C14.3 96 0 81.7 0 64zM96 96v96h64V96H96zM224 368a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm211.3-43.3c-6.2-6.2-16.4-6.2-22.6 0L352 385.4l-28.7-28.7c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6l40 40c6.2 6.2 16.4 6.2 22.6 0l72-72c6.2-6.2 6.2-16.4 0-22.6z" />
                         </svg>
-                        <span class="ms-3">Analisis linea</span>
+                        <span class="ms-3">Análisis línea</span>
                     </a>
                 </li>
                 @endif
@@ -355,7 +355,7 @@
                         <li>
                             <a href="{{route('leche_analisis.index') }}"
                                 class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                                Analisis de Leche</a>
+                                Análisis de Leche</a>
                         </li>
                     </ul>
                 </li>

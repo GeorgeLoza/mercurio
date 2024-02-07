@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('titulo')
-Origen
+Orígen
 @endsection
 
 @section('contenido')
