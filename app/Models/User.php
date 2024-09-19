@@ -40,6 +40,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(EstadoPlanta::class);
     }
+    public function estadoDetalle()
+    {
+        return $this->hasMany(EstadoDetalle::class);
+    }
     public function analisisLinea()
     {
         return $this->hasMany(AnalisisLinea::class);
@@ -56,6 +60,34 @@ class User extends Authenticatable
     {
         return $this->rol === $role;
     }
+
+    public function informacionUsuario()
+    {
+        return $this->hasOne(InformacionUsuario::class);
+    }
+    public function solicitudPlanta()
+    {
+        return $this->hasMany(SolicitudPlanta::class);
+    }
+    public function detalleSolicitudPlanta()
+    {
+        return $this->hasMany(DetalleSolicitudPlanta::class);
+    }
+    public function actividadAgua()
+    {
+        return $this->belongsto(ActividadAgua::class);
+    }
+    public function microbiologiaExterno()
+    {
+        return $this->belongsto(MicrobiologiaExterno::class);
+    }
+    public function paseTurno()
+    {
+        return $this->hasMany(PaseTurno::class);
+    }
+    
+
+
     /**
      * The attributes that should be hidden for serialization.
      *

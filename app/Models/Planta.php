@@ -17,4 +17,13 @@ class Planta extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function productoPlanta()
+    {
+        return $this->hasMany(ProductosPlantas::class);
+    }
+    public function productosPlantas()
+    {
+        return $this->belongsTo(ProductosPlantas::class);
+    }
 }

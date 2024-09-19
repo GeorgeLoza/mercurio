@@ -41,7 +41,7 @@ class Crear extends ModalComponent
     public function save()
     {
         $this->validate([
-            'codigo' => 'required|min:4|max:7||unique:users',
+            'codigo' => 'required|min:4|max:7|unique:users',
             'nombre' => 'required',
             'apellido' => 'required',
             'telefono' => 'required',
@@ -65,11 +65,12 @@ class Crear extends ModalComponent
                 'password' => Hash::make($this->password),
             ]);
             $this->dispatch('actualizar_tabla_usuarios');
+            $this->dispatch('actualizar_perfil_usuarios');
             $this->closeModal();
             $this->dispatch('success', mensaje: 'Usuario registrado exitosamente');
         } catch (\Throwable $th) {
             $this->closeModal();
-            $this->dispatch('error', mensaje: 'Error'. $th);
+            $this->dispatch('error_mensaje', mensaje: 'Error'. $th);
         }
     }
 }

@@ -2,7 +2,7 @@
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg  overflow-y-auto h-[28rem] overflow-hidden">
         <table class="w-full text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
+                <tr class="text-center ">
 
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('tiempo')">
@@ -16,15 +16,23 @@
                         Proceso
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
+                        etapa
+                    </th>
+                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
                         orp
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
-                        etápa
+                        producto
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
                         preparación
                     </th>
-                    <th scope="col" class=" flex gap-2 px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
+                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
+                        usuario
+                    </th>
+
+
+                    <th scope="col" class="  gap-2 px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
                         opciones
                         <button wire:click="show_filtro">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-gray-700 dark:fill-gray-300"
@@ -39,72 +47,115 @@
                 </tr>
             </thead>
             <tbody class="">
-                @if($filtro == true)
-                <!-- fila de filtros -->
-                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                    <th class="p-1">
-                        <input type="text" wire:model.live='f_tiempo' placeholder="Filtrar por Tiempo"
-                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    </th>
-                    <th class="p-1">
-                        <input type="text" wire:model.live='f_origen' placeholder="Filtrar por Origen"
-                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    </th>
-                    <th class="p-1">
-                        <input type="text" wire:model.live='f_proceso' placeholder="Filtrar por Proceso"
-                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    </th>
-                    <th class="p-1">
-                        <input type="text" wire:model.live='f_orp' placeholder="Filtrar por Orp"
-                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    </th>
-                    <th class="p-1">
-                        <input type="text" wire:model.live='f_etapa' placeholder="Filtrar por Etápa"
-                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    </th>
-                    <th class="p-1">
-                        <input type="text" wire:model.live='f_preparacion' placeholder="Filtrar por preparación"
-                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    </th>
-                </tr>
+                @if ($filtro == true)
+                    <!-- fila de filtros -->
+                    <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                        <th class="p-1">
+                            <input type="text" wire:model.live='f_tiempo' placeholder="Filtrar por Tiempo"
+                                class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        </th>
+                        <th class="p-1">
+                            <input type="text" wire:model.live='f_origen' placeholder="Filtrar por Origen"
+                                class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        </th>
+                        <th class="p-1">
+                            <input type="text" wire:model.live='f_proceso' placeholder="Filtrar por Proceso"
+                                class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        </th>
+
+                        <th class="p-1">
+                            <input type="text" wire:model.live='f_etapa' placeholder="Filtrar por Etápa"
+                                class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        </th>
+                        <th class="p-1">
+                            <input type="text" wire:model.live='f_orp' placeholder="Filtrar por orp"
+                                class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        </th>
+                        <th class="p-1">
+                            <input type="text" wire:model.live='f_producto' placeholder="Filtrar por producto"
+                                class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        </th>
+                        <th class="p-1">
+                            <input type="text" wire:model.live='f_preparacion' placeholder="Filtrar por preparacion"
+                                class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        </th>
+                        <th class="p-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" wire:click="limpiarFiltros" viewBox="0 0 576 512"
+                                class="h-5 w-5 fill-green-600 dark:fill-green-500">
+                                <path
+                                    d="M290.7 57.4L57.4 290.7c-25 25-25 65.5 0 90.5l80 80c12 12 28.3 18.7 45.3 18.7H288h9.4H512c17.7 0 32-14.3 32-32s-14.3-32-32-32H387.9L518.6 285.3c25-25 25-65.5 0-90.5L381.3 57.4c-25-25-65.5-25-90.5 0zM297.4 416H288l-105.4 0-80-80L227.3 211.3 364.7 348.7 297.4 416z" />
+                            </svg>
+                        </th>
+                    </tr>
                 @endif
                 @foreach ($estados as $estado)
-                <tr
-                    class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <th scope="row" class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{$estado->tiempo}}
-                    </th>
-                    <td class="px-6 py-2">
-                        {{$estado->origen->alias}}
-                    </td>
-                    <td class="px-6 py-2">
-                        {{$estado->proceso}}
-                    </td>
-                    <td class="px-6 py-2">
-                        {{$estado->orp->codigo}} - {{$estado->orp->producto->nombre}}
-                    </td>
-                    <td class="px-6 py-2">
-                        {{$estado->etapa->nombre}}
-                    </td>
-                    <td class="px-6 py-2">
-                        {{$estado->preparacion}}
-                    </td>
-                    <td class="flex items-center px-6 py-2 gap-2">
+                    <tr
+                        class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <th scope="row"
+                            class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 
-                        <svg onclick="Livewire.dispatch('openModal', { component: 'estadoPlanta.editar', arguments: { id: {{ $estado->id}} } })"
-                            xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-blue-600 dark:fill-blue-500"
-                            viewBox="0 0 512 512">
-                            <path
-                                d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z" />
-                        </svg>
-                        <svg onclick="Livewire.dispatch('openModal', { component: 'estadoPlanta.eliminar', arguments: { id: {{ $estado->id}} } })"
-                            xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-red-600 dark:fill-red-500"
-                            viewBox="0 0 448 512">
-                            <path
-                                d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" />
-                        </svg>
-                    </td>
-                </tr>
+                            {{ \Carbon\Carbon::parse($estado->tiempo)->isoFormat('HH:mm - D/MM/YYYY') }}
+                        </th>
+                        <td class="px-6 py-2">
+                            @if ($estado->origen)
+                            {{ $estado->origen->alias }}    
+                            @endif
+                            
+                        </td>
+                        <td class="px-6 py-2">
+                            {{ $estado->proceso }}
+                        </td>
+                        <td class="px-6 py-2">
+                            @if ($estado->etapa)
+                                {{ $estado->etapa->nombre }}
+                            @endif
+                        </td>
+
+
+                        <td class="px-2 py-2 text-center">
+                            @foreach ($estado->estadoDetalle as $detalle)
+                                <p>{{ $detalle->orp->codigo }}</p>
+                            @endforeach
+                        </td>
+                        <td>
+                            @foreach ($estado->estadoDetalle as $detalle)
+                                <p class="px-2 py-2 text-center" class=""
+                                    data-popover-target="popover-{{ $estado->id }}">
+                                    {{ Str::limit($detalle->orp->producto->nombre, 15) }}</p>
+                                <div data-popover id="popover-{{ $estado->id }}" role="tooltip"
+                                    class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                                    {{ $detalle->orp->producto->nombre }}</div>
+                            @endforeach
+                        </td>
+                        <td class="px-2 py-2 text-center">
+                            @foreach ($estado->estadoDetalle as $detalle)
+                                <p>{{ $detalle->preparacion }}</p>
+                            @endforeach
+                        </td>
+
+                        <td class="px-6 py-2">
+                            {{$estado->user->nombre}} {{$estado->user->apellido}}
+                        </td>
+
+                        <td class="flex items-center px-6 py-2 gap-2">
+                            @if (now()->diffInMinutes($estado->created_at) < 90 && auth()->user()->id == $estado->user->id)
+                                <svg onclick="Livewire.dispatch('openModal', { component: 'estadoPlanta.editar', arguments: { id: {{ $estado->id }} } })"
+                                    xmlns="http://www.w3.org/2000/svg" class="h-4 w-20 fill-blue-600 dark:fill-blue-500"
+                                    viewBox="0 0 512 512">
+                                    <path
+                                        d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z" />
+                                </svg>
+                            @endif
+                            @if (now()->diffInMinutes($estado->created_at) < 90 && auth()->user()->id == $estado->user->id)
+                                <svg onclick="Livewire.dispatch('openModal', { component: 'estadoPlanta.eliminar', arguments: { id: {{ $estado->id }} } })"
+                                    xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-red-600 dark:fill-red-500"
+                                    viewBox="0 0 448 512">
+                                    <path
+                                        d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" />
+                                </svg>
+                            @endif
+                        </td>
+                    </tr>
                 @endforeach
 
 
@@ -112,5 +163,9 @@
 
         </table>
     </div>
-
+    @if (!$aplicandoFiltros)
+        <div>
+            {{ $estados->links('pagination::tailwind') }}
+        </div>
+    @endif
 </div>

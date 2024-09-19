@@ -32,17 +32,21 @@ class Toast extends Component
     public function success($mensaje){
         $this->show_success = true;
         $this->message = $mensaje;
+        $this->dispatch('auto-hide-toast');
     }
 
     #[On('warning')] 
     public function warning($mensaje){
         $this->show_warning = true;
         $this->message = $mensaje;
+        
     }
 
-    #[On('error_toast')] 
+    
+    #[On('error_mensaje')] 
     public function error($mensaje){
         $this->show_error = true;
         $this->message = $mensaje;
+        
     }
 }

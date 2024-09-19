@@ -10,10 +10,14 @@ class Division extends Model
     use HasFactory;
     protected $fillable = [
         'nombre',
-        'descripcion',
+        'descripcion'
     ];
     public function user()
     {
         return $this->hasMany(User::class);
+    }
+    public function paseTurno()
+    {
+        return $this->hasMany(PaseTurno::class);
     }
 }

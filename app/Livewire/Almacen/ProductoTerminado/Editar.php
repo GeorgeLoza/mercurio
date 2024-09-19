@@ -50,8 +50,7 @@ class Editar extends ModalComponent
             $this->dispatch('success', mensaje: 'Se actualizo el almacen exitosamente');
         } catch (\Throwable $th) {
             $this->closeModal();
-            
-            $this->dispatch('error', mensaje: 'problema'.$th->getMessage());
+            $this->dispatch('error_mensaje', mensaje: 'problema'.$th->getMessage());
         }
     }
 

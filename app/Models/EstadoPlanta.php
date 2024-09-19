@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class EstadoPlanta extends Model
 {
@@ -13,9 +14,8 @@ class EstadoPlanta extends Model
         'user_id',
         'origen_id',
         'proceso',
-        'orp_id',
         'etapa_id',
-        'preparacion',
+        
     ];
     public function user()
     {
@@ -25,10 +25,6 @@ class EstadoPlanta extends Model
     {
         return $this->belongsTo(Origen::class);
     }
-    public function orp()
-    {
-        return $this->belongsTo(Orp::class);
-    }
     public function etapa()
     {
         return $this->belongsTo(Etapa::class);
@@ -37,4 +33,10 @@ class EstadoPlanta extends Model
     {
         return $this->hasMany(SolicitudAnalisisLinea::class);
     }
+    public function estadoDetalle()
+    {
+        return $this->hasMany(EstadoDetalle::class);
+    }
+    
+
 }

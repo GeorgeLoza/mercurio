@@ -10,12 +10,13 @@ class Producto extends Model
     use HasFactory;
     protected $fillable = [
         'codigo',
-        'nombre',
+        'nombre',   
         'cantidad',
         'empaque',
         'unidad_id',
         'categoria_producto_id',
         'destino_producto_id',
+        'norma',
     ];
     public function unidad()
     {

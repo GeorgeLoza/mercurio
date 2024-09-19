@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId('categoria_producto_id')->nullable()->constrained()->onDelete('restrict');
             $table->foreignId('destino_producto_id')->nullable()->constrained()->onDelete('restrict');
             $table->timestamps();
+            $table->integer('norma')->nullable();
         });
     }
 

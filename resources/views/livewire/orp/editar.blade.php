@@ -1,5 +1,5 @@
 <div>
-    <h2 class="text-2xl mb-4 text-gray-800 dark:text-gray-200 font-bold ">Actualizar ORP</h2>
+    <h2 class="text-2xl mb-4 text-gray-800 dark:text-gray-200 font-bold  text-center ">Actualizar ORP</h2>
     <div>
         <form wire:submit="update" novalidate>
             @csrf
@@ -94,7 +94,7 @@
             <div class="flex">
                 <div class="w-full px-3 mb-5">
                     <button type="submit"
-                        class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">Registrar</button>
+                        class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">ACTUALIZAR</button>
                 </div>
             </div>
         </form>

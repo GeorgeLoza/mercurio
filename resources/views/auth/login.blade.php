@@ -4,11 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-9d59bb36.css') }}">
-    <script src="{{ asset('build/assets/app-9d59bb36.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ asset('build/assets/app-da32ce76.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-b2d47199.css') }}">
+    <script src="{{ asset('build/assets/app-56df689c.js') }}" defer></script>
     <script src="{{asset('js/app.js')}}"></script>
     <script src="{{asset('js/flowbite.js')}}"></script>
 
+    @vite('resources/css/app.css')
 
     <title>Soalpro</title>
 
@@ -62,13 +64,17 @@
                                     {{$message}}
                                 </p>@enderror
                             </div>
+                            <div class="mb-5">
+                                <input type="checkbox" name="remember"> <label class=" text-gray-500 text-sm ">Mantener mi
+                                    sesion abierta.</label>
+                            </div>
                         </div>
 
 
                         <div class="flex -mx-3">
                             <div class="w-full px-3 mb-5">
                                 <button type="submit"
-                                    class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">Registrar</button>
+                                    class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">INGRESAR</button>
                             </div>
                         </div>
 

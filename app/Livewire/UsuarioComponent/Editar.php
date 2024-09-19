@@ -2,6 +2,8 @@
 
 namespace App\Livewire\UsuarioComponent;
 
+use App\Models\Division;
+use App\Models\Planta;
 use App\Models\User;
 use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
@@ -15,15 +17,24 @@ class Editar extends ModalComponent
     public $apellido;
     public $telefono;
     public $correo;
+    public $rol;
+    public $division_id;
+    
+    //valores para cargar selects
+    public $divisiones;
 
     public function mount()
     {
+        $this->divisiones = Division::all();
+
         $usuario = User::where('id', $this->id)->first();
         $this->codigo = $usuario->codigo;
         $this->nombre = $usuario->nombre;
         $this->apellido = $usuario->apellido;
         $this->telefono = $usuario->telefono;
         $this->correo = $usuario->correo;
+        $this->rol = $usuario->rol;
+        $this->division_id = $usuario->division_id;
     }
 
     public function render()
@@ -40,6 +51,9 @@ class Editar extends ModalComponent
             'apellido' => 'required',
             'telefono' => 'required',
             'correo' => 'required|email',
+            'rol' => 'required',
+            'division_id' => 'required',
+
         ]);
         try {
 
@@ -49,6 +63,8 @@ class Editar extends ModalComponent
             $usuario->apellido = $this->apellido;
             $usuario->telefono = $this->telefono;
             $usuario->correo = $this->correo;
+            $usuario->rol = $this->rol;
+            $usuario->division_id = $this->division_id;
             $usuario->save();
 
             $this->dispatch('actualizar_tabla_usuarios');
@@ -56,7 +72,7 @@ class Editar extends ModalComponent
             $this->dispatch('success', mensaje: 'Se actualizo el usuario exitosamente');
         } catch (\Throwable $th) {
             $this->closeModal();
-            $this->dispatch('error', mensaje: 'Error'. $th);
+            $this->dispatch('error_mensaje', mensaje: 'problema'.$th->getMessage());
         }
     }
 }

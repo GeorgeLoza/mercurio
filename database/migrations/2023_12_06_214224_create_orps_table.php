@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('orps', function (Blueprint $table) {
             $table->id();
-            $table->integer('codigo');
+            $table->integer('codigo')->unique();
             $table->foreignId('producto_id')->constrained()->onDelete('restrict');
             $table->decimal('lote',7,4)->nullable();
             $table->string('estado');
             $table->dateTime('tiempo_elaboracion')->nullable();
-            $table->date('fecha_vencimiento1')->nullable();
+            $table->datesx('fecha_vencimiento1')->nullable();
             $table->date('fecha_vencimiento2')->nullable();
             $table->timestamps();
         });

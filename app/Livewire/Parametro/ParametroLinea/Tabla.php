@@ -4,11 +4,12 @@ namespace App\Livewire\Parametro\ParametroLinea;
 
 use Livewire\Component;
 use Livewire\Attributes\On;
+use Livewire\WithPagination;
 use App\Models\ParametroLinea;
 
 class Tabla extends Component
 {
-      
+    use WithPagination;   
  //filtros-busqueda
   public $f_producto_codigo = null;
   public $f_producto_nombre = null;
@@ -26,6 +27,7 @@ class Tabla extends Component
   public $f_densidad_min = null;
   public $f_densidad_max = null;
 
+  public $aplicandoFiltros = false;
  //filtros-ordenamiento
  public $sortField;
  public $sortAsc = true;
@@ -44,8 +46,12 @@ class Tabla extends Component
 
  #[On('actualizar_tabla_parametroLinea')] 
     public function render()
+
     {
-        $parametroLinea = ParametroLinea::query()
+        $this->aplicandoFiltros = $this->hayFiltrosActivos();
+       
+
+        $query = ParametroLinea::query()
              
         ->when($this->f_producto_codigo, function ($query) {
             return $query->whereHas('Producto', function ($query) {
@@ -102,11 +108,31 @@ class Tabla extends Component
 
         ->when($this->sortField, function($query){
             $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
-        })
-        ->get();
-        return view('livewire.parametro.parametro-linea.tabla',['parametro_lineas' => $parametroLinea
+        });
+        
+        $parametro_lineas = $this->aplicandoFiltros ? $query->get() : $query->paginate(50);
+        return view('livewire.parametro.parametro-linea.tabla',['parametro_lineas' => $parametro_lineas
     ]);
     
+    
     }
+    public function aplicarFiltros()
+    {
+        $this->aplicandoFiltros = true;
+        // Resto de la lógica para aplicar los filtros
+    }
+
+    public function limpiarFiltros()
+    {
+        $this->reset(['f_producto_codigo', 'f_producto_nombre','f_etapa_nombre', 'f_temperatura_min', 'f_temperatura_max', 'f_ph_min', 'f_ph_max', 'f_acidez_min', 'f_acidez_max','f_brix_min', 'f_brix_max', 'f_viscosidad_min', 'f_viscosidad_max','f_densidad_min', 'f_densidad_max']);
+
+        // Refresca el componente
+        $this->js('window.location.reload()');
+    }
+    private function hayFiltrosActivos(): bool
+    {
+        return $this->f_producto_codigo || $this->f_producto_nombre || $this->f_etapa_nombre || $this->f_temperatura_min || $this->f_temperatura_max || $this->f_ph_min || $this->f_ph_max|| $this->f_acidez_min || $this->f_acidez_max || $this->f_brix_max|| $this->f_viscosidad_min || $this->f_viscosidad_max || $this->f_densidad_min|| $this->f_densidad_max;
+    }
+
    
 }

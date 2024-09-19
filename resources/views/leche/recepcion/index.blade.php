@@ -2,6 +2,7 @@
 
 @section('titulo')
 recepción de leche
+
 @endsection
 
 @section('contenido')

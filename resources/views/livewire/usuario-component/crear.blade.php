@@ -1,10 +1,10 @@
 <div>
-
-    <h2 class="text-2xl mb-4 text-gray-800 dark:text-gray-200 font-bold ">Crear Nuevo Usuario</h2>
+    <h2 class="text-2xl mb-4 text-gray-800 dark:text-gray-200 font-bold text-center  ">Crear Nuevo Usuario</h2>
     <div>
         <form wire:submit="save" novalidate>
             @csrf
-            <div class=" px-3 mb-5">
+
+            <div class="w-1/2 px-3 mb-5">
                 <div class="relative z-0 w-full mb-5 group">
                     <input type="text" wire:model="codigo" id="codigo"
                         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
@@ -84,10 +84,14 @@
                             class="block py-2.5 px-0 w-full text-sm text-gray-600 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
                             <option selected class="bg-gray-100 dark:bg-gray-800">Escoge una opción</option>
                             <option value="Admi" class="bg-gray-100 dark:bg-gray-800">Administrador</option>
+                            <option value="Jef" class="bg-gray-100 dark:bg-gray-800">Jefe de Area</option>
+                            <option value="Sup" class="bg-gray-100 dark:bg-gray-800">Supervisor</option>
+                            <option value="HTST" class="bg-gray-100 dark:bg-gray-800">HTST</option>
+                            <option value="UHT" class="bg-gray-100 dark:bg-gray-800">UHT</option>
                             <option value="FQ" class="bg-gray-100 dark:bg-gray-800">Analista Fisicoquimico</option>
                             <option value="MB" class="bg-gray-100 dark:bg-gray-800">Analista Microbiologico</option>
-                            <option value="Sup" class="bg-gray-100 dark:bg-gray-800">Supervisor</option>
-                            <option value="Jef" class="bg-gray-100 dark:bg-gray-800">Jefe de Area</option>
+                            <option value="Con" class="bg-gray-100 dark:bg-gray-800">Contador</option>
+                            <option value="Ext" class="bg-gray-100 dark:bg-gray-800">Externo</option>
                         </select>
                         @error('rol')
                         <p class="text-red-500 text-xs">* {{$message}}</p>

@@ -23,7 +23,7 @@ class Eliminar extends ModalComponent
             $this->closeModal();
             $this->dispatch('success', mensaje: 'Se Elimino el usuario exitosamente');
         } catch (\Throwable $th) {
-            $this->dispatch('error', mensaje: 'Error'. $th);
+            $this->dispatch('error_mensaje', mensaje: 'Error'. $th);
         }
     }
 }

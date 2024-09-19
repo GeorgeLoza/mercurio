@@ -19,6 +19,5 @@ Usuarios
 
 <!--Tabla -->
 @livewire('usuario-component.tabla')
-
-
+<livewire:userTable />
 @endsection

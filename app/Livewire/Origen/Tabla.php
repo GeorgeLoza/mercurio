@@ -5,13 +5,17 @@ namespace App\Livewire\Origen;
 use App\Models\Origen;
 use Livewire\Component;
 use Livewire\Attributes\On;
+use Livewire\WithPagination;
 
 class Tabla extends Component
 {
+    use WithPagination;
      //filtros-busqueda
      public $f_alias = null;
      public $f_descripcion = null;
       public $f_codigo_maquina = null;
+
+      public $aplicandoFiltros = false;
      //filtros-ordenamiento
      public $sortField;
      public $sortAsc = true;
@@ -55,4 +59,5 @@ class Tabla extends Component
     ]);
     
     }
+    
 }

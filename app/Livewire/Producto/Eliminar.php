@@ -16,12 +16,13 @@ class Eliminar extends ModalComponent
     public function delete()
     {
         try {
+            
             Producto::find($this->id)->delete();
             $this->dispatch('actualizar_tabla_productos');
             $this->closeModal();
             $this->dispatch('success', mensaje: 'Se Elimino el producto exitosamente');
         } catch (\Throwable $th) {
-            $this->dispatch('error', mensaje: 'Error'. $th);
+            $this->dispatch('error_mensaje', mensaje: 'Error'. $th);
         }
     }
 }

@@ -2,13 +2,14 @@
 
 @section('titulo')
 Almacen - Producto Terminado
+
 @endsection
 
 @section('contenido')
 
 <div class="flex justify-end mb-2">
     <!--Boton Crear -->
-    <button class="p-2 bg-green-500 rounded-lg" onclick="Livewire.dispatch('openModal', { component: 'almacen.productoterminado.crear' })">
+    <button class="p-2 bg-green-500 rounded-lg" onclick="Livewire.dispatch('openModal', { component: 'almacen.productoTerminado.crear' })">
         <svg
             xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-white" viewBox="0 0 448 512">
             <path
@@ -17,5 +18,5 @@ Almacen - Producto Terminado
 </div>
 
 <!--Tabla -->
-@livewire('almacen.productoterminado.tabla')
+@livewire('almacen.productoTerminado.tabla')
 @endsection

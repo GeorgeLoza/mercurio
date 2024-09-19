@@ -20,7 +20,7 @@ class SolicitudAnalisisLinea extends Model
     }
     public function analisisLinea()
     {
-        return $this->hasMany(AnalisisLinea::class);
+        return $this->hasOne(AnalisisLinea::class);
     }
     public function estadoPlanta()
     {

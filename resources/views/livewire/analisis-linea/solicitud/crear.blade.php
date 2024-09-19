@@ -1,5 +1,5 @@
 <div>
-    <h2 class="text-2xl mb-4 text-gray-800 dark:text-gray-200 font-bold ">Crear Nueva Solicitud</h2>
+    <h2 class="text-2xl mb-4 text-gray-800 dark:text-gray-200 font-bold text-center ">Crear Nueva Solicitud</h2>
     <div>
         <form wire:submit="save" novalidate>
             @csrf
@@ -22,10 +22,14 @@
             </div>
             <div class="px-3 mb-5">
                 @if($informacion)
-                <p>Orp: {{$informacion->orp->codigo}}</p> 
-                <p>Producto: {{$informacion->orp->producto->nombre}}</p> 
-                <p>Preparación: {{$informacion->preparacion}}</p> 
-                <p>Etápa: {{$informacion->etapa->nombre}}</p> 
+                @foreach ($informacion->estadoDetalle as $detalle)
+                <div class="grid grid-cols-3 gap-1 p-2 text-xs text-center bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                    <p> {{$detalle->orp->codigo}}</p>
+                    <p class="whitespace-nowrap"> {{$detalle->orp->producto->nombre}}</p>
+                    <p> {{$detalle->preparacion}}</p>
+                </div>
+                    
+                @endforeach
                 @endif
             </div>
             

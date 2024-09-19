@@ -2,6 +2,7 @@
 
 @section('titulo')
 Orígen
+
 @endsection
 
 @section('contenido')

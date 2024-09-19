@@ -15,13 +15,14 @@ class Eliminar extends ModalComponent
     }
     public function delete()
     {
+        
         try {
             ParametroLinea::find($this->id)->delete();
             $this->dispatch('actualizar_tabla_parametroLinea');
             $this->closeModal();
             $this->dispatch('success', mensaje: 'Se Elimino el parametro exitosamente');
         } catch (\Throwable $th) {
-            $this->dispatch('error', mensaje: 'Error'. $th);
+            $this->dispatch('error_mensaje', mensaje: 'problema'.$th->getMessage());
         }
     }
 }

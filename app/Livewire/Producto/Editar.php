@@ -21,6 +21,7 @@ class Editar extends ModalComponent
     public $unidad_id;
     public $categoria_producto_id;
     public $destino_producto_id;
+    public $norma;
     //valores para cargar selects
     public $unidades;
     public $categoriaProductos;
@@ -30,6 +31,7 @@ class Editar extends ModalComponent
         $this->unidades = Unidad::all();
         $this->categoriaProductos = CategoriaProducto::all();
         $this->destinoProductos = DestinoProducto::all();
+        
         $producto = Producto::where('id', $this->id)->first();
         $this->codigo = $producto->codigo;
         $this->nombre = $producto->nombre;
@@ -38,6 +40,7 @@ class Editar extends ModalComponent
         $this->unidad_id = $producto->unidad_id;
         $this->categoria_producto_id = $producto->categoria_producto_id;
         $this->destino_producto_id = $producto->destino_producto_id;
+        $this->norma = $producto->norma;
     }
 
     public function render()
@@ -65,6 +68,7 @@ class Editar extends ModalComponent
             $producto->unidad_id = $this->unidad_id;
             $producto->categoria_producto_id = $this->categoria_producto_id;
             $producto->destino_producto_id = $this->destino_producto_id;
+            $producto->norma = $this->norma;
             $producto->save();
             
             $this->dispatch('actualizar_tabla_productos');
@@ -72,7 +76,7 @@ class Editar extends ModalComponent
             $this->dispatch('success', mensaje: 'Se actualizo el producto exitosamente');
         } catch (\Throwable $th) {
             $this->closeModal();
-            $this->dispatch('error', mensaje: 'problema'.$th->getMessage());
+            $this->dispatch('error_mensaje', mensaje: 'problema'.$th->getMessage());
         }
     }
 }

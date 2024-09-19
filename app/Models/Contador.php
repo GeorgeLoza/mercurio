@@ -28,7 +28,7 @@ class Contador extends Model
     }
     public function almacenProductoTerminado()
 {
-    return $this->belongsTo(AlmacenProductoTerminado::class, 'almacen_producto_terminado_id');
+    return $this->belongsTo(AlmacenProductoTerminado::class);
 }
 
 }

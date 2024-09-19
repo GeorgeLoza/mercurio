@@ -17,13 +17,27 @@ class Crear extends ModalComponent
     public $tiempo_elaboracion;
     public $fecha_vencimiento1;
     public $fecha_vencimiento2;
-    
+
+    // input buscador
+    public $buscador_producto = '';
     //valores para cargar selects
     public $productos;
     public function mount()
     {
         $this->productos = Producto::all();
-        
+    }
+    // Método para actualizar el filtro en tiempo real
+    public function updatedBuscadorProducto()
+    {
+        // Si el campo buscador tiene texto, filtramos los productos
+        if ($this->buscador_producto != '') {
+            $this->productos = Producto::where('nombre', 'like', '%' . $this->buscador_producto . '%')
+                ->orWhere('codigo', 'like', '%' . $this->buscador_producto . '%')
+                ->get();
+        } else {
+            // Si no hay texto, mostramos todos los productos
+            $this->productos = Producto::all();
+        }
     }
 
     public function render()
@@ -33,7 +47,7 @@ class Crear extends ModalComponent
     public function save()
     {
         $this->validate([
-            'codigo' => 'required',
+            'codigo' => 'required|unique:orps',
             'producto_id' => 'required',
             'lote' => 'required',
         ]);
@@ -53,7 +67,7 @@ class Crear extends ModalComponent
             $this->dispatch('success', mensaje: 'ORP registrado exitosamente');
         } catch (\Throwable $th) {
             $this->closeModal();
-            $this->dispatch('error', mensaje: 'Error: '.$th);
+            $this->dispatch('error_mensaje', mensaje: 'problema' . $th->getMessage());
         }
     }
 }

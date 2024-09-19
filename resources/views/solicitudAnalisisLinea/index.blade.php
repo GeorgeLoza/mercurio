@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('titulo')
-Solicitud Análisis Línea
+Solicitud Análisis
 @endsection
 
 @section('contenido')
@@ -20,4 +20,4 @@ Solicitud Análisis Línea
 @livewire('analisis-linea.solicitud.tabla')
 
 
-@endsection
+@endsection 

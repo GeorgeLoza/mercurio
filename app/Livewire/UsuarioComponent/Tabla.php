@@ -81,6 +81,9 @@ class Tabla extends Component
 
         return view('livewire.usuario-component.tabla', [
             'usuarios' => $usuario
+            
         ]);
+        
+        
     }
 }

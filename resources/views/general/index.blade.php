@@ -2,6 +2,7 @@
 
 @section('titulo')
 Configuración Inicial
+
 @endsection
 
 @section('contenido')

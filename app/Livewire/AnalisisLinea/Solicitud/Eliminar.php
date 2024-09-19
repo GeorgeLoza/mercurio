@@ -2,9 +2,10 @@
 
 namespace App\Livewire\AnalisisLinea\Solicitud;
 
-use App\Models\SolicitudAnalisisLinea;
 use Livewire\Component;
+use App\Models\AnalisisLinea;
 use LivewireUI\Modal\ModalComponent;
+use App\Models\SolicitudAnalisisLinea;
 
 class Eliminar extends ModalComponent
 {
@@ -15,13 +16,15 @@ class Eliminar extends ModalComponent
     }
     public function delete()
     {
+        
         try {
+            AnalisisLinea::where('solicitud_analisis_linea_id',$this->id)->delete();
             SolicitudAnalisisLinea::find($this->id)->delete();
             $this->dispatch('actualizar_tabla_solicitudAnalisisLineas');
             $this->closeModal();
             $this->dispatch('success', mensaje: 'Se Elimino la solicitud exitosamente');
         } catch (\Throwable $th) {
-            $this->dispatch('error', mensaje: 'Error: ' . $th);
+            $this->dispatch('error_mensaje', mensaje: 'problema'.$th->getMessage());
         }
     }
 }

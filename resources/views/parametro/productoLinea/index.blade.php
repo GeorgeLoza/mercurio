@@ -1,7 +1,8 @@
 @extends('layout.app')
 
 @section('titulo')
-Parametros - Productos Linea
+Parámetros - Productos Línea
+
 @endsection
 
 @section('contenido')

@@ -29,39 +29,54 @@ class Importar extends ModalComponent
 
         // Leer y procesar el archivo CSV
         $csv = Reader::createFromPath($this->archivoCsv->getRealPath(), 'r');
-        $csv->setDelimiter(','); // Configurar el delimitador como punto y coma
+        $csv->setDelimiter(';'); // Configurar el delimitador como punto y coma
 
         $csv->setHeaderOffset(0); // Opcional: si el CSV tiene una fila de encabezado
-
+        $contador = 0;
         foreach ($csv as $registro) {
             $codigoProducto = $registro['ITEM'];
-            
+
             // Buscar el producto por su código en el archivo CSV
             $producto = Producto::where('codigo', $codigoProducto)->first();
-            if ($producto) {
 
+            if ($producto) {
+                $contador  = $contador + 1;
                 // Crear un nuevo registro en la tabla ORP con el ID del producto
                 // Validar si ya existe un registro con el mismo código en la tabla ORP
+                
                 $registroExistente = Orp::where('codigo', $registro['ORP'])->first();
                 if ($registroExistente) {
                     // Si el código ya existe, muestra un error y omite la creación del nuevo registro
                     // Mostrar mensaje de éxito
-                    $this->dispatch('warning', mensaje: 'El archivo contiene');
+                    $this->dispatch('warning', mensaje: 'El archivo contiene ORPs repetidas');
+                    
                     continue;
                 }
+                
+
+                // Extraer el número de lotes de los comentarios
+                $comentarios = $registro['Comentarios'];
+
+                preg_match('/(\d+(?:\.\d+)?)\s*LOTE(?:S)?/', $comentarios, $matches);
+                $lotes = $matches[1] ?? null;
+
+
                 try {
                     Orp::create([
                         'codigo' => $registro['ORP'],
                         'producto_id' => $producto->id,
                         'estado' => 'Pendiente',
+                        'lote' => $lotes,
                     ]);
                     $this->dispatch('actualizar_tabla_orps');
                     $this->closeModal();
-                    $this->dispatch('success', mensaje: 'Impostacion exitosamente');
+                    $this->dispatch('success', mensaje: 'Importacion realizada exitosamente cantidad de orps registradas:   ' . $contador);
                 } catch (\Throwable $th) {
                     $this->closeModal();
-                    $this->dispatch('error', mensaje: 'Error: ' . $th);
+                    $this->dispatch('error_mensaje', mensaje: 'problema' . $th->getMessage());
                 }
+            } else {
+                $this->dispatch('alert', mensaje: 'Importacion realizada exitosamente cantidad de orps registradas:   ' . $contador);
             }
         }
 

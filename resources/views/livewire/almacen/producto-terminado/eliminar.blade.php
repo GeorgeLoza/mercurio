@@ -4,8 +4,8 @@
     <p>Esta seguro que desea eliminar el almacen?</p>
 
     <div class="flex gap-5">
-        <button class="bg-blue-600 py-2 px-4 text-center rounded-md " >Cancelar</button>
+        <button class=" text-white bg-blue-600 py-2 px-4 text-center rounded-md " >Cancelar</button>
         
-        <button  class="bg-red-600 py-2 px-4 text-center rounded-md " wire:click="delete">Confirmar</button>
+        <button  class=" text-white bg-red-600 py-2 px-4 text-center rounded-md " wire:click="delete">Confirmar</button>
     </div>
 </div>

@@ -2,6 +2,7 @@
 
 @section('titulo')
 Contador - Producto terminado
+
 @endsection
 
 @section('contenido')

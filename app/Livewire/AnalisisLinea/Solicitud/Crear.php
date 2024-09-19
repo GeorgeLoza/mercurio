@@ -59,6 +59,9 @@ class Crear extends ModalComponent
 
                     AnalisisLinea::create([
                         'solicitud_analisis_linea_id' => $id,
+                        'olor' => 1,
+                        'color' => 1,
+                        'sabor' => 1,
                     ]);
 
                     $this->dispatch('actualizar_tabla_solicitudAnalisisLineas');
@@ -67,13 +70,13 @@ class Crear extends ModalComponent
                     $this->dispatch('success', mensaje: 'Solicitud registrado exitosamente');
                 } else {
                     // Manejar el caso donde $informacion es null
-                    $this->dispatch('error', mensaje: 'No se encontró información para el origen seleccionado.');
+                    $this->dispatch('error_mensaje', mensaje: 'No se encontró información para el origen seleccionado.');
                 }
             }
         } catch (\Throwable $th) {
             $this->closeModal();
-            dd($th);
-            $this->dispatch('error', mensaje: 'Error: ' . $th);
+            
+            $this->dispatch('error_mensaje', mensaje: 'problema'.$th->getMessage());
         }
     }
 }

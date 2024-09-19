@@ -1,3 +1,11 @@
+// resources/js/app.js
+
+import './../../vendor/power-components/livewire-powergrid/dist/powergrid'
+// resources/js/app.js
+
+import './../../vendor/power-components/livewire-powergrid/dist/tailwind.css'
+import flatpickr from "flatpickr";
+import 'flatpickr/dist/flatpickr.min.css';
 
 /* Modo Oscuro */
 document.addEventListener('DOMContentLoaded', function () {
@@ -31,3 +39,5 @@ document.addEventListener('DOMContentLoaded', function () {
         toggleDarkMode();
     });
 });
+
+

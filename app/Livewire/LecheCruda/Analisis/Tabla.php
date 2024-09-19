@@ -2,14 +2,18 @@
 
 namespace App\Livewire\LecheCruda\Analisis;
 
-use App\Models\CalidadLeche;
 use Livewire\Component;
 use Livewire\Attributes\On;
+use App\Models\CalidadLeche;
+use Livewire\WithPagination;
+use App\Models\ParametroLeche;
 
 class Tabla extends Component
 {
 
-
+    use WithPagination;
+//parametros
+public $parametro;
     //filtros-busqueda
     public $f_tiempo = null;
     public $f_ruta = null;
@@ -17,6 +21,8 @@ class Tabla extends Component
     public $f_estado = null;
     public $f_cantidad = null;
     public $f_user = null;
+
+    public $aplicandoFiltros = false;
 
     //filtros-ordenamiento
     public $sortField;
@@ -29,8 +35,6 @@ class Tabla extends Component
         $this->filtro = !$this->filtro;
     }
 
-
-
     public function sortBy($field)
     {
         if ($this->sortField === $field) {
@@ -41,30 +45,41 @@ class Tabla extends Component
 
         $this->sortField = $field;
     }
+    public function mount()
+    {
+        $this->sortField = 'created_at';
+        $this->sortAsc = false;
+        $this->parametro = ParametroLeche::first();
+        
+    }
 
     #[On('actualizar_tabla_CalidadLeche')]
     public function render()
     {
-        $registros = CalidadLeche::query()
+        $this->aplicandoFiltros = $this->hayFiltrosActivos();
+       
+        $query = CalidadLeche::query()
             ->when($this->f_tiempo, function ($query) {
                 return $query->where('tiempo', 'like', '%' . $this->f_tiempo . '%');
             })
 
             ->when($this->f_ruta, function ($query) {
-                $query->whereHas('subruta', function ($query) {
-                    return $query->whereHas('ruta', function ($query) {
-                        $query->where('nombre', 'like', '%' . $this->f_ruta . '%');
-                    });
+                return $query->whereHas('recepcion_leche.subruta_acopio.ruta_acopio', function ($query) {
+                    $query->where('nombre', 'like', '%' . $this->f_ruta . '%');
                 });
             })
+
             ->when($this->f_subruta, function ($query) {
-                return $query->whereHas('subruta', function ($query) {
+                return $query->whereHas('recepcion_leche.subruta_acopio', function ($query) {
                     $query->where('nombre', 'like', '%' . $this->f_subruta . '%');
                 });
             })
             ->when($this->f_estado, function ($query) {
-                return $query->where('estado', 'like', '%' . $this->f_estado . '%');
+                return $query->whereHas('recepcion_leche', function ($query) {
+                    $query->where('estado', 'like', '%' . $this->f_estado . '%');
+                });
             })
+
             ->when($this->f_cantidad, function ($query) {
                 return $query->where('cantidad', 'like', '%' . $this->f_cantidad . '%');
             })
@@ -75,12 +90,32 @@ class Tabla extends Component
             })
             ->when($this->sortField, function ($query) {
                 $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
-            })
-            ->get();
-
+            });
+            $registros = $this->aplicandoFiltros ? $query->get() : $query->paginate(50); 
 
         return view('livewire.leche-cruda.analisis.tabla', [
             'registros' => $registros
         ]);
     }
+
+    public function aplicarFiltros()
+    {
+        $this->aplicandoFiltros = true;
+        // Resto de la lógica para aplicar los filtros
+    }
+
+    public function limpiarFiltros()
+    {
+        $this->reset(['f_tiempo', 'f_ruta', 'f_subruta', 'f_estado', 'f_cantidad', 'f_user']);
+
+        // Refresca el componente
+        $this->js('window.location.reload()');
+    }
+    private function hayFiltrosActivos(): bool
+    {
+        return $this->f_tiempo || $this->f_ruta || $this->f_subruta || $this->f_estado || $this->f_cantidad || $this->f_user;
+    }
+
+
+    
 }

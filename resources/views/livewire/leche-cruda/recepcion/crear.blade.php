@@ -1,5 +1,5 @@
 <div>
-    <h2 class="text-2xl mb-4 text-gray-800 dark:text-gray-200 font-bold ">Nueva Recepcion de Leche</h2>
+    <h2 class="text-2xl mb-4 text-gray-800 dark:text-gray-200 font-bold  text-center ">Nueva Recepcion de Leche</h2>
     <div>
         <form wire:submit="save" novalidate>
             @csrf

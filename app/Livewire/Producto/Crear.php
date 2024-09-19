@@ -19,6 +19,7 @@ class Crear extends ModalComponent
     public $unidad_id;
     public $categoria_producto_id;
     public $destino_producto_id;
+    public $norma;
     
     //valores para cargar selects
     public $unidades;
@@ -36,6 +37,7 @@ class Crear extends ModalComponent
     }
     public function save()
     {
+        
         $this->validate([
             'codigo' => 'required',
             'nombre' => 'required',
@@ -52,6 +54,7 @@ class Crear extends ModalComponent
                 'unidad_id' => $this->unidad_id,
                 'categoria_producto_id' => $this->categoria_producto_id,
                 'destino_producto_id' => $this->destino_producto_id,
+                'norma' => $this->norma,
 
             ]);
             $this->dispatch('actualizar_tabla_productos');
@@ -59,7 +62,7 @@ class Crear extends ModalComponent
             $this->dispatch('success', mensaje: 'Producto registrado exitosamente');
         } catch (\Throwable $th) {
             $this->closeModal();
-            $this->dispatch('error', mensaje: 'Error'. $th);
+            $this->dispatch('error_mensaje', mensaje: 'problema'.$th->getMessage());
         }
     }
 }
