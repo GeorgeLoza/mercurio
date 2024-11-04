@@ -33,7 +33,7 @@ class Toast extends Component
         $this->show_success = true;
         $this->message = $mensaje;
         $this->dispatch('auto-hide-toast');
-    }
+    } 
 
     #[On('warning')] 
     public function warning($mensaje){
