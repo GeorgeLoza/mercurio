@@ -35,6 +35,11 @@ class Planta extends Component
     public $TKSC;
     public $TKAUX1;
     public $TKAUX2;
+    
+    public $TKSY;
+    public $l1;
+    public $l2;
+    public $l3;
     //PASTEURIZADORES
     public $maguer;
     public $tetra;
@@ -84,7 +89,8 @@ class Planta extends Component
             ->join('origens as o', 'latest_estado_plantas_details.origen_id', '=', 'o.id') // Unimos con la tabla origenes para obtener el alias
             ->where(function ($query) {
                 $query->whereIn('o.id', range(27, 48))  // Incluye los IDs del 27 al 48
-                    ->orWhereBetween('o.id', [50, 53]); // Incluye los IDs del 50 al 53
+                    ->orWhereBetween('o.id', [50, 53])
+                    ->orWhereBetween('o.id', [57, 59]); // Incluye los IDs del 50 al 53
             })
             ->select('ed.orp_id', 'ed.preparacion', 'o.id as origen_id', 'o.alias')
             ->orderBy('o.alias', 'asc') // Ordenar alias ascendentemente
