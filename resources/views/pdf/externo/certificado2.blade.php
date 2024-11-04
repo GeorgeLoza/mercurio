@@ -94,6 +94,9 @@
             border-top: 1px solid black;
             /* Línea para firmar */
         }
+        .nowrap{
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
     </style>
 
 </head>
@@ -121,7 +124,7 @@
                     <td>El Alto,
                         {{ \Carbon\Carbon::parse($datosSolicitud->updated_at)->isoFormat(
                             'dddd D [de] MMMM
-                                                                                                                                                                                                                                                [de] YYYY',
+                                                                                                                                                                                                [de] YYYY',
                             0,
                             'es',
                         ) }}
@@ -228,7 +231,7 @@
                     <th>Fecha de muestreo:</th>
                     <td>{{ \Carbon\Carbon::parse($datosSolicitud->fecha_muestreo)->isoFormat(
                         'dddd[,] D [de] MMMM [de]
-                                                                                                                                                                                                            YYYY',
+                                                                                                                                                                    YYYY',
                         0,
                         'es',
                     ) }}
@@ -238,7 +241,7 @@
                     <th>Fecha de ingreso:</th>
                     <td>{{ \Carbon\Carbon::parse($datosSolicitud->solicitudPlanta->tiempo)->isoFormat(
                         'dddd[,] D [de] MMMM
-                                                                                                                                                                                                            [de] YYYY',
+                                                                                                                                                                    [de] YYYY',
                         0,
                         'es',
                     ) }}
@@ -249,7 +252,7 @@
                     <th>Fecha de análisis:</th>
                     <td>{{ \Carbon\Carbon::parse($resultados->fecha_sembrado)->isoFormat(
                         'dddd[,] D [de] MMMM [de]
-                                                                                                                                                                                                            YYYY',
+                                                                                                                                                                    YYYY',
                         0,
                         'es',
                     ) }}
@@ -267,95 +270,135 @@
                     <th colspan="7" style="border: 1px solid black">RESULTADO DE ENSAYO</th>
                 </tr>
                 <tr style="border-left: 1px solid black; border-right: 1px solid black; ">
-
+                    
                     <th>PARÁMETROS</th>
                     <th>UNIDADES</th>
                     <th>MÉTODO DE ENSAYOS</th>
-                    <th>RESULTADOS</th>
+                    <th>RESULTADOS SUPERFICIE</th>
+                    <th>RESULTADOS PROFUNDIDAD</th>
                     <th>m (*)</th>
                     <th>M (*)</th>
                 </tr>
                 @if ($resultados->aer_mes !== null)
-                    <tr style="border-left: 1px solid black; border-right: 1px solid black; ">
+                <tr style="border-left: 1px solid black; border-right: 1px solid black; ">
+                    
+                    <td>Mesófilos, Aeróbios Totales</td>
+                    <td>{{ $normas->unidad }}</td>
+                    <td>NB 32003</td>
+                    <td>
+                        @if ($resultados->aer_mes >= 1000000)
+                            MNPC
+                        @elseif ($resultados->aer_mes != 0)
+                            {{ $resultados->aer_mes < 1
+                                ? $resultados->aer_mes * 10 ** (strlen(floor($resultados->aer_mes)) - 1)
+                                : $resultados->aer_mes / 10 ** (strlen(floor($resultados->aer_mes)) - 1) }}
+                            x 10<sup>{{ strlen(floor($resultados->aer_mes)) - 1 }}</sup>
+                        @else
+                            &lt; 1 x 10<sup>1</sup>
+                        @endif
 
-                        <td>Mesófilos, Aeróbios Totales</td>
-                        <td>{{ $normas->unidad }}</td>
-                        <td>NB 32003</td>
-                        <td>
-                            @if ($resultados->aer_mes >= 1000000)
-                                MNPC
-                            @elseif ($resultados->aer_mes != 0)
-                                {{ $resultados->aer_mes < 1
-                                    ? $resultados->aer_mes * 10 ** (strlen(floor($resultados->aer_mes)) - 1)
-                                    : $resultados->aer_mes / 10 ** (strlen(floor($resultados->aer_mes)) - 1) }}
-                                x 10<sup>{{ strlen(floor($resultados->aer_mes)) - 1 }}</sup>
-                            @else
-                                &lt; 1 x 10<sup>1</sup>
-                            @endif
+                    </td>
+                    <td>
+                        @if ($resultados->aer_mes2 >= 1000000)
+                            MNPC
+                        @elseif ($resultados->aer_mes2 != 0)
+                            {{ $resultados->aer_mes2 < 1
+                                ? $resultados->aer_mes2 * 10 ** (strlen(floor($resultados->aer_mes2)) - 1)
+                                : $resultados->aer_mes2 / 10 ** (strlen(floor($resultados->aer_mes2)) - 1) }}
+                            x 10<sup>{{ strlen(floor($resultados->aer_mes2)) - 1 }}</sup>
+                        @else
+                            &lt; 1 x 10<sup>1</sup>
+                        @endif
 
-                        </td>
-                        <td>{{ $normas->min_mes }} <sup>{{ $normas->min_mes_e }}</sup>
+                    </td>
+                    <td>{{ $normas->min_mes }} <sup>{{ $normas->min_mes_e }}</sup>
 
-                        </td>
-                        <td>{{ $normas->max_mes }} <sup>{{ $normas->max_mes_e }}</sup>
+                    </td>
+                    <td>{{ $normas->max_mes }} <sup>{{ $normas->max_mes_e }}</sup>
 
-                        </td>
-                    </tr>
+                    </td>
+                </tr>    
                 @endif
                 @if ($resultados->col_tot !== null)
-                    <tr style="border-left: 1px solid black; border-right: 1px solid black; ">
+                <tr style="border-left: 1px solid black; border-right: 1px solid black; ">
+                    
+                    <td>Coliformes Totales</td>
+                    <td>{{ $normas->unidad }}</td>
+                    <td>NB 32005</td>
+                    <td>
+                        @if ($resultados->col_tot >= 1000000)
+                            MNPC
+                        @elseif ($resultados->col_tot != 0)
+                            {{ $resultados->col_tot < 1
+                                ? $resultados->col_tot * 10 ** (strlen(floor($resultados->col_tot)) - 1)
+                                : $resultados->col_tot / 10 ** (strlen(floor($resultados->col_tot)) - 1) }}
+                            x 10<sup>{{ strlen(floor($resultados->col_tot)) - 1 }}</sup>
+                        @else
+                            &lt; 1 x 10<sup>1</sup>
+                        @endif
 
-                        <td>Coliformes Totales</td>
-                        <td>{{ $normas->unidad }}</td>
-                        <td>NB 32005</td>
-                        <td>
-                            @if ($resultados->col_tot >= 1000000)
-                                MNPC
-                            @elseif ($resultados->col_tot != 0)
-                                {{ $resultados->col_tot < 1
-                                    ? $resultados->col_tot * 10 ** (strlen(floor($resultados->col_tot)) - 1)
-                                    : $resultados->col_tot / 10 ** (strlen(floor($resultados->col_tot)) - 1) }}
-                                x 10<sup>{{ strlen(floor($resultados->col_tot)) - 1 }}</sup>
-                            @else
-                                &lt; 1 x 10<sup>1</sup>
-                            @endif
+                    </td>
+                    <td>
+                        @if ($resultados->col_tot2 >= 1000000)
+                            MNPC
+                        @elseif ($resultados->col_tot2 != 0)
+                            {{ $resultados->col_tot2 < 1
+                                ? $resultados->col_tot2 * 10 ** (strlen(floor($resultados->col_tot2)) - 1)
+                                : $resultados->col_tot2 / 10 ** (strlen(floor($resultados->col_tot2)) - 1) }}
+                            x 10<sup>{{ strlen(floor($resultados->col_tot2)) - 1 }}</sup>
+                        @else
+                            &lt; 1 x 10<sup>1</sup>
+                        @endif
 
-                        </td>
-                        <td>{{ $normas->min_colTot }} <sup>{{ $normas->min_colTot_e }}</sup>
-                        </td>
-                        <td>{{ $normas->max_colTot }} <sup>{{ $normas->max_colTot_e }}</sup>
+                    </td>
+                    <td>{{ $normas->min_colTot }} <sup>{{ $normas->min_colTot_e }}</sup>
+                    </td>
+                    <td>{{ $normas->max_colTot }} <sup>{{ $normas->max_colTot_e }}</sup>
 
-                        </td>
-                    </tr>
+                    </td>
+                </tr>    
                 @endif
                 @if ($resultados->moh_lev !== null)
-                    <tr
-                        style="border-left: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black">
+                <tr style="border-left: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black">
+                    
+                    <td>Mohos y Levaduras</td>
+                    <td>{{ $normas->unidad }}</td>
+                    <td>NB 32006</td>
+                    <td>
+                        @if ($resultados->moh_lev >= 1000000)
+                            MNPC
+                        @elseif ($resultados->moh_lev != 0)
+                            {{ $resultados->moh_lev < 1
+                                ? $resultados->moh_lev * 10 ** (strlen(floor($resultados->moh_lev)) - 1)
+                                : $resultados->moh_lev / 10 ** (strlen(floor($resultados->moh_lev)) - 1) }}
+                            x 10
+                            <sup>{{ strlen(floor($resultados->moh_lev)) - 1 }}</sup>
+                        @else
+                            &lt; 1 x 10<sup>1</sup>
+                        @endif
 
-                        <td>Mohos y Levaduras</td>
-                        <td>{{ $normas->unidad }}</td>
-                        <td>NB 32006</td>
-                        <td>
-                            @if ($resultados->moh_lev >= 1000000)
-                                MNPC
-                            @elseif ($resultados->moh_lev != 0)
-                                {{ $resultados->moh_lev < 1
-                                    ? $resultados->moh_lev * 10 ** (strlen(floor($resultados->moh_lev)) - 1)
-                                    : $resultados->moh_lev / 10 ** (strlen(floor($resultados->moh_lev)) - 1) }}
-                                x 10
-                                <sup>{{ strlen(floor($resultados->moh_lev)) - 1 }}</sup>
-                            @else
-                                &lt; 1 x 10<sup>1</sup>
-                            @endif
+                    </td>
+                    <td class="nowrap">
+                        @if ($resultados->moh_lev2 >= 1000000)
+                            MNPC
+                        @elseif ($resultados->moh_lev2 != 0)
+                            {{ $resultados->moh_lev2 < 1
+                                ? $resultados->moh_lev2 * 10 ** (strlen(floor($resultados->moh_lev2)) - 1)
+                                : $resultados->moh_lev2 / 10 ** (strlen(floor($resultados->moh_lev2)) - 1) }}
+                            x 10
+                            <sup>{{ strlen(floor($resultados->moh_lev2)) - 1 }}</sup>
+                        @else
+                            &lt; 1 x 10<sup>1</sup>
+                        @endif
 
-                        </td>
-                        <td>{{ $normas->min_mohLev }} <sup>{{ $normas->min_mohLev_e }}</sup>
-                        </td>
-                        <td>{{ $normas->max_mohLev }} <sup>{{ $normas->max_mohLev_e }}</sup>
-                        </td>
-                    </tr>
+                    </td>
+                    <td class="nowrap">{{ $normas->min_mohLev }} <sup>{{ $normas->min_mohLev_e }}</sup>
+                    </td>
+                    <td class="nowrap">{{ $normas->max_mohLev }} <sup>{{ $normas->max_mohLev_e }}</sup>
+                    </td>
+                </tr>    
                 @endif
-
+                
             </table>
             <br>
             <table>Notas:</table>
@@ -399,21 +442,20 @@
             <div class="footer" style="opacity: 1;">
                 <div class="signature-box">
                     <div class="signer">
-                        
                         @if ($resultados->ana_dia5_id == 22)
-                            <img style="width: 60%" src="img/firma/mb_veronica.jpeg" alt="">
+                            <img style="width: 55%" src="img/firma/mb_veronica.png" alt="">
                         @endif
                         @if ($resultados->ana_dia5_id == 23)
-                            <img style="width: 60%" src="img/firma/mb_mabel.jpeg" alt="">
+                            <img style="width: 55%" src="img/firma/mb_mabel.png" alt="">
                         @endif
                         @if ($resultados->ana_dia5_id == 12)
-                            <img style="width: 60%" src="img/firma/mb_lizethG.jpeg" alt="">
+                            <img style="width: 55%" src="img/firma/mb_lizethG.png" alt="">
                         @endif
                         <div class="line">Analista de Microbiología</div>
                     </div>
                     <div class="signer">
-                        <img style="width: 60%" src="img/firma/rubenC.jpeg" alt="">
-                        <div class="line">Jefe de Ccontrol de Calidad</div>
+                        <img style="width: 55%" src="img/firma/rubenC.png" alt="">
+                        <div class="line">Jefe de Control de Calidad</div>
                     </div>
                 </div>
             </div>

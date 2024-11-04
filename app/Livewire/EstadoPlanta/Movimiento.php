@@ -764,15 +764,23 @@ class Movimiento extends ModalComponent
     }
 
     public function updatedDestino($value)
-    {
-        if ($value) {
-            // Buscar el tanque seleccionado
-            $id_estado = EstadoPlanta::where('origen_id', $value)->latest()->first();
-            
-            // Verificar si existe el tanque
-            if ($id_estado) {
-                $estadoDetalles  =  EstadoDetalle::where('estado_planta_id', $id_estado->id)->get();
-                foreach ($estadoDetalles as $index => $det) {
+{
+    if ($value) {
+        // Buscar el tanque seleccionado
+        $id_estado = EstadoPlanta::where('origen_id', $value)->latest()->first();
+        
+        // Verificar si existe el tanque
+        if ($id_estado) {
+            $estadoDetalles = EstadoDetalle::where('estado_planta_id', $id_estado->id)->get();
+            foreach ($estadoDetalles as $index => $det) {
+                // Verificar si ya existe un registro similar en $this->detalles
+                $existe = collect($this->detalles)->contains(function ($detalle) use ($det) {
+                    return $detalle['orp_id'] === $det->orp->id
+                        && $detalle['preparacion'] === $det->preparacion;
+                });
+
+                // Si no existe, agregarlo a la lista
+                if (!$existe) {
                     $this->detalles[] = [
                         'orp_id' => $det->orp->id,
                         'orp' => $det->orp->codigo,
@@ -783,6 +791,8 @@ class Movimiento extends ModalComponent
             }
         }
     }
+}
+
 
 
 

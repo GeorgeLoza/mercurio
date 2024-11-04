@@ -12,6 +12,7 @@ class Editar extends ModalComponent
 
     public $nombre;
     public $descripcion;
+    public $grupo;
 
     public function mount()
     {
@@ -19,6 +20,7 @@ class Editar extends ModalComponent
 
         $this->nombre = $categoria->nombre;
         $this->descripcion = $categoria->descripcion;
+        $this->grupo = $categoria->grupo;
     }
 
 
@@ -29,6 +31,7 @@ class Editar extends ModalComponent
 
             'nombre' => 'required',
             'descripcion' => 'required',
+            'grupo' => 'required',
 
         ]);
         try {
@@ -37,6 +40,7 @@ class Editar extends ModalComponent
 
             $categoria->nombre = $this->nombre;
             $categoria->descripcion = $this->descripcion;
+            $categoria->grupo = $this->grupo;
 
             $categoria->save();
 

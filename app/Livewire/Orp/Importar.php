@@ -57,9 +57,16 @@ class Importar extends ModalComponent
                 // Extraer el número de lotes de los comentarios
                 $comentarios = $registro['Comentarios'];
 
-                preg_match('/(\d+(?:\.\d+)?)\s*LOTE(?:S)?/', $comentarios, $matches);
-                $lotes = $matches[1] ?? null;
-
+                if (preg_match('/(\d+(?:\.\d+)?)\s*(?:LOTE|LOTES|Lote|Lotes)\b/', $comentarios, $matches)) {
+                    // Si se encuentra "LOTE" o "LOTES", se asigna el valor directamente
+                    $lotes = $matches[1];
+                } elseif (preg_match('/(\d+(?:\.\d+)?)\s*(?:MIX|mix|Mix)\b/', $comentarios, $matches)) {
+                    // Si se encuentra "MIX" o variantes, se convierte a lotes (1 lote = 270 mix)
+                    $lotes = $matches[1] * 108;
+                } else {
+                    // En caso de no encontrar "LOTE" o "MIX", asignar null
+                    $lotes = null;
+                }
 
                 try {
                     Orp::create([

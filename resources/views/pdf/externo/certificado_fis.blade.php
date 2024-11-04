@@ -88,8 +88,9 @@
             padding: 0.3rem 0 1rem 0;
             /* Espacio alrededor de la firma */
         }
+
         .signature-box .line {
-            
+
             border-top: 1px solid black;
             /* Línea para firmar */
         }
@@ -105,7 +106,7 @@
                 <tr>
                     <th class="cel-img" style="width: 25%;"><img src="img/logocompleto.png" alt=""></th>
                     <th style="width: 50%;">REGISTRO</th>
-                    <th style="width: 25%; font-size: 0.8rem">PLL-REG-140 <br> Version 003 <br> Pagina 1 de 1 </th>
+                    <th style="width: 25%; font-size: 0.8rem">PLL-REG-140 <br> Versión 003 <br> Pagina 1 de 1 </th>
                 </tr>
                 <tr>
                     <td colspan="3" style="text-align: center; padding: 0.5rem 0">INFORME DE ENSAYO</td>
@@ -117,12 +118,17 @@
             <table class="" style="margin: 0.3rem 0; border:0; font-size:0.8rem;">
                 <tr>
                     <th>Lugar y Fecha de emisión: </th>
-                    <td>El Alto, {{ \Carbon\Carbon::parse($datosSolicitud->updated_at)->isoFormat('dddd D [de] MMMM
-                        [de] YYYY', 0, 'es') }}</td>
-                    <th>Codigo:</th>
+                    <td>El Alto,
+                        {{ \Carbon\Carbon::parse($datosSolicitud->updated_at)->isoFormat(
+                            'dddd D [de] MMMM
+                                                [de] YYYY',
+                            0,
+                            'es',
+                        ) }}
+                    </td>
+                    <th>Código:</th>
                     <td style="font-size: 0.8rem; text-decoration: underline; font-weight: bold">
-                        PLL-FQ{{$datosSolicitud->user->abreviatura}}-{{$datosSolicitud->subcodigo}}/{{\Carbon\Carbon::parse($datosSolicitud->updated_at)->isoFormat('YY')
-                        }}
+                        PLL-FQ{{ $datosSolicitud->user->abreviatura }}-{{ $datosSolicitud->subcodigo }}/{{ \Carbon\Carbon::parse($datosSolicitud->updated_at)->isoFormat('YY') }}
                     </td>
                 </tr>
 
@@ -145,7 +151,13 @@
                     <td rowspan="6" style="width: 380px; border: 1px solid black;font-size: 20px">
                         {{ $datosSolicitud->productosPlanta->nombre }}</td>
                     <th style="text-align: right ; padding: 0 15px">Lote: </th>
-                    <td style="text-align: left ">{{ $datosSolicitud->lote }}</td>
+                    <td style="text-align: left ">
+                        @if ($datosSolicitud->lote)
+                            {{ $datosSolicitud->lote }}
+                        @else
+                            ----
+                        @endif
+                    </td>
                 </tr>
                 <tr style="border-right: 1px solid black;">
                     <th style="text-align: right; padding: 0 15px">Marca: </th>
@@ -153,7 +165,7 @@
                 </tr>
 
                 <tr style="border-right: 1px solid black;">
-                    <th style="text-align: right; padding: 0 15px ">Fecha de Elaboracion: </th>
+                    <th style="text-align: right; padding: 0 15px ">Fecha de Elaboración: </th>
                     <td style="text-align: left; ">
                         {{ \Carbon\Carbon::parse($datosSolicitud->fecha_elaboracion)->isoFormat('D / M / YYYY', 0, 'es') }}
                     </td>
@@ -167,9 +179,12 @@
                 </tr>
 
                 <tr style="border-bottom:  1px solid black; border-right: 1px solid black;">
-                    <th style="text-align: right; padding: 0 15px">Muestra de Analisis:</th>
+                    <th style="text-align: right; padding: 0 15px">Muestra de Análisis:</th>
                     <th style="text-align: left; text-transform: uppercase; font-size: 0.8rem">
-                        {{ $datosSolicitud->tipo_analisis }}</th>
+                        @if ($datosSolicitud->tipo_analisis)
+                            fisicoquímico
+                        @endif
+                    </th>
 
                 </tr>
             </table>
@@ -180,33 +195,47 @@
                 </tr>
                 <tr style="border-left: 1px solid black; border-right: 1px solid black">
                     <th>Procedencia de la muestra</th>
-                    <td>{{$datosSolicitud->user->informacionUsuario->procedencia}}</td>
+                    <td>{{ $datosSolicitud->user->informacionUsuario->procedencia }}</td>
                     <th>Solicitante</th>
-                    <td>{{$datosSolicitud->user->nombre}} {{$datosSolicitud->user->apellido}}</td>
+                    <td>{{ $datosSolicitud->user->nombre }} {{ $datosSolicitud->user->apellido }}</td>
                 </tr>
                 <tr style="border-left: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black">
-                    <th>Direccion de procedencia</th>
-                    <td colspan="3">{{$datosSolicitud->user->informacionUsuario->direccion}}</td>
+                    <th>Dirección de procedencia</th>
+                    <td colspan="3">{{ $datosSolicitud->user->informacionUsuario->direccion }}</td>
                 </tr>
             </table>
             <br>
             <table style="margin: 0.3rem 0; border:0; text-align:center; font-size:0.8rem;">
                 <tr style="border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
                     <th>Fecha de muestreo:</th>
-                    <td>{{ \Carbon\Carbon::parse($datosSolicitud->fecha_muestreo)->isoFormat('dddd[,] D [de] MMMM [de]
-                        YYYY', 0, 'es') }}</td>
+                    <td>{{ \Carbon\Carbon::parse($datosSolicitud->fecha_muestreo)->isoFormat(
+                        'dddd[,] D [de] MMMM [de]
+                                            YYYY',
+                        0,
+                        'es',
+                    ) }}
+                    </td>
                 </tr>
                 <tr style="border-left: 1px solid black; border-right: 1px solid black;">
                     <th>Fecha de ingreso:</th>
-                    <td>{{ \Carbon\Carbon::parse($datosSolicitud->solicitudPlanta->tiempo)->isoFormat('dddd[,] D [de] MMMM
-                        [de] YYYY', 0, 'es') }}
+                    <td>{{ \Carbon\Carbon::parse($datosSolicitud->solicitudPlanta->tiempo)->isoFormat(
+                        'dddd[,] D [de] MMMM
+                                            [de] YYYY',
+                        0,
+                        'es',
+                    ) }}
                     </td>
 
                 </tr>
                 <tr style="border-left: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black">
-                    <th>Fecha de analisis:</th>
-                    <td>{{ \Carbon\Carbon::parse($resultados->tiempo)->isoFormat('dddd[,] D [de] MMMM [de]
-                        YYYY', 0, 'es') }}</td>
+                    <th>Fecha de análisis:</th>
+                    <td>{{ \Carbon\Carbon::parse($resultados->tiempo)->isoFormat(
+                        'dddd[,] D [de] MMMM [de]
+                                            YYYY',
+                        0,
+                        'es',
+                    ) }}
+                    </td>
                 </tr>
             </table>
             <br>
@@ -229,7 +258,7 @@
                     <td style="height: 60px;">Actividad de agua</td>
                     <td style="height: 60px;"> -- </td>
                     <td style="height: 60px;">Interno</td>
-                    <td style="height: 60px;">{{$resultados->act_agua}}</td>
+                    <td style="height: 60px;">{{ $resultados->act_agua }}</td>
                 </tr>
 
             </table>
@@ -253,29 +282,32 @@
             <div class="footer" style="opacity: 1;">
                 <div class="signature-box">
                     <div class="signer">
-                        @if($resultados->user_id == 20)
-                        <img style="width: 60%" src="img/firma/fq_helen.jpeg" alt="">
+                        @if ($resultados->user_id == 20)
+                            <img style="width: 60%" src="img/firma/fq_helen.png" alt="">
                         @endif
-                        @if($resultados->user_id == 24)
-                        <img style="width: 60%" src="img/firma/mb_jenny.jpeg" alt="">
+                        @if ($resultados->user_id == 24)
+                            <img style="width: 60%" src="img/firma/fq_jennyS.png" alt="">
                         @endif
-                        @if($resultados->user_id == 32)
-                        <img style="width: 60%" src="img/firma/fq_mescalera.jpeg" alt="">
+                        @if ($resultados->user_id == 32)
+                            <img style="width: 60%" src="img/firma/fq_mescalera.png" alt="">
                         @endif
-                        <div class="line">Analista de Fisicoquimico</div>
+                        <div class="line">Analista de Fisicoquímico</div>
                     </div>
                     <div class="signer">
-                        <img style="width: 80%" src="img/firma/cal_melvin.jpeg" alt="">
+                        <img style="width: 60%" src="img/firma/rubenC.png" alt="">
                         <div class="line">Jefe de Calidad</div>
                     </div>
                 </div>
             </div>
         </table>
-        @if($resultados->aer_mes > $normas->min_mes || $resultados->col_tot > $normas->min_colTot ||
-        $resultados->moh_lev > $normas->min_mohLev)
-        <table style="position: absolute; top: 75%; left: 80%; transform: translate(-50%, -50%); text-align: center;">
-            <img style="opacity: 0.8; width: 50%" src="img/sello_rechazado.png" alt="">
-        </table>
+        @if (
+            $resultados->aer_mes > $normas->min_mes ||
+                $resultados->col_tot > $normas->min_colTot ||
+                $resultados->moh_lev > $normas->min_mohLev)
+            <table
+                style="position: absolute; top: 75%; left: 80%; transform: translate(-50%, -50%); text-align: center;">
+                <img style="opacity: 0.8; width: 50%" src="img/sello_rechazado.png" alt="">
+            </table>
         @endif
     </div>
 

@@ -16,5 +16,10 @@ class Tabla extends Component
         return view('livewire.externo.actividad-agua.tabla', compact(['actividadAgua']));
     }
 
+ 
+    public function eliminar($id){
+        $actividadAgua = ActividadAgua::findOrFail($id);
+        $actividadAgua->delete();
+    }
     
 }

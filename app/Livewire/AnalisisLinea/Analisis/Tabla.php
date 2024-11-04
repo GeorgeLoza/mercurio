@@ -5,6 +5,8 @@ namespace App\Livewire\AnalisisLinea\Analisis;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use App\Models\AnalisisLinea;
+use App\Models\CalidadLeche;
+use App\Models\RecepcionLeche;
 use App\Models\SolicitudAnalisisLinea;
 use Carbon\Carbon;
 
@@ -42,18 +44,18 @@ class Tabla extends Component
 
     public function checkForPendingAnalisis()
     {
-          // Obtén la fecha y hora de hace una hora
-    $oneHourAgo = Carbon::now()->subHour();
+        // Obtén la fecha y hora de hace una hora
+        $oneHourAgo = Carbon::now()->subHour();
 
-    // Consulta los registros que tienen estado 'Pendiente' y fueron creados en la última hora
-    $this->analisisPendientes = SolicitudAnalisisLinea::where('estado', 'Pendiente')
-        ->where('created_at', '>=', $oneHourAgo)
-        ->exists(); // Devuelve true si encuentra algún registro, false si no
+        // Consulta los registros que tienen estado 'Pendiente' y fueron creados en la última hora
+        $this->analisisPendientes = SolicitudAnalisisLinea::where('estado', 'Pendiente')
+            ->where('created_at', '>=', $oneHourAgo)
+            ->exists(); // Devuelve true si encuentra algún registro, false si no
 
-    // Si hay análisis pendientes, emitir el evento para reproducir el sonido
-    if ($this->analisisPendientes) {
-        $this->dispatch('analisisPendiente');
-    }
+        // Si hay análisis pendientes, emitir el evento para reproducir el sonido
+        if ($this->analisisPendientes) {
+            $this->dispatch('analisisPendiente');
+        }
     }
 
     public function show_filtro()
@@ -74,7 +76,7 @@ class Tabla extends Component
         $this->sortField = $field;
     }
 
-    
+
 
     #[On('actualizar_tabla_analisisLineas')]
     public function render()
@@ -119,9 +121,15 @@ class Tabla extends Component
 
         $calidades = $this->aplicandoFiltros ? $query->get() : $query->paginate(50);
 
-       
+        $pendiente = RecepcionLeche::where('estado', 'pendiente')
+            ->where('created_at', '>=', Carbon::now()->subMinutes(20))
+            ->exists(); // Devuelve true si existen registros, false si no
+
+
+
         return view('livewire.analisis-linea.analisis.tabla', [
-            'calidades' => $calidades
+            'calidades' => $calidades,
+            'pendiente' => $pendiente
         ]);
     }
     public function aplicarFiltros()

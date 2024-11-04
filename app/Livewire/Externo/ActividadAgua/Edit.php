@@ -41,8 +41,12 @@ class Edit extends ModalComponent
             $actividadAgua->por_hum_rel = $this->por_hum_rel;
             $actividadAgua->act_agua = $this->act_agua;
             $actividadAgua->estado = "Analizado";
-            $actividadAgua->tiempo = now();
-            $actividadAgua->user_id = auth()->user()->id;
+            if (is_null($actividadAgua->tiempo)) {
+                $actividadAgua->tiempo = now();
+            }
+            if (is_null($actividadAgua->user_id)) {
+                $actividadAgua->user_id = auth()->user()->id;
+            }
             $actividadAgua->save();
 
             $detalle = DetalleSolicitudPlanta::where("id", $actividadAgua->detalle_solicitud_planta_id)->first();

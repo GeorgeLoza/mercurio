@@ -17,9 +17,6 @@ class ProductoPlanta extends Component
 
     protected $rules = [
         'nombre' => 'required|string|max:255',
-        'envase' => 'required',
-        'neto' => 'required',
-        'unidad' => 'required',
     ];
 
 
@@ -49,9 +46,6 @@ class ProductoPlanta extends Component
             $this->validate();
             ProductosPlantas::create([
                 'nombre' => $this->nombre,
-                'envase' => $this->envase,
-                'neto' => $this->neto,
-                'unidad' => $this->unidad,
                 'planta_id' => auth()->user()->planta->id,
             ]);
 
@@ -70,9 +64,6 @@ class ProductoPlanta extends Component
         $producto = ProductosPlantas::find($this->id);
         $producto->update([
             'nombre' => $this->nombre,
-            'envase' => $this->envase,
-            'neto' => $this->neto,
-            'unidad' => $this->unidad,
             'plata_id' => auth()->user()->planta->id,
         ]);
 
@@ -83,9 +74,6 @@ class ProductoPlanta extends Component
         $this->productoId = $id;
         $producto = ProductosPlantas::find($id);
         $this->nombre = $producto->nombre;
-        $this->envase = $producto->envase;
-        $this->neto = $producto->neto;
-        $this->unidad = $producto->unidad;
     }
 
     public function delete($id)

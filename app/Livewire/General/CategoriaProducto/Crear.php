@@ -11,6 +11,7 @@ class Crear extends ModalComponent
     
     public $nombre;
     public $descripcion;
+    public $grupo;
  
 
     public function render()
@@ -24,7 +25,8 @@ class Crear extends ModalComponent
         $this->validate([
             
             'nombre' => 'required',
-            'descripcion' => 'required'
+            'descripcion' => 'required',
+            'grupo' => 'required'
            
         ]);
         try {
@@ -33,6 +35,7 @@ class Crear extends ModalComponent
                
                 'nombre' => $this->nombre,
                 'descripcion' => $this->descripcion,
+                'grupo' => $this->grupo,
              
             ]);
             $this->dispatch('actualizar_tabla_categoria');

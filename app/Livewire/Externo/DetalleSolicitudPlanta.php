@@ -37,10 +37,12 @@ class DetalleSolicitudPlanta extends Component
         $productos = ProductosPlantas::where('planta_id', auth()->user()->planta->id)->get(); // Asthis->egúrate de cargar los productos disponibles
         $tiposMuestra = TipoMuestra::all();
 
-        $detalles = ModelsDetalleSolicitudPlanta::where('user_id',auth()->user()->id)->whereNull('subcodigo')->get();
+        $detalles = ModelsDetalleSolicitudPlanta::where('user_id', auth()->user()->id)->whereNull('subcodigo')->get();
 
         return view('livewire.externo.detalle-solicitud-planta', [
-            'detalles' => $detalles, 'productos' => $productos, 'tiposMuestra' => $tiposMuestra
+            'detalles' => $detalles,
+            'productos' => $productos,
+            'tiposMuestra' => $tiposMuestra
         ]);
     }
 
@@ -157,7 +159,7 @@ class DetalleSolicitudPlanta extends Component
         try {
             // Obtener el último código generado
             $ultimoCodigo = SolicitudPlanta::latest('codigo')->first();
-            
+
             if ($ultimoCodigo) {
                 // Incrementar el último código
                 $numero = intval($ultimoCodigo->codigo) + 1;
@@ -166,7 +168,7 @@ class DetalleSolicitudPlanta extends Component
                 // Empezar con 00001 si no hay registros previos
                 $codigo = '00001';
             }
-    
+
             // Crear la nueva solicitud
             $solicitud = SolicitudPlanta::create([
                 'tiempo' => now(),
@@ -174,26 +176,26 @@ class DetalleSolicitudPlanta extends Component
                 'estado' => 'Pendiente',
                 'user_id' => auth()->user()->id,
             ]);
-            
+
             // Obtener los detalles pendientes del usuario actual que no tienen subcodigo
             $detallesPendientes = ModelsDetalleSolicitudPlanta::where('user_id', auth()->user()->id)
                 ->whereNull('subcodigo')
                 ->get();
-    
-                $iteracion = 0;
-                foreach ($detallesPendientes as $detalle) {
-                    $iteracion++;
-                    $detalle->update([
-                        'solicitud_planta_id' => $solicitud->id,
-                        'subcodigo' => $solicitud->codigo . "-" . $iteracion,
-                        'estado' => "Pendiente"
-                    ]);
-                }
-    
+
+            $iteracion = 0;
+            foreach ($detallesPendientes as $detalle) {
+                $iteracion++;
+                $detalle->update([
+                    'solicitud_planta_id' => $solicitud->id,
+                    'subcodigo' => $solicitud->codigo . "-" . $iteracion,
+                    'estado' => "Pendiente"
+                ]);
+            }
+            
+            
         } catch (\Throwable $th) {
             dd($th);
         }
+        return redirect()->route('solicitudPlanta.index');
     }
-    
-
 }

@@ -13,7 +13,7 @@
 
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
-    
+
 
 
 
@@ -45,10 +45,10 @@
                             <span class="hidden md:flex ml-1">- PLANTA LÁCTEOS</span></span>
                     </a>
                 </div>
-                <div class="flex gap-1 text-sm "> {{auth()->user()->nombre}} - @livewire('date-time-display') </div> 
+                <div class="flex gap-1 text-sm "> {{ auth()->user()->nombre }} - @livewire('date-time-display') </div>
                 <div class="flex gap-2">
 
-                    
+
 
                     <div class="flex items-center">
                         <div><button data-popover-target="popover-description" data-popover-placement="bottom-end"
@@ -77,7 +77,7 @@
                                         <path
                                             d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z" />
                                     </svg><span> : 77540313</span> </p>
-                                    <livewire:switch-user />
+                                <livewire:switch-user />
                             </div>
                         </div>
 
@@ -269,7 +269,7 @@
                 @endif
 
                 <!--orp-->
-                @if (in_array(auth()->user()->rol, ['Admi', 'Jef', 'Sup', 'HTST', 'UHT']))
+                @if (in_array(auth()->user()->rol, ['Admi', 'Jef', 'Sup', 'HTST', 'UHT', 'FQ']))
                     <li>
                         <a href="{{ route('orp.index') }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -283,6 +283,29 @@
                         </a>
                     </li>
                 @endif
+
+                <!--orp-->
+                @if (in_array(auth()->user()->rol, ['Admi', 'Jef', 'Sup', 'HTST', 'UHT']))
+                    <li>
+                        <a href="{{ route('uht.index') }}"
+                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-4 h-4 fill-gray-500 transition duration-75 dark:fill-gray-400 group-hover:fill-gray-900 dark:group-hover:fill-white"
+                                viewBox="0 0 576 512">
+                                <path
+                                    d="M64 32C46.3 32 32 46.3 32 64l0 240 0 48 0 80c0 26.5 21.5 48 48 48l416 0c26.5 0 48-21.5 48-48l0-128 0-151.8c0-18.2-19.4-29.7-35.4-21.1L352 215.4l0-63.2c0-18.2-19.4-29.7-35.4-21.1L160 215.4 160 64c0-17.7-14.3-32-32-32L64 32z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="w-4 h-4 fill-gray-500 transition duration-75 dark:fill-gray-400 group-hover:fill-gray-900 dark:group-hover:fill-white"
+                                viewBox="0 0 320 512">
+                                <path
+                                    d="M160 64c-26.5 0-48 21.5-48 48l0 164.5c0 17.3-7.1 31.9-15.3 42.5C86.2 332.6 80 349.5 80 368c0 44.2 35.8 80 80 80s80-35.8 80-80c0-18.5-6.2-35.4-16.7-48.9c-8.2-10.6-15.3-25.2-15.3-42.5L208 112c0-26.5-21.5-48-48-48zM48 112C48 50.2 98.1 0 160 0s112 50.1 112 112l0 164.4c0 .1 .1 .3 .2 .6c.2 .6 .8 1.6 1.7 2.8c18.9 24.4 30.1 55 30.1 88.1c0 79.5-64.5 144-144 144S16 447.5 16 368c0-33.2 11.2-63.8 30.1-88.1c.9-1.2 1.5-2.2 1.7-2.8c.1-.3 .2-.5 .2-.6L48 112zM208 368c0 26.5-21.5 48-48 48s-48-21.5-48-48c0-20.9 13.4-38.7 32-45.3L144 208c0-8.8 7.2-16 16-16s16 7.2 16 16l0 114.7c18.6 6.6 32 24.4 32 45.3z" />
+                            </svg>
+                            <span class="ms-3">UHT</span>
+                        </a>
+                    </li>
+                @endif
+
                 @if (in_array(auth()->user()->rol, ['Admi', 'Sup', 'Jef', 'HTST', 'UHT']))
                     <!--solicitud de analisis en linea-->
                     <li>
@@ -422,9 +445,9 @@
                 @endif
 
                 <!-- Externos -->
-                @if (in_array(auth()->user()->rol, ['Admi', 'Ext']) ||
+                @if (in_array(auth()->user()->rol, ['Admi', 'Ext', 'Jef', 'FQ', 'MB']) ||
                         (auth()->user()->rol === 'Jef' && auth()->user()->division->nombre === 'Calidad'))
-                    <!--recepcion de leche-->
+
                     <li>
                         <button type="button"
                             class="flex items-center w-full p-2 text-xs text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
@@ -445,7 +468,7 @@
                             </svg>
                         </button>
                         <ul id="dropdown-externo" class="hidden py-2 space-y-2">
-                            @if (in_array(auth()->user()->rol, ['Admi', 'Jef', 'Ext', 'FQ', 'MB']))
+                            @if (in_array(auth()->user()->rol, ['Admi', 'Jef', 'Ext']))
                                 <li>
                                     <a href="{{ route('solicitudPlanta.index') }}"
                                         class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
@@ -480,7 +503,7 @@
                                     <a href="{{ route('verificacionEquipo.index') }}"
                                         class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                                         Verificación de equipo</a>
-                                </li>-->    
+                                </li>-->
                                 <li>
                                     <a href="{{ route('actividadAgua.index') }}"
                                         class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">

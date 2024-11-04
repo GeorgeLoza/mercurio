@@ -80,7 +80,7 @@
                 <span class="font-bold">Volumenes en Tanque</span>
                 <p class="mb-2 text-gray-500 dark:text-gray-400">@if ($paseEnvasadoHTST){{ $paseEnvasadoHTST->volumenes }}@endif</p>
                 <div>
-                    @if (auth()->user()->id == $pasePreparado->user->id)
+                    @if (auth()->user()->id == $paseEnvasadoHTST->user->id)
                     <button class="p-2 bg-blue-500 rounded-lg text-white" onclick="Livewire.dispatch('openModal', { component: 'paseTurno.editar', arguments: {id: {{ $paseEnvasadoHTST->id}}, area: 'Envasado HTST' } })">
                         Editar</button>    
                     @endif
@@ -126,7 +126,7 @@
                 <span class="font-bold">Volumenes en Tanque</span>
                 <p class="mb-2 text-gray-500 dark:text-gray-400">@if ($paseEnvasadoUHT){{ $paseEnvasadoUHT->volumenes }}@endif</p>
                 <div>
-                    @if (auth()->user()->id == $pasePreparado->user->id)
+                    @if (auth()->user()->id == $paseEnvasadoUHT->user->id)
                     <button class="p-2 bg-blue-500 rounded-lg text-white" onclick="Livewire.dispatch('openModal', { component: 'paseTurno.editar', arguments: {id: {{ $paseEnvasadoUHT->id}}, area: 'Envasado UHT' } })">
                         Editar</button>    
                     @endif

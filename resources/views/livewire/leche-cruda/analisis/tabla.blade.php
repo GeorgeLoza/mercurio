@@ -1,4 +1,12 @@
-<div>
+<div wire:poll.10s>
+    <div class="flex mb-2 gap-2">
+        <a href="{{ route('analisisLinea.index') }}" class="px-2 bg-green-600 text-white rounded-md">
+            Analisis en Linea
+        </a>
+        @if ($pendiente)
+        <p class="bg-red-500 text-white p-1 rounded-md"> Tienes análisis de recepción de leche pendiente</p>
+        @endif
+    </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg  overflow-y-auto h-[28rem] overflow-hidden">   
         
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">

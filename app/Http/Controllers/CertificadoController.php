@@ -36,6 +36,22 @@ class CertificadoController extends Controller
         return $pdf->stream('certificado.pdf');
     }
 
+    public function certificado_micro_pdf2($id)
+    {
+        $datosSolicitud = DetalleSolicitudPlanta::find($id);
+        
+        $normas = TipoMuestra::find($datosSolicitud->tipo_muestra_id);
+
+        if ($datosSolicitud->tipo_analisis == 'Microbiologico') {
+            $resultados = MicrobiologiaExterno::where('detalle_solicitud_planta_id', $id)->first();
+            
+        }
+        $pdf = Pdf::loadView('pdf.externo.certificado2', compact('datosSolicitud', 'resultados', 'normas'));
+        $pdf->setPaper('letter', 'portrait');
+
+        return $pdf->stream('certificado.pdf');
+    }
+
     public function certificado_fisi_pdf($id)
     {
         $datosSolicitud = DetalleSolicitudPlanta::find($id);

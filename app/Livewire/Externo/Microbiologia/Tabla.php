@@ -29,4 +29,9 @@ class Tabla extends Component
         $detalle->estado = "Analizando";
         $detalle->save();
     }
+    public function eliminar($id){
+        $microbiologia = MicrobiologiaExterno::findOrFail($id);
+        $microbiologia->delete();
+    }
+    
 }

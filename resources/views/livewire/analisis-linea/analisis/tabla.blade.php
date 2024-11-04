@@ -1,7 +1,14 @@
-<div class="">
-    
+<div class="" wire:poll.10s>
+    <div class="flex mb-2 gap-2">
+        <a href="{{ route('leche_analisis.index') }}" class="px-2 bg-green-600 text-white rounded-md">
+            Analisis de Leche
+        </a>
+        @if ($pendiente)
+        <p class="bg-red-500 text-white p-1 rounded-md"> Tienes análisis de recepción de leche pendiente</p>
+        @endif
+    </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg  overflow-y-auto h-[28rem] overflow-hidden">
-        <table wire:poll.10s class=" w-full text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
+        <table  class=" w-full text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
             
             <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>

@@ -106,26 +106,27 @@ class TipoMuestra extends Component
     }
 
     private function getFields()
-    {
-        return [
-            'nombre' => $this->nombre,
-            'norma_referencial' => $this->norma_referencial,
-            'unidad' => $this->unidad,
-            'aclaUni' => $this->aclaUni,
-            'min_mes' => $this->min_mes,
-            'min_mes_e' => $this->min_mes_e,
-            'max_mes' => $this->max_mes,
-            'max_mes_e' => $this->max_mes_e,
-            'min_colTot' => $this->min_colTot,
-            'min_colTot_e' => $this->min_colTot_e,
-            'max_colTot' => $this->max_colTot,
-            'max_colTot_e' => $this->max_colTot_e,
-            'min_mohLev' => $this->min_mohLev,
-            'min_mohLev_e' => $this->min_mohLev_e,
-            'max_mohLev' => $this->max_mohLev,
-            'max_mohLev_e' => $this->max_mohLev_e,
-        ];
-    }
+{
+    return [
+        'nombre' => $this->nombre,
+        'norma_referencial' => $this->norma_referencial,
+        'unidad' => $this->unidad,
+        'aclaUni' => $this->aclaUni,
+        'min_mes' => $this->min_mes ?: null,
+        'min_mes_e' => $this->min_mes_e ?: null,
+        'max_mes' => $this->max_mes ?: null,
+        'max_mes_e' => $this->max_mes_e ?: null,
+        'min_colTot' => $this->min_colTot ?: null,
+        'min_colTot_e' => $this->min_colTot_e ?: null,
+        'max_colTot' => $this->max_colTot ?: null,
+        'max_colTot_e' => $this->max_colTot_e ?: null,
+        'min_mohLev' => $this->min_mohLev ?: null,
+        'min_mohLev_e' => $this->min_mohLev_e ?: null,
+        'max_mohLev' => $this->max_mohLev ?: null,
+        'max_mohLev_e' => $this->max_mohLev_e ?: null,
+    ];
+}
+
 
     private function setFields(ModelsTipoMuestra $tipoMuestra)
     {

@@ -16,6 +16,9 @@
                         <option class="bg-gray-100 dark:bg-gray-800 text-xs whitespace-normal" value="1739">
                             Leche Termizada
                         </option>
+                        <option class="bg-gray-100 dark:bg-gray-800 text-xs whitespace-normal" value="1158">
+                            Saldo Leche Termizada
+                        </option>
                     </select>
                     @error('orp_id')
                         <p class="text-red-500 text-xs">* {{ $message }}</p>

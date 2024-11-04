@@ -56,6 +56,7 @@ class Tabla extends Component
 
         $registro = Orp::find($id);
         $registro->estado = 'En proceso';
+        $registro->tiempo_elaboracion = now();
         $registro->save();
 
         // Notificar a los usuarios admin

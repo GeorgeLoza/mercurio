@@ -7,6 +7,8 @@ use Livewire\Attributes\On;
 use App\Models\CalidadLeche;
 use Livewire\WithPagination;
 use App\Models\ParametroLeche;
+use App\Models\SolicitudAnalisisLinea;
+use Carbon\Carbon;
 
 class Tabla extends Component
 {
@@ -92,9 +94,12 @@ public $parametro;
                 $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
             });
             $registros = $this->aplicandoFiltros ? $query->get() : $query->paginate(50); 
+            $pendiente = SolicitudAnalisisLinea::where('estado', 'pendiente')
+            ->where('created_at', '>=', Carbon::now()->subMinutes(20))
+            ->exists(); // Devuelve true si existen registros, false si no
 
         return view('livewire.leche-cruda.analisis.tabla', [
-            'registros' => $registros
+            'registros' => $registros,'pendiente' => $pendiente
         ]);
     }
 

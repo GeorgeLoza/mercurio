@@ -190,19 +190,19 @@
                     <td>{{ $detalle->lote }}</td>
                     <td>
                         @if ($detalle->fecha_elaboracion)
-                            {{ \Carbon\Carbon::parse($detalle->fecha_elaboracion)->isoFormat('d / M / YYYY', 0, 'es') }}
+                            {{ \Carbon\Carbon::parse($detalle->fecha_elaboracion)->isoFormat('DD / MM / YYYY', 0, 'es') }}
                         @else
                             -
                         @endif
                     </td>
                     <td>
                         @if ($detalle->fecha_vencimiento)
-                            {{ \Carbon\Carbon::parse($detalle->fecha_vencimiento)->isoFormat('d / M / YYYY', 0, 'es') }}
+                            {{ \Carbon\Carbon::parse($detalle->fecha_vencimiento)->isoFormat('DD / MM / YYYY', 0, 'es') }}
                         @else
                             -
                         @endif
                     </td>
-                    <td>{{ \Carbon\Carbon::parse($detalle->fecha_muestreo)->isoFormat('d / M / YYYY', 0, 'es') }}</td>
+                    <td>{{ \Carbon\Carbon::parse($detalle->fecha_muestreo)->isoFormat('DD / MM / YYYY', 0, 'es') }}</td>
                     <td>{{ $detalle->tipoMuestra->nombre }}</td>
                     <td>{{ $detalle->tipo_analisis }}</td>
                     <td class="flex gap-2">
@@ -225,6 +225,10 @@
     </table>
 
     <div class="flex justify-end">
-        <button class="bg-green-600 text-white px-6 py-1 mt-4 rounded-md" wire:click="generar"> Generar solicitud</button>
+        <button class="bg-green-600 text-white px-6 py-1 mt-4 rounded-md  @if ($detalles->isEmpty()) bg-green-400 cursor-not-allowed @endif " 
+        wire:click="generar"
+        @if ($detalles->isEmpty()) disabled @endif>
+        Generar solicitud
+    </button>
     </div>
 </div>

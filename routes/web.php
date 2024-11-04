@@ -52,7 +52,7 @@ Route::middleware(['auth'])->group(function () {
         /*ruta para productos */
         Route::get('/producto', [ProductoController::class, 'index'])->name('producto.index');
     });
-    Route::middleware(['roles:Admi,Jef,Sup,HTST,UHT'])->group(function () {
+    Route::middleware(['roles:Admi,Jef,Sup,HTST,UHT,FQ'])->group(function () {
         /*ruta para orp */
         Route::get('/orp', [OrpController::class, 'index'])->name('orp.index');
     });
@@ -98,7 +98,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/paseTurno', [PaseTurnoController::class, 'index'])->name('paseTurno.index');
 
-    Route::middleware(['roles:Admi,Ext,Jef'])->group(function () {
+    Route::middleware(['roles:Admi,Ext,Jef,MB,FQ'])->group(function () {
         /*rtas para analisis externo y sus respectivas solicitudes */
         Route::get('/externo/informacion', [ExternoController::class, 'informacion'])->name('informacion.index');
         Route::get('/externo/productosPlanta', [ExternoController::class, 'productosPlanta'])->name('productosPlanta.index');
@@ -110,9 +110,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/externo/microbiologia', [ExternoController::class, 'microbiologia'])->name('microbiologia.index');
         Route::get('/externo/certificado', [ExternoController::class, 'certificado'])->name('certificado.index');
         Route::get('/certificado/pdf_cer/{id}', [CertificadoController::class, 'certificado_micro_pdf'])->name('certificado.pdf_cer');
+        Route::get('/certificado/pdf_cer2/{id}', [CertificadoController::class, 'certificado_micro_pdf2'])->name('certificado.pdf_cer2');
         Route::get('/certificado_fis/pdf_cer/{id}', [CertificadoController::class, 'certificado_fisi_pdf'])->name('certificado_fis.pdf_cer');
     });
 
+    Route::get('/uht', function () {
+        return view('uht.index');
+    })->name('uht.index');
     /*Rutas de salida login */
     Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
 });

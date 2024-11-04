@@ -17,7 +17,7 @@
         <div class="overflow-x-auto overflow-y-auto">
             <!--Tabla de fisico-->
             @if ($selectedOption === 'fisico')
-                <table class="w-full  text-sm text-center text-gray-500 dark:text-gray-400">
+                <table class="w-full  text-xs text-center text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" class="px-2 py-1">
@@ -198,14 +198,14 @@
 
                 <!--Tabla de microbiologia-->
             @elseif($selectedOption === 'micro')
-                <table class="w-full  text-sm text-center text-gray-500 dark:text-gray-400">
+                <table class="w-full  text-xs text-center text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" class="px-2 py-1">
                                 #
                             </th>
                             <th scope="col" class="px-2 py-1">
-                                Codigo
+                                Código
                             </th>
                             <th scope="col" class="px-2 py-1">
                                 Producto
@@ -221,7 +221,7 @@
                                     Planta
                                 </th>
                                 <th scope="col" class="px-2 py-1">
-                                    Mesofilos, Aerobicos Totales
+                                    Mesófilos, Aeróbicos Totales
                                 </th>
                                 <th scope="col" class="px-2 py-1">
                                     Coliformes Totales
@@ -236,7 +236,6 @@
                             <th scope="col" class="px-2 py-1">
                                 Opciones
                             </th>
-
                         </tr>
                         <tr>
                             <th scope="col" class="px-2 py-1">
@@ -244,17 +243,17 @@
                             </th>
                             <th scope="col" class="px-2 py-1">
                                 <input type="text" id="" wire:model.live='f_codigo'
-                                    class="bg-gray-50 border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    class="bg-gray-50 w-32 border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="">
                             </th>
                             <th scope="col" class="px-2 py-1">
                                 <input type="text" id="" wire:model.live='f_producto'
-                                    class="bg-gray-50 border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    class="bg-gray-50 w-32 border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="">
                             </th>
                             <th scope="col" class="">
                                 <input type="text" id="" wire:model.live='f_lote'
-                                    class="bg-gray-50 border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    class="bg-gray-50 w-32 border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="">
                             </th>
                             <th scope="col" class="px-2 py-1">
@@ -276,7 +275,7 @@
                             @endif
                             <th scope="col" class="px-2 py-1">
                                 <input type="text" id="" wire:model.live='f_estado'
-                                    class="bg-gray-50 border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    class="bg-gray-50 border w-32 border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="">
                             </th>
                             <th scope="col" class="px-2 py-1">
@@ -294,25 +293,25 @@
                                     {{ $index + 1 }}
                                 </td>
                                 <td scope="row"
-                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                    class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                                     nowrap>{{ $micro->detalleSolicitudPlanta->subcodigo }}</td>
 
-                                <td class="px-3 py-2">
+                                <td class="px-2 py-2">
                                     @if ($micro->detalleSolicitudPlanta->productosPlanta)
-                                    {{$micro->detalleSolicitudPlanta->productosPlanta->nombre}}
+                                        {{ $micro->detalleSolicitudPlanta->productosPlanta->nombre }}
                                     @else
-                                    {{$micro->detalleSolicitudPlanta->otro}}
+                                        {{ $micro->detalleSolicitudPlanta->otro }}
                                     @endif
-                                    
+
                                 </td>
-                                <td class="px-3 py-2">{{ $micro->detalleSolicitudPlanta->lote }}</td>
-                                <td class="px-3 py-2" nowrap>{{ $micro->detalleSolicitudPlanta->tipoMuestra->nombre }}
+                                <td class="px-2 py-2">{{ $micro->detalleSolicitudPlanta->lote }}</td>
+                                <td class="px-2 py-2" nowrap>{{ $micro->detalleSolicitudPlanta->tipoMuestra->nombre }}
                                 </td>
                                 @if (auth()->user()->rol == 'Admi' || auth()->user()->rol == 'Jef')
                                     <td class="px-3 py-2" nowrap>
                                         {{ $micro->detalleSolicitudPlanta->user->planta->nombre }}
                                     </td>
-                                    <td class="px-3 py-2">
+                                    <td class="px-2 py-2">
                                         @if ($micro->aer_mes >= 1000000)
                                             MNPC
                                         @endif
@@ -329,8 +328,28 @@
                                         @if ($micro->aer_mes == 0)
                                             < 1 x 10<sup>1</sup>
                                         @endif
+
+                                        @if ($micro->aer_mes2 !== null)
+                                            @if ($micro->aer_mes2 >= 1000000)
+                                                MNPC
+                                            @endif
+                                            @if ($micro->aer_mes2 < 1000000 && $micro->aer_mes2 >= 1)
+                                                {{ $micro->aer_mes2 < 1
+                                                    ? $micro->aer_mes2 * 10 ** (strlen(floor($micro->aer_mes2)) - 1)
+                                                    : $micro->aer_mes2 / 10 ** (strlen(floor($micro->aer_mes2)) - 1) }}
+                                                x 10<sup>{{ strlen(floor($micro->aer_mes)) - 1 }}</sup>
+                                            @endif
+
+                                            @if ($micro->aer_mes2 == null && $micro->aer_mes2 != 0)
+                                                --
+                                            @endif
+                                            @if ($micro->aer_mes2 == 0)
+                                                < 1 x 10<sup>1</sup>
+                                            @endif
+                                        @endif
+
                                     </td>
-                                    <td class="px-3 py-2 ">
+                                    <td class="px-2 py-2 ">
                                         @if ($micro->col_tot >= 1000000)
                                             MNPC
                                         @endif
@@ -348,8 +367,27 @@
                                             < 1 x 10<sup>1</sup>
                                         @endif
 
+                                        @if ($micro->col_tot2 !== null)
+                                            @if ($micro->col_tot2 >= 1000000)
+                                                MNPC
+                                            @endif
+                                            @if ($micro->col_tot2 < 1000000 && $micro->col_tot2 >= 1)
+                                                {{ $micro->col_tot2 < 1
+                                                    ? $micro->col_tot2 * 10 ** (strlen(floor($micro->col_tot2)) - 1)
+                                                    : $micro->col_tot2 / 10 ** (strlen(floor($micro->col_tot2)) - 1) }}
+                                                x 10<sup>{{ strlen(floor($micro->col_tot2)) - 1 }}</sup>
+                                            @endif
+
+                                            @if ($micro->col_tot2 === null)
+                                                --
+                                            @endif
+                                            @if ($micro->col_tot === 0)
+                                                < 1 x 10<sup>1</sup>
+                                            @endif
+                                        @endif
+
                                     </td>
-                                    <td class="px-3 py-2 ">
+                                    <td class="px-2 py-2 ">
                                         @if ($micro->moh_lev >= 1000000)
                                             MNPC
                                         @endif
@@ -366,9 +404,28 @@
                                         @if ($micro->moh_lev == 0)
                                             < 1 x 10<sup>1</sup>
                                         @endif
+
+                                        @if ($micro->moh_lev2 !== null)
+                                            @if ($micro->moh_lev2 >= 1000000)
+                                                MNPC
+                                            @endif
+                                            @if ($micro->moh_lev2 < 1000000 && $micro->moh_lev2 >= 1)
+                                                {{ $micro->moh_lev2 < 1
+                                                    ? $micro->moh_lev2 * 10 ** (strlen(floor($micro->moh_lev2)) - 1)
+                                                    : $micro->moh_lev2 / 10 ** (strlen(floor($micro->moh_lev2)) - 1) }}
+                                                x 10<sup>{{ strlen(floor($micro->moh_lev)) - 1 }}</sup>
+                                            @endif
+
+                                            @if ($micro->moh_lev2 == null && $micro->moh_lev2 != 0)
+                                                --
+                                            @endif
+                                            @if ($micro->moh_lev2 == 0)
+                                                < 1 x 10<sup>1</sup>
+                                            @endif
+                                        @endif
                                     </td>
                                 @endif
-                                <td class="px-3 py-2" nowrap>
+                                <td class="px-2 py-2" nowrap>
                                     <div class="flex items-center">
                                         @if ($micro->detalleSolicitudPlanta->estado == 'Cancelado')
                                             <div class="h-2.5 w-2.5 rounded-full bg-red-500 mr-1"></div>
@@ -391,7 +448,7 @@
                                         {{ $micro->detalleSolicitudPlanta->estado }}
                                     </div>
                                 </td>
-                                <td class="px-3 py-2" nowrap>
+                                <td class="px-2 py-2" nowrap>
                                     @if (auth()->user()->rol == 'Admi' || auth()->user()->rol == 'Jef')
                                         <!--boton para cancelar-->
                                         <button class="p-2 rounded-md "
@@ -417,7 +474,12 @@
                                     @if ($micro->detalleSolicitudPlanta->estado == 'Terminado')
                                         <button class="p-2 rounded-md bg-red-600">
                                             <a
-                                                href="{{ route('certificado.pdf_cer', $micro->detalleSolicitudPlanta->id) }}">
+                                            @if ($micro->detalleSolicitudPlanta->solicitudPlanta->user->planta->id == 49)
+                                            href="{{ route('certificado.pdf_cer2', $micro->detalleSolicitudPlanta->id) }}"    
+                                            @else
+                                            href="{{ route('certificado.pdf_cer2', $micro->detalleSolicitudPlanta->id) }}"
+                                            @endif
+                                                >
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="fill-white h-4 w-4"
                                                     viewBox="0 0 384 512">
                                                     <path

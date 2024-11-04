@@ -9,7 +9,7 @@ class MicrobiologiaExterno extends Model
 {
     use HasFactory;
     protected $fillable = [
-        
+
         'fecha_sembrado',
         'estado',
         'ana_sem_id',
@@ -21,6 +21,9 @@ class MicrobiologiaExterno extends Model
         'moh_lev',
         'ana_dia5_id',
         'detalle_solicitud_planta_id',
+        'aer_mes2',
+        'col_tot2',
+        'moh_lev2',
     ];
 
     public function user1()

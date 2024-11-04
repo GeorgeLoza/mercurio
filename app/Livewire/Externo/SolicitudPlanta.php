@@ -42,6 +42,31 @@ class SolicitudPlanta extends Component
         $solicitud->save();
     }
 
+    public function eliminar($id)
+    {
+        $solicitud = ModelsSolicitudPlanta::findOrFail($id);
+
+        // Eliminar las relaciones en el orden correcto
+        $solicitud->detalles()->each(function ($detalle) {
+            $detalle->ActividadAgua()->delete();
+            $detalle->microbiologiaExterno()->delete();
+            $detalle->delete();
+        });
+
+        // Eliminar la solicitud después de eliminar los detalles relacionados
+        $solicitud->delete();
+    }
+    public function eliminar_detalle($id)
+    {
+        $detalle = DetalleSolicitudPlanta::findOrFail($id);
+
+        // Eliminar las relaciones asociadas
+        $detalle->ActividadAgua()->delete();
+        $detalle->microbiologiaExterno()->delete();
+
+        // Eliminar el detalle después de las relaciones
+        $detalle->delete();
+    }
     public function confirmar($id)
     {
         $detalle = DetalleSolicitudPlanta::find($id);
@@ -65,6 +90,9 @@ class SolicitudPlanta extends Component
 
     public function observado($id)
     {
+        $detalle = DetalleSolicitudPlanta::find($id);
+        $detalle->estado = "Observado";
+        $detalle->save();
     }
     public function pdf_solicitud($id)
     {
@@ -91,5 +119,66 @@ class SolicitudPlanta extends Component
         } else {
             $this->openCollapse[$solicitudId] = true;
         }
+    }
+
+
+    /*edicion de dato detalle */
+    // En tu componente Livewire
+    public $editMode = false;
+    public $editId = null;
+    public $editData = [
+        'subcodigo' => '',
+        'lote' => '',
+        'fecha_elaboracion' => '',
+        'fecha_vencimiento' => '',
+        'fecha_muestreo' => '',
+        'tipo_analisis' => '',
+        'estado' => '',
+    ];
+
+    // Método para habilitar el modo de edición
+    public function edit($id)
+    {
+        $detalle = DetalleSolicitudPlanta::find($id);
+        $this->editId = $id;
+        $this->editData = [
+            'subcodigo' => $detalle->subcodigo,
+            'lote' => $detalle->lote,
+            'fecha_elaboracion' => $detalle->fecha_elaboracion,
+            'fecha_vencimiento' => $detalle->fecha_vencimiento,
+            'fecha_muestreo' => $detalle->fecha_muestreo,
+            'tipo_analisis' => $detalle->tipo_analisis,
+            'estado' => $detalle->estado,
+        ];
+        $this->editMode = true;
+    }
+
+    // Método para guardar la edición
+    public function save()
+    {
+        $this->validate([
+            'editData.subcodigo' => 'required|string',
+            'editData.lote' => 'required|string',
+            'editData.fecha_elaboracion' => 'required|date',
+            'editData.fecha_vencimiento' => 'required|date',
+            'editData.fecha_muestreo' => 'required|date',
+            'editData.tipo_analisis' => 'required|string',
+            'editData.estado' => 'required|string',
+        ]);
+
+        $detalle = DetalleSolicitudPlanta::find($this->editId);
+        if ($detalle) {
+            $detalle->update($this->editData);
+        }
+
+        $this->resetEdit();
+    }
+
+    // Método para cancelar la edición
+    public function resetEdit()
+    {
+        $this->editMode = false;
+        $this->editId = null;
+        $this->editData = [];
     }
 }

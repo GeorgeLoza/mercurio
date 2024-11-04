@@ -5,6 +5,7 @@ namespace App\Livewire\UsuarioComponent;
 use App\Models\Division;
 use App\Models\Planta;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
 
@@ -19,6 +20,8 @@ class Editar extends ModalComponent
     public $correo;
     public $rol;
     public $division_id;
+    public $password;
+    public $password_confirmation;
     
     //valores para cargar selects
     public $divisiones;
@@ -55,6 +58,12 @@ class Editar extends ModalComponent
             'division_id' => 'required',
 
         ]);
+        if ($this->password != null) {
+            $this->validate([
+                'password' => 'confirmed',
+
+            ]);
+        }
         try {
 
             $usuario = User::find($this->id);
@@ -65,6 +74,9 @@ class Editar extends ModalComponent
             $usuario->correo = $this->correo;
             $usuario->rol = $this->rol;
             $usuario->division_id = $this->division_id;
+            if ($this->password != null) {
+                $usuario->password = Hash::make($this->password);
+            }
             $usuario->save();
 
             $this->dispatch('actualizar_tabla_usuarios');

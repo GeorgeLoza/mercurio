@@ -10,6 +10,9 @@
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700" wire:click="sortBy('descripcion')">
                         descripción
                     </th>
+                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700" wire:click="sortBy('descripcion')">
+                        grupo
+                    </th>
                    
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
                         opciones
@@ -40,6 +43,9 @@
                    
                     <td class="px-6 py-2">
                         {{$categoria->descripcion}}
+                    </td>
+                    <td class="px-6 py-2">
+                        {{$categoria->grupo}}
                     </td>
                    
                     <td class="flex items-center px-6 py-2 gap-2">
