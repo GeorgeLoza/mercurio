@@ -2,7 +2,7 @@
     <div class="flex justify-end mb-2 gap-2">
         <select wire:model.live='f_estado'
             class="block  p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            <option selected >Escoge un estado</option>
+            <option selected>Escoge un estado</option>
             <option value="Pendiente"> Pendiente</option>
             <option value="Programado"> Programado</option>
             <option value="Cancelado"> Cancelado</option>
@@ -37,9 +37,10 @@
                         ORP
                     </th>
                     {{-- fecha --}}
-                    <th scope="col" class="px-3 py-1 sticky top-0 left-0 z-30 bg-white dark:bg-gray-700 overflow-x-auto"
-                    wire:click="sortBy('tiempo_elaboracion')">
-                    fecha
+                    <th scope="col"
+                        class="px-3 py-1 sticky top-0 left-0 z-30 bg-white dark:bg-gray-700 overflow-x-auto"
+                        wire:click="sortBy('tiempo_elaboracion')">
+                        fecha
                     </th>
                     {{--  --}}
                     <th scope="col" nowrap class="px-2 py-1 sticky top-0 bg-white dark:bg-gray-700">
@@ -56,9 +57,8 @@
                         lote
                     </th>
                     {{-- categoria --}}
-                    <th scope="col" class="px-2 py-1 sticky top-0 bg-white dark:bg-gray-700"
-                    >
-                    categoria
+                    <th scope="col" class="px-2 py-1 sticky top-0 bg-white dark:bg-gray-700">
+                        categoria
                     </th>
                     {{-- fin categoria --}}
                     <th scope="col" class="px-2 py-1 sticky top-0 bg-white dark:bg-gray-700"
@@ -96,8 +96,8 @@
                 @if ($filtro == true)
                     <!-- fila de filtros -->
                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 sticky z-20 top-6">
-                        
-                        
+
+
                         <th class="sticky bg-gray-200 dark:bg-gray-800 p-1 left-0 z-30">
                             <input type="" wire:model.live='f_codigo' placeholder="Filtrar por Orp"
                                 class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -130,24 +130,24 @@
                         {{-- filtro categoria --}}
                         <th class="p-1">
                             <select wire:model.live='f_grupo'
-                            class="block  p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option selected >Escoge una categoria</option>
-                            <option value="UHT"> UHT</option>
-                            <option value="HTST"> HTST</option>
-                            
-                        </select>
-                             </th>
+                                class="block  p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option selected>Escoge una categoria</option>
+                                <option value="UHT"> UHT</option>
+                                <option value="HTST"> HTST</option>
+
+                            </select>
+                        </th>
                         {{-- fin filtro categoria --}}
                         <th class="p-1">
                             <select wire:model.live='f_estado'
-                            class="block  p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option selected>Escoge un estado</option>
-                            <option value="Pendiente"> Pendiente</option>
-                            <option value="Programado"> Programado</option>
-                            <option value="Cancelado"> Cancelado</option>
-                            <option value="En proceso"> En proceso</option>
-                            <option value="Completado"> Completado</option>
-                        </select>
+                                class="block  p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option selected>Escoge un estado</option>
+                                <option value="Pendiente"> Pendiente</option>
+                                <option value="Programado"> Programado</option>
+                                <option value="Cancelado"> Cancelado</option>
+                                <option value="En proceso"> En proceso</option>
+                                <option value="Completado"> Completado</option>
+                            </select>
                         </th>
                         <th class="p-1">
                             <input type="text" wire:model.live='f_tiempoElaboracion'
@@ -205,7 +205,7 @@
                                 {{ Str::limit($orp->producto->nombre, 35) }}</div>
                             <div data-popover id="popover-{{ $orp->id }}" role="tooltip"
                                 class="absolute z-10 invisible  text-center inline-block w-auto text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800 px-1">
-                                </div>
+                            </div>
 
                         </td>
                         <td class="px-2 " nowrap>
@@ -217,9 +217,9 @@
                             {{ $orp->lote / 1 }}
                         </td>
                         <td class="px-2 " nowrap>
-@if ($orp->producto->categoriaProducto)
-{{ $orp->producto->categoriaProducto->grupo }}    
-@endif
+                            @if ($orp->producto->categoriaProducto)
+                                {{ $orp->producto->categoriaProducto->grupo }}
+                            @endif
 
 
 
@@ -263,8 +263,8 @@
                         </td>
                         <td class="px-2  hidden ">
                             {{ $orp->fecha_vencimiento2 }}
-                        </td> 
-                        
+                        </td>
+
                         <td class="flex items-center px-2  gap-1">
                             <!--boton para programar-->
                             @if ($orp->estado == 'Pendiente')
@@ -284,7 +284,7 @@
                                 </button>
                             @endif
                             <!--boton para pendiente-->
-                            @if (in_array(auth()->user()->rol, ['Admi', 'Jef','Sup']))
+                            @if (in_array(auth()->user()->rol, ['Admi', 'Jef', 'Sup']))
                                 <button class="p-2 rounded-md whitespace-nowrap"
                                     wire:click="pendiente({{ $orp->id }})">
                                     <span
