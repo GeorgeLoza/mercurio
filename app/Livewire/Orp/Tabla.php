@@ -24,6 +24,9 @@ class Tabla extends Component
     public $f_fechaVencimiento2 = null;
     public $f_producto = null;
     public $f_productoCodigo = null;
+    //categoria 
+    public $f_grupo = null;
+    
 
     public $aplicandoFiltros = false;
 
@@ -117,6 +120,14 @@ class Tabla extends Component
             ->when($this->f_codigo, function ($query) {
                 return $query->where('codigo', 'like', '%' . $this->f_codigo . '%');
             })
+
+            //prueba
+            ->when($this->f_grupo, function ($query) {
+                return $query->whereHas('producto.categoriaProducto', function ($query) {
+                    $query->where('grupo', 'like', '%' . $this->f_grupo . '%');
+                });
+            })
+            //fin prueba
             ->when($this->f_codigoProducto, function ($query) {
                 return $query->whereHas('producto', function ($query) {
                     $query->where('codigo', 'like', '%' . $this->f_codigoProducto . '%');
@@ -167,13 +178,13 @@ class Tabla extends Component
     }
     public function limpiarFiltros()
     {
-        $this->reset(['f_codigo', 'f_codigoProducto', 'f_nombreProducto', 'f_lote', 'f_estado', 'f_tiempoElaboracion', 'f_fechaVencimiento1', 'f_fechaVencimiento2', 'f_productoCodigo']);
+        $this->reset(['f_codigo', 'f_codigoProducto', 'f_nombreProducto', 'f_lote', 'f_estado', 'f_tiempoElaboracion', 'f_fechaVencimiento1', 'f_fechaVencimiento2', 'f_productoCodigo','f_grupo']);
 
         // Refresca el componente
         $this->js('window.location.reload()');
     }
     private function hayFiltrosActivos(): bool
     {
-        return $this->f_codigo || $this->f_codigoProducto || $this->f_nombreProducto || $this->f_lote || $this->f_estado || $this->f_tiempoElaboracion || $this->f_fechaVencimiento1 || $this->f_fechaVencimiento2 || $this->f_productoCodigo;
+        return $this->f_codigo || $this->f_codigoProducto || $this->f_nombreProducto || $this->f_lote || $this->f_estado || $this->f_tiempoElaboracion || $this->f_fechaVencimiento1 || $this->f_fechaVencimiento2 || $this->f_productoCodigo || $this->f_grupo;
     }
 }

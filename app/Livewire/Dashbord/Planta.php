@@ -35,11 +35,13 @@ class Planta extends Component
     public $TKSC;
     public $TKAUX1;
     public $TKAUX2;
-    
+
+    //seccion soya
     public $TKSY;
     public $l1;
     public $l2;
     public $l3;
+
     //PASTEURIZADORES
     public $maguer;
     public $tetra;
@@ -156,6 +158,16 @@ class Planta extends Component
         //ultra
         $this->ultra = EstadoPlanta::where('origen_id', '26')->latest('created_at')->first();
 
+        //SECCION SOYA
+        //TKSY
+        $this->TKSY = EstadoPlanta::where('origen_id', '56')->latest('created_at')->first();
+        //L1
+        $this->l1 = EstadoPlanta::where('origen_id', '57')->latest('created_at')->first();
+        //L2
+        $this->l2 = EstadoPlanta::where('origen_id', '58')->latest('created_at')->first();
+        //L3
+        $this->l3 = EstadoPlanta::where('origen_id', '59')->latest('created_at')->first();
+
         //CONULTA DE ENVASADORAS
         //HTST
         $this->HTST_1A = EstadoPlanta::where('origen_id', '48')->latest('created_at')->first();
@@ -195,9 +207,13 @@ class Planta extends Component
         $this->V2 = EstadoPlanta::where('origen_id', '51')->latest('created_at')->first();
         $this->V3 = EstadoPlanta::where('origen_id', '52')->latest('created_at')->first();
 
+
         //ARAñA
         $this->araña = EstadoPlanta::where('origen_id', '53')->latest('created_at')->first();
+        
         return view('livewire.dashbord.planta');
+
+        //SOYA
     }
 
     public function solicitar($id)

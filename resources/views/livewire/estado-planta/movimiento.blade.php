@@ -205,6 +205,7 @@
                             <optgroup label="Auxiliares">
                                 <option value="54">TK AUX1</option>
                                 <option value="55">TK AUX2</option>
+                                <option value="56">TK SY</option>
                             </optgroup>
                             <optgroup label="Recepción">
                                 <option value="6">R1</option>
