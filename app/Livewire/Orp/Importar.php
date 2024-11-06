@@ -62,7 +62,7 @@ class Importar extends ModalComponent
                     $lotes = $matches[1];
                 } elseif (preg_match('/(\d+(?:\.\d+)?)\s*(?:MIX|mix|Mix)\b/', $comentarios, $matches)) {
                     // Si se encuentra "MIX" o variantes, se convierte a lotes (1 lote = 270 mix)
-                    $lotes = $matches[1] * 108;
+                    $lotes = $matches[1] * 0.108;
                 } else {
                     // En caso de no encontrar "LOTE" o "MIX", asignar null
                     $lotes = null;
