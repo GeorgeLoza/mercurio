@@ -474,12 +474,13 @@
                                     @if ($micro->detalleSolicitudPlanta->estado == 'Terminado')
                                         <button class="p-2 rounded-md bg-red-600">
                                             <a
-                                            @if ($micro->detalleSolicitudPlanta->solicitudPlanta->user->planta->id == 49 && $micro->detalleSolicitudPlanta->tipoMuestra->id ==8)
+                                            @if ($micro->detalleSolicitudPlanta->solicitudPlanta->user->id == 49 && $micro->detalleSolicitudPlanta->tipoMuestra->id ==8)
                                             href="{{ route('certificado.pdf_cer2', $micro->detalleSolicitudPlanta->id) }}"
                                             @else
                                             href="{{ route('certificado.pdf_cer', $micro->detalleSolicitudPlanta->id) }}"
                                             @endif
                                                 >
+
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="fill-white h-4 w-4"
                                                     viewBox="0 0 384 512">
                                                     <path

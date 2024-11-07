@@ -3,13 +3,11 @@
         <div class=" mb-8">
             <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Analisis
                 Microbiologico - Dia 2</h3>
-
+            {{ $data->detalleSolicitudPlanta->tipo_muestra_id != 8 }}
             <form novalidate wire:submit="dia2">
                 <!--para simples-->
-
                 <h3 class="mb-2 text-md font-medium text-gray-900 dark:text-white">Analisis de
                     Superficie</h3>
-
                 <div>
                     <label for="aer_mes" class="block mb-2 text-xs font-medium text-gray-900 dark:text-white">
                         Aerobios mesófilos</label>
@@ -182,7 +180,8 @@
                     <label for="moh_lev2" class="block mb-2 text-xs font-medium text-gray-900 dark:text-white">Mohos y
                         Levaduras - profundidad</label>
                     <div class="flex gap-2">
-                        <input type="number" step="0.01" name="moh_lev2" id="moh_lev2" wire:model.live="moh_lev2"
+                        <input type="number" step="0.01" name="moh_lev2" id="moh_lev2"
+                            wire:model.live="moh_lev2"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                             placeholder=" ">
                         <span class="w-1/3">

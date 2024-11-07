@@ -20,7 +20,7 @@ class Vencimiento extends Component
             ->whereHas('producto.categoriaProducto', function ($query) {
                 $query->where('grupo', 'UHT');
             })
-            ->where('created_at', '>=', Carbon::now()->subDays(20))
+            ->where('created_at', '>=', Carbon::now()->subDays(5))
             ->get();
 
         return view('livewire.uht.vencimiento', ['orps' => $this->orps]);
