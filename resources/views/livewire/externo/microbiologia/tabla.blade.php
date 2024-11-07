@@ -153,20 +153,19 @@
                                     --
                             @endif
 
-                            @if ($micro->aer_mes2)
-                                @if ($micro->aer_mes2 >= 1000000)
-                                    MNPC
-                                @elseif ($micro->aer_mes2 < 1000000 && $micro->aer_mes2 >= 1)
-                                    {{ $micro->aer_mes2 < 1
-                                        ? $micro->aer_mes2 * 10 ** (strlen(floor($micro->aer_mes2)) - 1)
-                                        : $micro->aer_mes2 / 10 ** (strlen(floor($micro->aer_mes2)) - 1) }}
-                                    x 10<sup>{{ strlen(floor($micro->aer_mes2)) - 1 }}</sup>
-                                @elseif ($micro->aer_mes2 === 0)
-                                    < 1 x 10<sup>1</sup>
-                                    @elseif (is_null($micro->aer_mes2))
-                                        --
-                                @endif
+                            @if ($micro->aer_mes2 >= 1000000)
+                                MNPC
+                            @elseif ($micro->aer_mes2 < 1000000 && $micro->aer_mes2 >= 1)
+                                {{ $micro->aer_mes2 < 1
+                                    ? $micro->aer_mes2 * 10 ** (strlen(floor($micro->aer_mes2)) - 1)
+                                    : $micro->aer_mes2 / 10 ** (strlen(floor($micro->aer_mes2)) - 1) }}
+                                x 10<sup>{{ strlen(floor($micro->aer_mes2)) - 1 }}</sup>
+                            @elseif ($micro->aer_mes2 === 0)
+                                < 1 x 10<sup>1</sup>
+                                @elseif (is_null($micro->aer_mes2))
+                                    --
                             @endif
+
 
 
 
@@ -186,20 +185,19 @@
                                     --
                             @endif
 
-                            @if ($micro->col_tot2)
-                                @if ($micro->col_tot2 >= 1000000)
-                                    MNPC
-                                @elseif ($micro->col_tot2 < 1000000 && $micro->col_tot2 >= 1)
-                                    {{ $micro->col_tot2 < 1
-                                        ? $micro->col_tot2 * 10 ** (strlen(floor($micro->col_tot2)) - 1)
-                                        : $micro->col_tot2 / 10 ** (strlen(floor($micro->col_tot2)) - 1) }}
-                                    x 10<sup>{{ strlen(floor($micro->col_tot2)) - 1 }}</sup>
-                                @elseif ($micro->col_tot2 === 0)
-                                    < 1 x 10<sup>1</sup>
-                                    @elseif (is_null($micro->col_tot2))
-                                        --
-                                @endif
+                            @if ($micro->col_tot2 >= 1000000)
+                                MNPC
+                            @elseif ($micro->col_tot2 < 1000000 && $micro->col_tot2 >= 1)
+                                {{ $micro->col_tot2 < 1
+                                    ? $micro->col_tot2 * 10 ** (strlen(floor($micro->col_tot2)) - 1)
+                                    : $micro->col_tot2 / 10 ** (strlen(floor($micro->col_tot2)) - 1) }}
+                                x 10<sup>{{ strlen(floor($micro->col_tot2)) - 1 }}</sup>
+                            @elseif ($micro->col_tot2 === 0)
+                                < 1 x 10<sup>1</sup>
+                                @elseif (is_null($micro->col_tot2))
+                                    --
                             @endif
+
                         </td>
                         <td class="px-3 py-2 " nowrap>
                             @if ($micro->fecha_dia5)
@@ -224,26 +222,25 @@
                                 @elseif (is_null($micro->moh_lev))
                                     --
                             @endif
-
-                            @if ($micro->moh_lev2)
-                                @if ($micro->moh_lev2 >= 1000000)
-                                    MNPC
-                                @elseif ($micro->moh_lev2 < 1000000 && $micro->moh_lev2 >= 1)
-                                    {{ $micro->moh_lev2 < 1
-                                        ? $micro->moh_lev2 * 10 ** (strlen(floor($micro->moh_lev2)) - 1)
-                                        : $micro->moh_lev2 / 10 ** (strlen(floor($micro->moh_lev2)) - 1) }}
-                                    x 10<sup>{{ strlen(floor($micro->moh_lev2)) - 1 }}</sup>
-                                @elseif ($micro->moh_lev2 === 0)
-                                    < 1 x 10<sup>1</sup>
-                                    @elseif (is_null($micro->moh_lev2))
-                                        --
-                                @endif
+                            @if ($micro->moh_lev2 >= 1000000)
+                                MNPC
+                            @elseif ($micro->moh_lev2 < 1000000 && $micro->moh_lev2 >= 1)
+                                {{ $micro->moh_lev2 < 1
+                                    ? $micro->moh_lev2 * 10 ** (strlen(floor($micro->moh_lev2)) - 1)
+                                    : $micro->moh_lev2 / 10 ** (strlen(floor($micro->moh_lev2)) - 1) }}
+                                x 10<sup>{{ strlen(floor($micro->moh_lev2)) - 1 }}</sup>
+                            @elseif ($micro->moh_lev2 === 0)
+                                < 1 x 10<sup>1</sup>
+                                @elseif (is_null($micro->moh_lev2))
+                                    --
                             @endif
+
 
                         </td>
 
                         <td class="px-3 py-2 flex justify-center">
                             @if ($micro->estado == 'Pendiente')
+                            <input type="date" wire:model="fecha_sembrado" class="border rounded p-1" />
                                 <button class="bg-green-600 fill-white p-1 rounded-md"
                                     wire:click="sembrar({{ $micro->id }})">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="h-4 w-4">
@@ -264,17 +261,17 @@
                                 </button>
                             @endif
                             @if (in_array(auth()->user()->rol, ['Admi', 'Jef']))
-                            <button wire:click="eliminar({{ $micro->id }})" wire:confirm="Esta seguro de eliminar el elemento?">
-                                
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                class="h-4 w-20 fill-red-600 dark:fill-red-500"
-                                    viewBox="0 0 448 512">
-                                    <path
-                                        d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z" />
-                                </svg>
-                            </button>    
+                                <button wire:click="eliminar({{ $micro->id }})"
+                                    wire:confirm="Esta seguro de eliminar el elemento?">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="h-4 w-20 fill-red-600 dark:fill-red-500" viewBox="0 0 448 512">
+                                        <path
+                                            d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z" />
+                                    </svg>
+                                </button>
                             @endif
-                            
+
                         </td>
 
                     </tr>

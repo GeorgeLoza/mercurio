@@ -192,7 +192,7 @@
         </table>
 
     </div>
-    
+
     @if (!$aplicandoFiltros)
         <div>
             {{ $productos->links('pagination::tailwind') }}
