@@ -159,4 +159,22 @@ class OrpReporte extends Component
             'text.pdf'
         );
     }
+
+    public function generatePDF3()
+    {
+
+        return response()->streamDownload(
+            function () {
+
+                $data = $this->resultados_agrupados;
+                $informacion = $this->reporte;
+                $usuariosInvolucrados = $this->usuariosInvolucrados;
+                $pdf = App::make('dompdf.wrapper');
+                $pdf = Pdf::loadView('pdf.reportes.orpUHT', compact(['data', 'informacion','usuariosInvolucrados']));
+                $pdf->setPaper('letter', 'portrait');
+                echo $pdf->stream();
+            },
+            'text.pdf'
+        );
+    }
 }
