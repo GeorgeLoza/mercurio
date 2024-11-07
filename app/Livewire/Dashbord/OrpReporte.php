@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Dashbord;
 
+use App\Models\AnalisisLinea;
 use App\Models\Orp;
 use App\Models\User;
 use Livewire\Component;
@@ -36,11 +37,11 @@ class OrpReporte extends Component
         $this->reporte = Orp::where('id', $this->orpId)->first();
 
         $preparacionesCrudas = EstadoDetalle::where('orp_id', $this->orpId)
-        ->whereHas('estadoPlanta', function ($query) {
-            $query->where('etapa_id', 1);
-        })
-        ->distinct()
-        ->pluck('preparacion');
+            ->whereHas('estadoPlanta', function ($query) {
+                $query->where('etapa_id', 1);
+            })
+            ->distinct()
+            ->pluck('preparacion');
         $preparacionesProcesadas = [];
 
         foreach ($preparacionesCrudas as $prep) {
@@ -57,6 +58,7 @@ class OrpReporte extends Component
                 ->whereHas('estadoPlanta.solicitudAnalisisLinea') // Asegura que exista una solicitud de análisis relacionada
                 ->get();
         }
+
         // Recolectar IDs de usuarios directamente involucrados en EstadoDetalle para el Orp dado
         $userIdsFromEstadoDetalle = EstadoDetalle::where('orp_id', $this->orpId)
             ->pluck('user_id')
@@ -120,8 +122,6 @@ class OrpReporte extends Component
         }
 
         return $nuevaAgrupacion;
-
-        
     }
 
     public function generatePDF()
@@ -134,14 +134,14 @@ class OrpReporte extends Component
                 $informacion = $this->reporte;
                 $usuariosInvolucrados = $this->usuariosInvolucrados;
                 $pdf = App::make('dompdf.wrapper');
-                $pdf = Pdf::loadView('pdf.reportes.orpReport', compact(['data', 'informacion','usuariosInvolucrados']));
+                $pdf = Pdf::loadView('pdf.reportes.orpReport', compact(['data', 'informacion', 'usuariosInvolucrados']));
                 $pdf->setPaper('letter', 'portrait');
                 echo $pdf->stream();
             },
             'text.pdf'
         );
     }
-    
+
     public function generatePDF2()
     {
 
@@ -152,7 +152,7 @@ class OrpReporte extends Component
                 $informacion = $this->reporte;
                 $usuariosInvolucrados = $this->usuariosInvolucrados;
                 $pdf = App::make('dompdf.wrapper');
-                $pdf = Pdf::loadView('pdf.reportes.orpReport2', compact(['data', 'informacion','usuariosInvolucrados']));
+                $pdf = Pdf::loadView('pdf.reportes.orpReport2', compact(['data', 'informacion', 'usuariosInvolucrados']));
                 $pdf->setPaper('letter', 'portrait');
                 echo $pdf->stream();
             },
@@ -166,11 +166,31 @@ class OrpReporte extends Component
         return response()->streamDownload(
             function () {
 
+                // Consulta con filtros
+                $orpId = $this->orpId;
+
+                // Consulta con filtro de orp_id y etapa_id = 1
+                $mezclas = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function($query) {
+                    $query->where('etapa_id', 1); // Filtra registros con etapa_id = 1
+                })
+                ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function($query) use ($orpId) {
+                    $query->where('orp_id', $orpId); // Filtra siempre por orp_id
+                })
+                ->get();
+
+                $envasados = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function($query) {
+                    $query->where('etapa_id', 8); // Filtra registros con etapa_id = 8
+                })
+                ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function($query) use ($orpId) {
+                    $query->where('orp_id', $orpId); // Filtra siempre por orp_id
+                })
+                ->get();
+
                 $data = $this->resultados_agrupados;
                 $informacion = $this->reporte;
                 $usuariosInvolucrados = $this->usuariosInvolucrados;
                 $pdf = App::make('dompdf.wrapper');
-                $pdf = Pdf::loadView('pdf.reportes.orpUHT', compact(['data', 'informacion','usuariosInvolucrados']));
+                $pdf = Pdf::loadView('pdf.reportes.orpUHT', compact(['data', 'informacion', 'usuariosInvolucrados','mezclas','envasados']));
                 $pdf->setPaper('letter', 'portrait');
                 echo $pdf->stream();
             },
