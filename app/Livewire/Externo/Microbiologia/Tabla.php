@@ -9,6 +9,9 @@ use Livewire\Component;
 
 class Tabla extends Component
 {
+    public $fecha_sembrado;
+
+
     #[On('actualizar_tabla_microexterno')]
     public function render()
     {
@@ -19,19 +22,25 @@ class Tabla extends Component
     public function sembrar($id)
     {
         $microbiologia = MicrobiologiaExterno::find($id);
-        $microbiologia->fecha_sembrado = now();
-        $microbiologia->estado = "Sembrado";
-        $microbiologia->ana_sem_id = auth()->user()->id;;
-        $microbiologia->save();
 
+        // Verificar si el usuario seleccionó una fecha; si no, usar la fecha actual
+        $microbiologia->fecha_sembrado = $this->fecha_sembrado ?? now();
+
+        $microbiologia->estado = "Sembrado";
+        $microbiologia->ana_sem_id = auth()->user()->id;
+        $microbiologia->save();
 
         $detalle = DetalleSolicitudPlanta::where("id", $microbiologia->detalle_solicitud_planta_id)->first();
         $detalle->estado = "Analizando";
         $detalle->save();
+
+        // Limpiar la fecha después de guardar
+        $this->fecha_sembrado = null;
     }
+
     public function eliminar($id){
         $microbiologia = MicrobiologiaExterno::findOrFail($id);
         $microbiologia->delete();
     }
-    
+
 }

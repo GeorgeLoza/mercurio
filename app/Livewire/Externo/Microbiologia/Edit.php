@@ -11,7 +11,7 @@ class Edit extends ModalComponent
 {
     public $id;
 
-    
+
 
     public $aer_mes;
     public $col_tot;
@@ -23,7 +23,7 @@ class Edit extends ModalComponent
     public $data;
     public function mount()
     {
-        
+
         $microbiologia = MicrobiologiaExterno::findOrFail($this->id);
         $this->data = $microbiologia;
         $this->aer_mes = $microbiologia->aer_mes;
@@ -47,10 +47,11 @@ class Edit extends ModalComponent
 
         try {
             $microbiologia = MicrobiologiaExterno::find($this->id);
-            $microbiologia->aer_mes = $this->aer_mes;
-            $microbiologia->col_tot = $this->col_tot;
-            $microbiologia->aer_mes2 = $this->aer_mes2;
-            $microbiologia->col_tot2 = $this->col_tot2;
+            // Verificación para todas las variables antes de asignarlas al modelo
+            $microbiologia->aer_mes = $this->aer_mes !== '' ? $this->aer_mes : null;
+            $microbiologia->col_tot = $this->col_tot !== '' ? $this->col_tot : null;
+            $microbiologia->aer_mes2 = $this->aer_mes2 !== '' ? $this->aer_mes2 : null;
+            $microbiologia->col_tot2 = $this->col_tot2 !== '' ? $this->col_tot2 : null;
             $microbiologia->estado = "2 Dias";
             if (is_null($microbiologia->fecha_dia2)) {
                 $microbiologia->fecha_dia2 = now();
@@ -78,8 +79,8 @@ class Edit extends ModalComponent
 */
         try {
             $microbiologia = MicrobiologiaExterno::find($this->id);
-            $microbiologia->moh_lev = $this->moh_lev;
-            $microbiologia->moh_lev2 = $this->moh_lev2;
+            $microbiologia->moh_lev = $this->moh_lev !== '' ? $this->moh_lev : null;
+            $microbiologia->moh_lev2 = $this->moh_lev2 !== '' ? $this->moh_lev2 : null;
             $microbiologia->estado = "Analizado";
             if (is_null($microbiologia->fecha_dia5)) {
                 $microbiologia->fecha_dia5 = now();
