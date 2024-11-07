@@ -5,7 +5,7 @@
                 <tr>
                     <th scope="col" class="px-1 py-2">orp</th>
                     <th scope="col" class="px-1 py-2">producto</th>
-                    <th scope="col" class="px-1 py-2">f. Elaboracion</th>
+
                     <th scope="col" class="px-1 py-2">f. Vencimiento</th>
                     <th scope="col" class="px-1 py-2"><span class="sr-only">Edit</span></th>
                 </tr>
@@ -17,13 +17,7 @@
                         {{$orp->codigo}}
                     </th>
                     <td class="px-1 py-2">{{$orp->producto->nombre}}</td>
-                    <td class="px-1 py-2">
-                        @if ($editingOrpId === $orp->id)
-                            <input type="date" wire:model.defer="tiempo_elaboracion" class="border border-gray-300 rounded" />
-                        @else
-                            {{$orp->producto->tiempo_elaboracion}}
-                        @endif
-                    </td>
+
                     <td class="px-1 py-2">
                         @if ($editingOrpId === $orp->id)
                             <input type="date" wire:model.defer="fecha_vencimiento1" class="border border-gray-300 rounded" />
@@ -39,7 +33,7 @@
                             <button wire:click="edit({{ $orp->id }}, '{{ $orp->producto->tiempo_elaboracion }}', '{{ $orp->producto->fecha_vencimiento1 }}')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</button>
                         @endif
                     </td>
-                </tr>    
+                </tr>
                 @endforeach
             </tbody>
         </table>
