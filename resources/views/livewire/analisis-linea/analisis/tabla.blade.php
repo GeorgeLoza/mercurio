@@ -1,4 +1,6 @@
-<div class="" wire:poll.10s>
+<div @if (auth()->user()->rol=="FQ")
+    wire:poll.10s
+@endif >
     <div class="flex mb-2 gap-2">
         <a href="{{ route('leche_analisis.index') }}" class="px-2 bg-green-600 text-white rounded-md">
             Analisis de Leche
@@ -324,10 +326,14 @@
         </table>
     </div>
     @if (!$aplicandoFiltros)
+    @if (auth()->user()->rol=="FQ")
+    @else
         <div>
             {{ $calidades->links('pagination::tailwind') }}
         </div>
-    @endif
+        
+        @endif
+        @endif
 
 </div>
 
