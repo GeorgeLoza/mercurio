@@ -52,7 +52,16 @@ class Edit extends ModalComponent
             $microbiologia->col_tot = $this->col_tot !== '' ? $this->col_tot : null;
             $microbiologia->aer_mes2 = $this->aer_mes2 !== '' ? $this->aer_mes2 : null;
             $microbiologia->col_tot2 = $this->col_tot2 !== '' ? $this->col_tot2 : null;
-            $microbiologia->estado = "2 Dias";
+            if ($microbiologia->detalleSolicitudPlanta->tipoMuestra->id == 9) {
+                $microbiologia->estado = "Analizado";
+
+                $detalle = DetalleSolicitudPlanta::where("id", $microbiologia->detalle_solicitud_planta_id)->first();
+                $detalle->estado = "Revision";
+                $detalle->save();
+            } else {
+                $microbiologia->estado = "2 Dias";
+            }
+
             if (is_null($microbiologia->fecha_dia2)) {
                 $microbiologia->fecha_dia2 = now();
             }
