@@ -242,6 +242,7 @@
                             <option value="2">UHT</option>
                             <option value="3">VASOS</option>
                             <option value="4">ARAÑA</option>
+                            <option value="5">SOYA</option>
                         </select>
 
                     </div>
@@ -509,6 +510,43 @@
                         </div>
                     </div>
                 @endif
+
+                @if ($grupo == 5)
+                    <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Envasadora SOYA </h3>
+
+                    <div class="md:flex gap-3 mb-2">
+                        <div class="items-center w-full text-sm font-medium text-gray-900 flex mb-2">
+                            <!--cabezal 1a -->
+                            <div wire:click="estado_L1"
+                                class="bg-{{ $L1 ? 'green' : 'red' }}-500 w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600 rounded-md">
+                                <div class="flex items-center">
+                                    <p class="w-full py-3 text-sm font-medium text-white text-center">L1</p>
+                                </div>
+                            </div>
+                            <!--cabezal 1b -->
+                            <div wire:click="estado_L2"
+                                class="bg-{{ $L2 ? 'green' : 'red' }}-500 w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600 rounded-md">
+                                <div class="flex items-center">
+                                    <p class="w-full py-3 text-sm font-medium text-white text-center">L2</p>
+                                </div>
+                            </div>
+                            <!--cabezal 1c -->
+                            <div wire:click="estado_L3"
+                                class="bg-{{ $L3 ? 'green' : 'red' }}-500 w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600 rounded-md">
+                                <div class="flex items-center">
+                                    <p class="w-full py-3 text-sm font-medium text-white text-center">L3</p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                       
+                    </div>
+
+                    
+                   
+                @endif
+
             </div>
         @endif
 
