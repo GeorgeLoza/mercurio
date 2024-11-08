@@ -119,7 +119,7 @@
             font-size: 0.6rem;
             vertical-align: middle;
             background-color: white;
-            font-weight: bold;
+            
         }
 
         .header-td3 {
@@ -181,6 +181,7 @@
 
         .table-container {
             width: 100%;
+            font-weight: normal;
 
         }
 
@@ -195,10 +196,14 @@
             padding-left: 2px;
             /* Alinea las tablas al tope */
         }
+        .table-container th {
+            font-weight: normal;
+            /* Alinea las tablas al tope */
+        }
 
         .columna_principal {
             text-align: left;
-            font-weight: 700;
+            
         }
 
         .columna_secundaria {}
@@ -286,7 +291,7 @@
             <br>
 
 
-            <table class="table-container">
+            <table class="table-container " style="  font-wheight:0">
                 <thead>
                     <tr>
                         <th colspan="17">
@@ -559,6 +564,11 @@
                         </tr>
                     @endforeach
 
+                </tbody>
+
+            </table>
+<br>
+            <table class="table-container"><tbody>
                     @php
 
                         $buscador = 0;
