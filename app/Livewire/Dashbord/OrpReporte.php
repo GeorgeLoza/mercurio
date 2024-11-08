@@ -186,11 +186,28 @@ class OrpReporte extends Component
                 })
                 ->get();
 
+                $obs = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function($query) use ($orpId) {
+                    $query->whereHas('estadoDetalle', function($query) use ($orpId) {
+                        $query->where('orp_id', $orpId);
+                    });
+                })->get();
+
+
+
+                $observaciones = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function($query) {
+                    $query->where('etapa_id', 8); // Filtra registros con etapa_id = 1
+                })
+                ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function($query) {
+                    $query->where('orp_id', $this->orpId); // Filtra siempre por orp_id
+                })
+                ->pluck('observaciones'); // Obtiene solo el campo observaciones
+
+
                 $data = $this->resultados_agrupados;
                 $informacion = $this->reporte;
                 $usuariosInvolucrados = $this->usuariosInvolucrados;
                 $pdf = App::make('dompdf.wrapper');
-                $pdf = Pdf::loadView('pdf.reportes.orpUHT', compact(['data', 'informacion', 'usuariosInvolucrados','mezclas','envasados']));
+                $pdf = Pdf::loadView('pdf.reportes.orpUHT', compact(['data', 'informacion', 'usuariosInvolucrados','mezclas','envasados','observaciones', 'obs']));
                 $pdf->setPaper('letter', 'portrait');
                 echo $pdf->stream();
             },

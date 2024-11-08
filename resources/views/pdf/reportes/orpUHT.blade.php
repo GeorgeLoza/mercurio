@@ -281,164 +281,47 @@
                         }
                     }
                 @endphp
+            </table>
 
-               
-                <br>
+            <br>
 
 
-                <table >
-                    <thead>
+            <table class="table-container">
+                <thead>
+                    <tr>
+                        <th colspan="17">
+                            Control de calidad en proceso - Linea Ulta Pasteurizado UHT
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Datos Proceso </th>
+                        <th>Tanque</th>
+                        <th>Hora S. </th>
+                        <th>Hora R. </th>
+                        <th>Temp[°C]</th>
+                        <th>pH</th>
+                        <th>Acidez [%]</th>
+                        <th>°Brix</th>
+                        <th>µ[s]</th>
+                        <th>Color</th>
+                        <th>Olor</th>
+                        <th>Sabor</th>
+                        <th>Volumen</th>
+                        <th>Prep.</th>
+                        <th>Tec.HTST</th>
+                        <th>Tec.UHT</th>
+                        <th>Temp UHT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+
+                        $contador = 1;
+                    @endphp
+                    @foreach ($mezclas as $dato)
+
                         <tr>
-                            <th>Datos Proceso </th>
-                            <th>Tanque</th>
-                            <th>Hora</th>
-                            <th>Temp.</th>
-                            <th>pH</th>
-                            <th>Acidez [5]</th>
-                            <th>Brix</th>
-                            <th>u[s]</th>
-                            <th>Color</th>
-                            <th>Olor</th>
-                            <th>Sabor</th>
-                            <th>Volumen</th>
-                            <th>Prep.</th>
-                            <th>Tec.HTST</th>
-                            <th>Tec.UHT</th>
-                            <th>Temp UHT</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php
-
-                            $contador = 1;
-                        @endphp
-                        @foreach ($mezclas as $dato)
-
-                            <tr>
-                                <th>Pre/Rec {{ $contador }}</th>
-                                @php
-                                    $contador = $contador + 1;
-                                @endphp
-                                <th>{{ $dato->solicitudAnalisisLinea->estadoPlanta->origen->alias }}</th>
-
-                                <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->estadoPlanta->tiempo)->isoFormat('HH:mm', 0, 'es') }}
-                                </th>
-                                @if ($dato->solicitudAnalisisLinea)
-                                    @php
-                                        $analisis = $dato->solicitudAnalisisLinea->analisisLinea;
-                                    @endphp
-                                    @if ($analisis->temperatura)
-                                        <th>{{ $analisis->temperatura }}</th>
-                                    @else
-                                        <th>-</th>
-                                    @endif
-
-                                    @if ($analisis->ph)
-                                        <th>{{ $analisis->ph }}</th>
-                                    @else
-                                        <th>-</th>
-                                    @endif
-
-                                    @if ($analisis->acidez)
-                                        <th>{{ $analisis->acidez }}</th>
-                                    @else
-                                        <th>-</th>
-                                    @endif
-
-                                    @if ($analisis->brix)
-                                        <th>{{ $analisis->brix }}</th>
-                                    @else
-                                        <th>-</th>
-                                    @endif
-
-                                    @if ($analisis->viscosidad)
-                                        <th>{{ $analisis->viscosidad }}</th>
-                                    @else
-                                        <th>-</th>
-                                    @endif
-
-                                    @if ($analisis->color)
-                                        @if ($analisis->color == true)
-                                            <th>Si</th>
-                                        @else
-                                            <th>No</th>
-                                        @endif
-                                    @endif
-                                    @if ($analisis->olor)
-                                        @if ($analisis->olor == true)
-                                            <th>Si</th>
-                                        @else
-                                            <th>No</th>
-                                        @endif
-                                    @endif
-                                    @if ($analisis->sabor)
-                                        @if ($analisis->sabor == true)
-                                            <th>Si</th>
-                                        @else
-                                            <th>No</th>
-                                        @endif
-                                    @endif
-                                    {{-- volumen --}}
-                                    <th>-</th>
-                                    <th>
-                                        @foreach ($dato->solicitudAnalisisLinea->estadoPlanta->estadoDetalle as $estado)
-                                            {{ $estado->preparacion }}
-                                        @endforeach
-                                    </th>
-
-                                    @if ($dato->solicitudAnalisisLinea->user != null)
-                                        <th>
-                                            {{ $dato->solicitudAnalisisLinea->user->nombre }}
-                                        </th>
-                                    @endif
-
-                                    @if ($dato->solicitudAnalisisLinea->analisisLinea->user != null)
-                                    <th>
-                                        {{ $dato->solicitudAnalisisLinea->analisisLinea->user->nombre }}
-                                    </th>
-                                @endif
-                                <th>-</th>
-                                @endif
-
-
-                                <th>
-
-                                </th>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                   
-                </table>    
-
-<br>
-                    <br>
-                    <table>
-
-                        <thead>
-                            <tr>
-                                <th>Cabezal </th>
-                                
-                                <th>Hora</th>
-                                <th>Temp.</th>
-                                <th>pH</th>
-                                <th>Acidez [%]</th>
-                                <th>Brix</th>
-                                <th>u[s]</th>
-                                <th>Color</th>
-                                <th>Olor</th>
-                                <th>Sabor</th>
-                                <th>Peso[g]</th>
-                                <th>Fecha v.</th>
-                                
-                                <th>Tec.UHT</th>
-                                <th>Observaciones</th>
-                            </tr>
-                        </thead>
-                    <tbody>
-                        @foreach ($envasados as $dato)
-                          
-                        <tr>
-                            
+                            <th>Pre/Rec {{ $contador }}</th>
                             @php
                                 $contador = $contador + 1;
                             @endphp
@@ -446,6 +329,156 @@
 
                             <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->estadoPlanta->tiempo)->isoFormat('HH:mm', 0, 'es') }}
                             </th>
+                            @if ($dato->solicitudAnalisisLinea->estadoPlanta)
+                                <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->analisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
+                                </th>
+                            @else
+                                <th>-</th>
+                            @endif
+
+                            @if ($dato->solicitudAnalisisLinea)
+                                @php
+                                    $analisis = $dato->solicitudAnalisisLinea->analisisLinea;
+                                @endphp
+                                @if ($analisis->temperatura)
+                                    <th>{{ $analisis->temperatura }}</th>
+                                @else
+                                    <th>-</th>
+                                @endif
+
+                                @if ($analisis->ph)
+                                    <th>{{ $analisis->ph }}</th>
+                                @else
+                                    <th>-</th>
+                                @endif
+
+                                @if ($analisis->acidez)
+                                    <th>{{ $analisis->acidez }}</th>
+                                @else
+                                    <th>-</th>
+                                @endif
+
+                                @if ($analisis->brix)
+                                    <th>{{ $analisis->brix }}</th>
+                                @else
+                                    <th>-</th>
+                                @endif
+
+                                @if ($analisis->viscosidad)
+                                    <th>{{ $analisis->viscosidad }}</th>
+                                @else
+                                    <th>-</th>
+                                @endif
+
+                                @if ($analisis->color)
+                                    @if ($analisis->color == true)
+                                        <th>Si</th>
+                                    @else
+                                        <th>No</th>
+                                    @endif
+                                @endif
+                                @if ($analisis->olor)
+                                    @if ($analisis->olor == true)
+                                        <th>Si</th>
+                                    @else
+                                        <th>No</th>
+                                    @endif
+                                @endif
+                                @if ($analisis->sabor)
+                                    @if ($analisis->sabor == true)
+                                        <th>Si</th>
+                                    @else
+                                        <th>No</th>
+                                    @endif
+                                @endif
+                                {{-- volumen --}}
+                                <th>-</th>
+                                <th>
+                                    @foreach ($dato->solicitudAnalisisLinea->estadoPlanta->estadoDetalle as $estado)
+                                        {{ $estado->preparacion }}
+                                    @endforeach
+                                </th>
+
+                                @if ($dato->solicitudAnalisisLinea->user != null)
+                                    <th>
+                                        {{ $dato->solicitudAnalisisLinea->user->codigo }}
+                                    </th>
+                                    @else
+                                    <th>-</th>
+                                @endif
+
+                                @if ($dato->solicitudAnalisisLinea->analisisLinea->user != null)
+                                    <th>
+                                        {{ $dato->solicitudAnalisisLinea->analisisLinea->user->codigo }}
+                                    </th>
+                                    @else
+                                    <th>-</th>
+                                @endif
+                                <th>-</th>
+                            @endif
+
+
+
+                        </tr>
+                    @endforeach
+                </tbody>
+
+            </table>
+
+            
+            <br>
+            <table class="table-container">
+
+                <thead>
+                    <tr>
+                        <th colspan="13">
+                            Control de calidad de Producto Terminado - Produccion Final
+                        </th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Cabezal </th>
+
+                        <th>Hora S.</th>
+                        <th>Hora R.</th>
+                        <th>Temp[°C]</th>
+                        <th>pH</th>
+                        <th>Acidez [%]</th>
+                        <th>°Brix</th>
+                        <th>µ[s]</th>
+                        <th>Color</th>
+                        <th>Olor</th>
+                        <th>Sabor</th>
+                        <th>Peso[g]</th>
+
+
+                        <th>Encargados</th>
+
+                    </tr>
+                    @foreach ($envasados as $dato)
+
+                        <tr>
+
+                            @php
+                                $contador = $contador + 1;
+                            @endphp
+                            <th>{{ $dato->solicitudAnalisisLinea->estadoPlanta->origen->alias }}</th>
+
+                            <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->estadoPlanta->tiempo)->isoFormat('HH:mm', 0, 'es') }}
+                            </th>
+
+                            @if ($dato->solicitudAnalisisLinea->estadoPlanta)
+                                <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->analisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
+                                </th>
+                            @else
+                                <th>-</th>
+                            @endif
+
+
+
+
                             @if ($dato->solicitudAnalisisLinea)
                                 @php
                                     $analisis = $dato->solicitudAnalisisLinea->analisisLinea;
@@ -502,35 +535,80 @@
                                     @endif
                                 @endif
                                 {{-- peso --}}
-                                <th>-</th>
-                                @if ($analisis->viscosidad)
-                                <th>{{ $analisis->peso }}</th>
-                            @else
-                                <th>-</th>
-                            @endif
-                                
-                                
-
-                                @
-
-                                @if ($dato->solicitudAnalisisLinea->analisisLinea->user != null)
+                                @if ($analisis->peso)
+                                    <th>{{ $analisis->peso }}</th>
+                                @else
+                                    <th>-</th>
+                                @endif
                                 <th>
-                                    {{ $dato->solicitudAnalisisLinea->analisisLinea->user->nombre }}
+                                    @if ($dato->solicitudAnalisisLinea->user != null)
+                                        {{ $dato->solicitudAnalisisLinea->user->codigo }}
+                                    @endif
+
+                                    -
+
+
+                                    @if ($dato->solicitudAnalisisLinea->analisisLinea->user != null)
+                                        {{ $dato->solicitudAnalisisLinea->analisisLinea->user->codigo }}
+                                    @endif
                                 </th>
                             @endif
-                            <th>-</th>
+
+
+
+                        </tr>
+                    @endforeach
+
+                    @php
+
+                        $buscador = 0;
+                    @endphp
+                    <tr>
+                        <th colspan="13">Observaciones</th>
+                    </tr>
+
+                    <tr>
+                        <th colspan="13">
+                            @foreach ($obs as $dato)
+                                @if ($dato->solicitudAnalisisLinea->analisisLinea->observaciones != null)
+                                    @php
+
+                                        $buscador = 1;
+                                    @endphp
+                                @endif
+                            @endforeach
+
+                            @if ($buscador == 1)
+
+                                @foreach ($obs as $dato)
+                                    @if ($dato->solicitudAnalisisLinea->analisisLinea->observaciones == null)
+                                    @else
+                                        <tr>
+
+                                            <th colspan="13">
+                                                {{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->analisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }} 
+                                                {{ $dato->solicitudAnalisisLinea->analisisLinea->user->nombre }}:
+                                                {{ $dato->solicitudAnalisisLinea->analisisLinea->observaciones }}</th>
+
+                                         </tr>
+                                    @endif
+                                @endforeach
+                            @endif
+                            @if ($buscador == 0)
+                                Sin Observaciones
+                                
                             @endif
 
 
-                            <th>
 
-                            </th>
-                        </tr>
-                        @endforeach
-                    </tbody>
 
-                </table>
+                    </th>
+                    </tr>
+
+                </tbody>
+
             </table>
+
 
         </main>
     </div>
