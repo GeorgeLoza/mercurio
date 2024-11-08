@@ -57,6 +57,10 @@ class CrearEnvasadora extends ModalComponent
     public $V2 = 1;
     public $V3 = 1;
 
+    public $L1 = 1;
+    public $L2 = 1;
+    public $L3 = 1;
+
     public $araña=1;
 
     public function estado_HTST_A1()
@@ -170,7 +174,16 @@ class CrearEnvasadora extends ModalComponent
     {
         $this->V3 = !$this->V3;
     }
-
+    public function estado_L1()
+    {
+        $this->L1 = !$this->L1;
+    }public function estado_L2()
+    {
+        $this->L2 = !$this->L2;
+    }public function estado_L3()
+    {
+        $this->L3 = !$this->L3;
+    }
 
     public function mount()
     {
@@ -197,6 +210,68 @@ class CrearEnvasadora extends ModalComponent
         }
         try {
             if ($this->grupo == 1) {
+                // agragaion de estado planta y su detalle trilliza 1a
+                if ($this->L1 == 1) {
+
+                    $estadoPlanta = EstadoPlanta::create([
+                        'tiempo' => now(),
+                        'user_id' => auth()->user()->id,
+                        'origen_id' => 57, //id de trilliza 1A
+                        'proceso' => $this->proceso,
+                        'etapa_id' => 8,
+                    ]);
+                    $id_estadoPlanta = $estadoPlanta->id;
+
+                    if ($this->proceso == "Produccion") {
+                        EstadoDetalle::create([
+                            'orp_id' => $this->orp_id,
+                            'preparacion' => $this->preparacion,
+                            'estado_planta_id' => $id_estadoPlanta,
+                            'user_id' => auth()->user()->id,
+                        ]);
+                    }
+                }
+                if ($this->L2 == 1) {
+
+                    $estadoPlanta = EstadoPlanta::create([
+                        'tiempo' => now(),
+                        'user_id' => auth()->user()->id,
+                        'origen_id' => 58, //id de trilliza 1A
+                        'proceso' => $this->proceso,
+                        'etapa_id' => 8,
+                    ]);
+                    $id_estadoPlanta = $estadoPlanta->id;
+
+                    if ($this->proceso == "Produccion") {
+                        EstadoDetalle::create([
+                            'orp_id' => $this->orp_id,
+                            'preparacion' => $this->preparacion,
+                            'estado_planta_id' => $id_estadoPlanta,
+                            'user_id' => auth()->user()->id,
+                        ]);
+                    }
+                }
+                if ($this->L3 == 1) {
+
+                    $estadoPlanta = EstadoPlanta::create([
+                        'tiempo' => now(),
+                        'user_id' => auth()->user()->id,
+                        'origen_id' => 59, //id de trilliza 1A
+                        'proceso' => $this->proceso,
+                        'etapa_id' => 8,
+                    ]);
+                    $id_estadoPlanta = $estadoPlanta->id;
+
+                    if ($this->proceso == "Produccion") {
+                        EstadoDetalle::create([
+                            'orp_id' => $this->orp_id,
+                            'preparacion' => $this->preparacion,
+                            'estado_planta_id' => $id_estadoPlanta,
+                            'user_id' => auth()->user()->id,
+                        ]);
+                    }
+                }
+
                 // agragaion de estado planta y su detalle trilliza 1a
                 if ($this->HTST_A1 == 1) {
 

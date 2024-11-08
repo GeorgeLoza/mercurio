@@ -53,6 +53,10 @@ class Movimiento extends ModalComponent
     public $V2 = 1;
     public $V3 = 1;
 
+    public $L1 = 1;
+    public $L2 = 1;
+    public $L3 = 1;
+
     public $araña = 1;
 
     public $orps;
@@ -188,6 +192,7 @@ class Movimiento extends ModalComponent
 
             try {
                 if ($this->grupo == 1) {
+
                     // agragaion de estado planta y su detalle trilliza 1a
                     if ($this->HTST_A1 == 1) {
 
@@ -721,6 +726,75 @@ class Movimiento extends ModalComponent
                         }
                     }
                 }
+                if ($this->grupo == 5) {
+
+                    
+//prueba soyas
+// agragaion de estado planta y su detalle trilliza 1a
+if ($this->L1 == 1) {
+   
+        $estadoPlanta = EstadoPlanta::create([
+            'tiempo' => now(),
+            'user_id' => auth()->user()->id,
+            'origen_id' => 57, //id de trilliza 1A
+            'proceso' => "Produccion",
+            'etapa_id' => 8,
+        ]);
+        $id_estadoPlanta = $estadoPlanta->id;
+    
+        foreach ($this->detalles as $detalle) {
+            EstadoDetalle::create([
+                'orp_id' => $detalle['orp_id'],
+                'preparacion' => $detalle['preparacion'],
+                'estado_planta_id' => $id_estadoPlanta,
+                'user_id' => auth()->user()->id,
+            ]);
+        }
+    }
+   
+    if ($this->L2 == 1) {
+       
+        $estadoPlanta = EstadoPlanta::create([
+            'tiempo' => now(),
+            'user_id' => auth()->user()->id,
+            'origen_id' => 58, //id de trilliza 1A
+            'proceso' => "Produccion",
+            'etapa_id' => 8,
+        ]);
+        $id_estadoPlanta = $estadoPlanta->id;
+    
+        foreach ($this->detalles as $detalle) {
+            EstadoDetalle::create([
+                'orp_id' => $detalle['orp_id'],
+                'preparacion' => $detalle['preparacion'],
+                'estado_planta_id' => $id_estadoPlanta,
+                'user_id' => auth()->user()->id,
+            ]);
+        }
+    }
+    if ($this->L3 == 1) {
+        
+        $estadoPlanta = EstadoPlanta::create([
+            'tiempo' => now(),
+            'user_id' => auth()->user()->id,
+            'origen_id' => 59, //id de trilliza 1A
+            'proceso' => "Produccion",
+            'etapa_id' => 8,
+        ]);
+        $id_estadoPlanta = $estadoPlanta->id;
+    
+        foreach ($this->detalles as $detalle) {
+            EstadoDetalle::create([
+                'orp_id' => $detalle['orp_id'],
+                'preparacion' => $detalle['preparacion'],
+                'estado_planta_id' => $id_estadoPlanta,
+                'user_id' => auth()->user()->id,
+            ]);
+        }
+    }
+    
+    
+                }
 
                 $this->dispatch('actualizar_tabla_estado');
                 $this->closeModal();
@@ -906,5 +980,17 @@ class Movimiento extends ModalComponent
     public function estado_V3()
     {
         $this->V3 = !$this->V3;
+    }
+    public function estado_L1()
+    {
+        $this->L1 = !$this->L1;
+    }
+    public function estado_L2()
+    {
+        $this->L2 = !$this->L2;
+    }
+    public function estado_L3()
+    {
+        $this->L3 = !$this->L3;
     }
 }
