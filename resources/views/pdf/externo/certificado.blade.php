@@ -146,13 +146,15 @@
                     <td style="text-align: left ">{{ $datosSolicitud->subcodigo }}</td>
                 </tr>
                 <tr style="border-right: 1px solid black;">
-                    <td rowspan="6" style="width: 380px; border: 1px solid black;font-size: 20px">
+                    <td  @if (!in_array($datosSolicitud->tipo_muestra_id, [9, 1, 2, 6, 10, 11, 12])) rowspan="6" @else rowspan="2" @endif style="width: 380px; border: 1px solid black;font-size: 20px">
                         @if ($datosSolicitud->productosPlanta)
                             {{ $datosSolicitud->productosPlanta->nombre }}
                         @else
                             {{ $datosSolicitud->otro }}
                         @endif
                     </td>
+                    @if (!in_array($datosSolicitud->tipo_muestra_id, [9, 1, 2, 6, 10, 11, 12]))
+
                     <th style="text-align: right ; padding: 0 15px">Lote: </th>
                     <td style="text-align: left ">
                         @if ($datosSolicitud->lote)
@@ -172,7 +174,6 @@
                     <td style="text-align: left; ">
                         {{ \Carbon\Carbon::parse($datosSolicitud->fecha_elaboracion)->isoFormat('D / M / YYYY', 0, 'es') }}
                     </td>
-
                 </tr>
                 <tr style="border-right: 1px solid black;">
                     <th style="text-align: right; padding: 0 15px">Fecha de Vencimiento: </th>
@@ -180,7 +181,7 @@
                         {{ \Carbon\Carbon::parse($datosSolicitud->fecha_vencimiento)->isoFormat('D / M / YYYY', 0, 'es') }}
                     </td>
                 </tr>
-
+                @endif
 
 
                 <tr style="border-bottom:  1px solid black; border-right: 1px solid black;">
@@ -399,7 +400,7 @@
             <div class="footer" style="opacity: 1;">
                 <div class="signature-box">
                     <div class="signer">
-                        
+
                         @if ($resultados->ana_dia5_id == 22)
                             <img style="width: 60%" src="img/firma/mb_veronica.jpeg" alt="">
                         @endif
