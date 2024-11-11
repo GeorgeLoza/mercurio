@@ -3177,7 +3177,7 @@
 
             <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white ">Sala Soya</h5>
 
-        <!--TKMIX1 INICIO-->
+        <!--TKSY INICIO-->
         <div class="p-2 mb-2 rounded-lg  border-gray-500 hover:bg-gray-100 hover:dark:bg-gray-700 border">
             @if ($TKSY)
                 <div class="flex justify-between text-xs" data-popover-trigger="click"
@@ -3848,19 +3848,7 @@
                 </div>
             @endforeach
         </figure>
-        <!--Soya-->
-        <figure
-        class="  p-3  bg-white border-b border-gray-200 rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e dark:bg-gray-800 dark:border-gray-700">
-        
-        <!--TKSY FIN-->
-
-      
-
-      
-
-        
-    </figure>
-    </div>
+       
 
     <!--pophovers de envasadoras-->
 
