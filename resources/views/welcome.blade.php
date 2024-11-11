@@ -6,6 +6,7 @@
 
 @section('contenido')
 <!--Tabla -->
+@livewire('dashboard.paseTurnoReporte')
 @livewire('paseTurno.reporte')
 @livewire('dashbord.planta')
 
@@ -74,7 +75,7 @@
         </svg>
         <span class="sr-only">Open actions menu</span>
     </button>
-</div>    
+</div>
 @endif
 
 
