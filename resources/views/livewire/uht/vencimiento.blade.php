@@ -5,7 +5,7 @@
                 <tr>
                     <th scope="col" class="px-1 py-2">orp</th>
                     <th scope="col" class="px-1 py-2">producto</th>
-
+                    <th scope="col" class="px-1 py-2">Preparaciones</th>
                     <th scope="col" class="px-1 py-2">f. Vencimiento</th>
                     <th scope="col" class="px-1 py-2"><span class="sr-only">Edit</span></th>
                 </tr>
@@ -17,6 +17,7 @@
                         {{$orp->codigo}}
                     </th>
                     <td class="px-1 py-2">{{$orp->producto->nombre}}</td>
+                    <td class="px-1 py-2">{{$orp->lote/1}}</td>
 
                     <td class="px-1 py-2">
                         @if ($editingOrpId === $orp->id)
