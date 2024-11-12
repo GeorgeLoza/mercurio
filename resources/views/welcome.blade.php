@@ -6,7 +6,7 @@
 
 @section('contenido')
 <!--Tabla -->
-@livewire('dashboard.paseTurnoReporte')
+{{-- @livewire('dashboard.paseTurnoReporte') --}}
 @livewire('paseTurno.reporte')
 @livewire('dashbord.planta')
 
