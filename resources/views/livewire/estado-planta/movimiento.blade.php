@@ -47,7 +47,8 @@
 
         <div
             class="px-3 my-5 text-gray-700 dark:text-gray-300 text-xs mb-1 bg-gray-100 dark:bg-gray-900 p-2 rounded-lg">
-            <div class="md:flex items-center gap-1 text-gray-700 dark:text-gray-300 text-xs mb-1 bg-gray-100 dark:bg-gray-900 pt-3 rounded-lg">
+            <div
+                class="md:flex items-center gap-1 text-gray-700 dark:text-gray-300 text-xs mb-1 bg-gray-100 dark:bg-gray-900 pt-3 rounded-lg">
 
                 <div class="px-3 mb-1 md:w-3/5 ">
                     <div class="relative z-0 w-full mb-5 group">
@@ -57,8 +58,9 @@
                             class="block py-2.5 px-0 text-xs text-gray-600 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer w-full">
                             <option selected class="bg-gray-100 dark:bg-gray-800">Escoge una orp en proceso</option>
                             @foreach ($orps as $orp)
-                                <option class="bg-gray-100 dark:bg-gray-800 text-xs whitespace-normal" value="{{ $orp->id }}">
-                                    {{ $orp->codigo }} - {{ $orp->producto->nombre }} - {{ $orp->lote/1 }}
+                                <option class="bg-gray-100 dark:bg-gray-800 text-xs whitespace-normal"
+                                    value="{{ $orp->id }}">
+                                    {{ $orp->codigo }} - {{ $orp->producto->nombre }} - {{ $orp->lote / 1 }}
                                 </option>
                             @endforeach
                         </select>
@@ -67,7 +69,7 @@
                         @enderror
                     </div>
                 </div>
-            
+
                 <div class="px-3 mb-1 md:w-1/5">
                     <div class="relative z-0 w-full mb-5 group">
                         <input type="text" wire:model="preparacionInput" id="preparacion"
@@ -81,14 +83,14 @@
                         @enderror
                     </div>
                 </div>
-            
+
                 <button
                     class="text-white rounded-md p-1 bg-green-600 dark:bg-green-500 px-3 mb-1 md:w-1/5 flex justify-center items-center"
                     wire:click.prevent="addDetalle">
                     Agregar
                 </button>
             </div>
-            
+
             @foreach ($detalles as $index => $detalle)
                 <div class="flex  justify-between gap-4 text-gray-700 dark:text-gray-300 text-xs mb-1">
                     <p>{{ $detalle['orp'] }}</p>
@@ -105,7 +107,15 @@
                 </div>
             @endforeach
         </div>
+        @if ($estado_envasar)
+        @if (count($detalles) >1)
+        <div class="flex items-center justify-center  h-32 w-full p-1 bg-red-500">
 
+            <p>Solamente puede envasar una preparacion a la vez</p>
+        </div>
+        @endif
+            
+        @endif
 
         <div class="block md:flex gap-4 my-2 ">
             <!--origen-->
@@ -540,23 +550,32 @@
                             </div>
                         </div>
 
-                       
-                    </div>
 
-                    
-                   
+                    </div>
                 @endif
 
             </div>
         @endif
 
-        @if (count($detalles) != 0)
-            <div class="flex mt-6">
-                <div class="w-full px-3 mb-5">
-                    <button type="submit"
-                        class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">Aceptar</button>
+        @if (!$estado_envasar)
+            @if (count($detalles) != 0)
+                <div class="flex mt-6">
+                    <div class="w-full px-3 mb-5">
+                        <button type="submit"
+                            class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">Aceptar</button>
+                    </div>
                 </div>
-            </div>
+            @endif
+        @endif
+        @if ($estado_envasar)
+            @if (count($detalles) ==1)
+                <div class="flex mt-6">
+                    <div class="w-full px-3 mb-5">
+                        <button type="submit"
+                            class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">Aceptar</button>
+                    </div>
+                </div>
+            @endif
         @endif
     </form>
 </div>
