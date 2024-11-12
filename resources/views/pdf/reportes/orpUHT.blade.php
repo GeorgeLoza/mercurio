@@ -219,26 +219,26 @@
                 <tr>
                     <th class="cel-img" style="width: 25%;"><img src="img/logo/logocompleto.png" alt=""></th>
                     <th style="width: 50%;">REGISTRO</th>
-                    <th style="width: 25%; font-size: 0.8rem">PLL-REG-140 <br> Versión 003 <br> Página 1 de 1 </th>
+                    <th style="width: 25%; font-size: 0.8rem">PLL-REG-052 <br> Versión 002 <br> Página 1 de 1 </th>
                 </tr>
                 <tr>
-                    <td colspan="3" style="text-align: center; padding: 0.6rem 0">REPORTE PROCESO EN LÍNEA </td>
+                    <td colspan="3" style="text-align: center; padding: 0.6rem;  font-weight:bold;">Control de calidad en proceso - Linea Ulta Pasteurizado UHT</td>
                 </tr>
             </table>
         </head>
         <footer>
-            SOALPRO SRL - Planta Lácteos - Reporte generado el {{ date('d/m/Y') }}
+            SOALPRO SRL - Planta Lácteos - Reporte generado el {{ date('DD/MM/YYYY') }}
             <div class="page-number"></div>
         </footer>
 
         <fieldset>
-            <legend>Información General</legend>
+            <legend style="font-weight:bold;">Información General</legend>
             <div class="cont_div">
                 <table class="general">
                     <tr>
                         <td>
                             <p>Fecha de Produción:
-                                {{ \Carbon\Carbon::parse($informacion->tiempo_elaboracion)->isoFormat('D /M /Y', 0, 'es') }}
+                                {{ \Carbon\Carbon::parse($informacion->tiempo_elaboracion)->isoFormat('DD/MM/YYYY', 0, 'es') }}
                             </p>
                             <p>ORP: <span>{{ $informacion->codigo }}</span></p>
                             <p>Producto: {{ $informacion->producto->nombre }}</p>
@@ -247,11 +247,11 @@
 
                             <p>Fecha(s) de Vencimiento:
                                 @if ($informacion->fecha_vencimiento1)
-                                    {{ \Carbon\Carbon::parse($informacion->fecha_vencimiento1)->isoFormat('D /M /Y', 0, 'es') }}
+                                    {{ \Carbon\Carbon::parse($informacion->fecha_vencimiento1)->isoFormat('DD/MM/YYYY', 0, 'es') }}
                                 @endif
                                 
                                 @if ($informacion->fecha_vencimiento2)
-                                    - {{ \Carbon\Carbon::parse($informacion->fecha_vencimiento2)->isoFormat('D /M /Y', 0, 'es') }}
+                                    - {{ \Carbon\Carbon::parse($informacion->fecha_vencimiento2)->isoFormat('DD/MM/YYYY', 0, 'es') }}
                                 @endif
 
                             </p>
@@ -294,28 +294,28 @@
             <table class="table-container " style="  font-wheight:0">
                 <thead>
                     <tr>
-                        <th colspan="17">
-                            Control de calidad en proceso - Linea Ulta Pasteurizado UHT
+                        <th colspan="16" style="font-weight:bold;">
+                            Control de Calidad en Proceso - Linea Ultra Pasteurizado UHT
                         </th>
                     </tr>
                     <tr>
-                        <th>Datos Proceso </th>
+                        <th>Datos de Proceso </th>
                         <th>Tanque</th>
                         <th>Hora S. </th>
                         <th>Hora R. </th>
-                        <th>Temp[°C]</th>
+                        <th>Temp [°C]</th>
                         <th>pH</th>
                         <th>Acidez [%]</th>
                         <th>°Brix</th>
-                        <th>µ[s]</th>
+                        <th>µ [s]</th>
                         <th>Color</th>
                         <th>Olor</th>
                         <th>Sabor</th>
                         <th>Volumen</th>
                         <th>Prep.</th>
-                        <th>Tec.HTST</th>
-                        <th>Tec.UHT</th>
-                        <th>Temp UHT</th>
+                        <th>Téc.HTST</th>
+                        <th>Téc.UHT</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -377,23 +377,23 @@
 
                                 @if ($analisis->color)
                                     @if ($analisis->color == true)
-                                        <th>Si</th>
+                                        <th>C.</th>
                                     @else
-                                        <th>No</th>
+                                        <th>N.C.</th>
                                     @endif
                                 @endif
                                 @if ($analisis->olor)
                                     @if ($analisis->olor == true)
-                                        <th>Si</th>
+                                        <th>C.</th>
                                     @else
-                                        <th>No</th>
+                                        <th>N.C.</th>
                                     @endif
                                 @endif
                                 @if ($analisis->sabor)
                                     @if ($analisis->sabor == true)
-                                        <th>Si</th>
+                                        <th>C.</th>
                                     @else
-                                        <th>No</th>
+                                        <th>N.C.</th>
                                     @endif
                                 @endif
                                 {{-- volumen --}}
@@ -419,7 +419,7 @@
                                     @else
                                     <th>-</th>
                                 @endif
-                                <th>-</th>
+                                
                             @endif
 
 
@@ -436,8 +436,8 @@
 
                 <thead>
                     <tr>
-                        <th colspan="13">
-                            Control de calidad de Producto Terminado - Produccion Final
+                        <th colspan="14" style="font-weight:bold;">
+                            Control de Calidad de Producto Envasado 
                         </th>
                     </tr>
 
@@ -448,15 +448,16 @@
 
                         <th>Hora S.</th>
                         <th>Hora R.</th>
-                        <th>Temp[°C]</th>
+                        <th>Temp UHT [°C]</th>
+                        <th>Temp [°C]</th>
                         <th>pH</th>
                         <th>Acidez [%]</th>
                         <th>°Brix</th>
-                        <th>µ[s]</th>
+                        <th>µ [s]</th>
                         <th>Color</th>
                         <th>Olor</th>
                         <th>Sabor</th>
-                        <th>Peso[g]</th>
+                        <th>Peso [g]</th>
 
 
                         <th>Encargados</th>
@@ -482,7 +483,7 @@
                             @endif
 
 
-
+                            <th>-</th>
 
                             @if ($dato->solicitudAnalisisLinea)
                                 @php
@@ -557,6 +558,7 @@
                                         {{ $dato->solicitudAnalisisLinea->analisisLinea->user->codigo }}
                                     @endif
                                 </th>
+                               
                             @endif
 
 
@@ -574,11 +576,11 @@
                         $buscador = 0;
                     @endphp
                     <tr>
-                        <th colspan="13">Observaciones</th>
+                        <th colspan="14" style="font-weight:bold;">Observaciones</th>
                     </tr>
 
                     <tr>
-                        <th colspan="13">
+                        <th colspan="14">
                             @foreach ($obs as $dato)
                                 @if ($dato->solicitudAnalisisLinea->analisisLinea->observaciones != null)
                                     @php
