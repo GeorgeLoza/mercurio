@@ -249,9 +249,9 @@
                                 @if ($informacion->fecha_vencimiento1)
                                     {{ \Carbon\Carbon::parse($informacion->fecha_vencimiento1)->isoFormat('D /M /Y', 0, 'es') }}
                                 @endif
-                                -
-                                @if ($informacion->fecha_vencimiento1)
-                                    {{ \Carbon\Carbon::parse($informacion->fecha_vencimiento2)->isoFormat('D /M /Y', 0, 'es') }}
+                                
+                                @if ($informacion->fecha_vencimiento2)
+                                    - {{ \Carbon\Carbon::parse($informacion->fecha_vencimiento2)->isoFormat('D /M /Y', 0, 'es') }}
                                 @endif
 
                             </p>
