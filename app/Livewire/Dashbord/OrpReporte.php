@@ -138,7 +138,7 @@ class OrpReporte extends Component
                 $pdf->setPaper('letter', 'portrait');
                 echo $pdf->stream();
             },
-            'text.pdf'
+            "{$this->reporte->codigo} {$this->reporte->producto->nombre}.pdf" 
         );
     }
 
@@ -156,7 +156,7 @@ class OrpReporte extends Component
                 $pdf->setPaper('letter', 'portrait');
                 echo $pdf->stream();
             },
-            'text.pdf'
+            "{$this->reporte->codigo} {$this->reporte->producto->nombre}.pdf" 
         );
     }
 
@@ -218,7 +218,7 @@ class OrpReporte extends Component
                 $pdf->setPaper('letter', 'portrait');
                 echo $pdf->stream();
             },
-            'text.pdf'
+           "{$this->reporte->codigo} {$this->reporte->producto->nombre}.pdf" 
         );
     }
 }
