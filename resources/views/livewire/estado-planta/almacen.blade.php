@@ -16,7 +16,7 @@
                         <option class="bg-gray-100 dark:bg-gray-800 text-xs whitespace-normal" value="1739">
                             Leche Termizada
                         </option>
-                        <option class="bg-gray-100 dark:bg-gray-800 text-xs whitespace-normal" value="1158">
+                        <option class="bg-gray-100 dark:bg-gray-800 text-xs whitespace-normal" value="3065">
                             Saldo Leche Termizada
                         </option>
                     </select>
