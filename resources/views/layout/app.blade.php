@@ -45,7 +45,7 @@
                             <span class="hidden md:flex ml-1">- PLANTA LÁCTEOS</span></span>
                     </a>
                 </div>
-                <div class="flex gap-1 text-sm "> {{ auth()->user()->nombre }} - @livewire('date-time-display') </div>
+                <div class="flex gap-1 text-sm "> @livewire('screenSaver'){{ auth()->user()->nombre }} - @livewire('date-time-display') </div>
                 <div class="flex gap-2">
 
 
