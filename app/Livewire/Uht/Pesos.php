@@ -31,7 +31,7 @@ class Pesos extends Component
             ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle.orp.producto.categoriaProducto', function ($query) {
                 $query->where('grupo', 'UHT');
             })
-            ->where('created_at', '>=', now()->subHours(2))
+            ->where('created_at', '>=', now()->subHours(3))
             ->get(); // Mantener como colección de Eloquent
     }
 
