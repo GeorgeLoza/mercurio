@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Document</title>
+    <title>Control UHT</title>
     <style>
         @page {
             margin-top: 1cm;
@@ -237,7 +237,7 @@
                 <table class="general">
                     <tr>
                         <td>
-                            <p>Fecha de Produción:
+                            <p>Fecha de Producción:
                                 {{ \Carbon\Carbon::parse($informacion->tiempo_elaboracion)->isoFormat('DD/MM/YYYY', 0, 'es') }}
                             </p>
                             <p>ORP: <span>{{ $informacion->codigo }}</span></p>
@@ -295,7 +295,7 @@
                 <thead>
                     <tr>
                         <th colspan="16" style="font-weight:bold;">
-                            Control de Calidad en Proceso - Linea Ultra Pasteurizado UHT
+                            Control de Calidad en Proceso - Línea Ultra Pasteurizado UHT
                         </th>
                     </tr>
                     <tr>
