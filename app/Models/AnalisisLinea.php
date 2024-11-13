@@ -26,6 +26,7 @@ class AnalisisLinea extends Model
         'peso',
         'volumen',
         'observaciones',
+        'tempUHT'
     ];
     public function user()
     {
