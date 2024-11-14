@@ -119,7 +119,7 @@
             font-size: 0.6rem;
             vertical-align: middle;
             background-color: white;
-            
+
         }
 
         .header-td3 {
@@ -196,6 +196,7 @@
             padding-left: 2px;
             /* Alinea las tablas al tope */
         }
+
         .table-container th {
             font-weight: normal;
             /* Alinea las tablas al tope */
@@ -203,7 +204,7 @@
 
         .columna_principal {
             text-align: left;
-            
+
         }
 
         .columna_secundaria {}
@@ -222,7 +223,8 @@
                     <th style="width: 25%; font-size: 0.8rem">PLL-REG-052 <br> Versión 002 <br> Página 1 de 1 </th>
                 </tr>
                 <tr>
-                    <td colspan="3" style="text-align: center; padding: 0.6rem;  font-weight:bold;">Control de calidad en proceso - Linea Ulta Pasteurizado UHT</td>
+                    <td colspan="3" style="text-align: center; padding: 0.6rem;  font-weight:bold;">Control de
+                        calidad en proceso - Linea Ulta Pasteurizado UHT</td>
                 </tr>
             </table>
         </head>
@@ -249,9 +251,10 @@
                                 @if ($informacion->fecha_vencimiento1)
                                     {{ \Carbon\Carbon::parse($informacion->fecha_vencimiento1)->isoFormat('DD/MM/YYYY', 0, 'es') }}
                                 @endif
-                                
+
                                 @if ($informacion->fecha_vencimiento2)
-                                    - {{ \Carbon\Carbon::parse($informacion->fecha_vencimiento2)->isoFormat('DD/MM/YYYY', 0, 'es') }}
+                                    -
+                                    {{ \Carbon\Carbon::parse($informacion->fecha_vencimiento2)->isoFormat('DD/MM/YYYY', 0, 'es') }}
                                 @endif
 
                             </p>
@@ -315,7 +318,7 @@
                         <th>Prep.</th>
                         <th>Téc.HTST</th>
                         <th>Téc.UHT</th>
-                        
+
                     </tr>
                 </thead>
                 <tbody>
@@ -400,13 +403,9 @@
                                 <th>-</th>
                                 <th>
                                     @foreach ($dato->solicitudAnalisisLinea->estadoPlanta->estadoDetalle as $estado)
-                                    @if ($estado->orp_id == $orpId)
-                                    {{ $estado->preparacion }}
-                                    @endif
-
-                                    
-                                        
-                                        
+                                        @if ($estado->orp_id == $orpId)
+                                            {{ $estado->preparacion }}
+                                        @endif
                                     @endforeach
                                 </th>
 
@@ -414,7 +413,7 @@
                                     <th>
                                         {{ $dato->solicitudAnalisisLinea->user->codigo }}
                                     </th>
-                                    @else
+                                @else
                                     <th>-</th>
                                 @endif
 
@@ -422,10 +421,9 @@
                                     <th>
                                         {{ $dato->solicitudAnalisisLinea->analisisLinea->user->codigo }}
                                     </th>
-                                    @else
+                                @else
                                     <th>-</th>
                                 @endif
-                                
                             @endif
 
 
@@ -436,14 +434,14 @@
 
             </table>
 
-            
+
             <br>
             <table class="table-container">
 
                 <thead>
                     <tr>
                         <th colspan="14" style="font-weight:bold;">
-                            Control de Calidad de Producto Envasado 
+                            Control de Calidad de Producto Envasado
                         </th>
                     </tr>
 
@@ -564,7 +562,6 @@
                                         {{ $dato->solicitudAnalisisLinea->analisisLinea->user->codigo }}
                                     @endif
                                 </th>
-                               
                             @endif
 
 
@@ -575,8 +572,9 @@
                 </tbody>
 
             </table>
-<br>
-            <table class="table-container"><tbody>
+            <br>
+            <table class="table-container">
+                <tbody>
                     @php
 
                         $buscador = 0;
@@ -601,21 +599,20 @@
                                 @foreach ($obs as $dato)
                                     @if ($dato->solicitudAnalisisLinea->analisisLinea->observaciones == null)
                                     @else
-                                        <tr>
+                    <tr>
 
-                                            <th colspan="13">
-                                                {{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->analisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }} 
-                                                {{ $dato->solicitudAnalisisLinea->analisisLinea->user->nombre }}:
-                                                {{ $dato->solicitudAnalisisLinea->analisisLinea->observaciones }}</th>
+                        <th colspan="13">
+                            {{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->analisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
+                            {{ $dato->solicitudAnalisisLinea->analisisLinea->user->nombre }}:
+                            {{ $dato->solicitudAnalisisLinea->analisisLinea->observaciones }}</th>
 
-                                         </tr>
-                                    @endif
-                                @endforeach
-                            @endif
-                            @if ($buscador == 0)
-                                Sin Observaciones
-                                
-                            @endif
+                    </tr>
+                    @endif
+                    @endforeach
+                    @endif
+                    @if ($buscador == 0)
+                        Sin Observaciones
+                    @endif
 
 
 
@@ -626,6 +623,13 @@
                 </tbody>
 
             </table>
+
+            <br>
+            <div class="justify-end">
+                <p align="right">C.&nbsp;&nbsp;&nbsp;:     Conforme &nbsp;&nbsp;&nbsp;  &nbsp; </p>
+                <p align="right">N.C.: No Conforme</p>
+            </div>
+
 
 
         </main>
