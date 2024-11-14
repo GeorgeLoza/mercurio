@@ -6,9 +6,9 @@
 
 @section('contenido')
 <!--Tabla -->
-@livewire('dashboard.paseTurnoReporte') 
-@livewire('paseTurno.reporte')
-@livewire('dashbord.planta')
+@livewire('dashboard.paseTurnoReporte')  
+{{-- @livewire('paseTurno.reporte')
+@livewire('dashbord.planta') --}}
 
 @if (auth()->user()->division->nombre == 'Produccion' || auth()->user()->division->nombre=='Admi')
 <div data-dial-init class="fixed end-6 bottom-6 group">

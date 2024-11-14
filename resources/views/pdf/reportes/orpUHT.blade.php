@@ -400,7 +400,13 @@
                                 <th>-</th>
                                 <th>
                                     @foreach ($dato->solicitudAnalisisLinea->estadoPlanta->estadoDetalle as $estado)
-                                        {{ $estado->preparacion }}
+                                    @if ($estado->orp_id == $orpId)
+                                    {{ $estado->preparacion }}
+                                    @endif
+
+                                    
+                                        
+                                        
                                     @endforeach
                                 </th>
 
@@ -521,23 +527,23 @@
 
                                 @if ($analisis->color)
                                     @if ($analisis->color == true)
-                                        <th>Si</th>
+                                        <th>C.</th>
                                     @else
-                                        <th>No</th>
+                                        <th>N.C.</th>
                                     @endif
                                 @endif
                                 @if ($analisis->olor)
                                     @if ($analisis->olor == true)
-                                        <th>Si</th>
+                                        <th>C.</th>
                                     @else
-                                        <th>No</th>
+                                        <th>N.C.</th>
                                     @endif
                                 @endif
                                 @if ($analisis->sabor)
                                     @if ($analisis->sabor == true)
-                                        <th>Si</th>
+                                        <th>C.</th>
                                     @else
-                                        <th>No</th>
+                                        <th>N.C.</th>
                                     @endif
                                 @endif
                                 {{-- peso --}}

@@ -68,6 +68,7 @@ class Tabla extends Component
         foreach ($admins as $admin) {
             $admin->notify(new orpNotification($registro));
         }
+        
     }
 
     public function cancelar($id)

@@ -34,7 +34,7 @@
                 </div>
                 <p class="text-xs font-bold w-10/12 p-1">{{ $orp->codigo }} - <span
                         class="font-normal">{{ $orp->producto->nombre }}</span> - {{ $orp->lote / 1 }}</p>
-                <div class="bg-blue-300 w-5 h-full flex justify-center items-center rounded-r-lg"  wire:click="siguiente({{ $orp->id }}, 'En proceso')">
+                <div class="bg-blue-300 w-5 h-full flex justify-center items-center rounded-r-lg"  wire:click=" siguiente({{ $orp->id }}, 'En proceso') " >
                     <svg xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 448 512" class="h-3 w-3">
                         <path

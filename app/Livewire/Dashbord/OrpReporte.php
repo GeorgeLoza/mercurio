@@ -176,10 +176,10 @@ class OrpReporte extends Component
                 ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function($query) use ($orpId) {
                     $query->where('orp_id', $orpId); // Filtra siempre por orp_id
                 })
+
+               
                 ->get();
-
-
-
+                
                 
 
 
@@ -214,7 +214,7 @@ class OrpReporte extends Component
                 $informacion = $this->reporte;
                 $usuariosInvolucrados = $this->usuariosInvolucrados;
                 $pdf = App::make('dompdf.wrapper');
-                $pdf = Pdf::loadView('pdf.reportes.orpUHT', compact(['data', 'informacion', 'usuariosInvolucrados','mezclas','envasados', 'obs']));
+                $pdf = Pdf::loadView('pdf.reportes.orpUHT', compact(['data', 'informacion', 'usuariosInvolucrados','mezclas','envasados', 'obs', 'orpId']));
                 $pdf->setPaper('letter', 'portrait');
                 echo $pdf->stream();
             },
