@@ -1,18 +1,15 @@
-<div @if (auth()->user()->rol=="FQ")
-    wire:poll.10s
-@endif >
+<div @if (auth()->user()->rol == 'FQ') wire:poll.10s @endif>
     <div class="flex mb-2 gap-2">
         <a href="{{ route('leche_analisis.index') }}" class="px-2 bg-green-600 text-white rounded-md">
             Analisis de Leche
         </a>
         @if ($pendiente)
-        <p class="bg-red-500 text-white p-1 rounded-md"> Tienes análisis de recepción de leche pendiente</p>
+            <p class="bg-red-500 text-white p-1 rounded-md"> Tienes análisis de recepción de leche pendiente</p>
         @endif
     </div>
     <button wire:click="show_filtro">
 
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-gray-700 dark:fill-gray-300"
-            viewBox="0 0 512 512">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-gray-700 dark:fill-gray-300" viewBox="0 0 512 512">
             <path
                 d="M3.9 54.9C10.5 40.9 24.5 32 40 32H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L320 320.9V448c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48c-8.1-6-12.8-15.5-12.8-25.6V320.9L9 97.3C-.7 85.4-2.8 68.8 3.9 54.9z" />
         </svg>
@@ -23,14 +20,18 @@
                 d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM155.7 250.2L192 302.1l36.3-51.9c7.6-10.9 22.6-13.5 33.4-5.9s13.5 22.6 5.9 33.4L221.3 344l46.4 66.2c7.6 10.9 5 25.8-5.9 33.4s-25.8 5-33.4-5.9L192 385.8l-36.3 51.9c-7.6 10.9-22.6 13.5-33.4 5.9s-13.5-22.6-5.9-33.4L162.7 344l-46.4-66.2c-7.6-10.9-5-25.8 5.9-33.4s25.8-5 33.4 5.9z" />
         </svg>
     </button>
+
+    <input id="mt" type="text">
+    <input id=¨yr¨ type="text">
+
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg  overflow-y-auto h-[28rem] overflow-hidden">
-        <table  class=" w-full text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
-            
+        <table class=" w-full text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
+
             <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-1 py-1 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('codigo')">
-                        
+
                         Fecha
                     </th>
                     <th scope="col" class="px-1 py-1 sticky top-0 bg-white dark:bg-gray-700"
@@ -57,8 +58,8 @@
                     <th scope="col" class="px-1 py-1 sticky top-0 bg-white dark:bg-gray-700">
                         etapa
                     </th>
-                    
-                    
+
+
                     <th scope="col" class="px-1 py-1 sticky top-0 bg-white dark:bg-gray-700">
                         Temperatura
                     </th>
@@ -86,10 +87,10 @@
                     <th scope="col" class="px-1 py-1 sticky top-0 bg-white dark:bg-gray-700">
                         Sabor
                     </th>
-                    
-                    
-                    
-                    
+
+
+
+
                     <th scope="col" class="px-1 py-1 sticky top-0 bg-white dark:bg-gray-700">
                         solicitante
                     </th>
@@ -112,8 +113,8 @@
                                 class="block w-full p-1 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         </th>
                         <th><input type="text" wire:model.live='f_pt' placeholder="Filtrar PT"
-                            class="block w-full p-1 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                   </th>
+                                class="block w-full p-1 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        </th>
                         <th class="p-1">
                             <input type="text" wire:model.live='f_producto' placeholder="Filtrar por Nombre"
                                 class="block w-full p-1 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -130,7 +131,7 @@
                             <input type="text" wire:model.live='f_etapa' placeholder="Filtrar por Etapa"
                                 class="block w-full p-1 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         </th>
-                        
+
                         <th class="p-1">
                             <svg xmlns="http://www.w3.org/2000/svg" wire:click="limpiarFiltros" viewBox="0 0 576 512"
                                 class="h-5 w-5 fill-green-600 dark:fill-green-500">
@@ -157,19 +158,21 @@
                     <tr
                         class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <th class="px-3 py-2" nowrap>
+
                             @foreach ($analisis->solicitudAnalisisLinea->estadoPlanta->estadoDetalle as $item)
-                            <p>{{ \Carbon\Carbon::parse($item->orp->tiempo_elaboracion)->format('d-m-Y') }}</p>
+                                @if ($item->orp->tiempo_elaboracion)
+                                    <p>{{ \Carbon\Carbon::parse($item->orp->tiempo_elaboracion)->format('d-m-Y') }}</p>
+                                @endif
                             @endforeach
 
                         </th>
                         <td class="px-3 py-2" nowrap>
                             @if ($analisis->solicitudAnalisisLinea->tiempo)
-                            {{\Carbon\Carbon::parse($analisis->solicitudAnalisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
+                                {{ \Carbon\Carbon::parse($analisis->solicitudAnalisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
                             @endif
                             -
                             @if ($analisis->tiempo)
-                            {{\Carbon\Carbon::parse($analisis->tiempo)->isoFormat('HH:mm', 0, 'es') }}
-                                
+                                {{ \Carbon\Carbon::parse($analisis->tiempo)->isoFormat('HH:mm', 0, 'es') }}
                             @endif
 
                         </td>
@@ -189,7 +192,7 @@
 
                         </th>
 
-                        
+
                         <td class="px-1 py-2" nowrap>
                             @foreach ($analisis->solicitudAnalisisLinea->estadoPlanta->estadoDetalle as $item)
                                 <div class="whitespace-nowrap" data-popover-target="popover-{{ $item->orp->codigo }}">
@@ -214,11 +217,11 @@
                                 {{ $analisis->solicitudAnalisisLinea->estadoPlanta->etapa->nombre }}
                             @endif
                         </td>
-                        
 
-                        
 
-                        
+
+
+
 
                         <td class="text-center px-1 py-2 @if ($parametroLinea && $analisis->temperatura !== null) {{ $analisis->temperatura >= $parametroLinea->temperatura_min && $analisis->temperatura <= $parametroLinea->temperatura_max ? 'text-green-500' : 'text-red-500' }} @endif"
                             nowrap>
@@ -270,10 +273,10 @@
                                 <p class="text-red-500">No</p>
                             @endif
                         </td>
-                        
-                        
-                        
-                       
+
+
+
+
                         <td class="px-1 py-2 text-center" nowrap>
                             {{ $analisis->solicitudAnalisisLinea->user->codigo }}
                         </td>
@@ -293,14 +296,29 @@
         </table>
     </div>
     @if (!$aplicandoFiltros)
-    @if (auth()->user()->rol=="FQ")
-    @else
-        <div>
-            {{ $calidades->links('pagination::tailwind') }}
+        @if (auth()->user()->rol == 'FQ')
+        @else
+            <div>
+                {{ $calidades->links('pagination::tailwind') }}
+            </div>
+        @endif
+    @endif
+    {{-- <div wire:loading>
+        <div
+            class="fixed inset-0 flex items-center justify-center bg-gray-50 bg-opacity-75 dark:bg-gray-800 dark:bg-opacity-75 z-50">
+            <div role="status">
+                <svg aria-hidden="true" class="w-16 h-16 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                    viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                        fill="currentColor" />
+                    <path
+                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                        fill="currentFill" />
+                </svg>
+                <span class="sr-only">Loading...</span>
+            </div>
         </div>
-        
-        @endif
-        @endif
+    </div> --}}
 
 </div>
-

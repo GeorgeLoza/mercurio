@@ -16,14 +16,28 @@ class DatosExport implements FromCollection, WithHeadings
     }
 
     public function collection(): Collection
+
+
     {
-        return $this->analisis->map(function ($analisis) {
-            return [
-                'ORP' => $analisis->id,
+        return $this->analisis->take(1000)->flatMap(function ($analisis) {
+
+
+            $estadoDetalles = $analisis->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
+            return collect($estadoDetalles)->map(function ($detalle) use ($analisis) {
+                return [
+
+                'fecha' => $detalle->orp->tiempo_elaboracion,
                 'hora S' => $analisis->solicitudAnalisisLinea->tiempo,
                 'hora R' => $analisis->tiempo,
-                'etapa' => $analisis->id,
-                'origen' => $analisis->id,
+                'ORP' => $detalle->orp->codigo,
+                'CAT' => $detalle->orp->producto->categoriaProducto->grupo,
+                'PT' => $detalle->orp->producto->codigo,
+                 'Producto' => $detalle->orp->producto->nombre,
+                'preparacion' => $detalle->preparacion,
+                'origen' => $analisis->solicitudAnalisisLinea->estadoPlanta->origen->alias,
+
+                    'etapa' => $analisis->solicitudAnalisisLinea->estadoPlanta->etapa->nombre,
+
                 't' => $analisis->temperatura,
                 'ph' => $analisis->ph,
                 'ac' => $analisis->acidez,
@@ -33,10 +47,12 @@ class DatosExport implements FromCollection, WithHeadings
                 'c' => $analisis->color,
                 'o' => $analisis->olor,
                 's' => $analisis->sabor,
-                
-                
+
+
+
                 // Agrega más columnas aquí según tu necesidad
             ];
+        });
         });
     }
 
@@ -46,7 +62,25 @@ class DatosExport implements FromCollection, WithHeadings
     public function headings(): array
     {
         return [
+            'fecha',
+            'hora S' ,
+            'hora R',
             'ORP',
+            'CAT',
+            'PT',
+            'Producto',
+            'preparacion',
+            'origen' ,
+                'etapa' ,
+                't' ,
+                'ph' ,
+                'ac' ,
+                'brix' ,
+                'vis' ,
+                'dens' ,
+                'c' ,
+                'o' ,
+                's' ,
             // Agrega los nombres de las columnas aquí
         ];
     }

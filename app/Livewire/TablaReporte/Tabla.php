@@ -15,7 +15,7 @@ use App\Models\Orp;
 
 class Tabla extends Component
 {
-    
+
     //filtros-busqueda
     public $f_orp = null;
     public $f_producto = null;
@@ -66,11 +66,26 @@ class Tabla extends Component
     }
 
     public function exportarExcel()
-    {
-        $analisis = AnalisisLinea::all();
-        
 
-            
+    {
+        set_time_limit(120);
+
+        $anio = 2024;  // Año, por ejemplo: 2024
+        $mes = 11;    // Mes, por ejemplo: 6 (junio)
+
+        $analisis = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle.orp', function ($query) {
+            $query->whereNotIn('codigo', [1, 2, 0]); // Excluye los códigos 1, 2 y 3
+        })
+        ->when($anio, function ($query) use ($anio) {
+            return $query->whereYear('created_at', $anio);  // Filtra por año
+        })
+        ->when($mes, function ($query) use ($mes) {
+            return $query->whereMonth('created_at', $mes);  // Filtra por mes
+        })
+
+        ->orderBy('created_at', 'desc') // Ordena por fecha de creación de manera descendente
+        ->get();
+
 
         // Utiliza el paquete maatwebsite/excel para exportar los datos a un archivo Excel
 
