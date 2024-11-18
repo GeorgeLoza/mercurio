@@ -840,9 +840,9 @@
         </div>
 
         {{-- Columna 3 --}}
-        <div class="row-span-4 col-span-2 grid grid-cols-1 grid-rows-4  w-full">
+        <div class="row-span-4 col-span-2 grid grid-cols-1 grid-rows-4  col-start-13 ">
             {{-- ENV UX --}}
-            <div class="col-span-1 col-start-13 bg-white dark:bg-gray-900 rounded-md p-2 row-span-2 mb-1  ">
+            <div class="col-span-1  bg-white dark:bg-gray-900 rounded-md p-2 row-span-2 mb-1  ">
 
 
                 <div class="grid grid-cols-1 gap-2 h-full justify-center grid-rows-2 ">
@@ -918,7 +918,7 @@
                 </div>
             </div>
             {{-- TKSY --}}
-            <div class="col-span-1 col-start-13 bg-white dark:bg-gray-900 rounded-md p-2 row-span-1  row-start-3">
+            <div class="col-span-1  bg-white dark:bg-gray-900 rounded-md p-2 row-span-1  row-start-3">
 
 
                 <div class="grid grid-cols-1 gap-2 h-full justify-center grid-rows-1 ">
@@ -962,7 +962,7 @@
                 </div>
             </div>
             {{-- env soy --}}
-            <div class="col-span-1 col-start-13 bg-white dark:bg-gray-900 rounded-md p-2 row-span-1  row-start-4 mt-1">
+            <div class="col-span-1  bg-white dark:bg-gray-900 rounded-md p-2 row-span-1  row-start-4 mt-1">
 
 
                 <div class="grid grid-cols-1 gap-2 h-full justify-center grid-rows-1 ">
