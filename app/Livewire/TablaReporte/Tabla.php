@@ -68,7 +68,7 @@ class Tabla extends Component
     public function exportarExcel()
 
     {
-        set_time_limit(120);
+        
 
         $anio = 2024;  // Año, por ejemplo: 2024
         $mes = 11;    // Mes, por ejemplo: 6 (junio)

@@ -728,74 +728,73 @@ class Movimiento extends ModalComponent
                 }
                 if ($this->grupo == 5) {
 
-                    
-//prueba soyas
-// agragaion de estado planta y su detalle trilliza 1a
-if ($this->L1 == 1) {
-   
-        $estadoPlanta = EstadoPlanta::create([
-            'tiempo' => now(),
-            'user_id' => auth()->user()->id,
-            'origen_id' => 57, //id de trilliza 1A
-            'proceso' => "Produccion",
-            'etapa_id' => 8,
-        ]);
-        $id_estadoPlanta = $estadoPlanta->id;
-    
-        foreach ($this->detalles as $detalle) {
-            EstadoDetalle::create([
-                'orp_id' => $detalle['orp_id'],
-                'preparacion' => $detalle['preparacion'],
-                'estado_planta_id' => $id_estadoPlanta,
-                'user_id' => auth()->user()->id,
-            ]);
-        }
-    }
-   
-    if ($this->L2 == 1) {
-       
-        $estadoPlanta = EstadoPlanta::create([
-            'tiempo' => now(),
-            'user_id' => auth()->user()->id,
-            'origen_id' => 58, //id de trilliza 1A
-            'proceso' => "Produccion",
-            'etapa_id' => 8,
-        ]);
-        $id_estadoPlanta = $estadoPlanta->id;
-    
-        foreach ($this->detalles as $detalle) {
-            EstadoDetalle::create([
-                'orp_id' => $detalle['orp_id'],
-                'preparacion' => $detalle['preparacion'],
-                'estado_planta_id' => $id_estadoPlanta,
-                'user_id' => auth()->user()->id,
-            ]);
-        }
-    }
-    if ($this->L3 == 1) {
-        
-        $estadoPlanta = EstadoPlanta::create([
-            'tiempo' => now(),
-            'user_id' => auth()->user()->id,
-            'origen_id' => 59, //id de trilliza 1A
-            'proceso' => "Produccion",
-            'etapa_id' => 8,
-        ]);
-        $id_estadoPlanta = $estadoPlanta->id;
-    
-        foreach ($this->detalles as $detalle) {
-            EstadoDetalle::create([
-                'orp_id' => $detalle['orp_id'],
-                'preparacion' => $detalle['preparacion'],
-                'estado_planta_id' => $id_estadoPlanta,
-                'user_id' => auth()->user()->id,
-            ]);
-        }
-    }
-    
-    
+
+                    //prueba soyas
+                    // agragaion de estado planta y su detalle trilliza 1a
+                    if ($this->L1 == 1) {
+
+                        $estadoPlanta = EstadoPlanta::create([
+                            'tiempo' => now(),
+                            'user_id' => auth()->user()->id,
+                            'origen_id' => 57, //id de trilliza 1A
+                            'proceso' => "Produccion",
+                            'etapa_id' => 8,
+                        ]);
+                        $id_estadoPlanta = $estadoPlanta->id;
+
+                        foreach ($this->detalles as $detalle) {
+                            EstadoDetalle::create([
+                                'orp_id' => $detalle['orp_id'],
+                                'preparacion' => $detalle['preparacion'],
+                                'estado_planta_id' => $id_estadoPlanta,
+                                'user_id' => auth()->user()->id,
+                            ]);
+                        }
+                    }
+
+                    if ($this->L2 == 1) {
+
+                        $estadoPlanta = EstadoPlanta::create([
+                            'tiempo' => now(),
+                            'user_id' => auth()->user()->id,
+                            'origen_id' => 58, //id de trilliza 1A
+                            'proceso' => "Produccion",
+                            'etapa_id' => 8,
+                        ]);
+                        $id_estadoPlanta = $estadoPlanta->id;
+
+                        foreach ($this->detalles as $detalle) {
+                            EstadoDetalle::create([
+                                'orp_id' => $detalle['orp_id'],
+                                'preparacion' => $detalle['preparacion'],
+                                'estado_planta_id' => $id_estadoPlanta,
+                                'user_id' => auth()->user()->id,
+                            ]);
+                        }
+                    }
+                    if ($this->L3 == 1) {
+
+                        $estadoPlanta = EstadoPlanta::create([
+                            'tiempo' => now(),
+                            'user_id' => auth()->user()->id,
+                            'origen_id' => 59, //id de trilliza 1A
+                            'proceso' => "Produccion",
+                            'etapa_id' => 8,
+                        ]);
+                        $id_estadoPlanta = $estadoPlanta->id;
+
+                        foreach ($this->detalles as $detalle) {
+                            EstadoDetalle::create([
+                                'orp_id' => $detalle['orp_id'],
+                                'preparacion' => $detalle['preparacion'],
+                                'estado_planta_id' => $id_estadoPlanta,
+                                'user_id' => auth()->user()->id,
+                            ]);
+                        }
+                    }
                 }
 
+                $this->js('window.location.reload()');
                 $this->dispatch('actualizar_tabla_estado');
                 $this->closeModal();
                 $this->dispatch('actualizar_dashboardPlanta');
@@ -838,34 +837,34 @@ if ($this->L1 == 1) {
     }
 
     public function updatedDestino($value)
-{
-    if ($value) {
-        // Buscar el tanque seleccionado
-        $id_estado = EstadoPlanta::where('origen_id', $value)->latest()->first();
-        
-        // Verificar si existe el tanque
-        if ($id_estado) {
-            $estadoDetalles = EstadoDetalle::where('estado_planta_id', $id_estado->id)->get();
-            foreach ($estadoDetalles as $index => $det) {
-                // Verificar si ya existe un registro similar en $this->detalles
-                $existe = collect($this->detalles)->contains(function ($detalle) use ($det) {
-                    return $detalle['orp_id'] === $det->orp->id
-                        && $detalle['preparacion'] === $det->preparacion;
-                });
+    {
+        if ($value) {
+            // Buscar el tanque seleccionado
+            $id_estado = EstadoPlanta::where('origen_id', $value)->latest()->first();
 
-                // Si no existe, agregarlo a la lista
-                if (!$existe) {
-                    $this->detalles[] = [
-                        'orp_id' => $det->orp->id,
-                        'orp' => $det->orp->codigo,
-                        'producto' => $det->orp->producto->nombre,
-                        'preparacion' => $det->preparacion
-                    ];
+            // Verificar si existe el tanque
+            if ($id_estado) {
+                $estadoDetalles = EstadoDetalle::where('estado_planta_id', $id_estado->id)->get();
+                foreach ($estadoDetalles as $index => $det) {
+                    // Verificar si ya existe un registro similar en $this->detalles
+                    $existe = collect($this->detalles)->contains(function ($detalle) use ($det) {
+                        return $detalle['orp_id'] === $det->orp->id
+                            && $detalle['preparacion'] === $det->preparacion;
+                    });
+
+                    // Si no existe, agregarlo a la lista
+                    if (!$existe) {
+                        $this->detalles[] = [
+                            'orp_id' => $det->orp->id,
+                            'orp' => $det->orp->codigo,
+                            'producto' => $det->orp->producto->nombre,
+                            'preparacion' => $det->preparacion
+                        ];
+                    }
                 }
             }
         }
     }
-}
 
 
 

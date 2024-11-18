@@ -814,5 +814,6 @@ class CrearEnvasadora extends ModalComponent
             $this->closeModal();
             $this->dispatch('error_mensaje', mensaje: 'problema'.$th->getMessage());
         }
+
     }
 }

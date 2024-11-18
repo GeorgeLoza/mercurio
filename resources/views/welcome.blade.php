@@ -6,11 +6,11 @@
 
 @section('contenido')
 <!--Tabla -->
- {{-- @livewire('dashboard.paseTurnoReporte')    --}}
+  {{-- @livewire('dashboard.paseTurnoReporte')     --}}
  @livewire('paseTurno.reporte')
 @livewire('dashbord.planta') 
 
-@if (auth()->user()->division->nombre == 'Produccion' || auth()->user()->division->nombre=='Admi')
+@if (auth()->user()->division->nombre == 'ERROR' || auth()->user()->division->nombre=='Admi')
 <div data-dial-init class="fixed end-6 bottom-6 group">
     <div id="speed-dial-menu-default" class="flex flex-col items-center hidden mb-4 space-y-2">
         {{-- BOTON MODAL DE TANQUE --}}

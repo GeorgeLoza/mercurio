@@ -8,7 +8,5 @@
     
 
     <!--Tabla -->
-            {{-- @livewire('analisis-linea.analisis.tabla')  --}}
-    @livewire('tablaReporte.tabla') 
-    
+            @livewire('analisis-linea.analisis.tabla')   
 @endsection

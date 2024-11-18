@@ -4,6 +4,7 @@ use App\Http\Controllers\AlmacenProductoTerminadoController;
 use App\Http\Controllers\AnalisisLineaController;
 use App\Http\Controllers\CertificadoController;
 use App\Http\Controllers\ContadorController;
+use App\Http\Controllers\DatosController;
 use App\Http\Controllers\EstadoPlantaController;
 use App\Http\Controllers\ExternoController;
 use App\Http\Controllers\GeneralController;
@@ -129,3 +130,8 @@ Route::post('/register', [RegisterController::class, 'store']);
 /*Rutas de ingreso login */
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'store']);
+
+Route::middleware(['roles:Admi,Jef'])->group(function () {
+    /*ruta para orp */
+    Route::get('/datos', [DatosController::class, 'index'])->name('datos.index');
+});
