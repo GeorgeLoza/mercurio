@@ -77,7 +77,7 @@ class Tabla extends Component
 
     public function exportarExcel( )
 
-    {
+    {   
         $this->validate();
 
          
