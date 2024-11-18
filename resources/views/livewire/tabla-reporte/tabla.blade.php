@@ -1,29 +1,61 @@
 <div @if (auth()->user()->rol == 'FQ') wire:poll.10s @endif>
     <div class="flex mb-2 gap-2">
-        <a href="{{ route('leche_analisis.index') }}" class="px-2 bg-green-600 text-white rounded-md">
-            Analisis de Leche
-        </a>
-        @if ($pendiente)
-            <p class="bg-red-500 text-white p-1 rounded-md"> Tienes análisis de recepción de leche pendiente</p>
-        @endif
+      
+       
     </div>
-    <button wire:click="show_filtro">
-
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-gray-700 dark:fill-gray-300" viewBox="0 0 512 512">
-            <path
-                d="M3.9 54.9C10.5 40.9 24.5 32 40 32H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L320 320.9V448c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48c-8.1-6-12.8-15.5-12.8-25.6V320.9L9 97.3C-.7 85.4-2.8 68.8 3.9 54.9z" />
-        </svg>
-    </button>
-    <button class="bg-green-500 p-2 text-center rounded-md " wire:click="exportarExcel">
+    {{-- filtrado de datos al descargar --}}
+    <div  class="flex justify-between m-2 ">
+        <div class="">
+             <button class="bg-green-500 p-2 text-center rounded-md " wire:click="exportarExcel"
+             >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="h-5 w-5 fill-white">
             <path
                 d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM155.7 250.2L192 302.1l36.3-51.9c7.6-10.9 22.6-13.5 33.4-5.9s13.5 22.6 5.9 33.4L221.3 344l46.4 66.2c7.6 10.9 5 25.8-5.9 33.4s-25.8 5-33.4-5.9L192 385.8l-36.3 51.9c-7.6 10.9-22.6 13.5-33.4 5.9s-13.5-22.6-5.9-33.4L162.7 344l-46.4-66.2c-7.6-10.9-5-25.8 5.9-33.4s25.8-5 33.4 5.9z" />
         </svg>
     </button>
 
-    <input id="mt" type="text">
-    <input id=¨yr¨ type="text">
+    <label >Mes:</label>
+    <select class="rounded p-1 mx-2 bg-white" wire:model.defer="mes">
+        <option value="">Selecciona</option>
+        <option value="1">Enero</option>
+        <option value="2">Febrero</option>
+        <option value="3">Marzo</option>
+        <option value="4">Abril</option>
+        <option value="5">Mayo</option>
+        <option value="6">Junio</option>
+        <option value="7">Julio</option>
+        <option value="8">Agosto</option>
+        <option value="9">Septiembre</option>
+        <option value="10">Octubre</option>
+        <option value="11">Noviembre</option>
+        <option value="12">Diciembre</option>
+    </select>
+     @error('mes') <span class="text-red-500 text-base">{{ $message }}</span> @enderror
+    
 
+    <label >Año:</label>
+    
+    <input id=¨yr¨  type="number" 
+    min="2024" 
+    max="2100"  class="rounded p-1" placeholder=" 2024" wire:model.defer="anio">
+    @error('anio') <span class="text-red-500 text-base">{{ $message }}</span> @enderror
+
+
+        </div>
+
+        <div>
+            <button wire:click="show_filtro">
+
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-gray-700 dark:fill-gray-300" viewBox="0 0 512 512">
+            <path
+                d="M3.9 54.9C10.5 40.9 24.5 32 40 32H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L320 320.9V448c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48c-8.1-6-12.8-15.5-12.8-25.6V320.9L9 97.3C-.7 85.4-2.8 68.8 3.9 54.9z" />
+        </svg> 
+        </div>
+      
+    </button>
+   
+    </div>
+    
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg  overflow-y-auto h-[28rem] overflow-hidden">
         <table class=" w-full text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
 
