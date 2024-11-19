@@ -85,7 +85,7 @@ class Tabla extends Component
 
 
         $analisis = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle.orp', function ($query) {
-            $query->whereNotIn('codigo', [0, 1, 2]);
+            $query->whereNotIn('codigo', [0, 1, 2, 10073794 ]);
         })
             ->when($this->anio, function ($query) {
                 return $query->whereYear('created_at', $this->anio);

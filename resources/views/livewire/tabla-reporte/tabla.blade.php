@@ -6,7 +6,7 @@
     {{-- filtrado de datos al descargar --}}
     <div  class="flex justify-between m-2 ">
         <div class="">
-             <button class="bg-green-500 p-2 text-center rounded-md " wire:click="exportarExcel"
+             <button class="bg-green-500 p-2 text-center rounded-md " wire:click="exportarExcel "
              >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="h-5 w-5 fill-white">
             <path
@@ -15,7 +15,7 @@
     </button>
 
     <label >Mes:</label>
-    <select class="rounded p-1 mx-2 bg-white" wire:model.defer="mes">
+    <select class="rounded p-1 mx-2 bg-white text-black" wire:model.defer="mes" >
         <option value="">Selecciona</option>
         <option value="1">Enero</option>
         <option value="2">Febrero</option>
@@ -37,7 +37,7 @@
     
     <input id=¨yr¨  type="number" 
     min="2024" 
-    max="2100"  class="rounded p-1" placeholder=" 2024" wire:model.defer="anio">
+    max="2100"  class="rounded p-1 text-black" placeholder=" año" wire:model.defer="anio">
     @error('anio') <span class="text-red-500 text-base">{{ $message }}</span> @enderror
 
 

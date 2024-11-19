@@ -31,7 +31,7 @@ use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
                      'Producto' => $detalle->orp->producto->nombre,
                      'preparacion' => $detalle->preparacion,
                      'origen' => $analisis->solicitudAnalisisLinea->estadoPlanta->origen->alias,
-                     'etapa' => $analisis->solicitudAnalisisLinea->estadoPlanta->etapa,
+                     'etapa' => $analisis->solicitudAnalisisLinea->estadoPlanta->etapa->nombre,
                      't' => $analisis->temperatura,
                      'ph' => $analisis->ph,
                      'ac' => $analisis->acidez,
@@ -62,7 +62,6 @@ use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
          ];
      }
  }
-
 
 
 // class DatosExport implements FromCollection, WithHeadings
