@@ -18,7 +18,7 @@ use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
 
      public function collection(): Collection
      {
-         return $this->analisis->take(10000)->flatMap(function ($analisis) {
+         return $this->analisis->flatMap(function ($analisis) {
              $estadoDetalles = $analisis->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
              return collect($estadoDetalles)->map(function ($detalle) use ($analisis) {
                  return [
@@ -31,7 +31,7 @@ use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
                      'Producto' => $detalle->orp->producto->nombre,
                      'preparacion' => $detalle->preparacion,
                      'origen' => $analisis->solicitudAnalisisLinea->estadoPlanta->origen->alias,
-                     'etapa' => $analisis->solicitudAnalisisLinea->estadoPlanta->etapa->nombre,
+                     'etapa' => $analisis->solicitudAnalisisLinea->estadoPlanta->etapa,
                      't' => $analisis->temperatura,
                      'ph' => $analisis->ph,
                      'ac' => $analisis->acidez,
