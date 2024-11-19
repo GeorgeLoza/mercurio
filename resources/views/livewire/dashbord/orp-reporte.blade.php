@@ -262,7 +262,9 @@
                     </li>
                 @endif
             @endforeach
-
+            
+        
+                        
             @if ($resultado->estadoPlanta->etapa->id == 8)
                 <li class="relative mb-6 sm:mb-0  w-full mt-3 ">
                     <div class="flex items-center">

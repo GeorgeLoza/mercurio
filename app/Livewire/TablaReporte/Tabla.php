@@ -75,29 +75,62 @@ class Tabla extends Component
         $this->filtro = !$this->filtro;
     }
 
-    public function exportarExcel( )
+     public function exportarExcel( )
 
-    {   
-        $this->validate();
+     {  
+         ini_set('max_execution_time', 300);
+         ini_set('memory_limit', '512M'); 
+
+         $this->validate();
 
          
-        $analisis = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle.orp', function ($query) {
-            $query->whereNotIn('codigo', [1, 2, 0]);
-        })
-        ->when($this->anio, function ($query) {
-            return $query->whereYear('created_at', $this->anio);
-        })
-        ->when($this->mes, function ($query) {
-            return $query->whereMonth('created_at', $this->mes);
-        })
-        ->orderBy('created_at', 'desc')
-        ->get();
+         $analisis = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle.orp', function ($query) {
+             $query->whereNotIn('codigo', [0, 1, 2]);
+         })
+         ->when($this->anio, function ($query) {
+             return $query->whereYear('created_at', $this->anio);
+         })
+            ->when($this->mes, function ($query) {
+                return $query->whereMonth('created_at', $this->mes);
+            })
+        // ->when($this->mes, function ($query) {
+        //     return $query->whereMonth('created_at', '<', $this->mes);
+        // })
+         ->orderBy('created_at', 'asc')
+         ->get();
 
-        $nombreMes = Carbon::createFromFormat('m', $this->mes)->translatedFormat('F'); // 'F' da el nombre completo del mes
+         $nombreMes = Carbon::createFromFormat('m', $this->mes)->translatedFormat('F'); // 'F' da el nombre completo del mes
+         $nombreArchivo = "{$nombreMes}-{$this->anio}.csv";
+         // Utiliza el paquete maatwebsite/excel para exportar los datos a un archivo Excel
+         return Excel::download(new DatosExport($analisis), $nombreArchivo, \Maatwebsite\Excel\Excel::CSV);
+           }
 
-        // Utiliza el paquete maatwebsite/excel para exportar los datos a un archivo Excel
-        return Excel::download(new DatosExport($analisis), "{$nombreMes}-{$this->anio}.xlsx");
-          }
+    // public function exportarExcel( )
+
+    // {  
+         
+    //     $this->validate();
+
+         
+    //     $analisis = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle.orp', function ($query) {
+    //         $query->whereNotIn('codigo', [1, 2, 0]);
+    //     })
+    //     ->when($this->anio, function ($query) {
+    //         return $query->whereYear('created_at', $this->anio);
+    //     })
+    //     ->when($this->mes, function ($query) {
+    //         return $query->whereMonth('created_at', $this->mes);
+    //     })
+    //     ->orderBy('created_at', 'desc')
+    //     ->get();
+
+    //     $nombreMes = Carbon::createFromFormat('m', $this->mes)->translatedFormat('F'); // 'F' da el nombre completo del mes
+
+    //     // Utiliza el paquete maatwebsite/excel para exportar los datos a un archivo Excel
+    //     return Excel::download(new DatosExport($analisis), "{$nombreMes}-{$this->anio}.xlsx");
+    // }
+
+
 
     public function sortBy($field)
     {
