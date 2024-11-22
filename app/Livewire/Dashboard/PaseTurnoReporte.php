@@ -280,6 +280,7 @@ class PaseTurnoReporte extends Component
 
     public function vacio($id)
     {
+        
         try {
             EstadoPlanta::create([
                 'tiempo' => now(),

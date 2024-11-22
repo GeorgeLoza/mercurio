@@ -1,4 +1,7 @@
 <div class="">
+   
+      
+      
     <div
         class="h-[calc(100vh-110px)] overflow-auto grid grid-cols-[repeat(14,minmax(0,1fr))] grid-rows-[repeat(4,minmax(0,1fr))] gap-2 text-2xs">
         {{-- Columna 1 --}}
@@ -31,7 +34,7 @@
 
                             @if ($R1->proceso == 'Produccion' || $R1->proceso == 'Almacen')
                                 @if ($R1->proceso == 'Produccion')
-                                    <div>
+                                    <div data-popover-trigger="click" data-popover-target="r1-analizar-popover">
                                         <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 512 512">
                                             <path
@@ -40,7 +43,7 @@
                                     </div>
                                 @endif
                                 @if ($R1->proceso == 'Almacen')
-                                    <div>
+                                    <div data-popover-trigger="click" data-popover-target="r1-analizar-popover">
                                         <svg class="w-full h-4 fill-orange-600" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 512 512">
                                             <path
@@ -99,7 +102,7 @@
                                     @endif
 
                                     <div
-                                        class="absolute inset-0 flex  justify-center  transition-opacity duration-300 group-hover:opacity-0 flex-col">
+                                        class="absolute inset-0 flex  justify-center  transition-opacity  group-hover:hidden flex-col ">
                                         @if ($R1->proceso == 'Produccion' || $R1->proceso == 'Almacen')
                                             @foreach ($R1->estadoDetalle as $item)
                                                 <div class=" flex  justify-between  ">
@@ -129,7 +132,7 @@
 
                                     </div>
                                     <div
-                                        class="absolute inset-0  items-center justify-between  flex flex-col opacity-0 transition-opacity duration-300 group-hover:opacity-100 ">
+                                        class="absolute inset-0  items-center justify-between hidden  flex-col  transition-all duration-3000 delay-3000   group-hover:flex">
                                         <div class="mb-2">
                                             @if ($R1->proceso == 'Produccion' || $R1->proceso == 'Almacen')
                                                 @foreach ($R1->estadoDetalle as $item)
@@ -154,6 +157,10 @@
                                                 @endforeach
                                             @endif
                                         </div>
+                                        
+                                          
+                                          
+                                          
 
                                         {{-- botones --}}
                                         <div class=" mt-2 flex gap-1 px-0 py-0 w-full justify-center ">
@@ -239,7 +246,7 @@
 
 
 
-                                        </div>
+                                        </div> 
                                     </div>
                                 </div>
 
@@ -265,7 +272,7 @@
 
                             @if ($R2->proceso == 'Produccion' || $R2->proceso == 'Almacen')
                                 @if ($R2->proceso == 'Produccion')
-                                    <div>
+                                    <div data-popover-trigger="click" data-popover-target="r2-analizar-popover">
                                         <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 512 512">
                                             <path
@@ -274,7 +281,7 @@
                                     </div>
                                 @endif
                                 @if ($R2->proceso == 'Almacen')
-                                    <div>
+                                    <div data-popover-trigger="click" data-popover-target="r2-analizar-popover">
                                         <svg class="w-full h-4 fill-orange-600" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 512 512">
                                             <path
@@ -492,7 +499,7 @@
                             </div>
                             @if ($R3->proceso == 'Produccion' || $R3->proceso == 'Almacen')
                                 @if ($R3->proceso == 'Produccion')
-                                    <div>
+                                    <div data-popover-trigger="click" data-popover-target="r3-analizar-popover">
                                         <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 512 512">
                                             <path
@@ -501,7 +508,7 @@
                                     </div>
                                 @endif
                                 @if ($R3->proceso == 'Almacen')
-                                    <div>
+                                    <div data-popover-trigger="click" data-popover-target="r3-analizar-popover">
                                         <svg class="w-full h-4 fill-orange-600" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 512 512">
                                             <path
@@ -717,7 +724,7 @@
                     {{-- TK New --}}
                     <div
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 row-start-1 row-span-1 col-span-1">
-                        <div class=" flex  justify-between  ">
+                        <div class=" flex  justify-between items-center ">
                             <div>
                                 <p class="text-base"></p>
                             </div>
@@ -789,7 +796,7 @@
                     {{-- Mx1 --}}
                     <div
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-start dark:bg-gray-800 col-start-1 row-span-1 col-span-1">
-                        <div class=" flex  justify-between  ">
+                        <div class=" flex  justify-between  items-center">
                             <div>
                                 <p class="text-base">{{ $TKMIX1->origen->alias }}</p>
                             </div>
@@ -800,7 +807,7 @@
                             </div>
                             @if ($TKMIX1->proceso == 'Produccion' || $TKMIX1->proceso == 'Almacen')
                                 @if ($TKMIX1->proceso == 'Produccion')
-                                    <div>
+                                    <div data-popover-trigger="click" data-popover-target="mix1-analizar-popover">
                                         <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 512 512">
                                             <path
@@ -809,7 +816,7 @@
                                     </div>
                                 @endif
                                 @if ($TKMIX1->proceso == 'Almacen')
-                                    <div>
+                                    <div data-popover-trigger="click" data-popover-target="mix1-analizar-popover">
                                         <svg class="w-full h-4 fill-orange-600" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 512 512">
                                             <path
@@ -1026,10 +1033,51 @@
 
 
                     </div>
+                    <div data-popover id="mix1-analizar-popover" role="tooltip"
+                        class="absolute z-50 invisible inline-block w-74 text-xs text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                        <div
+                            class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                            <h3 class="font-semibold text-gray-900 dark:text-white">
+                                @if ($TKMIX1->proceso == 'Produccion' || $TKMIX1->proceso == 'Almacen')
+                                    @foreach ($TKMIX1->estadoDetalle as $item)
+                                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                                            {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
+                                    @endforeach
+                                @endif
+                            </h3>
+
+                        </div>
+                        <div class="px-3 py-2">
+                            @if (count($TKMIX1->solicitudAnalisisLinea) > 0)
+                                <p class="hidden">
+                                    {{ $ultimo_TKMIX1 = $TKMIX1->solicitudAnalisisLinea[count($TKMIX1->solicitudAnalisisLinea) - 1] }}
+                                </p>
+                                <p><Span class="inline-block w-32">Estado Análisis</Span>:
+                                    {{ $ultimo_TKMIX1->estado }}
+                                    - {{ \Carbon\Carbon::parse($ultimo_TKMIX1->tiempo)->isoFormat('HH:mm') }}
+                                </p>
+                                <p><Span
+                                        class="inline-block w-32">Temp.</Span>:{{ $ultimo_TKMIX1->analisisLinea->temperatura / 1 }}
+                                    [°C]</p>
+                                <p><Span
+                                        class="inline-block w-32">pH</Span>:{{ $ultimo_TKMIX1->analisisLinea->ph / 1 }}
+                                </p>
+                                <p><Span
+                                        class="inline-block w-32">Ac.</Span>:{{ $ultimo_TKMIX1->analisisLinea->acidez / 1 }}[%]
+                                </p>
+                                <p><Span
+                                        class="inline-block w-32">Sólidos</Span>:{{ $ultimo_TKMIX1->analisisLinea->brix / 1 }}[°Bx]
+                                </p>
+                            @endif
+                        </div>
+
+
+
+                    </div>
                     {{-- Mx2 --}}
                     <div
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 col-start-2 row-span-1 col-span-1">
-                        <div class=" flex  justify-between  ">
+                        <div class=" flex  justify-between items-center ">
                             <div>
                                 <p class="text-base">{{ $TKMIX2->origen->alias }}</p>
                             </div>
@@ -1040,7 +1088,7 @@
                             </div>
                             @if ($TKMIX2->proceso == 'Produccion' || $TKMIX2->proceso == 'Almacen')
                                 @if ($TKMIX2->proceso == 'Produccion')
-                                    <div>
+                                    <div data-popover-trigger="click" data-popover-target="mix2-analizar-popover">
                                         <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 512 512">
                                             <path
@@ -1049,7 +1097,7 @@
                                     </div>
                                 @endif
                                 @if ($TKMIX2->proceso == 'Almacen')
-                                    <div>
+                                    <div data-popover-trigger="click" data-popover-target="mix2-analizar-popover">
                                         <svg class="w-full h-4 fill-orange-600" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 512 512">
                                             <path
@@ -1253,7 +1301,7 @@
                     {{-- Mx3 --}}
                     <div
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 col-start-3 row-span-1 col-span-1">
-                        <div class=" flex  justify-between  ">
+                        <div class=" flex  justify-between  items-center">
                             <div>
                                 <p class="text-base">{{ $TKMIX3->origen->alias }}</p>
                             </div>
@@ -1264,7 +1312,7 @@
                             </div>
                             @if ($TKMIX3->proceso == 'Produccion' || $TKMIX3->proceso == 'Almacen')
                                 @if ($TKMIX3->proceso == 'Produccion')
-                                    <div>
+                                    <div data-popover-trigger="click" data-popover-target="mix3-analizar-popover">
                                         <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 512 512">
                                             <path
@@ -1273,7 +1321,7 @@
                                     </div>
                                 @endif
                                 @if ($TKMIX3->proceso == 'Almacen')
-                                    <div>
+                                    <div data-popover-trigger="click" data-popover-target="mix3-analizar-popover">
                                         <svg class="w-full h-4 fill-orange-600" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 512 512">
                                             <path
@@ -1479,7 +1527,7 @@
                     {{-- Mx4 --}}
                     <div
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 col-start-4 row-span-1 col-span-1">
-                        <div class=" flex  justify-between  ">
+                        <div class=" flex  justify-between items-center  ">
                             <div>
                                 <p class="text-base">{{ $TKMIX4->origen->alias }}</p>
                             </div>
@@ -1490,7 +1538,7 @@
                             </div>
                             @if ($TKMIX4->proceso == 'Produccion' || $TKMIX4->proceso == 'Almacen')
                                 @if ($TKMIX4->proceso == 'Produccion')
-                                    <div>
+                                    <div data-popover-trigger="click" data-popover-target="mix4-analizar-popover">
                                         <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 512 512">
                                             <path
@@ -1499,7 +1547,7 @@
                                     </div>
                                 @endif
                                 @if ($TKMIX4->proceso == 'Almacen')
-                                    <div>
+                                    <div data-popover-trigger="click" data-popover-target="mix4-analizar-popover">
                                         <svg class="w-full h-4 fill-orange-600" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 512 512">
                                             <path
@@ -1716,7 +1764,7 @@
                     {{-- tkq --}}
                     <div
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 col-start-1 row-span-1 col-span-1">
-                        <div class=" flex  justify-between  ">
+                        <div class=" flex  justify-between items-center ">
                             <div>
                                 <p class="text-base"></p>
                             </div>
@@ -1783,7 +1831,7 @@
                     {{-- MP --}}
                     <div
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 col-start-1 row-span-1 col-span-1">
-                        <div class=" flex  justify-between  ">
+                        <div class=" flex  justify-between items-center ">
                             <div>
                                 <p class="text-base">{{ $TKMP->origen->alias }}</p>
                             </div>
@@ -1794,7 +1842,7 @@
                             </div>
 
                             @if ($TKMP->proceso == 'Produccion')
-                                <div>
+                                <div data-popover-trigger="click" data-popover-target="tkmp-analizar-popover">
                                     <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 512 512">
                                         <path
@@ -1989,26 +2037,25 @@
                     {{-- MG --}}
                     <div
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 col-start-2 row-span-1 col-span-1">
-                        <div class=" flex  justify-between  ">
+                        <div class=" flex  justify-between items-center ">
                             <div>
                                 <p class="text-base">{{ $TKMG->origen->alias }}</p>
                             </div>
-                            
+
                             <div>
                                 <p class="text-base"> {{ \Carbon\Carbon::parse($TKMG->tiempo)->isoFormat('HH:mm') }}
                                 </p>
                             </div>
                             @if ($TKMG->proceso == 'Produccion')
-    
-                            <div>
-                                <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                    <path
-                                        d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
-                                </svg>
-                            </div>
-                        
+                                <div data-popover-trigger="click" data-popover-target="tkmg-analizar-popover">
+                                    <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 512 512">
+                                        <path
+                                            d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
+                                    </svg>
+                                </div>
                             @endif
-                    
+
 
 
                         </div>
@@ -2192,24 +2239,23 @@
                     {{-- FP --}}
                     <div
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 col-start-3 row-span-1 col-span-1">
-                        <div class=" flex  justify-between  ">
+                        <div class=" flex  justify-between items-center ">
                             <div>
                                 <p class="text-base">{{ $TKFP->origen->alias }}</p>
                             </div>
-                            
+
                             <div>
                                 <p class="text-base"> {{ \Carbon\Carbon::parse($TKFP->tiempo)->isoFormat('HH:mm') }}
                                 </p>
                             </div>
                             @if ($TKFP->proceso == 'Produccion')
-    
-                            <div>
-                                <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                    <path
-                                        d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
-                                </svg>
-                            </div>
-                        
+                                <div data-popover-trigger="click" data-popover-target="tkfp-analizar-popover">
+                                    <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 512 512">
+                                        <path
+                                            d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
+                                    </svg>
+                                </div>
                             @endif
 
 
@@ -2395,26 +2441,25 @@
                     {{-- FG --}}
                     <div
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 col-start-4 row-span-1 col-span-1">
-                        <div class=" flex  justify-between  ">
+                        <div class=" flex  justify-between items-center ">
                             <div>
                                 <p class="text-base">{{ $TKFG->origen->alias }}</p>
                             </div>
-                            
+
                             <div>
                                 <p class="text-base"> {{ \Carbon\Carbon::parse($TKFG->tiempo)->isoFormat('HH:mm') }}
                                 </p>
                             </div>
                             @if ($TKFG->proceso == 'Produccion')
-    
-                            <div>
-                                <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                    <path
-                                        d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
-                                </svg>
-                            </div>
-                        
+                                <div data-popover-trigger="click" data-popover-target="tkfg-analizar-popover">
+                                    <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 512 512">
+                                        <path
+                                            d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
+                                    </svg>
+                                </div>
                             @endif
-                    
+
 
 
                         </div>
@@ -2608,26 +2653,25 @@
                     {{-- TK10 --}}
                     <div
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 col-start-1 row-span-1 col-span-1">
-                        <div class=" flex  justify-between  ">
+                        <div class=" flex  justify-between  items-center">
                             <div>
                                 <p class="text-base">{{ $TK10->origen->alias }}</p>
                             </div>
-                            
+
                             <div>
                                 <p class="text-base"> {{ \Carbon\Carbon::parse($TK10->tiempo)->isoFormat('HH:mm') }}
                                 </p>
                             </div>
                             @if ($TK10->proceso == 'Produccion')
-    
-                            <div>
-                                <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                    <path
-                                        d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
-                                </svg>
-                            </div>
-                        
+                                <div data-popover-trigger="click" data-popover-target="tk10-analizar-popover">
+                                    <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 512 512">
+                                        <path
+                                            d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
+                                    </svg>
+                                </div>
                             @endif
-                    
+
 
 
                         </div>
@@ -2815,26 +2859,25 @@
                     {{-- TK5 --}}
                     <div
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 col-start-2 row-span-1 col-span-1">
-                        <div class=" flex  justify-between  ">
+                        <div class=" flex  justify-between items-center ">
                             <div>
                                 <p class="text-base">{{ $TK5->origen->alias }}</p>
                             </div>
-                            
+
                             <div>
                                 <p class="text-base"> {{ \Carbon\Carbon::parse($TK5->tiempo)->isoFormat('HH:mm') }}
                                 </p>
                             </div>
                             @if ($TK5->proceso == 'Produccion')
-    
-                            <div>
-                                <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                    <path
-                                        d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
-                                </svg>
-                            </div>
-                        
+                                <div data-popover-trigger="click" data-popover-target="tk5-analizar-popover">
+                                    <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 512 512">
+                                        <path
+                                            d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
+                                    </svg>
+                                </div>
                             @endif
-                    
+
 
 
                         </div>
@@ -3025,26 +3068,25 @@
                     {{-- SC --}}
                     <div
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 col-start-1 row-span-1 col-span-1">
-                        <div class=" flex  justify-between  ">
+                        <div class=" flex  justify-between  items-center">
                             <div>
                                 <p class="text-base">{{ $TKSC->origen->alias }}</p>
                             </div>
-                           
+
                             <div>
                                 <p class="text-base"> {{ \Carbon\Carbon::parse($TKCC->tiempo)->isoFormat('HH:mm') }}
                                 </p>
                             </div>
                             @if ($TKSC->proceso == 'Produccion')
-    
-                            <div>
-                                <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                    <path
-                                        d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
-                                </svg>
-                            </div>
-                        
+                                <div data-popover-trigger="click" data-popover-target="TKSC-analizar-popover">
+                                    <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 512 512">
+                                        <path
+                                            d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
+                                    </svg>
+                                </div>
                             @endif
-                    
+
 
 
                         </div>
@@ -3229,27 +3271,26 @@
                     {{-- CC --}}
                     <div
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 col-start-2 row-span-1 col-span-1">
-                        <div class=" flex  justify-between  ">
+                        <div class=" flex  justify-between items-center ">
                             <div>
                                 <p class="text-base">{{ $TKCC->origen->alias }}</p>
                             </div>
-                            
+
                             <div>
                                 <p class="text-base">
                                     {{ \Carbon\Carbon::parse($TKCC->tiempo)->isoFormat('HH:mm') }}
                                 </p>
                             </div>
                             @if ($TKCC->proceso == 'Produccion')
-    
-                            <div>
-                                <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                    <path
-                                        d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
-                                </svg>
-                            </div>
-                        
+                                <div data-popover-trigger="click" data-popover-target="TKCC-analizar-popover">
+                                    <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 512 512">
+                                        <path
+                                            d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
+                                    </svg>
+                                </div>
                             @endif
-                    
+
 
 
                         </div>
@@ -3446,76 +3487,173 @@
                     {{-- HTST --}}
                     <div
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 col-start-1 row-span-1 col-span-5">
-                        <div class=" flex  justify-between  ">
+                        {{-- encavezado --}}
+                        <div class=" flex  justify-between  pb-0">
                             <div>
-                                <p class="text-base">{{ $TKMIX1->origen->alias }}</p>
+                                <p class="text-base">Envasadora HTST</p>
                             </div>
-                            <div>
-
-
-                            </div>
+                            
                             <div>
                                 <p class="text-base">
-                                    {{ \Carbon\Carbon::parse($TKMIX1->tiempo)->isoFormat('HH:mm') }}
+
                                 </p>
                             </div>
 
 
-                        </div>
-
-                        <div class="grid gap-2 justify-center">
-                            <div class=" p-2 flex items-center justify-center">
-                                <div>
-
-
-                                </div>
-
+                        </div >
+                        <div class=" flex  justify-between bg">
+                            
+                            <div class="flex items-center gap-2  p-3"> 
+                                <p class="text-xl ">
+                                    1 
+                                </p>
+                                <div class="text-lg ">A</div>
+                                <div class="text-lg ">B</div>
+                                <div class="text-lg ">C</div>
+                            </div>
+                          
+                            <div class="flex items-center gap-2  p-3"> 
+                                <p class="text-xl ">
+                                    2 
+                                </p>
+                                <div class="text-lg ">A</div>
+                                <div class="text-lg ">B</div>
+                                <div class="text-lg ">C</div>
+                            </div>
+                            <div class="flex items-center gap-2  p-3"> 
+                                <p class="text-xl ">
+                                    3 
+                                </p>
+                                <div class="text-lg ">A</div>
+                                <div class="text-lg ">B</div>
+                                <div class="text-lg ">C</div>
+                            </div>
+                            <div class="flex items-center gap-2  p-3"> 
+                                <p class="text-xl ">
+                                    4 
+                                </p>
+                                <div class="text-lg ">A</div>
+                                <div class="text-lg ">B</div>
+                                <div class="text-lg ">C</div>
+                            </div>
+                            <div class="flex items-center gap-2  p-3"> 
+                                <p class="text-xl ">
+                                    5 
+                                </p>
+                                <div class="text-lg ">A</div>
+                                <div class="text-lg ">B</div>
+                                <div class="text-lg ">C</div>
                             </div>
 
                         </div>
-                        <div class="flex gap-1 px-0 py-0 w-full justify-between">
+                        
+                        
 
-                        </div>
+                        
+                        {{-- botones --}}
+                            <div class="flex gap-1 px-0 py-0 w-full justify-between">
+                                <!--boton matenimiento-->
+
+                                <button type="button" 
+                                    class="w-full px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    <svg class="w-full h-4 fill-white" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 512 512">
+                                        <path
+                                            d="M78.6 5C69.1-2.4 55.6-1.5 47 7L7 47c-8.5 8.5-9.4 22-2.1 31.6l80 104c4.5 5.9 11.6 9.4 19 9.4h54.1l109 109c-14.7 29-10 65.4 14.3 89.6l112 112c12.5 12.5 32.8 12.5 45.3 0l64-64c12.5-12.5 12.5-32.8 0-45.3l-112-112c-24.2-24.2-60.6-29-89.6-14.3l-109-109V104c0-7.5-3.5-14.5-9.4-19L78.6 5zM19.9 396.1C7.2 408.8 0 426.1 0 444.1C0 481.6 30.4 512 67.9 512c18 0 35.3-7.2 48-19.9L233.7 374.3c-7.8-20.9-9-43.6-3.6-65.1l-61.7-61.7L19.9 396.1zM512 144c0-10.5-1.1-20.7-3.2-30.5c-2.4-11.2-16.1-14.1-24.2-6l-63.9 63.9c-3 3-7.1 4.7-11.3 4.7H352c-8.8 0-16-7.2-16-16V102.6c0-4.2 1.7-8.3 4.7-11.3l63.9-63.9c8.1-8.1 5.2-21.8-6-24.2C388.7 1.1 378.5 0 368 0C288.5 0 224 64.5 224 144l0 .8 85.3 85.3c36-9.1 75.8 .5 104 28.7L429 274.5c49-23 83-72.8 83-130.5zM56 432a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z" />
+                                    </svg>
+                                </button>
+
+
+                                <!--boton vacio-->
+
+                                <button type="button" 
+                                    class="w-full px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                                    <svg class="w-full h-4 fill-white" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 576 512">
+                                        <path
+                                            d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                                    </svg>
+                                </button>
+
+                            </div>
 
                     </div>
 
                 </div>
                 {{-- arana vasos  --}}
                 <div
-                    class="grid grid-cols-1 gap-2 h-full justify-center grid-rows-1 col-span-2 col-start-6  bg-white dark:bg-gray-900 p-2  mt-1 mr-1  rounded">
+                    class="grid grid-cols-1 gap-2 h-full justify-center grid-rows-1 col-span-2 col-start-6  bg-white dark:bg-gray-900 p-2  mt-1 mr-1  rounded ">
                     {{--  --}}
                     <div
-                        class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 col-start-1 row-span-1 col-span-1">
-                        <div class=" flex  justify-between  ">
-                            <div>
-                                <p class="text-base">{{ $TKMIX1->origen->alias }}</p>
+                        class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 col-start-1 row-span-1 col-span-1 ">
+                       {{-- Vasos --}}
+                        <div class=" flex flex-col  justify-center ">
+                            <div class=" flex justify-center">
+
+                                <p class="text-base mb-3">Vasos - Araña</p>
                             </div>
-                            <div>
+                            
+                                <div class=" flex  justify-between">
+                                    <div></div>
+                                    <div class="text-xl ">V1</div>
+                                    <div class="text-xl ">V2</div>
+                                    <div class="text-xl ">V3</div>
+                                    <div></div>
+                                
+                                
+    
+    
+                            </div>
+                            
 
 
+                        </div>
+                        {{-- Araña --}}
+                        <div class=" flex flex-col  justify-center ">
+                            
+                            
+                                <div class=" flex  justify-between">
+                                    <div></div>
+                                    <div class="text-xl ">ARAÑA</div>
+                                    
+                                    <div></div>
+                                
+                                
+    
+    
                             </div>
-                            <div>
-                                <p class="text-base">
-                                    {{ \Carbon\Carbon::parse($TKMIX1->tiempo)->isoFormat('HH:mm') }}
-                                </p>
-                            </div>
+                            
 
 
                         </div>
 
-                        <div class="grid gap-2 justify-center">
-                            <div class=" p-2 flex items-center justify-center">
-                                <div>
-
-
-                                </div>
-
-                            </div>
-
-                        </div>
                         <div class="flex gap-1 px-0 py-0 w-full justify-between">
+                                <!--boton matenimiento-->
 
-                        </div>
+                                <button type="button" 
+                                    class="w-full px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    <svg class="w-full h-4 fill-white" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 512 512">
+                                        <path
+                                            d="M78.6 5C69.1-2.4 55.6-1.5 47 7L7 47c-8.5 8.5-9.4 22-2.1 31.6l80 104c4.5 5.9 11.6 9.4 19 9.4h54.1l109 109c-14.7 29-10 65.4 14.3 89.6l112 112c12.5 12.5 32.8 12.5 45.3 0l64-64c12.5-12.5 12.5-32.8 0-45.3l-112-112c-24.2-24.2-60.6-29-89.6-14.3l-109-109V104c0-7.5-3.5-14.5-9.4-19L78.6 5zM19.9 396.1C7.2 408.8 0 426.1 0 444.1C0 481.6 30.4 512 67.9 512c18 0 35.3-7.2 48-19.9L233.7 374.3c-7.8-20.9-9-43.6-3.6-65.1l-61.7-61.7L19.9 396.1zM512 144c0-10.5-1.1-20.7-3.2-30.5c-2.4-11.2-16.1-14.1-24.2-6l-63.9 63.9c-3 3-7.1 4.7-11.3 4.7H352c-8.8 0-16-7.2-16-16V102.6c0-4.2 1.7-8.3 4.7-11.3l63.9-63.9c8.1-8.1 5.2-21.8-6-24.2C388.7 1.1 378.5 0 368 0C288.5 0 224 64.5 224 144l0 .8 85.3 85.3c36-9.1 75.8 .5 104 28.7L429 274.5c49-23 83-72.8 83-130.5zM56 432a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z" />
+                                    </svg>
+                                </button>
+
+
+                                <!--boton vacio-->
+
+                                <button type="button" 
+                                    class="w-full px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                                    <svg class="w-full h-4 fill-white" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 576 512">
+                                        <path
+                                            d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                                    </svg>
+                                </button>
+
+                            </div>
 
                     </div>
 
@@ -3531,32 +3669,68 @@
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 col-start-1 row-span-1 col-span-1">
                         <div class=" flex  justify-between  ">
                             <div>
-                                <p class="text-base">{{ $TKMIX1->origen->alias }}</p>
+                                <p class="text-base">Envasadora UHT</p>
                             </div>
-                            <div>
-
-
-                            </div>
-                            <div>
-                                <p class="text-base">
-                                    {{ \Carbon\Carbon::parse($TKMIX1->tiempo)->isoFormat('HH:mm') }}
-                                </p>
-                            </div>
+                            
 
 
                         </div>
 
-                        <div class="grid gap-2 justify-center">
-                            <div class=" p-2 flex items-center justify-center">
-                                <div>
-
-
-                                </div>
-
+                        <div class=" flex  justify-between bg">
+                            
+                            <div class="flex items-center gap-3  p-3"> 
+                                <p class="text-xl ">
+                                    1 
+                                </p>
+                                <div class="text-lg ">A</div>
+                                <div class="text-lg ">B</div>
+                                <div class="text-lg ">C</div>
                             </div>
+                          
+                            <div class="flex items-center gap-3  p-3"> 
+                                <p class="text-xl ">
+                                    2 
+                                </p>
+                                <div class="text-lg ">A</div>
+                                <div class="text-lg ">B</div>
+                                
+                            </div>
+                            <div class="flex items-center gap-3  p-3"> 
+                                <p class="text-xl ">
+                                    3 
+                                </p>
+                                <div class="text-lg ">A</div>
+                                <div class="text-lg ">B</div>
+                                
+                            </div>
+                            
+                            
 
                         </div>
                         <div class="flex gap-1 px-0 py-0 w-full justify-between">
+                            <!--boton matenimiento-->
+
+                            <button type="button" 
+                                class="w-full px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                <svg class="w-full h-4 fill-white" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 512 512">
+                                    <path
+                                        d="M78.6 5C69.1-2.4 55.6-1.5 47 7L7 47c-8.5 8.5-9.4 22-2.1 31.6l80 104c4.5 5.9 11.6 9.4 19 9.4h54.1l109 109c-14.7 29-10 65.4 14.3 89.6l112 112c12.5 12.5 32.8 12.5 45.3 0l64-64c12.5-12.5 12.5-32.8 0-45.3l-112-112c-24.2-24.2-60.6-29-89.6-14.3l-109-109V104c0-7.5-3.5-14.5-9.4-19L78.6 5zM19.9 396.1C7.2 408.8 0 426.1 0 444.1C0 481.6 30.4 512 67.9 512c18 0 35.3-7.2 48-19.9L233.7 374.3c-7.8-20.9-9-43.6-3.6-65.1l-61.7-61.7L19.9 396.1zM512 144c0-10.5-1.1-20.7-3.2-30.5c-2.4-11.2-16.1-14.1-24.2-6l-63.9 63.9c-3 3-7.1 4.7-11.3 4.7H352c-8.8 0-16-7.2-16-16V102.6c0-4.2 1.7-8.3 4.7-11.3l63.9-63.9c8.1-8.1 5.2-21.8-6-24.2C388.7 1.1 378.5 0 368 0C288.5 0 224 64.5 224 144l0 .8 85.3 85.3c36-9.1 75.8 .5 104 28.7L429 274.5c49-23 83-72.8 83-130.5zM56 432a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z" />
+                                </svg>
+                            </button>
+
+
+                            <!--boton vacio-->
+
+                            <button type="button" 
+                                class="w-full px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                                <svg class="w-full h-4 fill-white" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 576 512">
+                                    <path
+                                        d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                                </svg>
+                            </button>
 
                         </div>
 
@@ -3569,33 +3743,33 @@
 
             </div>
             {{-- 41 42 --}}
-            <div class="col-span-1 col-start-5 bg-white dark:bg-gray-900 rounded-md p-2 row-span-2 mb-1  row-start-2 mt-1">
+            <div
+                class="col-span-1 col-start-5 bg-white dark:bg-gray-900 rounded-md p-2 row-span-2 mb-1  row-start-2 mt-1">
 
 
                 <div class="grid grid-cols-1 gap-2 h-full justify-center grid-rows-2 ">
                     {{-- YK41 --}}
                     <div
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 row-start-1 row-span-1 col-span-1">
-                        <div class=" flex  justify-between  ">
+                        <div class=" flex  justify-between items-center ">
                             <div>
                                 <p class="text-base">{{ $TK41->origen->alias }}</p>
                             </div>
-                            
+
                             <div>
                                 <p class="text-base"> {{ \Carbon\Carbon::parse($TK41->tiempo)->isoFormat('HH:mm') }}
                                 </p>
                             </div>
                             @if ($TK41->proceso == 'Produccion')
-    
-                            <div>
-                                <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                    <path
-                                        d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
-                                </svg>
-                            </div>
-                        
+                                <div data-popover-trigger="click" data-popover-target="tk41-analizar-popover">
+                                    <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 512 512">
+                                        <path
+                                            d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
+                                    </svg>
+                                </div>
                             @endif
-                    
+
 
 
                         </div>
@@ -3779,26 +3953,25 @@
                     {{-- 42 --}}
                     <div
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 row-start-2 row-span-1 col-span-1">
-                        <div class=" flex  justify-between  ">
+                        <div class=" flex  justify-between items-center ">
                             <div>
                                 <p class="text-base">{{ $TK42->origen->alias }}</p>
                             </div>
-                            
+
                             <div>
                                 <p class="text-base"> {{ \Carbon\Carbon::parse($TK42->tiempo)->isoFormat('HH:mm') }}
                                 </p>
                             </div>
                             @if ($TK42->proceso == 'Produccion')
-    
-                            <div>
-                                <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                    <path
-                                        d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
-                                </svg>
-                            </div>
-                        
+                                <div data-popover-trigger="click" data-popover-target="tk42-analizar-popover">
+                                    <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 512 512">
+                                        <path
+                                            d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
+                                    </svg>
+                                </div>
                             @endif
-                    
+
 
 
                         </div>
@@ -3999,27 +4172,26 @@
                     {{-- aux1 --}}
                     <div
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 row-start-1 row-span-1 col-span-1">
-                        <div class=" flex  justify-between  ">
+                        <div class=" flex  justify-between  items-center">
                             <div>
                                 <p class="text-base">{{ $TKAUX1->origen->alias }}</p>
                             </div>
-                            
+
                             <div>
                                 <p class="text-base">
                                     {{ \Carbon\Carbon::parse($TKAUX1->tiempo)->isoFormat('HH:mm') }}
                                 </p>
                             </div>
                             @if ($TKAUX1->proceso == 'Produccion')
-    
-                            <div>
-                                <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                    <path
-                                        d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
-                                </svg>
-                            </div>
-                        
+                                <div data-popover-trigger="click" data-popover-target="TKAUX1-analizar-popover">
+                                    <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 512 512">
+                                        <path
+                                            d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
+                                    </svg>
+                                </div>
                             @endif
-                    
+
 
 
                         </div>
@@ -4203,27 +4375,26 @@
                     {{-- AUX2 --}}
                     <div
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 row-start-2 row-span-1 col-span-1">
-                        <div class=" flex  justify-between  ">
+                        <div class=" flex  justify-between  items-center">
                             <div>
                                 <p class="text-base">{{ $TKAUX2->origen->alias }}</p>
                             </div>
-                            
+
                             <div>
                                 <p class="text-base">
                                     {{ \Carbon\Carbon::parse($TKAUX2->tiempo)->isoFormat('HH:mm') }}
                                 </p>
                             </div>
                             @if ($TKAUX2->proceso == 'Produccion')
-    
-                            <div>
-                                <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                    <path
-                                        d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
-                                </svg>
-                            </div>
-                        
+                                <div data-popover-trigger="click" data-popover-target="TKAUX2-analizar-popover">
+                                    <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 512 512">
+                                        <path
+                                            d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
+                                    </svg>
+                                </div>
                             @endif
-                    
+
 
 
                         </div>
@@ -4417,27 +4588,26 @@
                     {{-- tksy --}}
                     <div
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 row-start-1 row-span-1 col-span-1">
-                        <div class=" flex  justify-between  ">
+                        <div class=" flex  justify-between  items-center">
                             <div>
                                 <p class="text-base">{{ $TKSY->origen->alias }}</p>
                             </div>
-                           
+
                             <div>
                                 <p class="text-base"> {{ \Carbon\Carbon::parse($TKSY->tiempo)->isoFormat('HH:mm') }}
                                 </p>
                             </div>
 
                             @if ($TKSY->proceso == 'Produccion')
-    
-                            <div>
-                                <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                    <path
-                                        d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
-                                </svg>
-                            </div>
-                        
+                                <div data-popover-trigger="click" data-popover-target="tksy-analizar-popover">
+                                    <svg class="w-full h-4 fill-green-600" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 512 512">
+                                        <path
+                                            d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
+                                    </svg>
+                                </div>
                             @endif
-                    
+
 
                         </div>
 
@@ -4634,32 +4804,49 @@
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 row-start-1 row-span-1 col-span-1">
                         <div class=" flex  justify-between  ">
                             <div>
-                                <p class="text-base">{{ $TKMIX1->origen->alias }}</p>
+                                <p class="text-base">Envasadoras Soya</p>
                             </div>
-                            <div>
-
-
-                            </div>
-                            <div>
-                                <p class="text-base">
-                                    {{ \Carbon\Carbon::parse($TKMIX1->tiempo)->isoFormat('HH:mm') }}
-                                </p>
-                            </div>
-
-
+                          
                         </div>
 
-                        <div class="grid gap-2 justify-center">
-                            <div class=" p-2 flex items-center justify-center">
-                                <div>
-
-
-                                </div>
-
+                        <div class=" flex  justify-center ">
+                            
+                            <div class="flex items-center gap-8  p-3 justify-between "> 
+                                
+                                <div class="text-lg ">L1</div>
+                                <div class="text-lg ">L2</div>
+                                <div class="text-lg ">L3</div>
                             </div>
+                          
+                            
+                            
+                            
 
                         </div>
                         <div class="flex gap-1 px-0 py-0 w-full justify-between">
+                            <!--boton matenimiento-->
+
+                            <button type="button" 
+                                class="w-full px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                <svg class="w-full h-4 fill-white" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 512 512">
+                                    <path
+                                        d="M78.6 5C69.1-2.4 55.6-1.5 47 7L7 47c-8.5 8.5-9.4 22-2.1 31.6l80 104c4.5 5.9 11.6 9.4 19 9.4h54.1l109 109c-14.7 29-10 65.4 14.3 89.6l112 112c12.5 12.5 32.8 12.5 45.3 0l64-64c12.5-12.5 12.5-32.8 0-45.3l-112-112c-24.2-24.2-60.6-29-89.6-14.3l-109-109V104c0-7.5-3.5-14.5-9.4-19L78.6 5zM19.9 396.1C7.2 408.8 0 426.1 0 444.1C0 481.6 30.4 512 67.9 512c18 0 35.3-7.2 48-19.9L233.7 374.3c-7.8-20.9-9-43.6-3.6-65.1l-61.7-61.7L19.9 396.1zM512 144c0-10.5-1.1-20.7-3.2-30.5c-2.4-11.2-16.1-14.1-24.2-6l-63.9 63.9c-3 3-7.1 4.7-11.3 4.7H352c-8.8 0-16-7.2-16-16V102.6c0-4.2 1.7-8.3 4.7-11.3l63.9-63.9c8.1-8.1 5.2-21.8-6-24.2C388.7 1.1 378.5 0 368 0C288.5 0 224 64.5 224 144l0 .8 85.3 85.3c36-9.1 75.8 .5 104 28.7L429 274.5c49-23 83-72.8 83-130.5zM56 432a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z" />
+                                </svg>
+                            </button>
+
+
+                            <!--boton vacio-->
+
+                            <button type="button" 
+                                class="w-full px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                                <svg class="w-full h-4 fill-white" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 576 512">
+                                    <path
+                                        d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                                </svg>
+                            </button>
 
                         </div>
 
@@ -4678,4 +4865,714 @@
 
 
     </div>
+
+
+    {{-- popovers --}}
+    {{-- mx2 --}}
+    <div data-popover id="mix2-analizar-popover" role="tooltip"
+        class="absolute z-50 invisible inline-block w-74 text-xs text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+        <div
+            class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+            <h3 class="font-semibold text-gray-900 dark:text-white">
+                @if ($TKMIX2->proceso == 'Produccion' || $TKMIX2->proceso == 'Almacen')
+                    @foreach ($TKMIX2->estadoDetalle as $item)
+                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                            {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
+                    @endforeach
+                @endif
+            </h3>
+
+        </div>
+        <div class="px-3 py-2">
+            @if (count($TKMIX2->solicitudAnalisisLinea) > 0)
+                <p class="hidden">
+                    {{ $ultimo_TKMIX2 = $TKMIX2->solicitudAnalisisLinea[count($TKMIX2->solicitudAnalisisLinea) - 1] }}
+                </p>
+                <p><Span class="inline-block w-32">Estado Análisis</Span>: {{ $ultimo_TKMIX2->estado }}
+                    - {{ \Carbon\Carbon::parse($ultimo_TKMIX2->tiempo)->isoFormat('HH:mm') }}
+                </p>
+                <p><Span class="inline-block w-32">Temp.</Span>:{{ $ultimo_TKMIX2->analisisLinea->temperatura / 1 }}
+                    [°C]</p>
+                <p><Span class="inline-block w-32">pH</Span>:{{ $ultimo_TKMIX2->analisisLinea->ph / 1 }}
+                </p>
+                <p><Span class="inline-block w-32">Ac.</Span>:{{ $ultimo_TKMIX2->analisisLinea->acidez / 1 }}[%]
+                </p>
+                <p><Span class="inline-block w-32">Sólidos</Span>:{{ $ultimo_TKMIX2->analisisLinea->brix / 1 }}[°Bx]
+                </p>
+            @endif
+        </div>
+
+
+
+    </div>
+    {{-- mx3 --}}
+    <div data-popover id="mix3-analizar-popover" role="tooltip"
+        class="absolute z-50 invisible inline-block w-74 text-xs text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+        <div
+            class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+            <h3 class="font-semibold text-gray-900 dark:text-white">
+                @if ($TKMIX3->proceso == 'Produccion' || $TKMIX3->proceso == 'Almacen')
+                    @foreach ($TKMIX3->estadoDetalle as $item)
+                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                            {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
+                    @endforeach
+                @endif
+            </h3>
+
+        </div>
+        <div class="px-3 py-2">
+            @if (count($TKMIX3->solicitudAnalisisLinea) > 0)
+                <p class="hidden">
+                    {{ $ultimo_TKMIX3 = $TKMIX3->solicitudAnalisisLinea[count($TKMIX3->solicitudAnalisisLinea) - 1] }}
+                </p>
+                <p><Span class="inline-block w-32">Estado Análisis</Span>: {{ $ultimo_TKMIX3->estado }}
+                    - {{ \Carbon\Carbon::parse($ultimo_TKMIX3->tiempo)->isoFormat('HH:mm') }}
+                </p>
+                <p><Span class="inline-block w-32">Temp.</Span>:{{ $ultimo_TKMIX3->analisisLinea->temperatura / 1 }}
+                    [°C]</p>
+                <p><Span class="inline-block w-32">pH</Span>:{{ $ultimo_TKMIX3->analisisLinea->ph / 1 }}
+                </p>
+                <p><Span class="inline-block w-32">Ac.</Span>:{{ $ultimo_TKMIX3->analisisLinea->acidez / 1 }}[%]
+                </p>
+                <p><Span class="inline-block w-32">Sólidos</Span>:{{ $ultimo_TKMIX3->analisisLinea->brix / 1 }}[°Bx]
+                </p>
+            @endif
+        </div>
+
+
+
+    </div>
+    {{-- mx4 --}}
+    <div data-popover id="mix4-analizar-popover" role="tooltip"
+        class="absolute z-50 invisible inline-block w-74 text-xs text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+        <div
+            class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+            <h3 class="font-semibold text-gray-900 dark:text-white">
+                @if ($TKMIX4->proceso == 'Produccion' || $TKMIX4->proceso == 'Almacen')
+                    @foreach ($TKMIX4->estadoDetalle as $item)
+                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                            {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
+                    @endforeach
+                @endif
+            </h3>
+
+        </div>
+        <div class="px-3 py-2">
+            @if (count($TKMIX4->solicitudAnalisisLinea) > 0)
+                <p class="hidden">
+                    {{ $ultimo_TKMIX4 = $TKMIX4->solicitudAnalisisLinea[count($TKMIX4->solicitudAnalisisLinea) - 1] }}
+                </p>
+                <p><Span class="inline-block w-32">Estado Análisis</Span>: {{ $ultimo_TKMIX4->estado }}
+                    - {{ \Carbon\Carbon::parse($ultimo_TKMIX4->tiempo)->isoFormat('HH:mm') }}
+                </p>
+                <p><Span class="inline-block w-32">Temp.</Span>:{{ $ultimo_TKMIX4->analisisLinea->temperatura / 1 }}
+                    [°C]</p>
+                <p><Span class="inline-block w-32">pH</Span>:{{ $ultimo_TKMIX4->analisisLinea->ph / 1 }}
+                </p>
+                <p><Span class="inline-block w-32">Ac.</Span>:{{ $ultimo_TKMIX4->analisisLinea->acidez / 1 }}[%]
+                </p>
+                <p><Span class="inline-block w-32">Sólidos</Span>:{{ $ultimo_TKMIX4->analisisLinea->brix / 1 }}[°Bx]
+                </p>
+            @endif
+        </div>
+
+
+
+    </div>
+    {{-- 41 --}}
+    <div data-popover id="tk41-analizar-popover" role="tooltip"
+        class="absolute z-50 invisible inline-block w-74 text-xs text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+        <div
+            class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+            <h3 class="font-semibold text-gray-900 dark:text-white">
+                @if ($TK41->proceso == 'Produccion' || $TK41->proceso == 'Almacen')
+                    @foreach ($TK41->estadoDetalle as $item)
+                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                            {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
+                    @endforeach
+                @endif
+            </h3>
+
+        </div>
+        <div class="px-3 py-2">
+            @if (count($TK41->solicitudAnalisisLinea) > 0)
+                <p class="hidden">
+                    {{ $ultimo_TK41 = $TK41->solicitudAnalisisLinea[count($TK41->solicitudAnalisisLinea) - 1] }}
+                </p>
+                <p><Span class="inline-block w-32">Estado Análisis</Span>: {{ $ultimo_TK41->estado }}
+                    - {{ \Carbon\Carbon::parse($ultimo_TK41->tiempo)->isoFormat('HH:mm') }}
+                </p>
+                <p><Span class="inline-block w-32">Temp.</Span>:{{ $ultimo_TK41->analisisLinea->temperatura / 1 }}
+                    [°C]</p>
+                <p><Span class="inline-block w-32">pH</Span>:{{ $ultimo_TK41->analisisLinea->ph / 1 }}
+                </p>
+                <p><Span class="inline-block w-32">Ac.</Span>:{{ $ultimo_TK41->analisisLinea->acidez / 1 }}[%]
+                </p>
+                <p><Span class="inline-block w-32">Sólidos</Span>:{{ $ultimo_TK41->analisisLinea->brix / 1 }}[°Bx]
+                </p>
+            @endif
+        </div>
+
+
+
+    </div>
+    {{-- 42 --}}
+    <div data-popover id="tk42-analizar-popover" role="tooltip"
+        class="absolute z-50 invisible inline-block w-74 text-xs text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+        <div
+            class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+            <h3 class="font-semibold text-gray-900 dark:text-white">
+                @if ($TK42->proceso == 'Produccion' || $TK42->proceso == 'Almacen')
+                    @foreach ($TK42->estadoDetalle as $item)
+                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                            {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
+                    @endforeach
+                @endif
+            </h3>
+
+        </div>
+        <div class="px-3 py-2">
+            @if (count($TK42->solicitudAnalisisLinea) > 0)
+                <p class="hidden">
+                    {{ $ultimo_TK42 = $TK42->solicitudAnalisisLinea[count($TK42->solicitudAnalisisLinea) - 1] }}
+                </p>
+                <p><Span class="inline-block w-32">Estado Análisis</Span>: {{ $ultimo_TK42->estado }}
+                    - {{ \Carbon\Carbon::parse($ultimo_TK42->tiempo)->isoFormat('HH:mm') }}
+                </p>
+                <p><Span class="inline-block w-32">Temp.</Span>:{{ $ultimo_TK42->analisisLinea->temperatura / 1 }}
+                    [°C]</p>
+                <p><Span class="inline-block w-32">pH</Span>:{{ $ultimo_TK42->analisisLinea->ph / 1 }}
+                </p>
+                <p><Span class="inline-block w-32">Ac.</Span>:{{ $ultimo_TK42->analisisLinea->acidez / 1 }}[%]
+                </p>
+                <p><Span class="inline-block w-32">Sólidos</Span>:{{ $ultimo_TK42->analisisLinea->brix / 1 }}[°Bx]
+                </p>
+            @endif
+        </div>
+
+
+
+    </div>
+    {{-- tk10 --}}
+    <div data-popover id="tk10-analizar-popover" role="tooltip"
+        class="absolute z-50 invisible inline-block w-74 text-xs text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+        <div
+            class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+            <h3 class="font-semibold text-gray-900 dark:text-white">
+                @if ($TK10->proceso == 'Produccion' || $TK10->proceso == 'Almacen')
+                    @foreach ($TK10->estadoDetalle as $item)
+                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                            {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
+                    @endforeach
+                @endif
+            </h3>
+
+        </div>
+        <div class="px-3 py-2">
+            @if (count($TK10->solicitudAnalisisLinea) > 0)
+                <p class="hidden">
+                    {{ $ultimo_TK10 = $TK10->solicitudAnalisisLinea[count($TK10->solicitudAnalisisLinea) - 1] }}
+                </p>
+                <p><Span class="inline-block w-32">Estado Análisis</Span>: {{ $ultimo_TK10->estado }}
+                    - {{ \Carbon\Carbon::parse($ultimo_TK10->tiempo)->isoFormat('HH:mm') }}
+                </p>
+                <p><Span class="inline-block w-32">Temp.</Span>:{{ $ultimo_TK10->analisisLinea->temperatura / 1 }}
+                    [°C]</p>
+                <p><Span class="inline-block w-32">pH</Span>:{{ $ultimo_TK10->analisisLinea->ph / 1 }}
+                </p>
+                <p><Span class="inline-block w-32">Ac.</Span>:{{ $ultimo_TK10->analisisLinea->acidez / 1 }}[%]
+                </p>
+                <p><Span class="inline-block w-32">Sólidos</Span>:{{ $ultimo_TK10->analisisLinea->brix / 1 }}[°Bx]
+                </p>
+            @endif
+        </div>
+
+
+
+    </div>
+    {{-- tk5 --}}
+    <div data-popover id="tk5-analizar-popover" role="tooltip"
+        class="absolute z-50 invisible inline-block w-74 text-xs text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+        <div
+            class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+            <h3 class="font-semibold text-gray-900 dark:text-white">
+                @if ($TK5->proceso == 'Produccion' || $TK5->proceso == 'Almacen')
+                    @foreach ($TK5->estadoDetalle as $item)
+                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                            {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
+                    @endforeach
+                @endif
+            </h3>
+
+        </div>
+        <div class="px-3 py-2">
+            @if (count($TK5->solicitudAnalisisLinea) > 0)
+                <p class="hidden">
+                    {{ $ultimo_TK5 = $TK5->solicitudAnalisisLinea[count($TK5->solicitudAnalisisLinea) - 1] }}
+                </p>
+                <p><Span class="inline-block w-32">Estado Análisis</Span>: {{ $ultimo_TK5->estado }}
+                    - {{ \Carbon\Carbon::parse($ultimo_TK5->tiempo)->isoFormat('HH:mm') }}
+                </p>
+                <p><Span class="inline-block w-32">Temp.</Span>:{{ $ultimo_TK5->analisisLinea->temperatura / 1 }}
+                    [°C]</p>
+                <p><Span class="inline-block w-32">pH</Span>:{{ $ultimo_TK5->analisisLinea->ph / 1 }}
+                </p>
+                <p><Span class="inline-block w-32">Ac.</Span>:{{ $ultimo_TK5->analisisLinea->acidez / 1 }}[%]
+                </p>
+                <p><Span class="inline-block w-32">Sólidos</Span>:{{ $ultimo_TK5->analisisLinea->brix / 1 }}[°Bx]
+                </p>
+            @endif
+        </div>
+
+
+
+    </div>
+    {{-- tkfp --}}
+    <div data-popover id="tkfp-analizar-popover" role="tooltip"
+        class="absolute z-50 invisible inline-block w-74 text-xs text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+        <div
+            class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+            <h3 class="font-semibold text-gray-900 dark:text-white">
+                @if ($TKFP->proceso == 'Produccion' || $TKFP->proceso == 'Almacen')
+                    @foreach ($TKFP->estadoDetalle as $item)
+                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                            {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
+                    @endforeach
+                @endif
+            </h3>
+
+        </div>
+        <div class="px-3 py-2">
+            @if (count($TKFP->solicitudAnalisisLinea) > 0)
+                <p class="hidden">
+                    {{ $ultimo_TKFP = $TKFP->solicitudAnalisisLinea[count($TKFP->solicitudAnalisisLinea) - 1] }}
+                </p>
+                <p><Span class="inline-block w-32">Estado Análisis</Span>: {{ $ultimo_TKFP->estado }}
+                    - {{ \Carbon\Carbon::parse($ultimo_TKFP->tiempo)->isoFormat('HH:mm') }}
+                </p>
+                <p><Span class="inline-block w-32">Temp.</Span>:{{ $ultimo_TKFP->analisisLinea->temperatura / 1 }}
+                    [°C]</p>
+                <p><Span class="inline-block w-32">pH</Span>:{{ $ultimo_TKFP->analisisLinea->ph / 1 }}
+                </p>
+                <p><Span class="inline-block w-32">Ac.</Span>:{{ $ultimo_TKFP->analisisLinea->acidez / 1 }}[%]
+                </p>
+                <p><Span class="inline-block w-32">Sólidos</Span>:{{ $ultimo_TKFP->analisisLinea->brix / 1 }}[°Bx]
+                </p>
+            @endif
+        </div>
+
+
+
+    </div>
+    {{-- tkfg --}}
+    <div data-popover id="tkfg-analizar-popover" role="tooltip"
+        class="absolute z-50 invisible inline-block w-74 text-xs text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+        <div
+            class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+            <h3 class="font-semibold text-gray-900 dark:text-white">
+                @if ($TKFG->proceso == 'Produccion' || $TKFG->proceso == 'Almacen')
+                    @foreach ($TKFG->estadoDetalle as $item)
+                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                            {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
+                    @endforeach
+                @endif
+            </h3>
+
+        </div>
+        <div class="px-3 py-2">
+            @if (count($TKFG->solicitudAnalisisLinea) > 0)
+                <p class="hidden">
+                    {{ $ultimo_TKFG = $TKFG->solicitudAnalisisLinea[count($TKFG->solicitudAnalisisLinea) - 1] }}
+                </p>
+                <p><Span class="inline-block w-32">Estado Análisis</Span>: {{ $ultimo_TKFG->estado }}
+                    - {{ \Carbon\Carbon::parse($ultimo_TKFG->tiempo)->isoFormat('HH:mm') }}
+                </p>
+                <p><Span class="inline-block w-32">Temp.</Span>:{{ $ultimo_TKFG->analisisLinea->temperatura / 1 }}
+                    [°C]</p>
+                <p><Span class="inline-block w-32">pH</Span>:{{ $ultimo_TKFG->analisisLinea->ph / 1 }}
+                </p>
+                <p><Span class="inline-block w-32">Ac.</Span>:{{ $ultimo_TKFG->analisisLinea->acidez / 1 }}[%]
+                </p>
+                <p><Span class="inline-block w-32">Sólidos</Span>:{{ $ultimo_TKFG->analisisLinea->brix / 1 }}[°Bx]
+                </p>
+            @endif
+        </div>
+
+
+
+    </div>
+    {{-- tkmp --}}
+    <div data-popover id="tkmp-analizar-popover" role="tooltip"
+        class="absolute z-50 invisible inline-block w-74 text-xs text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+        <div
+            class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+            <h3 class="font-semibold text-gray-900 dark:text-white">
+                @if ($TKMP->proceso == 'Produccion' || $TKMP->proceso == 'Almacen')
+                    @foreach ($TKMP->estadoDetalle as $item)
+                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                            {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
+                    @endforeach
+                @endif
+            </h3>
+
+        </div>
+        <div class="px-3 py-2">
+            @if (count($TKMP->solicitudAnalisisLinea) > 0)
+                <p class="hidden">
+                    {{ $ultimo_TKMP = $TKMP->solicitudAnalisisLinea[count($TKMP->solicitudAnalisisLinea) - 1] }}
+                </p>
+                <p><Span class="inline-block w-32">Estado Análisis</Span>: {{ $ultimo_TKMP->estado }}
+                    - {{ \Carbon\Carbon::parse($ultimo_TKMP->tiempo)->isoFormat('HH:mm') }}
+                </p>
+                <p><Span class="inline-block w-32">Temp.</Span>:{{ $ultimo_TKMP->analisisLinea->temperatura / 1 }}
+                    [°C]</p>
+                <p><Span class="inline-block w-32">pH</Span>:{{ $ultimo_TKMP->analisisLinea->ph / 1 }}
+                </p>
+                <p><Span class="inline-block w-32">Ac.</Span>:{{ $ultimo_TKMP->analisisLinea->acidez / 1 }}[%]
+                </p>
+                <p><Span class="inline-block w-32">Sólidos</Span>:{{ $ultimo_TKMP->analisisLinea->brix / 1 }}[°Bx]
+                </p>
+            @endif
+        </div>
+
+
+
+    </div>
+    {{-- tkmg --}}
+    <div data-popover id="tkmg-analizar-popover" role="tooltip"
+        class="absolute z-50 invisible inline-block w-74 text-xs text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+        <div
+            class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+            <h3 class="font-semibold text-gray-900 dark:text-white">
+                @if ($TKMG->proceso == 'Produccion' || $TKMG->proceso == 'Almacen')
+                    @foreach ($TKMG->estadoDetalle as $item)
+                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                            {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
+                    @endforeach
+                @endif
+            </h3>
+
+        </div>
+        <div class="px-3 py-2">
+            @if (count($TKMG->solicitudAnalisisLinea) > 0)
+                <p class="hidden">
+                    {{ $ultimo_TKMG = $TKMG->solicitudAnalisisLinea[count($TKMG->solicitudAnalisisLinea) - 1] }}
+                </p>
+                <p><Span class="inline-block w-32">Estado Análisis</Span>: {{ $ultimo_TKMG->estado }}
+                    - {{ \Carbon\Carbon::parse($ultimo_TKMG->tiempo)->isoFormat('HH:mm') }}
+                </p>
+                <p><Span class="inline-block w-32">Temp.</Span>:{{ $ultimo_TKMG->analisisLinea->temperatura / 1 }}
+                    [°C]</p>
+                <p><Span class="inline-block w-32">pH</Span>:{{ $ultimo_TKMG->analisisLinea->ph / 1 }}
+                </p>
+                <p><Span class="inline-block w-32">Ac.</Span>:{{ $ultimo_TKMG->analisisLinea->acidez / 1 }}[%]
+                </p>
+                <p><Span class="inline-block w-32">Sólidos</Span>:{{ $ultimo_TKMG->analisisLinea->brix / 1 }}[°Bx]
+                </p>
+            @endif
+        </div>
+
+
+
+    </div>
+    {{-- r1 --}}
+    <div data-popover id="r1-analizar-popover" role="tooltip"
+        class="absolute z-50 invisible inline-block w-74 text-xs text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+        <div
+            class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+            <h3 class="font-semibold text-gray-900 dark:text-white">
+                @if ($R1->proceso == 'Produccion' || $R1->proceso == 'Almacen')
+                    @foreach ($R1->estadoDetalle as $item)
+                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                            {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
+                    @endforeach
+                @endif
+            </h3>
+
+        </div>
+        <div class="px-3 py-2">
+            @if (count($R1->solicitudAnalisisLinea) > 0)
+                <p class="hidden">
+                    {{ $ultimo_R1 = $R1->solicitudAnalisisLinea[count($R1->solicitudAnalisisLinea) - 1] }}
+                </p>
+                <p><Span class="inline-block w-32">Estado Análisis</Span>: {{ $ultimo_R1->estado }}
+                    - {{ \Carbon\Carbon::parse($ultimo_R1->tiempo)->isoFormat('HH:mm') }}
+                </p>
+                <p><Span class="inline-block w-32">Temp.</Span>:{{ $ultimo_R1->analisisLinea->temperatura / 1 }}
+                    [°C]</p>
+                <p><Span class="inline-block w-32">pH</Span>:{{ $ultimo_R1->analisisLinea->ph / 1 }}
+                </p>
+                <p><Span class="inline-block w-32">Ac.</Span>:{{ $ultimo_R1->analisisLinea->acidez / 1 }}[%]
+                </p>
+                <p><Span class="inline-block w-32">Sólidos</Span>:{{ $ultimo_R1->analisisLinea->brix / 1 }}[°Bx]
+                </p>
+            @endif
+        </div>
+
+
+
+    </div>
+    {{-- r2 --}}
+    <div data-popover id="r2-analizar-popover" role="tooltip"
+        class="absolute z-50 invisible inline-block w-74 text-xs text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+        <div
+            class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+            <h3 class="font-semibold text-gray-900 dark:text-white">
+                @if ($R2->proceso == 'Produccion' || $R2->proceso == 'Almacen')
+                    @foreach ($R2->estadoDetalle as $item)
+                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                            {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
+                    @endforeach
+                @endif
+            </h3>
+
+        </div>
+        <div class="px-3 py-2">
+            @if (count($R2->solicitudAnalisisLinea) > 0)
+                <p class="hidden">
+                    {{ $ultimo_R2 = $R2->solicitudAnalisisLinea[count($R2->solicitudAnalisisLinea) - 1] }}
+                </p>
+                <p><Span class="inline-block w-32">Estado Análisis</Span>: {{ $ultimo_R2->estado }}
+                    - {{ \Carbon\Carbon::parse($ultimo_R2->tiempo)->isoFormat('HH:mm') }}
+                </p>
+                <p><Span class="inline-block w-32">Temp.</Span>:{{ $ultimo_R2->analisisLinea->temperatura / 1 }}
+                    [°C]</p>
+                <p><Span class="inline-block w-32">pH</Span>:{{ $ultimo_R2->analisisLinea->ph / 1 }}
+                </p>
+                <p><Span class="inline-block w-32">Ac.</Span>:{{ $ultimo_R2->analisisLinea->acidez / 1 }}[%]
+                </p>
+                <p><Span class="inline-block w-32">Sólidos</Span>:{{ $ultimo_R2->analisisLinea->brix / 1 }}[°Bx]
+                </p>
+            @endif
+        </div>
+
+
+
+    </div>
+    {{-- r3 --}}
+    <div data-popover id="r3-analizar-popover" role="tooltip"
+        class="absolute z-50 invisible inline-block w-74 text-xs text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+        <div
+            class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+            <h3 class="font-semibold text-gray-900 dark:text-white">
+                @if ($R3->proceso == 'Produccion' || $R3->proceso == 'Almacen')
+                    @foreach ($R3->estadoDetalle as $item)
+                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                            {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
+                    @endforeach
+                @endif
+            </h3>
+
+        </div>
+        <div class="px-3 py-2">
+            @if (count($R3->solicitudAnalisisLinea) > 0)
+                <p class="hidden">
+                    {{ $ultimo_R3 = $R3->solicitudAnalisisLinea[count($R3->solicitudAnalisisLinea) - 1] }}
+                </p>
+                <p><Span class="inline-block w-32">Estado Análisis</Span>: {{ $ultimo_R3->estado }}
+                    - {{ \Carbon\Carbon::parse($ultimo_R3->tiempo)->isoFormat('HH:mm') }}
+                </p>
+                <p><Span class="inline-block w-32">Temp.</Span>:{{ $ultimo_R3->analisisLinea->temperatura / 1 }}
+                    [°C]</p>
+                <p><Span class="inline-block w-32">pH</Span>:{{ $ultimo_R3->analisisLinea->ph / 1 }}
+                </p>
+                <p><Span class="inline-block w-32">Ac.</Span>:{{ $ultimo_R3->analisisLinea->acidez / 1 }}[%]
+                </p>
+                <p><Span class="inline-block w-32">Sólidos</Span>:{{ $ultimo_R3->analisisLinea->brix / 1 }}[°Bx]
+                </p>
+            @endif
+        </div>
+
+
+
+    </div>
+    {{-- tksy --}}
+    <div data-popover id="tksy-analizar-popover" role="tooltip"
+        class="absolute z-50 invisible inline-block w-74 text-xs text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+        <div
+            class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+            <h3 class="font-semibold text-gray-900 dark:text-white">
+                @if ($TKSY->proceso == 'Produccion' || $TKSY->proceso == 'Almacen')
+                    @foreach ($TKSY->estadoDetalle as $item)
+                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                            {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
+                    @endforeach
+                @endif
+            </h3>
+
+        </div>
+        <div class="px-3 py-2">
+            @if (count($TKSY->solicitudAnalisisLinea) > 0)
+                <p class="hidden">
+                    {{ $ultimo_TKSY = $TKSY->solicitudAnalisisLinea[count($TKSY->solicitudAnalisisLinea) - 1] }}
+                </p>
+                <p><Span class="inline-block w-32">Estado Análisis</Span>: {{ $ultimo_TKSY->estado }}
+                    - {{ \Carbon\Carbon::parse($ultimo_TKSY->tiempo)->isoFormat('HH:mm') }}
+                </p>
+                <p><Span class="inline-block w-32">Temp.</Span>:{{ $ultimo_TKSY->analisisLinea->temperatura / 1 }}
+                    [°C]</p>
+                <p><Span class="inline-block w-32">pH</Span>:{{ $ultimo_TKSY->analisisLinea->ph / 1 }}
+                </p>
+                <p><Span class="inline-block w-32">Ac.</Span>:{{ $ultimo_TKSY->analisisLinea->acidez / 1 }}[%]
+                </p>
+                <p><Span class="inline-block w-32">Sólidos</Span>:{{ $ultimo_TKSY->analisisLinea->brix / 1 }}[°Bx]
+                </p>
+            @endif
+        </div>
+
+
+
+    </div>
+    {{-- tkcc --}}
+    <div data-popover id="TKCC-analizar-popover" role="tooltip"
+        class="absolute z-50 invisible inline-block w-74 text-xs text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+        <div
+            class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+            <h3 class="font-semibold text-gray-900 dark:text-white">
+                @if ($TKCC->proceso == 'Produccion' || $TKCC->proceso == 'Almacen')
+                    @foreach ($TKCC->estadoDetalle as $item)
+                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                            {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
+                    @endforeach
+                @endif
+            </h3>
+
+        </div>
+        <div class="px-3 py-2">
+            @if (count($TKCC->solicitudAnalisisLinea) > 0)
+                <p class="hidden">
+                    {{ $ultimo_TKCC = $TKCC->solicitudAnalisisLinea[count($TKCC->solicitudAnalisisLinea) - 1] }}
+                </p>
+                <p><Span class="inline-block w-32">Estado Análisis</Span>: {{ $ultimo_TKCC->estado }}
+                    - {{ \Carbon\Carbon::parse($ultimo_TKCC->tiempo)->isoFormat('HH:mm') }}
+                </p>
+                <p><Span class="inline-block w-32">Temp.</Span>:{{ $ultimo_TKCC->analisisLinea->temperatura / 1 }}
+                    [°C]</p>
+                <p><Span class="inline-block w-32">pH</Span>:{{ $ultimo_TKCC->analisisLinea->ph / 1 }}
+                </p>
+                <p><Span class="inline-block w-32">Ac.</Span>:{{ $ultimo_TKCC->analisisLinea->acidez / 1 }}[%]
+                </p>
+                <p><Span class="inline-block w-32">Sólidos</Span>:{{ $ultimo_TKCC->analisisLinea->brix / 1 }}[°Bx]
+                </p>
+            @endif
+        </div>
+
+
+
+    </div>
+    {{-- tksc --}}
+    <div data-popover id="TKSC-analizar-popover" role="tooltip"
+        class="absolute z-50 invisible inline-block w-74 text-xs text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+        <div
+            class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+            <h3 class="font-semibold text-gray-900 dark:text-white">
+                @if ($TKSC->proceso == 'Produccion' || $TKSC->proceso == 'Almacen')
+                    @foreach ($TKSC->estadoDetalle as $item)
+                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                            {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
+                    @endforeach
+                @endif
+            </h3>
+
+        </div>
+        <div class="px-3 py-2">
+            @if (count($TKSC->solicitudAnalisisLinea) > 0)
+                <p class="hidden">
+                    {{ $ultimo_TKSC = $TKSC->solicitudAnalisisLinea[count($TKSC->solicitudAnalisisLinea) - 1] }}
+                </p>
+                <p><Span class="inline-block w-32">Estado Análisis</Span>: {{ $ultimo_TKSC->estado }}
+                    - {{ \Carbon\Carbon::parse($ultimo_TKSC->tiempo)->isoFormat('HH:mm') }}
+                </p>
+                <p><Span class="inline-block w-32">Temp.</Span>:{{ $ultimo_TKSC->analisisLinea->temperatura / 1 }}
+                    [°C]</p>
+                <p><Span class="inline-block w-32">pH</Span>:{{ $ultimo_TKSC->analisisLinea->ph / 1 }}
+                </p>
+                <p><Span class="inline-block w-32">Ac.</Span>:{{ $ultimo_TKSC->analisisLinea->acidez / 1 }}[%]
+                </p>
+                <p><Span class="inline-block w-32">Sólidos</Span>:{{ $ultimo_TKSC->analisisLinea->brix / 1 }}[°Bx]
+                </p>
+            @endif
+        </div>
+
+
+
+    </div>
+    {{-- tkaux1 --}}
+    <div data-popover id="TKAUX1-analizar-popover" role="tooltip"
+        class="absolute z-50 invisible inline-block w-74 text-xs text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+        <div
+            class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+            <h3 class="font-semibold text-gray-900 dark:text-white">
+                @if ($TKAUX1->proceso == 'Produccion' || $TKAUX1->proceso == 'Almacen')
+                    @foreach ($TKAUX1->estadoDetalle as $item)
+                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                            {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
+                    @endforeach
+                @endif
+            </h3>
+
+        </div>
+        <div class="px-3 py-2">
+            @if (count($TKAUX1->solicitudAnalisisLinea) > 0)
+                <p class="hidden">
+                    {{ $ultimo_TKAUX1 = $TKAUX1->solicitudAnalisisLinea[count($TKAUX1->solicitudAnalisisLinea) - 1] }}
+                </p>
+                <p><Span class="inline-block w-32">Estado Análisis</Span>: {{ $ultimo_TKAUX1->estado }}
+                    - {{ \Carbon\Carbon::parse($ultimo_TKAUX1->tiempo)->isoFormat('HH:mm') }}
+                </p>
+                <p><Span class="inline-block w-32">Temp.</Span>:{{ $ultimo_TKAUX1->analisisLinea->temperatura / 1 }}
+                    [°C]</p>
+                <p><Span class="inline-block w-32">pH</Span>:{{ $ultimo_TKAUX1->analisisLinea->ph / 1 }}
+                </p>
+                <p><Span class="inline-block w-32">Ac.</Span>:{{ $ultimo_TKAUX1->analisisLinea->acidez / 1 }}[%]
+                </p>
+                <p><Span class="inline-block w-32">Sólidos</Span>:{{ $ultimo_TKAUX1->analisisLinea->brix / 1 }}[°Bx]
+                </p>
+            @endif
+        </div>
+
+
+
+    </div>
+    {{-- tkaux2 --}}
+    <div data-popover id="TKAUX2-analizar-popover" role="tooltip"
+        class="absolute z-50 invisible inline-block w-74 text-xs text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+        <div
+            class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+            <h3 class="font-semibold text-gray-900 dark:text-white">
+                @if ($TKAUX2->proceso == 'Produccion' || $TKAUX2->proceso == 'Almacen')
+                    @foreach ($TKAUX2->estadoDetalle as $item)
+                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                            {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
+                    @endforeach
+                @endif
+            </h3>
+
+        </div>
+        <div class="px-3 py-2">
+            @if (count($TKAUX2->solicitudAnalisisLinea) > 0)
+                <p class="hidden">
+                    {{ $ultimo_TKAUX2 = $TKAUX2->solicitudAnalisisLinea[count($TKAUX2->solicitudAnalisisLinea) - 1] }}
+                </p>
+                <p><Span class="inline-block w-32">Estado Análisis</Span>: {{ $ultimo_TKAUX2->estado }}
+                    - {{ \Carbon\Carbon::parse($ultimo_TKAUX2->tiempo)->isoFormat('HH:mm') }}
+                </p>
+                <p><Span class="inline-block w-32">Temp.</Span>:{{ $ultimo_TKAUX2->analisisLinea->temperatura / 1 }}
+                    [°C]</p>
+                <p><Span class="inline-block w-32">pH</Span>:{{ $ultimo_TKAUX2->analisisLinea->ph / 1 }}
+                </p>
+                <p><Span class="inline-block w-32">Ac.</Span>:{{ $ultimo_TKAUX2->analisisLinea->acidez / 1 }}[%]
+                </p>
+                <p><Span class="inline-block w-32">Sólidos</Span>:{{ $ultimo_TKAUX2->analisisLinea->brix / 1 }}[°Bx]
+                </p>
+            @endif
+        </div>
+
+
+
+    </div>
+
+
+
+
 </div>
