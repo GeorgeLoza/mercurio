@@ -16,6 +16,7 @@
         "livewire/livewire": "^3.4",
         "maatwebsite/excel": "^3.1",
         "power-components/livewire-powergrid": "^5.10",
+        "silviolleite/laravelpwa": "^2.0",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-backup": "^8.8",
         "wire-elements/modal": "^2.0"
