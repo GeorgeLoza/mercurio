@@ -282,8 +282,7 @@ class PaseTurnoReporte extends Component
 
     public function vacio($id)
     {
-        $conexion_sqlsrv = DB::connection('sqlsrv')->table('Temperaturas')->get();
-dd($conexion_sqlsrv);
+       
 
         try {
             EstadoPlanta::create([

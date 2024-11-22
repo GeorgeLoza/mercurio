@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'name' => 'LaravelPWA',
+    'name' => 'Lacteos',
     'manifest' => [
-        'name' => env('APP_NAME', 'My PWA App'),
+        'name' => env('APP_NAME', 'Lacteos'),
         'short_name' => 'PWA',
         'start_url' => '/',
         'background_color' => '#ffffff',
