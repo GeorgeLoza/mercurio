@@ -62,6 +62,22 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
+        /*  Configuracion de sqlServer*/
+
+        'sqlserver' => [
+            'driver' => 'sqlsrv',
+            'host' => env('DB_SQLSRV_HOST', '127.0.0.1'),
+            'port' => env('DB_SQLSRV_PORT', '1433'),
+            'database' => env('DB_SQLSRV_DATABASE', 'Lacteos'),
+            'username' => env('DB_SQLSRV_USERNAME', 'sa'),
+            'password' => env('DB_SQLSRV_PASSWORD', 'root'),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+        ],
+
+
+
 
         'pgsql' => [
             'driver' => 'pgsql',
@@ -125,7 +141,7 @@ return [
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
+            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_database_'),
         ],
 
         'default' => [

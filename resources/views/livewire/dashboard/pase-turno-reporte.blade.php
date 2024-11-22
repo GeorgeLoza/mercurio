@@ -159,9 +159,6 @@
                                         </div>
                                         
                                           
-                                          
-                                          
-
                                         {{-- botones --}}
                                         <div class=" mt-2 flex gap-1 px-0 py-0 w-full justify-center ">
 
