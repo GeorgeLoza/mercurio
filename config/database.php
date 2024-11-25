@@ -64,18 +64,7 @@ return [
         ],
         /*  Configuracion de sqlServer*/
 
-        'sqlserver' => [
-            'driver' => 'sqlsrv',
-            'host' => env('DB_SQLSRV_HOST', '127.0.0.1'),
-            'port' => env('DB_SQLSRV_PORT', '1433'),
-            'database' => env('DB_SQLSRV_DATABASE', 'Lacteos'),
-            'username' => env('DB_SQLSRV_USERNAME', 'sa'),
-            'password' => env('DB_SQLSRV_PASSWORD', 'root'),
-            'charset' => 'utf8',
-            'prefix' => '',
-            'prefix_indexes' => true,
-        ],
-
+      
 
 
 
@@ -94,20 +83,23 @@ return [
             'sslmode' => 'prefer',
         ],
 
-        'sqlsrv' => [
-            'driver' => 'sqlsrv',
-            'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', 'localhost'),
-            'port' => env('DB_PORT', '1433'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
-            'charset' => 'utf8',
-            'prefix' => '',
-            'prefix_indexes' => true,
-            // 'encrypt' => env('DB_ENCRYPT', 'yes'),
-            // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
-        ],
+       'sqlsrv' => [
+    'driver' => 'sqlsrv',
+    'url' => env('DATABASE_URL'),
+    'host' => env('sqlsrv_HOST', '127.0.0.1'),
+    'port' => env('sqlsrv_PORT', '1433'),
+    'database' => env('sqlsrv_DATABASE', 'forge'),
+    'username' => env('sqlsrv_USERNAME', 'forge'),
+    'password' => env('sqlsrv_PASSWORD', ''),
+    'charset' => 'utf8',
+    'prefix' => '',
+    'prefix_indexes' => true,
+    'encrypt' => env('DB_ENCRYPT', 'No'), // 'false' para desactivar encriptación
+    'options' => [
+        'TrustServerCertificate' => true, // Confiar en el certificado sin verificar
+    ],
+],
+
 
     ],
 

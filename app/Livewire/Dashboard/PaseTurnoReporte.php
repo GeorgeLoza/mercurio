@@ -10,7 +10,7 @@ use App\Models\EstadoDetalle;
 use App\Models\AnalisisLinea;
 use Illuminate\Support\Facades\DB;
 use App\Models\Orp;
-use App\Models\Temperatura;
+
 
 class PaseTurnoReporte extends Component
 {
@@ -282,8 +282,7 @@ class PaseTurnoReporte extends Component
 
     public function vacio($id)
     {
-        $temperaturas = Temperatura::all();
-        dd($temperaturas);
+        
         
         try {
             EstadoPlanta::create([

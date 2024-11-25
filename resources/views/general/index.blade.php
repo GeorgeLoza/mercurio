@@ -117,6 +117,9 @@ Configuración Inicial
         <!--Tabla -->
         @livewire('general.unidad.tabla')
 
+        
+       
+
     </div>
     <!--unidad fin-->
     <!--ruta inicio-->
@@ -155,5 +158,13 @@ Configuración Inicial
 
     </div>
     <!--subruta fin-->
+
+
+    
 </div>
+
+@livewire('dashboard.paseTurnoReporte') 
 @endsection
+
+
+
