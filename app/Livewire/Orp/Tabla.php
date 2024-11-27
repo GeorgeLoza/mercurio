@@ -3,6 +3,7 @@
 namespace App\Livewire\Orp;
 
 use App\Models\Orp;
+use App\Models\Color;
 use App\Models\User;
 use App\Notifications\CierreOrp;
 use App\Notifications\orpNotification;
@@ -61,6 +62,13 @@ class Tabla extends Component
         $registro->estado = 'En proceso';
         $registro->tiempo_elaboracion = now();
         $registro->save();
+
+        $colorDisponible = Color::whereNull('orp_id')->first();
+        if ($colorDisponible) {
+            $colorDisponible->orp_id = $id;
+            $colorDisponible->save();
+        }
+
 
         // Notificar a los usuarios admin
         $admins = User::where('rol', 'Admi')->orWhere('rol', 'Jef')->orWhere('rol', 'Sup')->get();

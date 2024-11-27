@@ -29,4 +29,9 @@ class Orp extends Model
     {
         return $this->hasMany(Contador::class);
     }
+    public function color()
+    {
+        return $this->hasOne(Color::class);
+    }
+
 }

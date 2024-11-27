@@ -104,22 +104,22 @@
                                             @foreach ($R1->estadoDetalle as $item)
                                                 <div class=" flex  justify-between  ">
                                                     <div>
-                                                        <p class="text-xs">{{ substr($item->orp->codigo, -5) }}</p>
+                                                        <p class="text-xs {{$item->orp->color->color}}">{{ substr($item->orp->codigo, -5) }}</p>
                                                     </div>
                                                     <div>
 
 
                                                     </div>
                                                     <div>
-                                                        <p class="text-2xs">
+                                                        <p class="text-2xs {{$item->orp->color->color}}">
                                                             {{ $item->preparacion }}
                                                         </p>
                                                     </div>
 
-
+                                                    
                                                 </div>
-
-                                                <p class="text-sm whitespace-nowrap overflow-hidden"> {{ Str::limit($item->orp->producto->nombre, 20) }}
+                                                    
+                                                <p class="text-sm whitespace-nowrap overflow-hidden {{$item->orp->color->color}} "> {{ Str::limit($item->orp->producto->nombre, 20) }}
                                                 </p>
                                             @endforeach
                                         @endif
@@ -135,21 +135,21 @@
                                                 @foreach ($R1->estadoDetalle as $item)
                                                     <div class=" flex  justify-between  ">
                                                         <div>
-                                                            <p class="text-2xs">{{ substr($item->orp->codigo, -5) }}</p>
+                                                            <p class="text-2xs {{$item->orp->color->color}}">{{ substr($item->orp->codigo, -5) }}</p>
                                                         </div>
                                                         <div>
 
 
                                                         </div>
                                                         <div>
-                                                            <p class="text-2xs">
+                                                            <p class="text-2xs {{$item->orp->color->color}}">
                                                                 {{ $item->preparacion }}
                                                             </p>
                                                         </div>
 
 
                                                     </div>
-                                                    <p class="text-2xs whitespace-nowrap overflow-hidden">
+                                                    <p class="text-2xs whitespace-nowrap overflow-hidden {{$item->orp->color->color}}">
                                                         {{ Str::limit($item->orp->producto->nombre, 25) }}</p>
                                                 @endforeach
                                             @endif
@@ -334,14 +334,14 @@
                                             @foreach ($R2->estadoDetalle as $item)
                                                 <div class=" flex  justify-between  ">
                                                     <div>
-                                                        <p class="text-xs">{{ substr($item->orp->codigo, -5) }}</p>
+                                                        <p class="text-xs {{$item->orp->color->color}}">{{ substr($item->orp->codigo, -5) }}</p>
                                                     </div>
                                                     <div>
 
 
                                                     </div>
                                                     <div>
-                                                        <p class="text-2xs">
+                                                        <p class="text-2xs {{$item->orp->color->color}}">
                                                             {{ $item->preparacion }}
                                                         </p>
                                                     </div>
@@ -349,7 +349,7 @@
 
                                                 </div>
 
-                                                <p class="text-sm whitespace-nowrap overflow-hidden"> {{ Str::limit($item->orp->producto->nombre, 20) }}
+                                                <p class="text-sm whitespace-nowrap overflow-hidden {{$item->orp->color->color}}"> {{ Str::limit($item->orp->producto->nombre, 20) }}
                                                 </p>
                                             @endforeach
                                         @endif
@@ -3472,12 +3472,50 @@
                             <div>
                                 <p class="text-base">Envasadora HTST</p>
                             </div>
-                            
-                            <div>
-                                <p class="text-base">
 
-                                </p>
-                            </div>
+                            
+
+                        @foreach ($groupedResultshtst as $orpIdAndPreparacion => $group)
+
+                                        
+                                    
+
+                                    
+
+                                        
+                                        @php
+                                        // Descompón la clave compuesta en orp_id y preparacion
+                                        $parts = explode('|', $orpIdAndPreparacion);
+
+                                        $orpId = $parts[0] ?? null;
+                                        $preparacion = $parts[1] ?? null;
+
+                                        // Recupera el objeto Orp para obtener el código y nombre del producto
+                                        $orp = $orps->get($orpId);
+                                        @endphp
+
+                                        <div class="p-2 mb-2 rounded-lg border-gray-500 hover:bg-gray-100 hover:dark:bg-gray-700 border">
+                                        @if ($orp && $preparacion)
+                                            <h2 class="text-sm">{{ $orp->codigo }} - {{ $orp->producto->nombre }} :
+                                                {{ $preparacion }} </h2>
+                                        @else
+                                            <h2 class="text-sm">Código: No encontrado, error con orp o preparacion</h2>
+                                        @endif
+
+                                        <div class="flex gap-4 flex-wrap font-medium text-green-600">
+                                            
+                                        </div>
+                                        <div class="flex justify-end m-1"><button class="bg-red-500 text-white p-1 rounded-lg"
+                                                type="button" wire:click="completar({{ $orp->id }})"
+                                                wire:confirm="Esta seguro que desea completar la ORP : {{ $orp->codigo }} y quitar de las envasadoras? \n\n Esta ORP ya no se podra utlizar ">Terminar?</button>
+                                        </div>
+
+                                        </div>
+                                        
+                            
+                                    
+                        @endforeach
+                            
 
 
                         </div >
@@ -3486,8 +3524,8 @@
                             <div class="flex items-center gap-2  "> 
                                 <p class="text-xl ">
                                     1 
-                                </p>                        
-                                <div class="text-lg text-{{ $HTST_1A->proceso == 'Detenido' ? 'gray' : 'green' }}-500 " data-popover-trigger="click" data-popover-target="48-popover">A</div>
+                                </p>
+                                <div class=" text-lg text-{{ $HTST_1A->proceso == 'Detenido' ? 'gray' : 'green' }}-500 " data-popover-trigger="click" data-popover-target="48-popover">A</div>
                                 <div class="text-lg text-{{ $HTST_1B->proceso == 'Detenido' ? 'gray' : 'green' }}-500 " data-popover-trigger="click" data-popover-target="47-popover">B</div>
                                 <div class="text-lg text-{{ $HTST_1C->proceso == 'Detenido' ? 'gray' : 'green' }}-500 " data-popover-trigger="click" data-popover-target="46-popover">C</div>
                             </div>
@@ -3573,6 +3611,46 @@
                             <div class=" flex justify-center">
 
                                 <p class="text-base mb-3">Vasos - Araña</p>
+                                @foreach ($groupedResultsvasos as $orpIdAndPreparacion => $group)
+
+                                        
+                                    
+
+                                    
+
+                                        
+                                        @php
+                                        // Descompón la clave compuesta en orp_id y preparacion
+                                        $parts = explode('|', $orpIdAndPreparacion);
+
+                                        $orpId = $parts[0] ?? null;
+                                        $preparacion = $parts[1] ?? null;
+
+                                        // Recupera el objeto Orp para obtener el código y nombre del producto
+                                        $orp = $orps->get($orpId);
+                                        @endphp
+
+                                        <div class="p-2 mb-2 rounded-lg border-gray-500 hover:bg-gray-100 hover:dark:bg-gray-700 border">
+                                        @if ($orp && $preparacion)
+                                            <h2 class="text-sm">{{ $orp->codigo }} - {{ $orp->producto->nombre }} :
+                                                {{ $preparacion }} </h2>
+                                        @else
+                                            <h2 class="text-sm">Código: No encontrado, error con orp o preparacion</h2>
+                                        @endif
+
+                                        <div class="flex gap-4 flex-wrap font-medium text-green-600">
+                                            
+                                        </div>
+                                        <div class="flex justify-end m-1"><button class="bg-red-500 text-white p-1 rounded-lg"
+                                                type="button" wire:click="completar({{ $orp->id }})"
+                                                wire:confirm="Esta seguro que desea completar la ORP : {{ $orp->codigo }} y quitar de las envasadoras? \n\n Esta ORP ya no se podra utlizar ">Terminar?</button>
+                                        </div>
+
+                                        </div>
+                                        
+                            
+                                    
+                        @endforeach
                             </div>
                             
                                 <div class=" flex  justify-between">
@@ -3652,7 +3730,46 @@
                             <div>
                                 <p class="text-base">Envasadora UHT</p>
                             </div>
+                            @foreach ($groupedResultsuht as $orpIdAndPreparacion => $group)
+
+                                        
+                                    
+
+                                    
+
+                                        
+                                        @php
+                                        // Descompón la clave compuesta en orp_id y preparacion
+                                        $parts = explode('|', $orpIdAndPreparacion);
+
+                                        $orpId = $parts[0] ?? null;
+                                        $preparacion = $parts[1] ?? null;
+
+                                        // Recupera el objeto Orp para obtener el código y nombre del producto
+                                        $orp = $orps->get($orpId);
+                                        @endphp
+
+                                        <div class="p-2 mb-2 rounded-lg border-gray-500 hover:bg-gray-100 hover:dark:bg-gray-700 border">
+                                        @if ($orp && $preparacion)
+                                            <h2 class="text-sm">{{ $orp->codigo }} - {{ $orp->producto->nombre }} :
+                                                {{ $preparacion }} </h2>
+                                        @else
+                                            <h2 class="text-sm">Código: No encontrado, error con orp o preparacion</h2>
+                                        @endif
+
+                                        <div class="flex gap-4 flex-wrap font-medium text-green-600">
+                                            
+                                        </div>
+                                        <div class="flex justify-end m-1"><button class="bg-red-500 text-white p-1 rounded-lg"
+                                                type="button" wire:click="completar({{ $orp->id }})"
+                                                wire:confirm="Esta seguro que desea completar la ORP : {{ $orp->codigo }} y quitar de las envasadoras? \n\n Esta ORP ya no se podra utlizar ">Terminar?</button>
+                                        </div>
+
+                                        </div>
+                                        
                             
+                                    
+                        @endforeach
 
 
                         </div>
@@ -4782,6 +4899,46 @@
                             <div>
                                 <p class="text-base">Envasadoras Soya</p>
                             </div>
+                            @foreach ($groupedResultssoya as $orpIdAndPreparacion => $group)
+
+                                        
+                                    
+
+                                    
+
+                                        
+                                        @php
+                                        // Descompón la clave compuesta en orp_id y preparacion
+                                        $parts = explode('|', $orpIdAndPreparacion);
+
+                                        $orpId = $parts[0] ?? null;
+                                        $preparacion = $parts[1] ?? null;
+
+                                        // Recupera el objeto Orp para obtener el código y nombre del producto
+                                        $orp = $orps->get($orpId);
+                                        @endphp
+
+                                        <div class="p-2 mb-2 rounded-lg border-gray-500 hover:bg-gray-100 hover:dark:bg-gray-700 border">
+                                        @if ($orp && $preparacion)
+                                            <h2 class="text-sm">{{ $orp->codigo }} - {{ $orp->producto->nombre }} :
+                                                {{ $preparacion }} </h2>
+                                        @else
+                                            <h2 class="text-sm">Código: No encontrado, error con orp o preparacion</h2>
+                                        @endif
+
+                                        <div class="flex gap-4 flex-wrap font-medium text-green-600">
+                                            
+                                        </div>
+                                        <div class="flex justify-end m-1"><button class="bg-red-500 text-white p-1 rounded-lg"
+                                                type="button" wire:click="completar({{ $orp->id }})"
+                                                wire:confirm="Esta seguro que desea completar la ORP : {{ $orp->codigo }} y quitar de las envasadoras? \n\n Esta ORP ya no se podra utlizar ">Terminar?</button>
+                                        </div>
+
+                                        </div>
+                                        
+                            
+                                    
+                        @endforeach
                           
                         </div>
 
