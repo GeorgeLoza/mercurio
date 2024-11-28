@@ -136,6 +136,8 @@ class PaseTurnoReporte extends Component
             ->orderBy('o.alias', 'asc') // Ordenar alias ascendentemente
             ->get();
 
+            
+
             $resultsvasos = DB::table('estado_detalles as ed')
             ->joinSub($latestEstadoPlantasDetails, 'latest_estado_plantas_details', function ($join) {
                 $join->on('ed.estado_planta_id', '=', 'latest_estado_plantas_details.estado_planta_id');
@@ -301,15 +303,13 @@ class PaseTurnoReporte extends Component
 
 
 
-
-
-
+    
         return view('livewire.dashboard.pase-turno-reporte');
 
 
 
 
-
+        
 
     }
 
@@ -430,7 +430,7 @@ class PaseTurnoReporte extends Component
                 'tiempo' => now(),
                 'user_id' => auth()->user()->id,
                 'origen_id' => $id,
-                'proceso' => 'Vacio',
+                'proceso' => 'Detenido',
                 'etapa_id' => 8,
             ]);
         } catch (\Throwable $th) {

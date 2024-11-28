@@ -1,1 +1,1 @@
-{{ $item->orp->color != null ? $item->orp->color->color : 'line-through' }}
+{{ $item->orp->color != null ? $item->orp->color->color : '' }}

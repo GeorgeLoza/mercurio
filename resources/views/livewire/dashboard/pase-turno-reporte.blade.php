@@ -109,7 +109,31 @@
                                                             {{ $item->orp->color != null ? $item->orp->color->color : '' }}
                                                             ">{{ substr($item->orp->codigo, -5) }}</p>
                                                     </div>
-                                                    <div>
+                                                    <div class="text-red-500
+                                                            text-blue-500
+                                                            text-green-500
+                                                            text-yellow-500
+                                                            text-cyan-500
+                                                            text-purple-500
+                                                            text-pink-500
+                                                            text-orange-500 
+                                                            text-teal-500
+                                                            text-indigo-500
+                                                            text-lime-500
+                                                            text-amber-500
+                                                            text-fuchsia-500
+                                                            text-rose-500
+                                                            text-violet-500
+                                                            text-red-400
+                                                            text-blue-400 
+                                                            text-green-400
+                                                            text-yellow-400
+                                                            text-cyan-400
+                                                            text-purple-400
+                                                            text-pink-400
+                                                            text-orange-400
+                                                            text-teal-400
+                                                            text-indigo-400">
 
 
                                                     </div>
@@ -3528,7 +3552,9 @@
                                 <p class="text-xl ">
                                     1 
                                 </p>
-                                <div class=" text-lg text-{{ $HTST_1A->proceso == 'Detenido' ? 'gray' : 'green' }}-500 " data-popover-trigger="click" data-popover-target="48-popover">A</div>
+                            
+                                 
+                                <div class=" text-lg {{ $HTST_1A->proceso == 'Detenido' ? 'text-gray-500' : $HTST_1A->estadoDetalle[0]->orp->color->color}} " data-popover-trigger="click" data-popover-target="48-popover">A</div>
                                 <div class="text-lg text-{{ $HTST_1B->proceso == 'Detenido' ? 'gray' : 'green' }}-500 " data-popover-trigger="click" data-popover-target="47-popover">B</div>
                                 <div class="text-lg text-{{ $HTST_1C->proceso == 'Detenido' ? 'gray' : 'green' }}-500 " data-popover-trigger="click" data-popover-target="46-popover">C</div>
                             </div>
@@ -3575,7 +3601,7 @@
                             <div class="flex gap-1 px-0 py-0 w-full justify-between">
                                 <!--boton matenimiento-->
 
-                                <button type="button" 
+                                {{-- <button type="button" 
                                     class="w-full px-1 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                     <svg class="w-full max-h-3 fill-white" xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 512 512">
@@ -3596,7 +3622,7 @@
                                         <path
                                             d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                                     </svg>
-                                </button>
+                                </button> --}}
 
                             </div>
 
@@ -3691,7 +3717,7 @@
                         </div>
 
                         <div class="flex gap-1 px-0 py-0 w-full justify-between">
-                                <!--boton matenimiento-->
+                                {{-- <!--boton matenimiento-->
 
                                 <button type="button" 
                                     class="w-full px-1 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -3713,7 +3739,7 @@
                                         <path
                                             d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                                     </svg>
-                                </button>
+                                </button> --}}
 
                             </div>
 
@@ -3809,7 +3835,7 @@
 
                         </div>
                         <div class="flex gap-1 px-0 py-0 w-full justify-between">
-                            <!--boton matenimiento-->
+                            {{-- <!--boton matenimiento-->
 
                             <button type="button" 
                                 class="w-full px-1 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -3831,7 +3857,7 @@
                                     <path
                                         d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                                 </svg>
-                            </button>
+                            </button> --}}
 
                         </div>
 
@@ -4960,7 +4986,7 @@
 
                         </div>
                         <div class="flex gap-1 px-0 py-0 w-full justify-between">
-                            <!--boton matenimiento-->
+                            {{-- <!--boton matenimiento-->
 
                             <button type="button" 
                                 class="w-full px-1 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -4982,7 +5008,7 @@
                                     <path
                                         d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                                 </svg>
-                            </button>
+                            </button> --}}
 
                         </div>
 
@@ -5741,16 +5767,32 @@
                  {{ $ultimo_l1->analisisLinea->brix / 1 }}
                  [°Bx]
              </p>
-         @endif
-     </div>
-     <div class="flex px-3 py-2">
-         
-         
-         
-         
-     </div>
-     <div data-popper-arrow></div>
 
+             
+         @endif
+         
+     </div>
+     
+     <div class="flex px-3 py-2">
+        <div class="px-1 py-2">
+            <button type="button" wire:loading.attr="disabled"
+                wire:click="vacioEnv({{ $l1->origen_id }})"
+                class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                    <path
+                        d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                </svg>
+            </button>
+        </div>
+         
+         
+         
+     </div>
+
+     
+     <div data-popper-arrow></div>
+     
     @endif
 
 </div>
@@ -5789,7 +5831,17 @@
          @endif
      </div>
      <div class="flex px-3 py-2">
-        
+        <div class="px-1 py-2">
+            <button type="button" wire:loading.attr="disabled"
+                wire:click="vacioEnv({{ $l2->origen_id }})"
+                class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                    <path
+                        d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                </svg>
+            </button>
+        </div>
      </div>
      <div data-popper-arrow></div>
 
@@ -5831,7 +5883,17 @@
          @endif
      </div>
      <div class="flex px-3 py-2">
-        
+        <div class="px-1 py-2">
+            <button type="button" wire:loading.attr="disabled"
+                wire:click="vacioEnv({{ $l3->origen_id }})"
+                class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                    <path
+                        d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                </svg>
+            </button>
+        </div>
      </div>
      <div data-popper-arrow></div>
 
@@ -5874,7 +5936,17 @@
                 @endif
             </div>
             <div class="flex px-3 py-2">
-               
+                <div class="px-1 py-2">
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="vacioEnv({{ $HTST_1A->origen_id }})"
+                        class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                        <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path
+                                d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
             <div data-popper-arrow></div>
 
@@ -5915,7 +5987,17 @@
                 @endif
             </div>
             <div class="flex px-3 py-2">
-               
+                <div class="px-1 py-2">
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="vacioEnv({{ $HTST_1B->origen_id }})"
+                        class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                        <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path
+                                d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
             <div data-popper-arrow></div>
         @endif
@@ -5954,7 +6036,17 @@
                 @endif
             </div>
             <div class="flex px-3 py-2">
-               
+                <div class="px-1 py-2">
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="vacioEnv({{ $HTST_1C->origen_id }})"
+                        class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                        <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path
+                                d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
             <div data-popper-arrow></div>
         @endif
@@ -5993,7 +6085,17 @@
                 @endif
             </div>
             <div class="flex px-3 py-2">
-               
+                <div class="px-1 py-2">
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="vacioEnv({{ $HTST_2A->origen_id }})"
+                        class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                        <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path
+                                d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
             <div data-popper-arrow></div>
         @endif
@@ -6032,7 +6134,17 @@
                 @endif
             </div>
             <div class="flex px-3 py-2">
-               
+                <div class="px-1 py-2">
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="vacioEnv({{ $HTST_2B->origen_id }})"
+                        class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                        <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path
+                                d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
             <div data-popper-arrow></div>
         @endif
@@ -6075,7 +6187,17 @@
                 @endif
             </div>
             <div class="flex px-3 py-2">
-               
+                <div class="px-1 py-2">
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="vacioEnv({{ $HTST_2C->origen_id }})"
+                        class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                        <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path
+                                d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
             <div data-popper-arrow></div>
         @endif
@@ -6114,7 +6236,17 @@
                 @endif
             </div>
             <div class="flex px-3 py-2">
-               
+                <div class="px-1 py-2">
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="vacioEnv({{ $HTST_3A->origen_id }})"
+                        class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                        <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path
+                                d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
             <div data-popper-arrow></div>
         @endif
@@ -6153,7 +6285,17 @@
                 @endif
             </div>
             <div class="flex px-3 py-2">
-               
+                <div class="px-1 py-2">
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="vacioEnv({{ $HTST_3B->origen_id }})"
+                        class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                        <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path
+                                d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
             <div data-popper-arrow></div>
         @endif
@@ -6192,7 +6334,17 @@
                 @endif
             </div>
             <div class="flex px-3 py-2">
-               
+                <div class="px-1 py-2">
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="vacioEnv({{ $HTST_3C->origen_id }})"
+                        class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                        <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path
+                                d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
             <div data-popper-arrow></div>
         @endif
@@ -6231,7 +6383,17 @@
                 @endif
             </div>
             <div class="flex px-3 py-2">
-               
+                <div class="px-1 py-2">
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="vacioEnv({{ $HTST_4A->origen_id }})"
+                        class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                        <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path
+                                d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
             <div data-popper-arrow></div>
         @endif
@@ -6270,7 +6432,17 @@
                 @endif
             </div>
             <div class="flex px-3 py-2">
-               
+                <div class="px-1 py-2">
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="vacioEnv({{ $HTST_4B->origen_id }})"
+                        class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                        <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path
+                                d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
             <div data-popper-arrow></div>
         @endif
@@ -6309,7 +6481,17 @@
                 @endif
             </div>
             <div class="flex px-3 py-2">
-               
+                <div class="px-1 py-2">
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="vacioEnv({{ $HTST_4C->origen_id }})"
+                        class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                        <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path
+                                d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
             <div data-popper-arrow></div>
         @endif
@@ -6348,8 +6530,19 @@
                 @endif
             </div>
             <div class="flex px-3 py-2">
-               
-                </divA <div data-popper-arrow>
+                <div class="px-1 py-2">
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="vacioEnv({{ $HTST_5A->origen_id }})"
+                        class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                        <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path
+                                d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                        </svg>
+                    </button>
+                </div>
+                </div>
+                <div data-popper-arrow>
             </div>
         @endif
     </div>
@@ -6387,7 +6580,17 @@
                 @endif
             </div>
             <div class="flex px-3 py-2">
-               
+                <div class="px-1 py-2">
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="vacioEnv({{ $HTST_5B->origen_id }})"
+                        class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                        <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path
+                                d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
             <div data-popper-arrow></div>
         @endif
@@ -6426,7 +6629,17 @@
                 @endif
             </div>
             <div class="flex px-3 py-2">
-               
+                <div class="px-1 py-2">
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="vacioEnv({{ $HTST_5C->origen_id }})"
+                        class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                        <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path
+                                d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
             <div data-popper-arrow></div>
         @endif
@@ -6465,7 +6678,17 @@
                 @endif
             </div>
             <div class="flex px-3 py-2">
-               
+                <div class="px-1 py-2">
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="vacioEnv({{ $UHT_1A->origen_id }})"
+                        class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                        <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path
+                                d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
             <div data-popper-arrow></div>
         @endif
@@ -6503,7 +6726,17 @@
                 @endif
             </div>
             <div class="flex px-3 py-2">
-               
+                <div class="px-1 py-2">
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="vacioEnv({{ $UHT_1B->origen_id }})"
+                        class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                        <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path
+                                d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
             <div data-popper-arrow></div>
         @endif
@@ -6541,7 +6774,17 @@
                 @endif
             </div>
             <div class="flex px-3 py-2">
-               
+                <div class="px-1 py-2">
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="vacioEnv({{ $UHT_1C->origen_id }})"
+                        class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                        <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path
+                                d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
             <div data-popper-arrow></div>
         @endif
@@ -6579,7 +6822,17 @@
                 @endif
             </div>
             <div class="flex px-3 py-2">
-               
+                <div class="px-1 py-2">
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="vacioEnv({{ $UHT_2A->origen_id }})"
+                        class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                        <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path
+                                d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
             <div data-popper-arrow></div>
         @endif
@@ -6617,7 +6870,17 @@
                 @endif
             </div>
             <div class="flex px-3 py-2">
-               
+                <div class="px-1 py-2">
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="vacioEnv({{ $UHT_2B->origen_id }})"
+                        class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                        <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path
+                                d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
             <div data-popper-arrow></div>
         @endif
@@ -6655,7 +6918,17 @@
                 @endif
             </div>
             <div class="flex px-3 py-2">
-               
+                <div class="px-1 py-2">
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="vacioEnv({{ $UHT_3A->origen_id }})"
+                        class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                        <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path
+                                d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
             <div data-popper-arrow></div>
         @endif
@@ -6693,7 +6966,17 @@
                 @endif
             </div>
             <div class="flex px-3 py-2">
-               
+                <div class="px-1 py-2">
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="vacioEnv({{ $UHT_3B->origen_id }})"
+                        class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                        <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path
+                                d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
             <div data-popper-arrow></div>
         @endif
@@ -6731,7 +7014,17 @@
                 @endif
             </div>
             <div class="flex px-3 py-2">
-               
+                <div class="px-1 py-2">
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="vacioEnv({{ $V1->origen_id }})"
+                        class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                        <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path
+                                d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
             <div data-popper-arrow></div>
         @endif
@@ -6768,7 +7061,17 @@
                 @endif
             </div>
             <div class="flex px-3 py-2">
-               
+                <div class="px-1 py-2">
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="vacioEnv({{ $V2->origen_id }})"
+                        class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                        <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path
+                                d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
             <div data-popper-arrow></div>
         @endif
@@ -6805,7 +7108,17 @@
                 @endif
             </div>
             <div class="flex px-3 py-2">
-               
+                <div class="px-1 py-2">
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="vacioEnv({{ $V3->origen_id }})"
+                        class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                        <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path
+                                d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
             <div data-popper-arrow></div>
         @endif
@@ -6842,7 +7155,17 @@
                 </div>
             @endif
             <div class="flex px-3 py-2">
-               
+                <div class="px-1 py-2">
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="vacioEnv({{ $araña->origen_id }})"
+                        class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+
+                        <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path
+                                d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
             <div data-popper-arrow></div>
         @endif

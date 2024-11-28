@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Livewire\Component;
 use App\Models\User;
 use App\Notifications\orpNotification;
+use App\Models\Color;
 
 class Kanban extends Component
 {
@@ -28,6 +29,11 @@ class Kanban extends Component
         if ($orp) {
             $orp->estado = $estado;
             if ($estado == 'En proceso') {
+                $colorDisponible = Color::whereNull('orp_id')->first();
+        if ($colorDisponible) {
+            $colorDisponible->orp_id = $orpId;
+            $colorDisponible->save();
+        }
                 $orp->tiempo_elaboracion = now();
             }
 
