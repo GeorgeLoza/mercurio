@@ -30,7 +30,9 @@ class Kanban extends Component
             if ($estado == 'En proceso') {
                 $orp->tiempo_elaboracion = now();
             }
+
             $orp->save();
+
             if ($estado == 'En proceso') {
                 // Notificar a los usuarios admin
                 $admins = User::where('rol', 'Admi')->orWhere('rol', 'Jef')->orWhere('rol', 'Sup')->get();
@@ -39,6 +41,8 @@ class Kanban extends Component
                     $admin->notify(new orpNotification($orp));
                 }
             }
+
+            
             // Recargar las ORP después de actualizar el estado
             $this->orps = Orp::where('created_at', '>=', Carbon::now()->subWeek())->orderBy('estado')->get();
         }

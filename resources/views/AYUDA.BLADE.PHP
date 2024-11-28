@@ -1,1 +1,1 @@
-whitespace-nowrap overflow-hidden
+{{ $item->orp->color != null ? $item->orp->color->color : 'line-through' }}

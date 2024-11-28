@@ -104,14 +104,17 @@
                                             @foreach ($R1->estadoDetalle as $item)
                                                 <div class=" flex  justify-between  ">
                                                     <div>
-                                                        <p class="text-xs {{$item->orp->color->color}}">{{ substr($item->orp->codigo, -5) }}</p>
+                                                        <p class="text-xs 
+                                                            
+                                                            {{ $item->orp->color != null ? $item->orp->color->color : '' }}
+                                                            ">{{ substr($item->orp->codigo, -5) }}</p>
                                                     </div>
                                                     <div>
 
 
                                                     </div>
                                                     <div>
-                                                        <p class="text-2xs {{$item->orp->color->color}}">
+                                                        <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                             {{ $item->preparacion }}
                                                         </p>
                                                     </div>
@@ -119,7 +122,7 @@
                                                     
                                                 </div>
                                                     
-                                                <p class="text-sm whitespace-nowrap overflow-hidden {{$item->orp->color->color}} "> {{ Str::limit($item->orp->producto->nombre, 20) }}
+                                                <p class="text-sm whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }} "> {{ Str::limit($item->orp->producto->nombre, 20) }}
                                                 </p>
                                             @endforeach
                                         @endif
@@ -135,21 +138,21 @@
                                                 @foreach ($R1->estadoDetalle as $item)
                                                     <div class=" flex  justify-between  ">
                                                         <div>
-                                                            <p class="text-2xs {{$item->orp->color->color}}">{{ substr($item->orp->codigo, -5) }}</p>
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}</p>
                                                         </div>
                                                         <div>
 
 
                                                         </div>
                                                         <div>
-                                                            <p class="text-2xs {{$item->orp->color->color}}">
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                                 {{ $item->preparacion }}
                                                             </p>
                                                         </div>
 
 
                                                     </div>
-                                                    <p class="text-2xs whitespace-nowrap overflow-hidden {{$item->orp->color->color}}">
+                                                    <p class="text-2xs whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                         {{ Str::limit($item->orp->producto->nombre, 25) }}</p>
                                                 @endforeach
                                             @endif
@@ -334,14 +337,14 @@
                                             @foreach ($R2->estadoDetalle as $item)
                                                 <div class=" flex  justify-between  ">
                                                     <div>
-                                                        <p class="text-xs {{$item->orp->color->color}}">{{ substr($item->orp->codigo, -5) }}</p>
+                                                        <p class="text-xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}</p>
                                                     </div>
                                                     <div>
 
 
                                                     </div>
                                                     <div>
-                                                        <p class="text-2xs {{$item->orp->color->color}}">
+                                                        <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                             {{ $item->preparacion }}
                                                         </p>
                                                     </div>
@@ -349,7 +352,7 @@
 
                                                 </div>
 
-                                                <p class="text-sm whitespace-nowrap overflow-hidden {{$item->orp->color->color}}"> {{ Str::limit($item->orp->producto->nombre, 20) }}
+                                                <p class="text-sm whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }} "> {{ Str::limit($item->orp->producto->nombre, 20) }}
                                                 </p>
                                             @endforeach
                                         @endif
@@ -365,7 +368,7 @@
                                                 @foreach ($R2->estadoDetalle as $item)
                                                     <div class=" flex  justify-between  ">
                                                         <div>
-                                                            <p class="text-2xs">{{ substr($item->orp->codigo, -5) }}
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}
                                                             </p>
                                                         </div>
                                                         <div>
@@ -373,14 +376,14 @@
 
                                                         </div>
                                                         <div>
-                                                            <p class="text-2xs">
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                                 {{ $item->preparacion }}
                                                             </p>
                                                         </div>
 
 
                                                     </div>
-                                                    <p class="text-2xs whitespace-nowrap overflow-hidden">
+                                                    <p class="text-2xs whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }} ">
                                                         {{ Str::limit($item->orp->producto->nombre, 25) }}</p>
                                                 @endforeach
                                             @endif
@@ -560,14 +563,14 @@
                                             @foreach ($R3->estadoDetalle as $item)
                                                 <div class=" flex  justify-between  ">
                                                     <div>
-                                                        <p class="text-xs">{{ substr($item->orp->codigo, -5) }}</p>
+                                                        <p class="text-xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}</p>
                                                     </div>
                                                     <div>
 
 
                                                     </div>
                                                     <div>
-                                                        <p class="text-2xs">
+                                                        <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                             {{ $item->preparacion }}
                                                         </p>
                                                     </div>
@@ -575,7 +578,7 @@
 
                                                 </div>
 
-                                                <p class="text-sm whitespace-nowrap overflow-hidden"> {{ Str::limit($item->orp->producto->nombre, 20) }}
+                                                <p class="text-sm whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}"> {{ Str::limit($item->orp->producto->nombre, 20) }}
                                                 </p>
                                             @endforeach
                                         @endif
@@ -591,7 +594,7 @@
                                                 @foreach ($R3->estadoDetalle as $item)
                                                     <div class=" flex  justify-between  ">
                                                         <div>
-                                                            <p class="text-2xs">{{ substr($item->orp->codigo, -5) }}
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}
                                                             </p>
                                                         </div>
                                                         <div>
@@ -599,14 +602,14 @@
 
                                                         </div>
                                                         <div>
-                                                            <p class="text-2xs">
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                                 {{ $item->preparacion }}
                                                             </p>
                                                         </div>
 
 
                                                     </div>
-                                                    <p class="text-2xs whitespace-nowrap overflow-hidden">
+                                                    <p class="text-2xs whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                         {{ Str::limit($item->orp->producto->nombre, 25) }}</p>
                                                 @endforeach
                                             @endif
@@ -869,7 +872,7 @@
                                                 @foreach ($TKMIX1->estadoDetalle as $item)
                                                     <div class=" flex  justify-between  ">
                                                         <div>
-                                                            <p class="text-xs">{{ substr($item->orp->codigo, -5) }}
+                                                            <p class="text-xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}
                                                             </p>
                                                         </div>
                                                         <div>
@@ -877,7 +880,7 @@
 
                                                         </div>
                                                         <div>
-                                                            <p class="text-2xs">
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                                 {{ $item->preparacion }}
                                                             </p>
                                                         </div>
@@ -885,7 +888,7 @@
 
                                                     </div>
 
-                                                    <p class="text-sm whitespace-nowrap overflow-hidden">
+                                                    <p class="text-sm whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                         {{ Str::limit($item->orp->producto->nombre, 20) }}
                                                     </p>
                                                 @endforeach
@@ -908,7 +911,7 @@
                                                 @foreach ($TKMIX1->estadoDetalle as $item)
                                                     <div class=" flex  justify-between  ">
                                                         <div>
-                                                            <p class="text-2xs">{{ substr($item->orp->codigo, -5) }}
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}
                                                             </p>
                                                         </div>
                                                         <div>
@@ -916,14 +919,14 @@
 
                                                         </div>
                                                         <div>
-                                                            <p class="text-2xs">
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                                 {{ $item->preparacion }}
                                                             </p>
                                                         </div>
 
 
                                                     </div>
-                                                    <p class="text-2xs whitespace-nowrap overflow-hidden">
+                                                    <p class="text-2xs whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                         {{ Str::limit($item->orp->producto->nombre, 25) }}</p>
                                                 @endforeach
                                             @endif
@@ -1147,14 +1150,14 @@
                                             @foreach ($TKMIX2->estadoDetalle as $item)
                                                 <div class=" flex  justify-between  ">
                                                     <div>
-                                                        <p class="text-xs">{{ substr($item->orp->codigo, -5) }}</p>
+                                                        <p class="text-xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}</p>
                                                     </div>
                                                     <div>
 
 
                                                     </div>
                                                     <div>
-                                                        <p class="text-2xs">
+                                                        <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                             {{ $item->preparacion }}
                                                         </p>
                                                     </div>
@@ -1162,7 +1165,7 @@
 
                                                 </div>
 
-                                                <p class="text-sm whitespace-nowrap overflow-hidden"> {{ Str::limit($item->orp->producto->nombre, 20) }}
+                                                <p class="text-sm whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}"> {{ Str::limit($item->orp->producto->nombre, 20) }}
                                                 </p>
                                             @endforeach
                                         @endif
@@ -1177,7 +1180,7 @@
                                                 @foreach ($TKMIX2->estadoDetalle as $item)
                                                     <div class=" flex  justify-between  ">
                                                         <div>
-                                                            <p class="text-2xs">{{ substr($item->orp->codigo, -5) }}
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}
                                                             </p>
                                                         </div>
                                                         <div>
@@ -1185,14 +1188,14 @@
 
                                                         </div>
                                                         <div>
-                                                            <p class="text-2xs">
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                                 {{ $item->preparacion }}
                                                             </p>
                                                         </div>
 
 
                                                     </div>
-                                                    <p class="text-2xs whitespace-nowrap overflow-hidden">
+                                                    <p class="text-2xs whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                         {{ Str::limit($item->orp->producto->nombre, 25) }}</p>
                                                 @endforeach
                                             @endif
@@ -1371,14 +1374,14 @@
                                             @foreach ($TKMIX3->estadoDetalle as $item)
                                                 <div class=" flex  justify-between  ">
                                                     <div>
-                                                        <p class="text-xs">{{ substr($item->orp->codigo, -5) }}</p>
+                                                        <p class="text-xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}</p>
                                                     </div>
                                                     <div>
 
 
                                                     </div>
                                                     <div>
-                                                        <p class="text-2xs">
+                                                        <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                             {{ $item->preparacion }}
                                                         </p>
                                                     </div>
@@ -1386,7 +1389,7 @@
 
                                                 </div>
 
-                                                <p class="text-sm whitespace-nowrap overflow-hidden"> {{ Str::limit($item->orp->producto->nombre, 20) }}
+                                                <p class="text-sm whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}"> {{ Str::limit($item->orp->producto->nombre, 20) }}
                                                 </p>
                                             @endforeach
                                         @endif
@@ -1402,7 +1405,7 @@
                                                 @foreach ($TKMIX3->estadoDetalle as $item)
                                                     <div class=" flex  justify-between  ">
                                                         <div>
-                                                            <p class="text-2xs">{{ substr($item->orp->codigo, -5) }}
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}
                                                             </p>
                                                         </div>
                                                         <div>
@@ -1410,14 +1413,14 @@
 
                                                         </div>
                                                         <div>
-                                                            <p class="text-2xs">
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                                 {{ $item->preparacion }}
                                                             </p>
                                                         </div>
 
 
                                                     </div>
-                                                    <p class="text-2xs whitespace-nowrap overflow-hidden">
+                                                    <p class="text-2xs whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                         {{ Str::limit($item->orp->producto->nombre, 25) }}</p>
                                                 @endforeach
                                             @endif
@@ -1595,14 +1598,14 @@
                                             @foreach ($TKMIX4->estadoDetalle as $item)
                                                 <div class=" flex  justify-between  ">
                                                     <div>
-                                                        <p class="text-xs">{{ substr($item->orp->codigo, -5) }}</p>
+                                                        <p class="text-xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}</p>
                                                     </div>
                                                     <div>
 
 
                                                     </div>
                                                     <div>
-                                                        <p class="text-2xs">
+                                                        <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                             {{ $item->preparacion }}
                                                         </p>
                                                     </div>
@@ -1610,7 +1613,7 @@
 
                                                 </div>
 
-                                                <p class="text-sm whitespace-nowrap overflow-hidden"> {{ Str::limit($item->orp->producto->nombre, 20) }}
+                                                <p class="text-sm whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}"> {{ Str::limit($item->orp->producto->nombre, 20) }}
                                                 </p>
                                             @endforeach
                                         @endif
@@ -1626,7 +1629,7 @@
                                                 @foreach ($TKMIX4->estadoDetalle as $item)
                                                     <div class=" flex  justify-between  ">
                                                         <div>
-                                                            <p class="text-2xs">{{ substr($item->orp->codigo, -5) }}
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}
                                                             </p>
                                                         </div>
                                                         <div>
@@ -1634,14 +1637,14 @@
 
                                                         </div>
                                                         <div>
-                                                            <p class="text-2xs">
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                                 {{ $item->preparacion }}
                                                             </p>
                                                         </div>
 
 
                                                     </div>
-                                                    <p class="text-2xs whitespace-nowrap overflow-hidden">
+                                                    <p class="text-2xs whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                         {{ Str::limit($item->orp->producto->nombre, 25) }}</p>
                                                 @endforeach
                                             @endif
@@ -1891,14 +1894,14 @@
                                             @foreach ($TKMP->estadoDetalle as $item)
                                                 <div class=" flex  justify-between  ">
                                                     <div>
-                                                        <p class="text-xs">{{ substr($item->orp->codigo, -5) }}</p>
+                                                        <p class="text-xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}</p>
                                                     </div>
                                                     <div>
 
 
                                                     </div>
                                                     <div>
-                                                        <p class="text-2xs">
+                                                        <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                             {{ $item->preparacion }}
                                                         </p>
                                                     </div>
@@ -1906,7 +1909,7 @@
 
                                                 </div>
 
-                                                <p class="text-sm whitespace-nowrap overflow-hidden">
+                                                <p class="text-sm whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                     {{ Str::limit($item->orp->producto->nombre, 20) }}
                                                 </p>
                                             @endforeach
@@ -1923,7 +1926,7 @@
                                                 @foreach ($TKMP->estadoDetalle as $item)
                                                     <div class=" flex  justify-between  ">
                                                         <div>
-                                                            <p class="text-2xs">{{ substr($item->orp->codigo, -5) }}
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}
                                                             </p>
                                                         </div>
                                                         <div>
@@ -1931,14 +1934,14 @@
 
                                                         </div>
                                                         <div>
-                                                            <p class="text-2xs">
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                                 {{ $item->preparacion }}
                                                             </p>
                                                         </div>
 
 
                                                     </div>
-                                                    <p class="text-2xs whitespace-nowrap overflow-hidden">
+                                                    <p class="text-2xs whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                         {{ Str::limit($item->orp->producto->nombre, 25) }}</p>
                                                 @endforeach
                                             @endif
@@ -2092,14 +2095,14 @@
                                             @foreach ($TKMG->estadoDetalle as $item)
                                                 <div class=" flex  justify-between  ">
                                                     <div>
-                                                        <p class="text-xs">{{ substr($item->orp->codigo, -5) }}</p>
+                                                        <p class="text-xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}</p>
                                                     </div>
                                                     <div>
 
 
                                                     </div>
                                                     <div>
-                                                        <p class="text-2xs">
+                                                        <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                             {{ $item->preparacion }}
                                                         </p>
                                                     </div>
@@ -2107,7 +2110,7 @@
 
                                                 </div>
 
-                                                <p class="text-sm whitespace-nowrap overflow-hidden">
+                                                <p class="text-sm whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                     {{ Str::limit($item->orp->producto->nombre, 20) }}
                                                 </p>
                                             @endforeach
@@ -2124,7 +2127,7 @@
                                                 @foreach ($TKMG->estadoDetalle as $item)
                                                     <div class=" flex  justify-between  ">
                                                         <div>
-                                                            <p class="text-2xs">{{ substr($item->orp->codigo, -5) }}
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}
                                                             </p>
                                                         </div>
                                                         <div>
@@ -2132,14 +2135,14 @@
 
                                                         </div>
                                                         <div>
-                                                            <p class="text-2xs">
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                                 {{ $item->preparacion }}
                                                             </p>
                                                         </div>
 
 
                                                     </div>
-                                                    <p class="text-2xs whitespace-nowrap overflow-hidden">
+                                                    <p class="text-2xs whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                         {{ Str::limit($item->orp->producto->nombre, 25) }}</p>
                                                 @endforeach
                                             @endif
@@ -2292,14 +2295,14 @@
                                             @foreach ($TKFP->estadoDetalle as $item)
                                                 <div class=" flex  justify-between  ">
                                                     <div>
-                                                        <p class="text-xs">{{ substr($item->orp->codigo, -5) }}</p>
+                                                        <p class="text-xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}</p>
                                                     </div>
                                                     <div>
 
 
                                                     </div>
                                                     <div>
-                                                        <p class="text-2xs">
+                                                        <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                             {{ $item->preparacion }}
                                                         </p>
                                                     </div>
@@ -2307,7 +2310,7 @@
 
                                                 </div>
 
-                                                <p class="text-sm whitespace-nowrap overflow-hidden">
+                                                <p class="text-sm whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                     {{ Str::limit($item->orp->producto->nombre, 20) }}
                                                 </p>
                                             @endforeach
@@ -2324,7 +2327,7 @@
                                                 @foreach ($TKFP->estadoDetalle as $item)
                                                     <div class=" flex  justify-between  ">
                                                         <div>
-                                                            <p class="text-2xs">{{ substr($item->orp->codigo, -5) }}
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}
                                                             </p>
                                                         </div>
                                                         <div>
@@ -2332,14 +2335,14 @@
 
                                                         </div>
                                                         <div>
-                                                            <p class="text-2xs">
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                                 {{ $item->preparacion }}
                                                             </p>
                                                         </div>
 
 
                                                     </div>
-                                                    <p class="text-2xs whitespace-nowrap overflow-hidden">
+                                                    <p class="text-2xs whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                         {{ Str::limit($item->orp->producto->nombre, 25) }}</p>
                                                 @endforeach
                                             @endif
@@ -2494,14 +2497,14 @@
                                             @foreach ($TKFG->estadoDetalle as $item)
                                                 <div class=" flex  justify-between  ">
                                                     <div>
-                                                        <p class="text-xs">{{ substr($item->orp->codigo, -5) }}</p>
+                                                        <p class="text-xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}</p>
                                                     </div>
                                                     <div>
 
 
                                                     </div>
                                                     <div>
-                                                        <p class="text-2xs">
+                                                        <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                             {{ $item->preparacion }}
                                                         </p>
                                                     </div>
@@ -2509,7 +2512,7 @@
 
                                                 </div>
 
-                                                <p class="text-sm whitespace-nowrap overflow-hidden">
+                                                <p class="text-sm whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                     {{ Str::limit($item->orp->producto->nombre, 20) }}
                                                 </p>
                                             @endforeach
@@ -2526,7 +2529,7 @@
                                                 @foreach ($TKFG->estadoDetalle as $item)
                                                     <div class=" flex  justify-between  ">
                                                         <div>
-                                                            <p class="text-2xs">{{ substr($item->orp->codigo, -5) }}
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}
                                                             </p>
                                                         </div>
                                                         <div>
@@ -2534,14 +2537,14 @@
 
                                                         </div>
                                                         <div>
-                                                            <p class="text-2xs">
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                                 {{ $item->preparacion }}
                                                             </p>
                                                         </div>
 
 
                                                     </div>
-                                                    <p class="text-2xs whitespace-nowrap overflow-hidden">
+                                                    <p class="text-2xs whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                         {{ Str::limit($item->orp->producto->nombre, 25) }}</p>
                                                 @endforeach
                                             @endif
@@ -2705,14 +2708,14 @@
                                             @foreach ($TK10->estadoDetalle as $item)
                                                 <div class=" flex  justify-between  ">
                                                     <div>
-                                                        <p class="text-xs">{{ substr($item->orp->codigo, -5) }}</p>
+                                                        <p class="text-xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}</p>
                                                     </div>
                                                     <div>
 
 
                                                     </div>
                                                     <div>
-                                                        <p class="text-2xs">
+                                                        <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                             {{ $item->preparacion }}
                                                         </p>
                                                     </div>
@@ -2720,7 +2723,7 @@
 
                                                 </div>
 
-                                                <p class="text-sm whitespace-nowrap overflow-hidden">
+                                                <p class="text-sm whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                     {{ Str::limit($item->orp->producto->nombre, 20) }}
                                                 </p>
                                             @endforeach
@@ -2737,7 +2740,7 @@
                                                 @foreach ($TK10->estadoDetalle as $item)
                                                     <div class=" flex  justify-between  ">
                                                         <div>
-                                                            <p class="text-2xs">{{ substr($item->orp->codigo, -5) }}
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}
                                                             </p>
                                                         </div>
                                                         <div>
@@ -2745,14 +2748,14 @@
 
                                                         </div>
                                                         <div>
-                                                            <p class="text-2xs">
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                                 {{ $item->preparacion }}
                                                             </p>
                                                         </div>
 
 
                                                     </div>
-                                                    <p class="text-2xs whitespace-nowrap overflow-hidden">
+                                                    <p class="text-2xs whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                         {{ Str::limit($item->orp->producto->nombre, 25) }}</p>
                                                 @endforeach
                                             @endif
@@ -2910,14 +2913,14 @@
                                             @foreach ($TK5->estadoDetalle as $item)
                                                 <div class=" flex  justify-between  ">
                                                     <div>
-                                                        <p class="text-xs">{{ substr($item->orp->codigo, -5) }}</p>
+                                                        <p class="text-xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}</p>
                                                     </div>
                                                     <div>
 
 
                                                     </div>
                                                     <div>
-                                                        <p class="text-2xs">
+                                                        <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                             {{ $item->preparacion }}
                                                         </p>
                                                     </div>
@@ -2925,7 +2928,7 @@
 
                                                 </div>
 
-                                                <p class="text-sm whitespace-nowrap overflow-hidden">
+                                                <p class="text-sm whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                     {{ Str::limit($item->orp->producto->nombre, 20) }}
                                                 </p>
                                             @endforeach
@@ -2942,7 +2945,7 @@
                                                 @foreach ($TK5->estadoDetalle as $item)
                                                     <div class=" flex  justify-between  ">
                                                         <div>
-                                                            <p class="text-2xs">{{ substr($item->orp->codigo, -5) }}
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}
                                                             </p>
                                                         </div>
                                                         <div>
@@ -2950,14 +2953,14 @@
 
                                                         </div>
                                                         <div>
-                                                            <p class="text-2xs">
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                                 {{ $item->preparacion }}
                                                             </p>
                                                         </div>
 
 
                                                     </div>
-                                                    <p class="text-2xs whitespace-nowrap overflow-hidden">
+                                                    <p class="text-2xs whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                         {{ Str::limit($item->orp->producto->nombre, 25) }}</p>
                                                 @endforeach
                                             @endif
@@ -3118,14 +3121,14 @@
                                             @foreach ($TKSC->estadoDetalle as $item)
                                                 <div class=" flex  justify-between  ">
                                                     <div>
-                                                        <p class="text-xs">{{ substr($item->orp->codigo, -5) }}</p>
+                                                        <p class="text-xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}</p>
                                                     </div>
                                                     <div>
 
 
                                                     </div>
                                                     <div>
-                                                        <p class="text-2xs">
+                                                        <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                             {{ $item->preparacion }}
                                                         </p>
                                                     </div>
@@ -3133,7 +3136,7 @@
 
                                                 </div>
 
-                                                <p class="text-sm whitespace-nowrap overflow-hidden">
+                                                <p class="text-sm whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                     {{ Str::limit($item->orp->producto->nombre, 20) }}
                                                 </p>
                                             @endforeach
@@ -3150,7 +3153,7 @@
                                                 @foreach ($TKSC->estadoDetalle as $item)
                                                     <div class=" flex  justify-between  ">
                                                         <div>
-                                                            <p class="text-2xs">{{ substr($item->orp->codigo, -5) }}
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}
                                                             </p>
                                                         </div>
                                                         <div>
@@ -3158,14 +3161,14 @@
 
                                                         </div>
                                                         <div>
-                                                            <p class="text-2xs">
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                                 {{ $item->preparacion }}
                                                             </p>
                                                         </div>
 
 
                                                     </div>
-                                                    <p class="text-2xs whitespace-nowrap overflow-hidden">
+                                                    <p class="text-2xs whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                         {{ Str::limit($item->orp->producto->nombre, 25) }}</p>
                                                 @endforeach
                                             @endif
@@ -3321,14 +3324,14 @@
                                             @foreach ($TKCC->estadoDetalle as $item)
                                                 <div class=" flex  justify-between  ">
                                                     <div>
-                                                        <p class="text-xs">{{ substr($item->orp->codigo, -5) }}</p>
+                                                        <p class="text-xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}</p>
                                                     </div>
                                                     <div>
 
 
                                                     </div>
                                                     <div>
-                                                        <p class="text-2xs">
+                                                        <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                             {{ $item->preparacion }}
                                                         </p>
                                                     </div>
@@ -3336,7 +3339,7 @@
 
                                                 </div>
 
-                                                <p class="text-sm whitespace-nowrap overflow-hidden">
+                                                <p class="text-sm whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                     {{ Str::limit($item->orp->producto->nombre, 20) }}
                                                 </p>
                                             @endforeach
@@ -3353,7 +3356,7 @@
                                                 @foreach ($TKCC->estadoDetalle as $item)
                                                     <div class=" flex  justify-between  ">
                                                         <div>
-                                                            <p class="text-2xs">{{ substr($item->orp->codigo, -5) }}
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}
                                                             </p>
                                                         </div>
                                                         <div>
@@ -3361,14 +3364,14 @@
 
                                                         </div>
                                                         <div>
-                                                            <p class="text-2xs">
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                                 {{ $item->preparacion }}
                                                             </p>
                                                         </div>
 
 
                                                     </div>
-                                                    <p class="text-2xs whitespace-nowrap overflow-hidden">
+                                                    <p class="text-2xs whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                         {{ Str::limit($item->orp->producto->nombre, 25) }}</p>
                                                 @endforeach
                                             @endif
@@ -3917,14 +3920,14 @@
                                             @foreach ($TK41->estadoDetalle as $item)
                                                 <div class=" flex  justify-between  ">
                                                     <div>
-                                                        <p class="text-xs">{{ substr($item->orp->codigo, -5) }}</p>
+                                                        <p class="text-xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}</p>
                                                     </div>
                                                     <div>
 
 
                                                     </div>
                                                     <div>
-                                                        <p class="text-2xs">
+                                                        <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                             {{ $item->preparacion }}
                                                         </p>
                                                     </div>
@@ -3932,7 +3935,7 @@
 
                                                 </div>
 
-                                                <p class="text-sm whitespace-nowrap overflow-hidden">
+                                                <p class="text-sm whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                     {{ Str::limit($item->orp->producto->nombre, 20) }}
                                                 </p>
                                             @endforeach
@@ -3949,7 +3952,7 @@
                                                 @foreach ($TK41->estadoDetalle as $item)
                                                     <div class=" flex  justify-between  ">
                                                         <div>
-                                                            <p class="text-2xs">{{ substr($item->orp->codigo, -5) }}
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}
                                                             </p>
                                                         </div>
                                                         <div>
@@ -3957,14 +3960,14 @@
 
                                                         </div>
                                                         <div>
-                                                            <p class="text-2xs">
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                                 {{ $item->preparacion }}
                                                             </p>
                                                         </div>
 
 
                                                     </div>
-                                                    <p class="text-2xs whitespace-nowrap overflow-hidden">
+                                                    <p class="text-2xs whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                         {{ Str::limit($item->orp->producto->nombre, 25) }}</p>
                                                 @endforeach
                                             @endif
@@ -4118,14 +4121,14 @@
                                             @foreach ($TK42->estadoDetalle as $item)
                                                 <div class=" flex  justify-between  ">
                                                     <div>
-                                                        <p class="text-xs">{{ substr($item->orp->codigo, -5) }}</p>
+                                                        <p class="text-xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}</p>
                                                     </div>
                                                     <div>
 
 
                                                     </div>
                                                     <div>
-                                                        <p class="text-2xs">
+                                                        <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                             {{ $item->preparacion }}
                                                         </p>
                                                     </div>
@@ -4133,7 +4136,7 @@
 
                                                 </div>
 
-                                                <p class="text-sm whitespace-nowrap overflow-hidden">
+                                                <p class="text-sm whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                     {{ Str::limit($item->orp->producto->nombre, 20) }}
                                                 </p>
                                             @endforeach
@@ -4150,7 +4153,7 @@
                                                 @foreach ($TK42->estadoDetalle as $item)
                                                     <div class=" flex  justify-between  ">
                                                         <div>
-                                                            <p class="text-2xs">{{ substr($item->orp->codigo, -5) }}
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}
                                                             </p>
                                                         </div>
                                                         <div>
@@ -4158,14 +4161,14 @@
 
                                                         </div>
                                                         <div>
-                                                            <p class="text-2xs">
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                                 {{ $item->preparacion }}
                                                             </p>
                                                         </div>
 
 
                                                     </div>
-                                                    <p class="text-2xs whitespace-nowrap overflow-hidden">
+                                                    <p class="text-2xs whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                         {{ Str::limit($item->orp->producto->nombre, 25) }}</p>
                                                 @endforeach
                                             @endif
@@ -4337,14 +4340,14 @@
                                             @foreach ($TKAUX1->estadoDetalle as $item)
                                                 <div class=" flex  justify-between  ">
                                                     <div>
-                                                        <p class="text-xs">{{ substr($item->orp->codigo, -5) }}</p>
+                                                        <p class="text-xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}</p>
                                                     </div>
                                                     <div>
 
 
                                                     </div>
                                                     <div>
-                                                        <p class="text-2xs">
+                                                        <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                             {{ $item->preparacion }}
                                                         </p>
                                                     </div>
@@ -4352,7 +4355,7 @@
 
                                                 </div>
 
-                                                <p class="text-sm whitespace-nowrap overflow-hidden">
+                                                <p class="text-sm whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                     {{ Str::limit($item->orp->producto->nombre, 20) }}
                                                 </p>
                                             @endforeach
@@ -4369,7 +4372,7 @@
                                                 @foreach ($TKAUX1->estadoDetalle as $item)
                                                     <div class=" flex  justify-between  ">
                                                         <div>
-                                                            <p class="text-2xs">{{ substr($item->orp->codigo, -5) }}
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}
                                                             </p>
                                                         </div>
                                                         <div>
@@ -4377,14 +4380,14 @@
 
                                                         </div>
                                                         <div>
-                                                            <p class="text-2xs">
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                                 {{ $item->preparacion }}
                                                             </p>
                                                         </div>
 
 
                                                     </div>
-                                                    <p class="text-2xs whitespace-nowrap overflow-hidden">
+                                                    <p class="text-2xs whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                         {{ Str::limit($item->orp->producto->nombre, 25) }}</p>
                                                 @endforeach
                                             @endif
@@ -4539,14 +4542,14 @@
                                             @foreach ($TKAUX2->estadoDetalle as $item)
                                                 <div class=" flex  justify-between  ">
                                                     <div>
-                                                        <p class="text-xs">{{ substr($item->orp->codigo, -5) }}</p>
+                                                        <p class="text-xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}</p>
                                                     </div>
                                                     <div>
 
 
                                                     </div>
                                                     <div>
-                                                        <p class="text-2xs">
+                                                        <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                             {{ $item->preparacion }}
                                                         </p>
                                                     </div>
@@ -4554,7 +4557,7 @@
 
                                                 </div>
 
-                                                <p class="text-sm whitespace-nowrap overflow-hidden">
+                                                <p class="text-sm whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                     {{ Str::limit($item->orp->producto->nombre, 20) }}
                                                 </p>
                                             @endforeach
@@ -4571,7 +4574,7 @@
                                                 @foreach ($TKAUX2->estadoDetalle as $item)
                                                     <div class=" flex  justify-between  ">
                                                         <div>
-                                                            <p class="text-2xs">{{ substr($item->orp->codigo, -5) }}
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}
                                                             </p>
                                                         </div>
                                                         <div>
@@ -4579,14 +4582,14 @@
 
                                                         </div>
                                                         <div>
-                                                            <p class="text-2xs">
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                                 {{ $item->preparacion }}
                                                             </p>
                                                         </div>
 
 
                                                     </div>
-                                                    <p class="text-2xs whitespace-nowrap overflow-hidden">
+                                                    <p class="text-2xs whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                         {{ Str::limit($item->orp->producto->nombre, 25) }}</p>
                                                 @endforeach
                                             @endif
@@ -4750,14 +4753,14 @@
                                             @foreach ($TKSY->estadoDetalle as $item)
                                                 <div class=" flex  justify-between  ">
                                                     <div>
-                                                        <p class="text-xs">{{ substr($item->orp->codigo, -5) }}</p>
+                                                        <p class="text-xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}</p>
                                                     </div>
                                                     <div>
 
 
                                                     </div>
                                                     <div>
-                                                        <p class="text-2xs">
+                                                        <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                             {{ $item->preparacion }}
                                                         </p>
                                                     </div>
@@ -4765,7 +4768,7 @@
 
                                                 </div>
 
-                                                <p class="text-sm whitespace-nowrap overflow-hidden">
+                                                <p class="text-sm whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                     {{ Str::limit($item->orp->producto->nombre, 20) }}
                                                 </p>
                                             @endforeach
@@ -4782,7 +4785,7 @@
                                                 @foreach ($TKSY->estadoDetalle as $item)
                                                     <div class=" flex  justify-between  ">
                                                         <div>
-                                                            <p class="text-2xs">{{ substr($item->orp->codigo, -5) }}
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">{{ substr($item->orp->codigo, -5) }}
                                                             </p>
                                                         </div>
                                                         <div>
@@ -4790,14 +4793,14 @@
 
                                                         </div>
                                                         <div>
-                                                            <p class="text-2xs">
+                                                            <p class="text-2xs {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                                 {{ $item->preparacion }}
                                                             </p>
                                                         </div>
 
 
                                                     </div>
-                                                    <p class="text-2xs whitespace-nowrap overflow-hidden">
+                                                    <p class="text-2xs whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }}">
                                                         {{ Str::limit($item->orp->producto->nombre, 25) }}</p>
                                                 @endforeach
                                             @endif

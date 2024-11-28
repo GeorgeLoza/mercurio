@@ -449,6 +449,9 @@ class PaseTurnoReporte extends Component
         $registro->estado = 'Completado';
         $registro->save();
 
+        DB::table('colors')
+            ->where('orp_id', $id)
+            ->update(['orp_id' => null]);
         // Obtener los registros que cumplen con las condiciones
         // $registros = EstadoPlanta::where('proceso', 'Produccion')
         //     ->where('etapa_id', 8)
