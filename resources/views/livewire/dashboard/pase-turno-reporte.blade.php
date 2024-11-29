@@ -190,6 +190,7 @@
                                             @if ($R1->proceso == 'Produccion' || $R1->proceso == 'Almacen')
                                                 <button type="button" wire:loading.attr="disabled"
                                                     wire:click="solicitar({{ $R1->id }})"
+                                                    wire:confirm="Esta seguro que quiere un analisis :  "
                                                     class="w-full px-1 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
                                                     <svg class="w-full max-h-3 fill-white"
                                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">

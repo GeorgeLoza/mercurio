@@ -2,14 +2,15 @@
 
 namespace App\Livewire\Dashboard;
 
+use App\Models\Orp;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use App\Models\EstadoPlanta;
-use App\Models\SolicitudAnalisisLinea;
-use App\Models\EstadoDetalle;
 use App\Models\AnalisisLinea;
+use App\Models\EstadoDetalle;
+use Masmerise\Toaster\Toaster;
 use Illuminate\Support\Facades\DB;
-use App\Models\Orp;
+use App\Models\SolicitudAnalisisLinea;
 
 
 class PaseTurnoReporte extends Component
@@ -380,7 +381,7 @@ class PaseTurnoReporte extends Component
     public function vacio($id)
     {
         
-        
+        // Toaster::success('User created!');
         try {
             EstadoPlanta::create([
                 'tiempo' => now(),

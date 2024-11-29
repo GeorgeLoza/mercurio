@@ -5,10 +5,11 @@ namespace App\Livewire\Orp;
 use App\Models\Orp;
 use League\Csv\Reader;
 use Livewire\Component;
-use Livewire\WithFileUploads;
 use App\Models\Producto;
-use LivewireUI\Modal\ModalComponent;
+use Livewire\WithFileUploads;
+use Masmerise\Toaster\Toaster;
 use PhpParser\Node\Stmt\TryCatch;
+use LivewireUI\Modal\ModalComponent;
 
 class Importar extends ModalComponent
 {
@@ -48,7 +49,8 @@ class Importar extends ModalComponent
                 if ($registroExistente) {
                     // Si el código ya existe, muestra un error y omite la creación del nuevo registro
                     // Mostrar mensaje de éxito
-                    $this->dispatch('warning', mensaje: 'El archivo contiene ORPs repetidas');
+                    Toaster::warning('El archivo contiene ORPs repetidas' );
+                    // $this->dispatch('warning', mensaje: 'El archivo contiene ORPs repetidas');
                     
                     continue;
                 }
@@ -75,15 +77,20 @@ class Importar extends ModalComponent
                         'estado' => 'Pendiente',
                         'lote' => $lotes,
                     ]);
+
+                    // Toaster::success('User created!');
                     $this->dispatch('actualizar_tabla_orps');
                     $this->closeModal();
-                    $this->dispatch('success', mensaje: 'Importacion realizada exitosamente cantidad de orps registradas:   ' . $contador);
+                    // Toaster::success('Orp created!' . $contador);
+                    // $this->dispatch('success', mensaje: 'Importacion realizada exitosamente cantidad de orps registradas:   ' . $contador);
                 } catch (\Throwable $th) {
                     $this->closeModal();
-                    $this->dispatch('error_mensaje', mensaje: 'problema' . $th->getMessage());
+                    Toaster::error('not Orp created!' . $th->getMessage());
+                    // $this->dispatch('error_mensaje', mensaje: 'problema' . $th->getMessage());
                 }
             } else {
-                $this->dispatch('alert', mensaje: 'Importacion realizada exitosamente cantidad de orps registradas:   ' . $contador);
+                Toaster::success('Orp created!' . $contador);
+                // $this->dispatch('alert', mensaje: 'Importacion realizada exitosamente cantidad de orps registradas:   ' . $contador);
             }
         }
 
