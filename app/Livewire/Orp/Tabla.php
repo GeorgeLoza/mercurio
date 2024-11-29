@@ -84,6 +84,7 @@ class Tabla extends Component
         $registro = Orp::find($id);
         $registro->estado = 'Cancelado';
         $registro->save();
+
     }
 
     public function pendiente($id)
@@ -104,6 +105,10 @@ class Tabla extends Component
         $registro = Orp::find($id);
         $registro->estado = 'Completado';
         $registro->save();
+
+        // DB::table('colors')
+        //     ->where('orp_id', $id)
+        //     ->update(['orp_id' => null]);
 
         // Notificar a los usuarios admin
         $admins = User::where('rol', 'Admi')->orWhere('rol', 'Jef')->orWhere('rol', 'Sup')->get();

@@ -5,9 +5,9 @@
 
 @section('contenido')
     <!--Tabla -->
-    @livewire('dashboard.paseTurnoReporte')
-    {{-- @livewire('paseTurno.reporte')
-        @livewire('dashbord.planta')     --}}
+    {{-- @livewire('dashboard.paseTurnoReporte') --}}
+    @livewire('paseTurno.reporte')
+        @livewire('dashbord.planta')    
 
 
     @if (auth()->user()->division->nombre == 'ERROR' || auth()->user()->division->nombre == 'Admi')
