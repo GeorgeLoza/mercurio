@@ -70,6 +70,7 @@ class PaseTurnoReporte extends Component
     public $groupedResultsuht;
     public $groupedResultsvasos;
     public $groupedResultssoya;
+    public $groupedResultsaranas;
 
     //grupos reales
 
@@ -147,11 +148,26 @@ class PaseTurnoReporte extends Component
             })
             ->join('origens as o', 'latest_estado_plantas_details.origen_id', '=', 'o.id') // Unimos con la tabla origenes para obtener el alias
             ->where(function ($query) {
-                $query->whereIn('o.id', range(50, 53)); // Incluye los IDs del 50 al 53
+                $query->whereIn('o.id', range(50, 52)); // Incluye los IDs del 50 al 53
             })
             ->select('ed.orp_id', 'ed.preparacion', 'o.id as origen_id', 'o.alias')
             ->orderBy('o.alias', 'asc') // Ordenar alias ascendentemente
             ->get();
+
+
+
+            $resultsaranas = DB::table('estado_detalles as ed')
+            ->joinSub($latestEstadoPlantasDetails, 'latest_estado_plantas_details', function ($join) {
+                $join->on('ed.estado_planta_id', '=', 'latest_estado_plantas_details.estado_planta_id');
+            })
+            ->join('origens as o', 'latest_estado_plantas_details.origen_id', '=', 'o.id') // Unimos con la tabla origenes para obtener el alias
+            ->where(function ($query) {
+                $query->whereIn('o.id', range(53, 53)); // Incluye los IDs del 50 al 53
+            })
+            ->select('ed.orp_id', 'ed.preparacion', 'o.id as origen_id', 'o.alias')
+            ->orderBy('o.alias', 'asc') // Ordenar alias ascendentemente
+            ->get();
+            
             $resultssoya = DB::table('estado_detalles as ed')
             ->joinSub($latestEstadoPlantasDetails, 'latest_estado_plantas_details', function ($join) {
                 $join->on('ed.estado_planta_id', '=', 'latest_estado_plantas_details.estado_planta_id');
@@ -182,6 +198,11 @@ class PaseTurnoReporte extends Component
             return $item->orp_id . '|' . $item->preparacion;
         });
         $this->groupedResultssoya = $resultssoya->groupBy(function ($item) {
+
+            return $item->orp_id . '|' . $item->preparacion;
+        });
+
+        $this->groupedResultsaranas = $resultsaranas->groupBy(function ($item) {
 
             return $item->orp_id . '|' . $item->preparacion;
         });

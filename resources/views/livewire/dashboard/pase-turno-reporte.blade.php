@@ -3553,7 +3553,7 @@
 
                         <div class=" rounded-lg border-gray-500 hover:bg-gray-100 hover:dark:bg-gray-700 flex items-center justify-between">
                         @if ($orp && $preparacion)
-                            <h2 class="text-sm">{{ $orp->codigo }} :
+                            <h2 class="text-xs {{$orp->color->color}} ">{{ $orp->codigo }} :
                                 {{ $preparacion }} </h2>
                         @else
                             <h2 class="text-sm">Código: No encontrado, error con orp o preparacion</h2>
@@ -3663,9 +3663,12 @@
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 col-start-1 row-span-1 col-span-1 ">
                        {{-- Vasos --}}
                         <div class=" flex flex-col  justify-center ">
-                            <div class=" flex justify-center">
+                            <div class=" flex justify-center flex-col">
+                                 <div>
+                                    
+                                     
+                                </div>   
 
-                                <p class="text-base mb-3">Vasos - Araña</p>
                                 @foreach ($groupedResultsvasos as $orpIdAndPreparacion => $group)
 
                                         
@@ -3674,28 +3677,24 @@
                                     
 
                                         
-                                        @php
-                                        // Descompón la clave compuesta en orp_id y preparacion
-                                        $parts = explode('|', $orpIdAndPreparacion);
-
-                                        $orpId = $parts[0] ?? null;
-                                        $preparacion = $parts[1] ?? null;
-
-                                        // Recupera el objeto Orp para obtener el código y nombre del producto
-                                        $orp = $orps->get($orpId);
-                                        @endphp
-
-                                        <div class="p-2 mb-2 rounded-lg border-gray-500 hover:bg-gray-100 hover:dark:bg-gray-700 border">
-                                        @if ($orp && $preparacion)
-                                            <h2 class="text-sm">{{ $orp->codigo }} - {{ $orp->producto->nombre }} :
-                                                {{ $preparacion }} </h2>
-                                        @else
-                                            <h2 class="text-sm">Código: No encontrado, error con orp o preparacion</h2>
-                                        @endif
-
-                                        <div class="flex gap-4 flex-wrap font-medium text-green-600">
-                                            
-                                        </div>
+                                @php
+                                // Descompón la clave compuesta en orp_id y preparacion
+                                $parts = explode('|', $orpIdAndPreparacion);
+        
+                                $orpId = $parts[0] ?? null;
+                                $preparacion = $parts[1] ?? null;
+        
+                                // Recupera el objeto Orp para obtener el código y nombre del producto
+                                $orp = $orps->get($orpId);
+                                @endphp
+        
+                                <div class=" rounded-lg border-gray-500 hover:bg-gray-100 hover:dark:bg-gray-700 flex items-center justify-between">
+                                @if ($orp && $preparacion)
+                                    <h2 class="text-xs   {{$orp->color->color}} "  >{{ $orp->codigo }} :
+                                        {{ $preparacion }} </h2>
+                                @else
+                                    <h2 class="text-sm">Código: No encontrado, error con orp o preparacion</h2>
+                                @endif
                                         <div class="flex justify-end m-1"><button class="bg-red-500 text-white p-1 rounded-lg"
                                                 type="button" wire:click="completar({{ $orp->id }})"
                                                 wire:confirm="Esta seguro que desea completar la ORP : {{ $orp->codigo }} y quitar de las envasadoras? \n\n Esta ORP ya no se podra utlizar ">Terminar?</button>
@@ -3720,7 +3719,42 @@
     
                             </div>
                             
+                            @foreach ($groupedResultsaranas as $orpIdAndPreparacion => $group)
 
+                                        
+                                    
+
+                                    
+
+                                        
+                            @php
+                            // Descompón la clave compuesta en orp_id y preparacion
+                            $parts = explode('|', $orpIdAndPreparacion);
+    
+                            $orpId = $parts[0] ?? null;
+                            $preparacion = $parts[1] ?? null;
+    
+                            // Recupera el objeto Orp para obtener el código y nombre del producto
+                            $orp = $orps->get($orpId);
+                            @endphp
+    
+                            <div class=" rounded-lg border-gray-500 hover:bg-gray-100 hover:dark:bg-gray-700 flex items-center justify-between">
+                            @if ($orp && $preparacion)
+                                <h2 class="text-xs {{$orp->color->color}} " >{{ $orp->codigo }} :
+                                    {{ $preparacion }} </h2>
+                            @else
+                                <h2 class="text-sm">Código: No encontrado, error con orp o preparacion</h2>
+                            @endif
+                                    <div class="flex justify-end m-1"><button class="bg-red-500 text-white p-1 rounded-lg"
+                                            type="button" wire:click="completar({{ $orp->id }})"
+                                            wire:confirm="Esta seguro que desea completar la ORP : {{ $orp->codigo }} y quitar de las envasadoras? \n\n Esta ORP ya no se podra utlizar ">Terminar?</button>
+                                    </div>
+
+                                    </div>
+                                    
+                        
+                                
+                    @endforeach
 
                         </div>
                         {{-- Araña --}}
@@ -3729,7 +3763,7 @@
                             
                                 <div class=" flex  justify-between">
                                     <div></div>
-                                    <div class="text-xl {{ $araña->proceso == 'Produccion' ? $araña->estadoDetalle[0]->orp->color->color : ''}}" data-popover-trigger="click" data-popover-target="53-popover">ARAÑA</div>
+                                    <div class="text-lg {{ $araña->proceso == 'Produccion' ? $araña->estadoDetalle[0]->orp->color->color : ''}}" data-popover-trigger="click" data-popover-target="53-popover">ARAÑA</div>
                                     
                                     <div></div>
                                 
@@ -3806,7 +3840,7 @@
 
                             <div class=" rounded-lg border-gray-500 hover:bg-gray-100 hover:dark:bg-gray-700 flex items-center justify-between">
                             @if ($orp && $preparacion)
-                                <h2 class="text-sm">{{ $orp->codigo }} :
+                                <h2 class="text-xs {{$orp->color->color}} ">{{ $orp->codigo }} :
                                     {{ $preparacion }} </h2>
                             @else
                                 <h2 class="text-sm">Código: No encontrado, error con orp o preparacion</h2>
@@ -4982,7 +5016,7 @@
 
                                         <div class=" rounded-lg border-gray-500 hover:bg-gray-100 hover:dark:bg-gray-700 flex items-center justify-between">
                                         @if ($orp && $preparacion)
-                                            <h2 class="text-sm">{{ $orp->codigo }} :
+                                            <h2 class="text-xs {{$orp->color->color}} ">{{ $orp->codigo }} :
                                                 {{ $preparacion }} </h2>
                                         @else
                                             <h2 class="text-sm">Código: No encontrado, error con orp o preparacion</h2>
@@ -5815,6 +5849,18 @@
                         d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                 </svg>
             </button>
+            @if ($l1->proceso == 'Produccion' )
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="solicitar({{ $l1->id }})"
+                        wire:confirm="Esta seguro que quiere un analisis"
+                        class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
+                        <svg class="w-4 h-4 fill-white"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                        </svg>
+                    </button>
+                    @endif
         </div>
          
          
@@ -5872,6 +5918,18 @@
                         d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                 </svg>
             </button>
+            @if ($l2->proceso == 'Produccion' )
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="solicitar({{ $l2->id }})"
+                        wire:confirm="Esta seguro que quiere un analisis"
+                        class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
+                        <svg class="w-4 h-4 fill-white"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                        </svg>
+                    </button>
+                    @endif
         </div>
      </div>
      <div data-popper-arrow></div>
@@ -5924,6 +5982,18 @@
                         d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                 </svg>
             </button>
+            @if ($l3->proceso == 'Produccion' )
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="solicitar({{ $l3->id }})"
+                        wire:confirm="Esta seguro que quiere un analisis"
+                        class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
+                        <svg class="w-4 h-4 fill-white"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                        </svg>
+                    </button>
+                    @endif
         </div>
      </div>
      <div data-popper-arrow></div>
@@ -5977,6 +6047,18 @@
                                 d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                         </svg>
                     </button>
+                    @if ($HTST_1A->proceso == 'Produccion' )
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="solicitar({{ $HTST_1A->id }})"
+                        wire:confirm="Esta seguro que quiere un analisis"
+                        class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
+                        <svg class="w-4 h-4 fill-white"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                        </svg>
+                    </button>
+                    @endif
                 </div>
             </div>
             <div data-popper-arrow></div>
@@ -6028,6 +6110,18 @@
                                 d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                         </svg>
                     </button>
+                    @if ($HTST_1B->proceso == 'Produccion' )
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="solicitar({{ $HTST_1B->id }})"
+                        wire:confirm="Esta seguro que quiere un analisis"
+                        class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
+                        <svg class="w-4 h-4 fill-white"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                        </svg>
+                    </button>
+                    @endif
                 </div>
             </div>
             <div data-popper-arrow></div>
@@ -6077,6 +6171,18 @@
                                 d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                         </svg>
                     </button>
+                    @if ($HTST_1C->proceso == 'Produccion' )
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="solicitar({{ $HTST_1C->id }})"
+                        wire:confirm="Esta seguro que quiere un analisis"
+                        class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
+                        <svg class="w-4 h-4 fill-white"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                        </svg>
+                    </button>
+                    @endif
                 </div>
             </div>
             <div data-popper-arrow></div>
@@ -6126,6 +6232,18 @@
                                 d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                         </svg>
                     </button>
+                    @if ($HTST_2A->proceso == 'Produccion' )
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="solicitar({{ $HTST_2A->id }})"
+                        wire:confirm="Esta seguro que quiere un analisis"
+                        class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
+                        <svg class="w-4 h-4 fill-white"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                        </svg>
+                    </button>
+                    @endif
                 </div>
             </div>
             <div data-popper-arrow></div>
@@ -6175,13 +6293,25 @@
                                 d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                         </svg>
                     </button>
+                    @if ($HTST_2B->proceso == 'Produccion' )
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="solicitar({{ $HTHST_2B->id }})"
+                        wire:confirm="Esta seguro que quiere un analisis"
+                        class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
+                        <svg class="w-4 h-4 fill-white"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                        </svg>
+                    </button>
+                    @endif
                 </div>
             </div>
             <div data-popper-arrow></div>
         @endif
     </div>
 
-{{-- SOYA --}}
+
  
 
 
@@ -6228,6 +6358,18 @@
                                 d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                         </svg>
                     </button>
+                    @if ($HTST_2C->proceso == 'Produccion' )
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="solicitar({{ $HTST_2C->id }})"
+                        wire:confirm="Esta seguro que quiere un analisis"
+                        class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
+                        <svg class="w-4 h-4 fill-white"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                        </svg>
+                    </button>
+                    @endif
                 </div>
             </div>
             <div data-popper-arrow></div>
@@ -6277,6 +6419,18 @@
                                 d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                         </svg>
                     </button>
+                    @if ($HTST_3A->proceso == 'Produccion' )
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="solicitar({{ $HTST_3A->id }})"
+                        wire:confirm="Esta seguro que quiere un analisis"
+                        class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
+                        <svg class="w-4 h-4 fill-white"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                        </svg>
+                    </button>
+                    @endif
                 </div>
             </div>
             <div data-popper-arrow></div>
@@ -6326,6 +6480,18 @@
                                 d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                         </svg>
                     </button>
+                    @if ($HTST_3B->proceso == 'Produccion' )
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="solicitar({{ $HTST_3B->id }})"
+                        wire:confirm="Esta seguro que quiere un analisis"
+                        class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
+                        <svg class="w-4 h-4 fill-white"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                        </svg>
+                    </button>
+                    @endif
                 </div>
             </div>
             <div data-popper-arrow></div>
@@ -6375,6 +6541,18 @@
                                 d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                         </svg>
                     </button>
+                    @if ($HTST_3C->proceso == 'Produccion' )
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="solicitar({{ $HTST_3C->id }})"
+                        wire:confirm="Esta seguro que quiere un analisis"
+                        class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
+                        <svg class="w-4 h-4 fill-white"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                        </svg>
+                    </button>
+                    @endif
                 </div>
             </div>
             <div data-popper-arrow></div>
@@ -6424,6 +6602,18 @@
                                 d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                         </svg>
                     </button>
+                    @if ($HTST_4A->proceso == 'Produccion' )
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="solicitar({{ $HTST_4A->id }})"
+                        wire:confirm="Esta seguro que quiere un analisis"
+                        class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
+                        <svg class="w-4 h-4 fill-white"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                        </svg>
+                    </button>
+                    @endif
                 </div>
             </div>
             <div data-popper-arrow></div>
@@ -6473,6 +6663,18 @@
                                 d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                         </svg>
                     </button>
+                    @if ($HTST_4B->proceso == 'Produccion' )
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="solicitar({{ $HTST_4B->id }})"
+                        wire:confirm="Esta seguro que quiere un analisis"
+                        class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
+                        <svg class="w-4 h-4 fill-white"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                        </svg>
+                    </button>
+                    @endif
                 </div>
             </div>
             <div data-popper-arrow></div>
@@ -6522,6 +6724,18 @@
                                 d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                         </svg>
                     </button>
+                    @if ($HTST_4C->proceso == 'Produccion' )
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="solicitar({{ $HTST_4C->id }})"
+                        wire:confirm="Esta seguro que quiere un analisis"
+                        class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
+                        <svg class="w-4 h-4 fill-white"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                        </svg>
+                    </button>
+                    @endif
                 </div>
             </div>
             <div data-popper-arrow></div>
@@ -6571,6 +6785,18 @@
                                 d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                         </svg>
                     </button>
+                    @if ($HTST_5A->proceso == 'Produccion' )
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="solicitar({{ $HTST_5A->id }})"
+                        wire:confirm="Esta seguro que quiere un analisis"
+                        class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
+                        <svg class="w-4 h-4 fill-white"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                        </svg>
+                    </button>
+                    @endif
                 </div>
                 </div>
                 <div data-popper-arrow>
@@ -6621,6 +6847,18 @@
                                 d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                         </svg>
                     </button>
+                    @if ($HTST_5B->proceso == 'Produccion' )
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="solicitar({{ $HTST_5B->id }})"
+                        wire:confirm="Esta seguro que quiere un analisis"
+                        class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
+                        <svg class="w-4 h-4 fill-white"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                        </svg>
+                    </button>
+                    @endif
                 </div>
             </div>
             <div data-popper-arrow></div>
@@ -6670,6 +6908,18 @@
                                 d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                         </svg>
                     </button>
+                    @if ($HTST_5C->proceso == 'Produccion' )
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="solicitar({{ $HTST_5C->id }})"
+                        wire:confirm="Esta seguro que quiere un analisis"
+                        class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
+                        <svg class="w-4 h-4 fill-white"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                        </svg>
+                    </button>
+                    @endif
                 </div>
             </div>
             <div data-popper-arrow></div>
@@ -6719,6 +6969,18 @@
                                 d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                         </svg>
                     </button>
+                    @if ($UHT_1A->proceso == 'Produccion' )
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="solicitar({{ $UHT_1A->id }})"
+                        wire:confirm="Esta seguro que quiere un analisis"
+                        class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
+                        <svg class="w-4 h-4 fill-white"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                        </svg>
+                    </button>
+                    @endif
                 </div>
             </div>
             <div data-popper-arrow></div>
@@ -6767,6 +7029,18 @@
                                 d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                         </svg>
                     </button>
+                    @if ($UHT_1B->proceso == 'Produccion' )
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="solicitar({{ $UHT_1B->id }})"
+                        wire:confirm="Esta seguro que quiere un analisis"
+                        class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
+                        <svg class="w-4 h-4 fill-white"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                        </svg>
+                    </button>
+                    @endif
                 </div>
             </div>
             <div data-popper-arrow></div>
@@ -6815,6 +7089,18 @@
                                 d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                         </svg>
                     </button>
+                    @if ($UHT_1C->proceso == 'Produccion' )
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="solicitar({{ $UHT_1C->id }})"
+                        wire:confirm="Esta seguro que quiere un analisis"
+                        class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
+                        <svg class="w-4 h-4 fill-white"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                        </svg>
+                    </button>
+                    @endif
                 </div>
             </div>
             <div data-popper-arrow></div>
@@ -6863,6 +7149,18 @@
                                 d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                         </svg>
                     </button>
+                    @if ($UHT_2A->proceso == 'Produccion' )
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="solicitar({{ $UHT_2A->id }})"
+                        wire:confirm="Esta seguro que quiere un analisis"
+                        class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
+                        <svg class="w-4 h-4 fill-white"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                        </svg>
+                    </button>
+                    @endif
                 </div>
             </div>
             <div data-popper-arrow></div>
@@ -6911,6 +7209,18 @@
                                 d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                         </svg>
                     </button>
+                    @if ($UHT_2B->proceso == 'Produccion' )
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="solicitar({{ $UHT_2B->id }})"
+                        wire:confirm="Esta seguro que quiere un analisis"
+                        class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
+                        <svg class="w-4 h-4 fill-white"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                        </svg>
+                    </button>
+                    @endif
                 </div>
             </div>
             <div data-popper-arrow></div>
@@ -6959,6 +7269,18 @@
                                 d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                         </svg>
                     </button>
+                    @if ($UHT_3A->proceso == 'Produccion' )
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="solicitar({{ $UHT_3A->id }})"
+                        wire:confirm="Esta seguro que quiere un analisis"
+                        class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
+                        <svg class="w-4 h-4 fill-white"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                        </svg>
+                    </button>
+                    @endif
                 </div>
             </div>
             <div data-popper-arrow></div>
@@ -7007,6 +7329,18 @@
                                 d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                         </svg>
                     </button>
+                    @if ($UHT_3B->proceso == 'Produccion' )
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="solicitar({{ $UHT_3B->id }})"
+                        wire:confirm="Esta seguro que quiere un analisis"
+                        class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
+                        <svg class="w-4 h-4 fill-white"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                        </svg>
+                    </button>
+                    @endif
                 </div>
             </div>
             <div data-popper-arrow></div>
@@ -7055,6 +7389,18 @@
                                 d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                         </svg>
                     </button>
+                    @if ($V1->proceso == 'Produccion' )
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="solicitar({{ $V1->id }})"
+                        wire:confirm="Esta seguro que quiere un analisis"
+                        class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
+                        <svg class="w-4 h-4 fill-white"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                        </svg>
+                    </button>
+                    @endif
                 </div>
             </div>
             <div data-popper-arrow></div>
@@ -7102,6 +7448,18 @@
                                 d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                         </svg>
                     </button>
+                    @if ($V2->proceso == 'Produccion' )
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="solicitar({{ $V2->id }})"
+                        wire:confirm="Esta seguro que quiere un analisis"
+                        class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
+                        <svg class="w-4 h-4 fill-white"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                        </svg>
+                    </button>
+                    @endif
                 </div>
             </div>
             <div data-popper-arrow></div>
@@ -7149,6 +7507,18 @@
                                 d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                         </svg>
                     </button>
+                    @if ($V3->proceso == 'Produccion' )
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="solicitar({{ $V3->id }})"
+                        wire:confirm="Esta seguro que quiere un analisis"
+                        class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
+                        <svg class="w-4 h-4 fill-white"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                        </svg>
+                    </button>
+                    @endif
                 </div>
             </div>
             <div data-popper-arrow></div>
@@ -7196,8 +7566,26 @@
                                 d="M80 160c-8.8 0-16 7.2-16 16V336c0 8.8 7.2 16 16 16H464c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H80zM0 176c0-44.2 35.8-80 80-80H464c44.2 0 80 35.8 80 80v16c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32v16c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V176z" />
                         </svg>
                     </button>
+
+
+                    @if ($araña->proceso == 'Produccion' )
+                    <button type="button" wire:loading.attr="disabled"
+                        wire:click="solicitar({{ $araña->id }})"
+                        wire:confirm="Esta seguro que quiere un analisis"
+                        class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
+                        <svg class="w-4 h-4 fill-white"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                        </svg>
+                    </button>
+                    @endif
                 </div>
+                <!--boton de solicitar-->
+           
+        
             </div>
+            
             <div data-popper-arrow></div>
         @endif
     </div>
