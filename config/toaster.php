@@ -28,7 +28,7 @@ return [
      *
      * Minimum: 3000 (in milliseconds)
      */
-    'duration' => 7000,
+    'duration' => 5000,
 
     /**
      * The horizontal position of each toast.
@@ -43,4 +43,6 @@ return [
      * Supported: true | false
      */
     'translate' => true,
+
+    'dismissable' => true,
 ];
