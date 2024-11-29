@@ -3555,41 +3555,41 @@
                             
                                  
                                 <div class=" text-lg {{ $HTST_1A->proceso == 'Detenido' ? 'text-gray-500' : $HTST_1A->estadoDetalle[0]->orp->color->color}} " data-popover-trigger="click" data-popover-target="48-popover">A</div>
-                                <div class="text-lg text-{{ $HTST_1B->proceso == 'Detenido' ? 'gray' : 'green' }}-500 " data-popover-trigger="click" data-popover-target="47-popover">B</div>
-                                <div class="text-lg text-{{ $HTST_1C->proceso == 'Detenido' ? 'gray' : 'green' }}-500 " data-popover-trigger="click" data-popover-target="46-popover">C</div>
+                                <div class="text-lg {{ $HTST_1B->proceso == 'Detenido' ? 'text-gray-500' : $HTST_1B->estadoDetalle[0]->orp->color->color}}" data-popover-trigger="click" data-popover-target="47-popover">B</div>
+                                <div class="text-lg {{ $HTST_1C->proceso == 'Detenido' ? 'text-gray-500' : $HTST_1C->estadoDetalle[0]->orp->color->color}} " data-popover-trigger="click" data-popover-target="46-popover">C</div>
                             </div>
                           
                             <div class="flex items-center gap-2  "> 
                                 <p class="text-xl ">
                                     2 
                                 </p>
-                                <div class="text-lg text-{{ $HTST_2A->proceso == 'Detenido' ? 'gray' : 'green' }}-500" data-popover-trigger="click" data-popover-target="45-popover">A</div>
-                                <div class="text-lg text-{{ $HTST_2B->proceso == 'Detenido' ? 'gray' : 'green' }}-500 " data-popover-trigger="click" data-popover-target="44-popover">B</div>
-                                <div class="text-lg text-{{ $HTST_2C->proceso == 'Detenido' ? 'gray' : 'green' }}-500" data-popover-trigger="click" data-popover-target="43-popover">C</div>
+                                <div class="text-lg {{ $HTST_2A->proceso == 'Detenido' ? 'text-gray-500' : $HTST_2A->estadoDetalle[0]->orp->color->color}}" data-popover-trigger="click" data-popover-target="45-popover">A</div>
+                                <div class="text-lg {{ $HTST_2B->proceso == 'Detenido' ? 'text-gray-500' : $HTST_2B->estadoDetalle[0]->orp->color->color}} " data-popover-trigger="click" data-popover-target="44-popover">B</div>
+                                <div class="text-lg {{ $HTST_2C->proceso == 'Detenido' ? 'text-gray-500' : $HTST_2C->estadoDetalle[0]->orp->color->color}}" data-popover-trigger="click" data-popover-target="43-popover">C</div>
                             </div>
                             <div class="flex items-center gap-2  "> 
                                 <p class="text-xl ">
                                     3 
                                 </p>
-                                <div class="text-lg text-{{ $HTST_3A->proceso == 'Detenido' ? 'gray' : 'green' }}-500 " data-popover-trigger="click" data-popover-target="42-popover">A</div>
-                                <div class="text-lg text-{{ $HTST_3B->proceso == 'Detenido' ? 'gray' : 'green' }}-500" data-popover-trigger="click" data-popover-target="41-popover">B</div>
-                                <div class="text-lg text-{{ $HTST_3C->proceso == 'Detenido' ? 'gray' : 'green' }}-500" data-popover-trigger="click" data-popover-target="40-popover">C</div>
+                                <div class="text-lg {{ $HTST_3A->proceso == 'Detenido' ? 'text-gray-500' : $HTST_3A->estadoDetalle[0]->orp->color->color}} " data-popover-trigger="click" data-popover-target="42-popover">A</div>
+                                <div class="text-lg {{ $HTST_3B->proceso == 'Detenido' ? 'text-gray-500' : $HTST_3B->estadoDetalle[0]->orp->color->color}}" data-popover-trigger="click" data-popover-target="41-popover">B</div>
+                                <div class="text-lg {{ $HTST_3C->proceso == 'Detenido' ? 'text-gray-500' : $HTST_3C->estadoDetalle[0]->orp->color->color}}" data-popover-trigger="click" data-popover-target="40-popover">C</div>
                             </div>
                             <div class="flex items-center gap-2  "> 
                                 <p class="text-xl ">
                                     4 
                                 </p>
-                                <div class="text-lg text-{{ $HTST_4A->proceso == 'Detenido' ? 'gray' : 'green' }}-500" data-popover-trigger="click" data-popover-target="39-popover">A</div>
-                                <div class="text-lg text-{{ $HTST_4B->proceso == 'Detenido' ? 'gray' : 'green' }}-500" data-popover-trigger="click" data-popover-target="38-popover">B</div>
-                                <div class="text-lg text-{{ $HTST_4C->proceso == 'Detenido' ? 'gray' : 'green' }}-500" data-popover-trigger="click" data-popover-target="37-popover">C</div>
+                                <div class="text-lg {{ $HTST_4A->proceso == 'Detenido' ? 'text-gray-500' : $HTST_4A->estadoDetalle[0]->orp->color->color}}" data-popover-trigger="click" data-popover-target="39-popover">A</div>
+                                <div class="text-lg {{ $HTST_4B->proceso == 'Detenido' ? 'text-gray-500' : $HTST_4B->estadoDetalle[0]->orp->color->color}}" data-popover-trigger="click" data-popover-target="38-popover">B</div>
+                                <div class="text-lg {{ $HTST_4C->proceso == 'Detenido' ? 'text-gray-500' : $HTST_4C->estadoDetalle[0]->orp->color->color}}" data-popover-trigger="click" data-popover-target="37-popover">C</div>
                             </div>
                             <div class="flex items-center gap-2  "> 
                                 <p class="text-xl ">
                                     5 
                                 </p>
-                                <div class="text-lg text-{{ $HTST_5A->proceso == 'Detenido' ? 'gray' : 'green' }}-500" data-popover-trigger="click" data-popover-target="36-popover">A</div>
-                                <div class="text-lg text-{{ $HTST_5B->proceso == 'Detenido' ? 'gray' : 'green' }}-500" data-popover-trigger="click" data-popover-target="35-popover">B</div>
-                                <div class="text-lg text-{{ $HTST_5C->proceso == 'Detenido' ? 'gray' : 'green' }}-500" data-popover-trigger="click" data-popover-target="34-popover">C</div>
+                                <div class="text-lg {{ $HTST_5A->proceso == 'Detenido' ? 'text-gray-500' : $HTST_5A->estadoDetalle[0]->orp->color->color}}" data-popover-trigger="click" data-popover-target="36-popover">A</div>
+                                <div class="text-lg {{ $HTST_5B->proceso == 'Detenido' ? 'text-gray-500' : $HTST_5B->estadoDetalle[0]->orp->color->color}}" data-popover-trigger="click" data-popover-target="35-popover">B</div>
+                                <div class="text-lg {{ $HTST_5C->proceso == 'Detenido' ? 'text-gray-500' : $HTST_5C->estadoDetalle[0]->orp->color->color}}" data-popover-trigger="click" data-popover-target="34-popover">C</div>
                             </div>
 
                         </div>
@@ -3684,9 +3684,9 @@
                             
                                 <div class=" flex  justify-between">
                                     <div></div>
-                                    <div class="text-xl text-{{ $V1->proceso == 'Detenido' ? 'gray' : 'green' }}-500" data-popover-trigger="click" data-popover-target="50-popover">V1</div>
-                                    <div class="text-xl text-{{ $V2->proceso == 'Detenido' ? 'gray' : 'green' }}-500" data-popover-trigger="click" data-popover-target="51-popover">V2</div>
-                                    <div class="text-xl text-{{ $V3->proceso == 'Detenido' ? 'gray' : 'green' }}-500" data-popover-trigger="click" data-popover-target="52-popover">V3</div>
+                                    <div class="text-xl {{ $V1->proceso == 'Detenido' ? 'text-gray-500' : $V1->estadoDetalle[0]->orp->color->color}}" data-popover-trigger="click" data-popover-target="50-popover">V1</div>
+                                    <div class="text-xl {{ $V2->proceso == 'Detenido' ? 'text-gray-500' : $V2->estadoDetalle[0]->orp->color->color}}" data-popover-trigger="click" data-popover-target="51-popover">V2</div>
+                                    <div class="text-xl {{ $V3->proceso == 'Detenido' ? 'text-gray-500' : $V3->estadoDetalle[0]->orp->color->color}}" data-popover-trigger="click" data-popover-target="52-popover">V3</div>
                                     <div></div>
                                 
                                 
@@ -3809,25 +3809,25 @@
                                 <p class="text-xl ">
                                     1 
                                 </p>
-                                <div class="text-lg text-{{ $UHT_1A->proceso == 'Detenido' ? 'gray' : 'green' }}-500 " data-popover-trigger="click" data-popover-target="27-popover">A</div>
-                                <div class="text-lg text-{{ $UHT_1B->proceso == 'Detenido' ? 'gray' : 'green' }}-500" data-popover-trigger="click" data-popover-target="28-popover">B</div>
-                                <div class="text-lg text-{{ $UHT_1C->proceso == 'Detenido' ? 'gray' : 'green' }}-500" data-popover-trigger="click" data-popover-target="29-popover">C</div>
+                                <div class="text-lg {{ $UHT_1A->proceso == 'Detenido' ? 'text-gray-500' : $UHT_1A->estadoDetalle[0]->orp->color->color}}" data-popover-trigger="click" data-popover-target="27-popover">A</div>
+                                <div class="text-lg {{ $UHT_1B->proceso == 'Detenido' ? 'text-gray-500' : $UHT_1B->estadoDetalle[0]->orp->color->color}}" data-popover-trigger="click" data-popover-target="28-popover">B</div>
+                                <div class="text-lg {{ $UHT_1C->proceso == 'Detenido' ? 'text-gray-500' : $UHT_1C->estadoDetalle[0]->orp->color->color}}" data-popover-trigger="click" data-popover-target="29-popover">C</div>
                             </div>
                           
                             <div class="flex items-center gap-3  "> 
                                 <p class="text-xl ">
                                     2 
                                 </p>
-                                <div class="text-lg text-{{ $UHT_2A->proceso == 'Detenido' ? 'gray' : 'green' }}-500" data-popover-trigger="click" data-popover-target="30-popover">A</div>
-                                <div class="text-lg text-{{ $UHT_2B->proceso == 'Detenido' ? 'gray' : 'green' }}-500" data-popover-trigger="click" data-popover-target="31-popover">B</div>
+                                <div class="text-lg {{ $UHT_2A->proceso == 'Detenido' ? 'text-gray-500' : $UHT_2A->estadoDetalle[0]->orp->color->color}}" data-popover-trigger="click" data-popover-target="30-popover">A</div>
+                                <div class="text-lg {{ $UHT_2B->proceso == 'Detenido' ? 'text-gray-500' : $UHT_2B->estadoDetalle[0]->orp->color->color}}" data-popover-trigger="click" data-popover-target="31-popover">B</div>
                                 
                             </div>
                             <div class="flex items-center gap-3  "> 
                                 <p class="text-xl ">
                                     3 
                                 </p>
-                                <div class="text-lg text-{{ $UHT_3A->proceso == 'Detenido' ? 'gray' : 'green' }}-500" data-popover-trigger="click" data-popover-target="32-popover">A</div>
-                                <div class="text-lg text-{{ $UHT_3B->proceso == 'Detenido' ? 'gray' : 'green' }}-500" data-popover-trigger="click" data-popover-target="33-popover">B</div>
+                                <div class="text-lg {{ $UHT_3A->proceso == 'Detenido' ? 'text-gray-500' : $UHT_3A->estadoDetalle[0]->orp->color->color}}" data-popover-trigger="click" data-popover-target="32-popover">A</div>
+                                <div class="text-lg {{ $UHT_3B->proceso == 'Detenido' ? 'text-gray-500' : $UHT_3B->estadoDetalle[0]->orp->color->color}}" data-popover-trigger="click" data-popover-target="33-popover">B</div>
                                 
                             </div>
                             
@@ -4975,9 +4975,9 @@
                             
                             <div class="flex items-center gap-8  p-3 justify-between "> 
                                 
-                                <div class="text-lg text-{{ $l1->proceso == 'Detenido' ? 'gray' : 'green' }}-500 " data-popover-trigger="click" data-popover-target="57-popover">L1</div>
-                                <div class="text-lg text-{{ $l2->proceso == 'Detenido' ? 'gray' : 'green' }}-500" data-popover-trigger="click" data-popover-target="58-popover">L2</div>
-                                <div class="text-lg text-{{ $l3->proceso == 'Detenido' ? 'gray' : 'green' }}-500" data-popover-trigger="click" data-popover-target="59-popover">L3</div>
+                                <div class="text-lg {{ $l1->proceso == 'Detenido' ? 'text-gray-500' : $l1->estadoDetalle[0]->orp->color->color}}" data-popover-trigger="click" data-popover-target="57-popover">L1</div>
+                                <div class="text-lg {{ $l2->proceso == 'Detenido' ? 'text-gray-500' : $l2->estadoDetalle[0]->orp->color->color}}" data-popover-trigger="click" data-popover-target="58-popover">L2</div>
+                                <div class="text-lg {{ $l3->proceso == 'Detenido' ? 'text-gray-500' : $l3->estadoDetalle[0]->orp->color->color}}" data-popover-trigger="click" data-popover-target="59-popover">L3</div>
                             </div>
                           
                             
