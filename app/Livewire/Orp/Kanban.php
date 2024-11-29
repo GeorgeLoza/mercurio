@@ -2,12 +2,13 @@
 
 namespace App\Livewire\Orp;
 
-use App\Models\Orp;
 use Carbon\Carbon;
-use Livewire\Component;
+use App\Models\Orp;
 use App\Models\User;
-use App\Notifications\orpNotification;
 use App\Models\Color;
+use Livewire\Component;
+use Illuminate\Support\Facades\DB;
+use App\Notifications\orpNotification;
 
 class Kanban extends Component
 {
@@ -36,6 +37,17 @@ class Kanban extends Component
         }
                 $orp->tiempo_elaboracion = now();
             }
+
+            // 
+
+            if ($estado == 'Completado') {
+                DB::table('colors')
+                 ->where('orp_id', $orpId)
+                ->update(['orp_id' => null]); 
+            }   
+
+
+
 
             $orp->save();
 
