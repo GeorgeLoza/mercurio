@@ -1,3 +1,9 @@
+
+import '../../vendor/masmerise/livewire-toaster/resources/js'; // 
+
+// other app stuff...
+
+
 // resources/js/app.js
 
 import './../../vendor/power-components/livewire-powergrid/dist/powergrid'

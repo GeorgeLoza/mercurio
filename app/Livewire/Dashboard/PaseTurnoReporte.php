@@ -2,15 +2,16 @@
 
 namespace App\Livewire\Dashboard;
 
+use App\Models\Orp;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use App\Models\EstadoPlanta;
-use App\Models\SolicitudAnalisisLinea;
-use App\Models\EstadoDetalle;
 use App\Models\AnalisisLinea;
+use App\Models\EstadoDetalle;
+use Masmerise\Toaster\Toaster;
 use Illuminate\Support\Facades\DB;
-use App\Models\Orp;
-use App\Models\Temperatura;
+use App\Models\SolicitudAnalisisLinea;
+
 
 class PaseTurnoReporte extends Component
 {
@@ -65,8 +66,18 @@ class PaseTurnoReporte extends Component
     public $groupedResults;
     public $orps;
 
+    public $groupedResultshtst;
+    public $groupedResultsuht;
+    public $groupedResultsvasos;
+    public $groupedResultssoya;
 
-    
+    //grupos reales
+
+    public int $htst_env=0;
+    public $uht_env=0;
+    public $soya_env=0;
+    public $vasos_env=0;
+
     #[On('actualizar_dashboardPlanta')]
     public function render()
     {
@@ -99,8 +110,77 @@ class PaseTurnoReporte extends Component
             ->orderBy('o.alias', 'asc') // Ordenar alias ascendentemente
             ->get();
 
+
+
+            $resultsuht = DB::table('estado_detalles as ed')
+            ->joinSub($latestEstadoPlantasDetails, 'latest_estado_plantas_details', function ($join) {
+                $join->on('ed.estado_planta_id', '=', 'latest_estado_plantas_details.estado_planta_id');
+            })
+            ->join('origens as o', 'latest_estado_plantas_details.origen_id', '=', 'o.id') // Unimos con la tabla origenes para obtener el alias
+            ->where(function ($query) {
+                $query->whereIn('o.id', range(27, 33)); // Incluye los IDs del 50 al 53
+            })
+            ->select('ed.orp_id', 'ed.preparacion', 'o.id as origen_id', 'o.alias')
+            ->orderBy('o.alias', 'asc') // Ordenar alias ascendentemente
+            ->get();
+
+
+            $resultshtst = DB::table('estado_detalles as ed')
+            ->joinSub($latestEstadoPlantasDetails, 'latest_estado_plantas_details', function ($join) {
+                $join->on('ed.estado_planta_id', '=', 'latest_estado_plantas_details.estado_planta_id');
+            })
+            ->join('origens as o', 'latest_estado_plantas_details.origen_id', '=', 'o.id') // Unimos con la tabla origenes para obtener el alias
+            ->where(function ($query) {
+                $query->whereIn('o.id', range(34, 48)); // Incluye los IDs del 50 al 53
+            })
+            ->select('ed.orp_id', 'ed.preparacion', 'o.id as origen_id', 'o.alias')
+            ->orderBy('o.alias', 'asc') // Ordenar alias ascendentemente
+            ->get();
+
+
+
+            $resultsvasos = DB::table('estado_detalles as ed')
+            ->joinSub($latestEstadoPlantasDetails, 'latest_estado_plantas_details', function ($join) {
+                $join->on('ed.estado_planta_id', '=', 'latest_estado_plantas_details.estado_planta_id');
+            })
+            ->join('origens as o', 'latest_estado_plantas_details.origen_id', '=', 'o.id') // Unimos con la tabla origenes para obtener el alias
+            ->where(function ($query) {
+                $query->whereIn('o.id', range(50, 53)); // Incluye los IDs del 50 al 53
+            })
+            ->select('ed.orp_id', 'ed.preparacion', 'o.id as origen_id', 'o.alias')
+            ->orderBy('o.alias', 'asc') // Ordenar alias ascendentemente
+            ->get();
+            $resultssoya = DB::table('estado_detalles as ed')
+            ->joinSub($latestEstadoPlantasDetails, 'latest_estado_plantas_details', function ($join) {
+                $join->on('ed.estado_planta_id', '=', 'latest_estado_plantas_details.estado_planta_id');
+            })
+            ->join('origens as o', 'latest_estado_plantas_details.origen_id', '=', 'o.id') // Unimos con la tabla origenes para obtener el alias
+            ->where(function ($query) {
+                $query->whereIn('o.id', range(57, 59)); // Incluye los IDs del 50 al 53
+            })
+            ->select('ed.orp_id', 'ed.preparacion', 'o.id as origen_id', 'o.alias')
+            ->orderBy('o.alias', 'asc') // Ordenar alias ascendentemente
+            ->get();
+
         // Agrupar resultados por orp_id y preparacion
         $this->groupedResults = $results->groupBy(function ($item) {
+
+            return $item->orp_id . '|' . $item->preparacion;
+        });
+        $this->groupedResultshtst = $resultshtst->groupBy(function ($item) {
+
+            return $item->orp_id . '|' . $item->preparacion;
+        });
+        $this->groupedResultsuht = $resultsuht->groupBy(function ($item) {
+
+            return $item->orp_id . '|' . $item->preparacion;
+        });
+        $this->groupedResultsvasos = $resultsvasos->groupBy(function ($item) {
+
+            return $item->orp_id . '|' . $item->preparacion;
+        });
+        $this->groupedResultssoya = $resultssoya->groupBy(function ($item) {
+
             return $item->orp_id . '|' . $item->preparacion;
         });
 
@@ -213,7 +293,25 @@ class PaseTurnoReporte extends Component
         $this->araña = EstadoPlanta::where('origen_id', '53')->latest('created_at')->first();
 
 
+
+        //consultas para ver las orp en las envasadoras
+        $this->orps = \App\Models\Orp::whereIn('id', $results->pluck('orp_id')->unique())->get()->keyBy('id');
+
+
+
+
+
+
+
+
+
         return view('livewire.dashboard.pase-turno-reporte');
+
+
+
+
+
+
     }
 
 
@@ -282,8 +380,8 @@ class PaseTurnoReporte extends Component
 
     public function vacio($id)
     {
-       
 
+        // Toaster::success('User created!');
         try {
             EstadoPlanta::create([
                 'tiempo' => now(),
@@ -333,7 +431,7 @@ class PaseTurnoReporte extends Component
                 'tiempo' => now(),
                 'user_id' => auth()->user()->id,
                 'origen_id' => $id,
-                'proceso' => 'Vacio',
+                'proceso' => 'Detenido',
                 'etapa_id' => 8,
             ]);
         } catch (\Throwable $th) {
@@ -352,6 +450,9 @@ class PaseTurnoReporte extends Component
         $registro->estado = 'Completado';
         $registro->save();
 
+        DB::table('colors')
+            ->where('orp_id', $id)
+            ->update(['orp_id' => null]);
         // Obtener los registros que cumplen con las condiciones
         // $registros = EstadoPlanta::where('proceso', 'Produccion')
         //     ->where('etapa_id', 8)

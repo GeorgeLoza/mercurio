@@ -95,6 +95,7 @@ class Movimiento extends ModalComponent
     {
         return view('livewire.estado-planta.movimiento');
     }
+        
     public function save()
     {
         //Agregado o traspaso a un nuevo tanque

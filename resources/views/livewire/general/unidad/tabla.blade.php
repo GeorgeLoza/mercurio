@@ -64,4 +64,14 @@
 
         </table>
     </div>
+    <div>
+        <button wire:loading.attr="disabled"
+        wire:click="consulta" class="bg-red-500 rounded py-2 px-3">
+            bd prueba
+    
+        </button>
+      
+    </div>
+    
 </div>
+

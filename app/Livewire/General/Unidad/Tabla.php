@@ -5,6 +5,8 @@ namespace App\Livewire\General\Unidad;
 use App\Models\Unidad;
 use Livewire\Component;
 use Livewire\Attributes\On;
+use App\Models\Temperatura;
+use Illuminate\Support\Facades\DB;
 
 class Tabla extends Component
 {
@@ -51,6 +53,17 @@ class Tabla extends Component
         return view('livewire.general.unidad.tabla', [
             'unidades' => $unidades
         ]);
+    }
+
+
+
+
+    public function consulta()
+    {
+        
+        
+        $datos = DB::connection('sqlsrv')->select('SELECT * FROM temperaturas');
+        dd($datos);
     }
     
 }

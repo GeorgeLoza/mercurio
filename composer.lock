@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "65c8f7b0035248916b6a4edc6115f840",
+    "content-hash": "defab33fad400ffe1507863dc39369e0",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -2781,6 +2781,77 @@
             "time": "2022-12-02T22:17:43+00:00"
         },
         {
+            "name": "masmerise/livewire-toaster",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/masmerise/livewire-toaster.git",
+                "reference": "35104bbb930d2638335e3685a307fb0ec348f5e5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/masmerise/livewire-toaster/zipball/35104bbb930d2638335e3685a307fb0ec348f5e5",
+                "reference": "35104bbb930d2638335e3685a307fb0ec348f5e5",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^10.0",
+                "livewire/livewire": "^3.0",
+                "php": "~8.3"
+            },
+            "conflict": {
+                "stevebauman/unfinalize": "*"
+            },
+            "require-dev": {
+                "dive-be/php-crowbar": "^1.0",
+                "laravel/pint": "^1.0",
+                "nunomaduro/larastan": "^2.0",
+                "orchestra/testbench": "^8.0",
+                "phpunit/phpunit": "^10.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Toaster": "Masmerise\\Toaster\\Toaster"
+                    },
+                    "providers": [
+                        "Masmerise\\Toaster\\ToasterServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Masmerise\\Toaster\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Muhammed Sari",
+                    "email": "support@muhammedsari.me",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Beautiful toast notifications for Laravel / Livewire.",
+            "homepage": "https://github.com/masmerise/livewire-toaster",
+            "keywords": [
+                "alert",
+                "laravel",
+                "livewire",
+                "toast",
+                "toaster"
+            ],
+            "support": {
+                "issues": "https://github.com/masmerise/livewire-toaster/issues",
+                "source": "https://github.com/masmerise/livewire-toaster/tree/2.1.0"
+            },
+            "time": "2023-12-13T12:33:45+00:00"
+        },
+        {
             "name": "masterminds/html5",
             "version": "2.9.0",
             "source": {
@@ -4478,56 +4549,6 @@
                 "source": "https://github.com/MyIntervals/PHP-CSS-Parser/tree/v8.6.0"
             },
             "time": "2024-07-01T07:33:21+00:00"
-        },
-        {
-            "name": "silviolleite/laravelpwa",
-            "version": "2.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/silviolleite/laravel-pwa.git",
-                "reference": "5f7135d2ee870af01793c9fdf6b1b932b546e20e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/silviolleite/laravel-pwa/zipball/5f7135d2ee870af01793c9fdf6b1b932b546e20e",
-                "reference": "5f7135d2ee870af01793c9fdf6b1b932b546e20e",
-                "shasum": ""
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "LaravelPWA\\Providers\\LaravelPWAServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "LaravelPWA\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Silvio Luis Leite",
-                    "email": "silviolleite@gmail.com"
-                }
-            ],
-            "description": "Looks like an app, feels like an app, but NOT an app.",
-            "keywords": [
-                "laravel",
-                "php",
-                "progressive web apps",
-                "pwa"
-            ],
-            "support": {
-                "issues": "https://github.com/silviolleite/laravel-pwa/issues",
-                "source": "https://github.com/silviolleite/laravel-pwa/tree/2.0.3"
-            },
-            "time": "2020-08-20T12:19:16+00:00"
         },
         {
             "name": "simplesoftwareio/simple-qrcode",

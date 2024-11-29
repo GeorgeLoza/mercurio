@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Livewire\Component;
 use App\Models\User;
 use App\Notifications\orpNotification;
+use App\Models\Color;
 
 class Kanban extends Component
 {
@@ -28,9 +29,16 @@ class Kanban extends Component
         if ($orp) {
             $orp->estado = $estado;
             if ($estado == 'En proceso') {
+                $colorDisponible = Color::whereNull('orp_id')->first();
+        if ($colorDisponible) {
+            $colorDisponible->orp_id = $orpId;
+            $colorDisponible->save();
+        }
                 $orp->tiempo_elaboracion = now();
             }
+
             $orp->save();
+
             if ($estado == 'En proceso') {
                 // Notificar a los usuarios admin
                 $admins = User::where('rol', 'Admi')->orWhere('rol', 'Jef')->orWhere('rol', 'Sup')->get();
@@ -39,6 +47,8 @@ class Kanban extends Component
                     $admin->notify(new orpNotification($orp));
                 }
             }
+
+            
             // Recargar las ORP después de actualizar el estado
             $this->orps = Orp::where('created_at', '>=', Carbon::now()->subWeek())->orderBy('estado')->get();
         }

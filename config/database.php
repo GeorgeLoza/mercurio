@@ -43,30 +43,9 @@ return [
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
-        // 'mysql' => [
-        //     'driver' => 'mysql',
-        //     'url' => env('DATABASE_URL'),
-        //     'host' => env('DB_HOST', '127.0.0.1'),
-        //     'port' => env('DB_PORT', '3306'),
-        //     'database' => env('DB_DATABASE', 'forge'),
-        //     'username' => env('DB_USERNAME', 'forge'),
-        //     'password' => env('DB_PASSWORD', ''),
-        //     'unix_socket' => env('DB_SOCKET', ''),
-        //     'charset' => 'utf8mb4',
-        //     'collation' => 'utf8mb4_unicode_ci',
-        //     'prefix' => '',
-        //     'prefix_indexes' => true,
-        //     'strict' => true,
-        //     'engine' => null,
-        //     'options' => extension_loaded('pdo_mysql') ? array_filter([
-        //         PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-        //     ]) : [],
-        // ],
-        /*  Configuracion de sqlServer*/
-
-        // Configuración de SQL Server
         'mysql' => [
             'driver' => 'mysql',
+            'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'forge'),
@@ -76,25 +55,16 @@ return [
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
+            'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
         ],
+        /*  Configuracion de sqlServer*/
 
-        'sqlsrv' => [
-    'driver' => 'sqlsrv',
-    'host' => env('DB_HOST', '127.0.0.1'),
-    'port' => env('DB_PORT', '1433'),
-    'database' => env('DB_DATABASE', 'forge'),
-    'username' => env('DB_USERNAME', 'forge'),
-    'password' => env('DB_PASSWORD', ''),
-    'charset' => 'utf8',
-    'prefix' => '',
-    'options'   => [
-        PDO::SQLSRV_ATTR_ENCODING => PDO::SQLSRV_ENCODING_UTF8,
-    ],
-],
-
-
+      
 
 
 
@@ -113,20 +83,23 @@ return [
             'sslmode' => 'prefer',
         ],
 
-        'sqlsrv' => [
-            'driver' => 'sqlsrv',
-            'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', 'localhost'),
-            'port' => env('DB_PORT', '1433'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
-            'charset' => 'utf8',
-            'prefix' => '',
-            'prefix_indexes' => true,
-            // 'encrypt' => env('DB_ENCRYPT', 'yes'),
-            // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
-        ],
+       'sqlsrv' => [
+    'driver' => 'sqlsrv',
+    'url' => env('DATABASE_URL'),
+    'host' => env('sqlsrv_HOST', '127.0.0.1'),
+    'port' => env('sqlsrv_PORT', '1433'),
+    'database' => env('sqlsrv_DATABASE', 'forge'),
+    'username' => env('sqlsrv_USERNAME', 'forge'),
+    'password' => env('sqlsrv_PASSWORD', ''),
+    'charset' => 'utf8',
+    'prefix' => '',
+    'prefix_indexes' => true,
+    'encrypt' => env('DB_ENCRYPT', 'No'), // 'false' para desactivar encriptación
+    'options' => [
+        'TrustServerCertificate' => true, // Confiar en el certificado sin verificar
+    ],
+],
+
 
     ],
 

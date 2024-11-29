@@ -9,8 +9,8 @@ class Temperatura extends Model
 {
     use HasFactory;
 
-    protected $connection = 'sqlserver'; // Conexión específica
-    protected $table = 'Temperaturasphp artisan tinker'; // Tabla en SQL Server
+    protected $connection = 'sqlsrv'; // Conexión específica
+    protected $table = 'Temperaturas';// Tabla en SQL Server
     protected $fillable = [
         'time_stamps', 
         'temp_1',
