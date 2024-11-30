@@ -297,13 +297,14 @@
             <table class="table-container " style="  font-wheight:0">
                 <thead>
                     <tr>
-                        <th colspan="16" style="font-weight:bold;">
+                        <th colspan="17" style="font-weight:bold;">
                             Control de Calidad en Proceso - Línea Ultra Pasteurizado UHT
                         </th>
                     </tr>
                     <tr>
                         <th>Datos de Proceso </th>
                         <th>Tanque</th>
+                        <th>Juliano</th>
                         <th>Hora S. </th>
                         <th>Hora R. </th>
                         <th>Temp [°C]</th>
@@ -316,8 +317,8 @@
                         <th>Sabor</th>
                         <th>Volumen</th>
                         <th>Prep.</th>
-                        <th>Téc.HTST</th>
-                        <th>Téc.UHT</th>
+                        <th>Solicitante</th>
+                        <th>Analista</th>
 
                     </tr>
                 </thead>
@@ -334,9 +335,16 @@
                                 $contador = $contador + 1;
                             @endphp
                             <th>{{ $dato->solicitudAnalisisLinea->estadoPlanta->origen->alias }}</th>
+                            @php
+                                $fecha = new DateTime($dato->solicitudAnalisisLinea->tiempo);
+                                $diaDelAno = $fecha->format('z') + 1;
+                            @endphp
+                            <th>{{$diaDelAno}}</th>
 
                             <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
                             </th>
+
+
                             @if ($dato->solicitudAnalisisLinea->estadoPlanta)
                                 <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->analisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
                                 </th>
@@ -440,7 +448,7 @@
 
                 <thead>
                     <tr>
-                        <th colspan="14" style="font-weight:bold;">
+                        <th colspan="15" style="font-weight:bold;">
                             Control de Calidad de Producto Envasado
                         </th>
                     </tr>
@@ -449,7 +457,7 @@
                 <tbody>
                     <tr>
                         <th>Cabezal </th>
-
+                        <th>Juliano</th>
                         <th>Hora S.</th>
                         <th>Hora R.</th>
                         <th>Temp UHT [°C]</th>
@@ -475,6 +483,11 @@
                                 $contador = $contador + 1;
                             @endphp
                             <th>{{ $dato->solicitudAnalisisLinea->estadoPlanta->origen->alias }}</th>
+                            @php
+                                $fecha = new DateTime($dato->solicitudAnalisisLinea->tiempo);
+                                $diaDelAno = $fecha->format('z') + 1;
+                            @endphp
+                            <th>{{$diaDelAno}}</th>
 
                             <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
                             </th>

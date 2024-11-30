@@ -1,7 +1,7 @@
 <div class="">
-   
-      
-      
+
+
+
     <div
         class="h-[calc(100vh-110px)] overflow-auto grid grid-cols-[repeat(14,minmax(0,1fr))] grid-rows-[repeat(4,minmax(0,1fr))] gap-2 text-2xs">
         {{-- Columna 1 --}}
@@ -104,8 +104,8 @@
                                             @foreach ($R1->estadoDetalle as $item)
                                                 <div class=" flex  justify-between  ">
                                                     <div>
-                                                        <p class="text-xs 
-                                                            
+                                                        <p class="text-xs
+
                                                             {{ $item->orp->color != null ? $item->orp->color->color : '' }}
                                                             ">{{ substr($item->orp->codigo, -5) }}</p>
                                                     </div>
@@ -116,7 +116,7 @@
                                                             text-cyan-500
                                                             text-purple-500
                                                             text-pink-500
-                                                            text-orange-500 
+                                                            text-orange-500
                                                             text-teal-500
                                                             text-indigo-500
                                                             text-lime-500
@@ -125,7 +125,7 @@
                                                             text-rose-500
                                                             text-violet-500
                                                             text-red-400
-                                                            text-blue-400 
+                                                            text-blue-400
                                                             text-green-400
                                                             text-yellow-400
                                                             text-cyan-400
@@ -143,9 +143,9 @@
                                                         </p>
                                                     </div>
 
-                                                    
+
                                                 </div>
-                                                    
+
                                                 <p class="text-sm whitespace-nowrap overflow-hidden {{ $item->orp->color != null ? $item->orp->color->color : '' }} "> {{ Str::limit($item->orp->producto->nombre, 20) }}
                                                 </p>
                                             @endforeach
@@ -181,8 +181,8 @@
                                                 @endforeach
                                             @endif
                                         </div>
-                                        
-                                          
+
+
                                         {{-- botones --}}
                                         <div class=" mt-2 flex gap-1 px-0 py-0 w-full justify-center ">
 
@@ -269,7 +269,7 @@
 
 
 
-                                        </div> 
+                                        </div>
                                     </div>
                                 </div>
 
@@ -3530,16 +3530,16 @@
                                 <p class="text-base">Envasadora HTST</p>
                             </div>
 
-                            
+
 
                         @foreach ($groupedResultshtst as $orpIdAndPreparacion => $group)
 
-                                        
-                                    
 
-                                    
 
-                                        
+
+
+
+
                         @php
                         // Descompón la clave compuesta en orp_id y preparacion
                         $parts = explode('|', $orpIdAndPreparacion);
@@ -3564,54 +3564,54 @@
                                         </div>
 
                                         </div>
-                                        
-                            
-                                    
+
+
+
                         @endforeach
-                            
+
 
 
                         </div >
                         <div class=" flex  justify-between bg">
-                            
-                            <div class="flex items-center gap-2  "> 
+
+                            <div class="flex items-center gap-2  ">
                                 <p class="text-xl ">
-                                    1 
+                                    1
                                 </p>
-                            
-                                 
+
+
                                 <div class=" text-lg {{ $HTST_1A->proceso == 'Produccion' ? $HTST_1A->estadoDetalle[0]->orp->color->color : ''}} " data-popover-trigger="click" data-popover-target="48-popover">A</div>
                                 <div class="text-lg {{ $HTST_1B->proceso == 'Produccion' ? $HTST_1B->estadoDetalle[0]->orp->color->color : ''}}" data-popover-trigger="click" data-popover-target="47-popover">B</div>
                                 <div class="text-lg {{ $HTST_1C->proceso == 'Produccion' ? $HTST_1C->estadoDetalle[0]->orp->color->color : ''}} " data-popover-trigger="click" data-popover-target="46-popover">C</div>
                             </div>
-                          
-                            <div class="flex items-center gap-2  "> 
+
+                            <div class="flex items-center gap-2  ">
                                 <p class="text-xl ">
-                                    2 
+                                    2
                                 </p>
                                 <div class="text-lg {{ $HTST_2A->proceso == 'Produccion' ? $HTST_2A->estadoDetalle[0]->orp->color->color : ''}} " data-popover-trigger="click" data-popover-target="45-popover">A</div>
                                 <div class="text-lg {{ $HTST_2B->proceso == 'Produccion' ? $HTST_2B->estadoDetalle[0]->orp->color->color : ''}} " data-popover-trigger="click" data-popover-target="44-popover">B</div>
                                 <div class="text-lg {{ $HTST_2C->proceso == 'Produccion' ? $HTST_2C->estadoDetalle[0]->orp->color->color : ''}}" data-popover-trigger="click" data-popover-target="43-popover">C</div>
                             </div>
-                            <div class="flex items-center gap-2  "> 
+                            <div class="flex items-center gap-2  ">
                                 <p class="text-xl ">
-                                    3 
+                                    3
                                 </p>
                                 <div class="text-lg {{ $HTST_3A->proceso == 'Produccion' ? $HTST_3A->estadoDetalle[0]->orp->color->color : ''}} " data-popover-trigger="click" data-popover-target="42-popover">A</div>
                                 <div class="text-lg {{ $HTST_3B->proceso == 'Produccion' ? $HTST_3B->estadoDetalle[0]->orp->color->color : ''}}" data-popover-trigger="click" data-popover-target="41-popover">B</div>
                                 <div class="text-lg {{ $HTST_3C->proceso == 'Produccion' ? $HTST_3C->estadoDetalle[0]->orp->color->color : ''}}" data-popover-trigger="click" data-popover-target="40-popover">C</div>
                             </div>
-                            <div class="flex items-center gap-2  "> 
+                            <div class="flex items-center gap-2  ">
                                 <p class="text-xl ">
-                                    4 
+                                    4
                                 </p>
                                 <div class="text-lg {{ $HTST_4A->proceso == 'Produccion' ? $HTST_4A->estadoDetalle[0]->orp->color->color : ''}}" data-popover-trigger="click" data-popover-target="39-popover">A</div>
                                 <div class="text-lg {{ $HTST_4B->proceso == 'Produccion' ? $HTST_4B->estadoDetalle[0]->orp->color->color : ''}}" data-popover-trigger="click" data-popover-target="38-popover">B</div>
                                 <div class="text-lg {{ $HTST_4C->proceso == 'Produccion' ? $HTST_4C->estadoDetalle[0]->orp->color->color : ''}}" data-popover-trigger="click" data-popover-target="37-popover">C</div>
                             </div>
-                            <div class="flex items-center gap-2  "> 
+                            <div class="flex items-center gap-2  ">
                                 <p class="text-xl ">
-                                    5 
+                                    5
                                 </p>
                                 <div class="text-lg {{ $HTST_5A->proceso == 'Produccion' ? $HTST_5A->estadoDetalle[0]->orp->color->color : ''}}" data-popover-trigger="click" data-popover-target="36-popover">A</div>
                                 <div class="text-lg {{ $HTST_5B->proceso == 'Produccion' ? $HTST_5B->estadoDetalle[0]->orp->color->color : ''}}" data-popover-trigger="click" data-popover-target="35-popover">B</div>
@@ -3619,15 +3619,15 @@
                             </div>
 
                         </div>
-                        
-                        
 
-                        
+
+
+
                         {{-- botones --}}
                             <div class="flex gap-1 px-0 py-0 w-full justify-between">
                                 <!--boton matenimiento-->
 
-                                {{-- <button type="button" 
+                                {{-- <button type="button"
                                     class="w-full px-1 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                     <svg class="w-full max-h-3 fill-white" xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 512 512">
@@ -3638,8 +3638,8 @@
 
 
                                 <!--boton vacio-->
-                                
-                                <button type="button" 
+
+                                <button type="button"
                                 onclick="Livewire.dispatch('openModal', { component: 'estadoPlanta.vaciar', arguments: { id: 1   }})"
                                     class="w-full px-1 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
 
@@ -3665,29 +3665,29 @@
                         <div class=" flex flex-col  justify-center ">
                             <div class=" flex justify-center flex-col">
                                  <div>
-                                    
-                                     
-                                </div>   
+
+
+                                </div>
 
                                 @foreach ($groupedResultsvasos as $orpIdAndPreparacion => $group)
 
-                                        
-                                    
 
-                                    
 
-                                        
+
+
+
+
                                 @php
                                 // Descompón la clave compuesta en orp_id y preparacion
                                 $parts = explode('|', $orpIdAndPreparacion);
-        
+
                                 $orpId = $parts[0] ?? null;
                                 $preparacion = $parts[1] ?? null;
-        
+
                                 // Recupera el objeto Orp para obtener el código y nombre del producto
                                 $orp = $orps->get($orpId);
                                 @endphp
-        
+
                                 <div class=" rounded-lg border-gray-500 hover:bg-gray-100 hover:dark:bg-gray-700 flex items-center justify-between">
                                 @if ($orp && $preparacion)
                                     <h2 class="text-xs   {{$orp->color->color}} "  >{{ $orp->codigo }} :
@@ -3701,43 +3701,43 @@
                                         </div>
 
                                         </div>
-                                        
-                            
-                                    
+
+
+
                         @endforeach
                             </div>
-                            
+
                                 <div class=" flex  justify-between">
                                     <div></div>
                                     <div class="text-xl {{ $V1->proceso == 'Produccion' ? $V1->estadoDetalle[0]->orp->color->color : ''}}" data-popover-trigger="click" data-popover-target="50-popover">V1</div>
                                     <div class="text-xl {{ $V2->proceso == 'Produccion' ? $V2->estadoDetalle[0]->orp->color->color : ''}}" data-popover-trigger="click" data-popover-target="51-popover">V2</div>
                                     <div class="text-xl {{ $V3->proceso == 'Produccion' ? $V3->estadoDetalle[0]->orp->color->color : ''}}" data-popover-trigger="click" data-popover-target="52-popover">V3</div>
                                     <div></div>
-                                
-                                
-    
-    
+
+
+
+
                             </div>
-                            
+
                             @foreach ($groupedResultsaranas as $orpIdAndPreparacion => $group)
 
-                                        
-                                    
 
-                                    
 
-                                        
+
+
+
+
                             @php
                             // Descompón la clave compuesta en orp_id y preparacion
                             $parts = explode('|', $orpIdAndPreparacion);
-    
+
                             $orpId = $parts[0] ?? null;
                             $preparacion = $parts[1] ?? null;
-    
+
                             // Recupera el objeto Orp para obtener el código y nombre del producto
                             $orp = $orps->get($orpId);
                             @endphp
-    
+
                             <div class=" rounded-lg border-gray-500 hover:bg-gray-100 hover:dark:bg-gray-700 flex items-center justify-between">
                             @if ($orp && $preparacion)
                                 <h2 class="text-xs {{$orp->color->color}} " >{{ $orp->codigo }} :
@@ -3751,27 +3751,27 @@
                                     </div>
 
                                     </div>
-                                    
-                        
-                                
+
+
+
                     @endforeach
 
                         </div>
                         {{-- Araña --}}
                         <div class=" flex flex-col  justify-center ">
-                            
-                            
+
+
                                 <div class=" flex  justify-between">
                                     <div></div>
                                     <div class="text-lg {{ $araña->proceso == 'Produccion' ? $araña->estadoDetalle[0]->orp->color->color : ''}}" data-popover-trigger="click" data-popover-target="53-popover">ARAÑA</div>
-                                    
+
                                     <div></div>
-                                
-                                
-    
-    
+
+
+
+
                             </div>
-                            
+
 
 
                         </div>
@@ -3779,7 +3779,7 @@
                         <div class="flex gap-1 px-0 py-0 w-full justify-between">
                                 {{-- <!--boton matenimiento-->
 
-                                <button type="button" 
+                                <button type="button"
                                     class="w-full px-1 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                     <svg class="w-full max-h-3 fill-white" xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 512 512">
@@ -3791,7 +3791,7 @@
 
                                 <!--boton vacio-->
 
-                                <button type="button" onclick="Livewire.dispatch('openModal', { component: 'estadoPlanta.vaciar', arguments: { id:3 }})" 
+                                <button type="button" onclick="Livewire.dispatch('openModal', { component: 'estadoPlanta.vaciar', arguments: { id:3 }})"
                                     class="w-full px-1 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
 
                                     <svg class="w-full max-h-3 fill-white" xmlns="http://www.w3.org/2000/svg"
@@ -3821,12 +3821,12 @@
                             </div>
                             @foreach ($groupedResultsuht as $orpIdAndPreparacion => $group)
 
-                                        
-                                    
 
-                                    
 
-                                        
+
+
+
+
                             @php
                             // Descompón la clave compuesta en orp_id y preparacion
                             $parts = explode('|', $orpIdAndPreparacion);
@@ -3851,49 +3851,49 @@
                                         </div>
 
                                         </div>
-                                        
-                            
-                                    
+
+
+
                         @endforeach
 
 
                         </div>
 
                         <div class=" flex  justify-between bg">
-                            
-                            <div class="flex items-center gap-3  "> 
+
+                            <div class="flex items-center gap-3  ">
                                 <p class="text-xl ">
-                                    1 
+                                    1
                                 </p>
                                 <div class="text-lg {{ $UHT_1A->proceso == 'Produccion' ? $UHT_1A->estadoDetalle[0]->orp->color->color : ''}}" data-popover-trigger="click" data-popover-target="27-popover">A</div>
                                 <div class="text-lg {{ $UHT_1B->proceso == 'Produccion' ? $UHT_1B->estadoDetalle[0]->orp->color->color : ''}}" data-popover-trigger="click" data-popover-target="28-popover">B</div>
                                 <div class="text-lg {{ $UHT_1C->proceso == 'Produccion' ? $UHT_1C->estadoDetalle[0]->orp->color->color : ''}}" data-popover-trigger="click" data-popover-target="29-popover">C</div>
                             </div>
-                          
-                            <div class="flex items-center gap-3  "> 
+
+                            <div class="flex items-center gap-3  ">
                                 <p class="text-xl ">
-                                    2 
+                                    2
                                 </p>
                                 <div class="text-lg {{ $UHT_2A->proceso == 'Produccion' ? $UHT_2A->estadoDetalle[0]->orp->color->color : ''}}" data-popover-trigger="click" data-popover-target="30-popover">A</div>
                                 <div class="text-lg {{ $UHT_2B->proceso == 'Produccion' ? $UHT_2B->estadoDetalle[0]->orp->color->color : ''}}" data-popover-trigger="click" data-popover-target="31-popover">B</div>
-                                
+
                             </div>
-                            <div class="flex items-center gap-3  "> 
+                            <div class="flex items-center gap-3  ">
                                 <p class="text-xl ">
-                                    3 
+                                    3
                                 </p>
                                 <div class="text-lg {{ $UHT_3A->proceso == 'Produccion' ? $UHT_3A->estadoDetalle[0]->orp->color->color : ''}}" data-popover-trigger="click" data-popover-target="32-popover">A</div>
                                 <div class="text-lg {{ $UHT_3B->proceso == 'Produccion' ? $UHT_3B->estadoDetalle[0]->orp->color->color : ''}}" data-popover-trigger="click" data-popover-target="33-popover">B</div>
-                                
+
                             </div>
-                            
-                            
+
+
 
                         </div>
                         <div class="flex gap-1 px-0 py-0 w-full justify-between">
                             {{-- <!--boton matenimiento-->
 
-                            <button type="button" 
+                            <button type="button"
                                 class="w-full px-1 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                 <svg class="w-full max-h-3 fill-white" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 512 512">
@@ -4916,7 +4916,7 @@
                                             @if ($TKSY->proceso == 'Vacio')
                                                 <button type="button" wire:loading.attr="disabled"
                                                     wire:click="mantenimiento({{ $TKSY->origen_id }})"
-                                                    
+
                                                     class="w-full px-1 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                                     <svg class="w-full max-h-3 fill-white"
                                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -4997,12 +4997,12 @@
                             </div>
                             @foreach ($groupedResultssoya as $orpIdAndPreparacion => $group)
 
-                                        
-                                    
 
-                                    
 
-                                        
+
+
+
+
                                         @php
                                         // Descompón la clave compuesta en orp_id y preparacion
                                         $parts = explode('|', $orpIdAndPreparacion);
@@ -5022,38 +5022,38 @@
                                             <h2 class="text-sm">Código: No encontrado, error con orp o preparacion</h2>
                                         @endif
 
-                                        
+
                                         <div class="flex justify-end m-1"><button class="bg-red-500 text-white p-1 rounded-lg"
                                                 type="button" wire:click="completar({{ $orp->id }})"
                                                 wire:confirm="Esta seguro que desea completar la ORP : {{ $orp->codigo }} y quitar de las envasadoras? \n\n Esta ORP ya no se podra utlizar ">Terminar?</button>
                                         </div>
 
                                         </div>
-                                        
-                            
-                                    
+
+
+
                         @endforeach
-                          
+
                         </div>
 
                         <div class=" flex  justify-center ">
-                            
-                            <div class="flex items-center gap-8  p-3 justify-between "> 
-                                
+
+                            <div class="flex items-center gap-8  p-3 justify-between ">
+
                                 <div class="text-lg  {{ $l1->proceso == 'Produccion' ? $l1->estadoDetalle[0]->orp->color->color : ''}}" data-popover-trigger="click" data-popover-target="57-popover">L1</div>
                                 <div class="text-lg {{ $l2->proceso == 'Produccion' ? $l2->estadoDetalle[0]->orp->color->color : ''}}" data-popover-trigger="click" data-popover-target="58-popover">L2</div>
                                 <div class="text-lg {{ $l3->proceso == 'Produccion' ? $l3->estadoDetalle[0]->orp->color->color : ''}}" data-popover-trigger="click" data-popover-target="59-popover">L3</div>
                             </div>
-                          
-                            
-                            
-                            
+
+
+
+
 
                         </div>
                         <div class="flex gap-1 px-0 py-0 w-full justify-between">
                             {{-- <!--boton matenimiento-->
 
-                            <button type="button" 
+                            <button type="button"
                                 class="w-full px-1 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                 <svg class="w-full max-h-3 fill-white" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 512 512">
@@ -5833,11 +5833,11 @@
                  [°Bx]
              </p>
 
-             
+
          @endif
-         
+
      </div>
-     
+
      <div class="flex px-3 py-2">
         <div class="px-1 py-2">
             <button type="button" wire:loading.attr="disabled"
@@ -5862,14 +5862,14 @@
                     </button>
                     @endif
         </div>
-         
-         
-         
+
+
+
      </div>
 
-     
+
      <div data-popper-arrow></div>
-     
+
     @endif
 
 </div>
@@ -6295,7 +6295,7 @@
                     </button>
                     @if ($HTST_2B->proceso == 'Produccion' )
                     <button type="button" wire:loading.attr="disabled"
-                        wire:click="solicitar({{ $HTHST_2B->id }})"
+                        wire:click="solicitar({{ $HTST_2B->id }})"
                         wire:confirm="Esta seguro que quiere un analisis"
                         class=" px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-pruple-600 dark:hover:bg-purple-700 dark:focus:ring-pruple-800">
                         <svg class="w-4 h-4 fill-white"
@@ -6312,7 +6312,7 @@
     </div>
 
 
- 
+
 
 
     <!--HTST_2C-->
@@ -7582,10 +7582,10 @@
                     @endif
                 </div>
                 <!--boton de solicitar-->
-           
-        
+
+
             </div>
-            
+
             <div data-popper-arrow></div>
         @endif
     </div>
