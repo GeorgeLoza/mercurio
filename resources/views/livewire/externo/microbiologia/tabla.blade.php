@@ -239,16 +239,22 @@
                         </td>
 
                         <td class="px-3 py-2 flex justify-center">
-                            @if ($micro->estado == 'Pendiente')
-                            <input type="date" wire:model="fecha_sembrado" class="border rounded p-1" />
-                                <button class="bg-green-600 fill-white p-1 rounded-md"
-                                    wire:click="sembrar({{ $micro->id }})">
+                            <form novalidate wire:submit="sembrar({{ $micro->id }})">
+                                <div>
+                                    <input type="date" wire:model="fecha_sembrado" class="border rounded p-1" />
+                                    @error('fecha_sembrado')
+                                        <p class="text-red-500">Debe colocar una fecha</p>
+                                    @enderror
+                                </div>
+                                <button class="bg-green-600 fill-white p-1 rounded-md" type="submit">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="h-4 w-4">
                                         <path
                                             d="M512 32c0 113.6-84.6 207.5-194.2 222c-7.1-53.4-30.6-101.6-65.3-139.3C290.8 46.3 364 0 448 0h32c17.7 0 32 14.3 32 32zM0 96C0 78.3 14.3 64 32 64H64c123.7 0 224 100.3 224 224v32V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V320C100.3 320 0 219.7 0 96z" />
                                     </svg>
                                 </button>
-                            @endif
+                            </form>
+
+
 
                             @if ($micro->estado != 'Pendiente' || $micro->estado != 'Certificado')
                                 <button>

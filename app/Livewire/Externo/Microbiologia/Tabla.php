@@ -10,6 +10,7 @@ use Livewire\Component;
 class Tabla extends Component
 {
     public $fecha_sembrado;
+    
 
 
     #[On('actualizar_tabla_microexterno')]
@@ -21,6 +22,10 @@ class Tabla extends Component
 
     public function sembrar($id)
     {
+        $this->validate([
+            'fecha_sembrado' => 'required',
+            
+        ]);
         $microbiologia = MicrobiologiaExterno::find($id);
 
         // Verificar si el usuario seleccionó una fecha; si no, usar la fecha actual

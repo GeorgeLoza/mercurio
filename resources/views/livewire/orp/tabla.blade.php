@@ -271,7 +271,7 @@
                                 @if (in_array(auth()->user()->rol, ['Admi', 'Jef', 'Sup', 'HTST']) && auth()->user()->division->nombre == 'Produccion')
                                     <button class="p-2 rounded-md " wire:click="programar({{ $orp->id }})">
                                         <span
-                                            class=" text-purple-700 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-purple-300 border">Programar</span>
+                                            class=" text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-purple-300 border">Programar</span>
                                     </button>
                                 @endif
                             @endif
@@ -280,7 +280,7 @@
                                 <button class="p-2 rounded-md whitespace-nowrap"
                                     wire:click="cancelar({{ $orp->id }})">
                                     <span
-                                        class=" text-red-700 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-red-400 border-collapse border border-red-500  ">Cancelar</span>
+                                        class=" text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-red-400 border-collapse border border-red-500  ">Cancelar</span>
                                 </button>
                             @endif
                             <!--boton para pendiente-->
@@ -288,7 +288,7 @@
                                 <button class="p-2 rounded-md whitespace-nowrap"
                                     wire:click="pendiente({{ $orp->id }})">
                                     <span
-                                        class=" text-yellow-700 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-yellow-300 border">Pendiente</span>
+                                        class=" text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-yellow-300 border">Pendiente</span>
                                 </button>
                             @endif
 
@@ -298,7 +298,7 @@
                                     <button class="p-2 rounded-md whitespace-nowrap"
                                         wire:click="iniciar({{ $orp->id }})">
                                         <span
-                                            class=" row text-blue-700 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-blue-300 border">En
+                                            class=" row text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-blue-300 border">En
                                             Proceso</span>
                                     </button>
                                 @endif
@@ -310,7 +310,7 @@
                                     <button class="p-2 rounded-md whitespace-nowrap"
                                         wire:click="completar({{ $orp->id }})">
                                         <span
-                                            class=" text-green-700 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-green-300 border">Completado</span>
+                                            class=" text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-green-300 border">Completado</span>
                                     </button>
                                 @endif
                             @endif

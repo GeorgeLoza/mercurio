@@ -118,6 +118,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/uht', function () {
         return view('uht.index');
     })->name('uht.index');
+
+
+    
+
+    Route::get('/htst', function () {
+        return view('htst.index');
+    })->name('htst.index');
+
+
+
+    
+
     /*Rutas de salida login */
     Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
 });

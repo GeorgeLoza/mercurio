@@ -49,8 +49,8 @@ class Importar extends ModalComponent
                 if ($registroExistente) {
                     // Si el código ya existe, muestra un error y omite la creación del nuevo registro
                     // Mostrar mensaje de éxito
-                    Toaster::warning('El archivo contiene ORPs repetidas. orp:'.$registro['ORP'])->duration(99999);
-                    // $this->dispatch('warning', mensaje: 'El archivo contiene ORPs repetidas');
+                    
+                     $this->dispatch('warning', mensaje: 'El archivo contiene ORPs repetidas');
 
                     continue;
                 }
@@ -82,19 +82,20 @@ class Importar extends ModalComponent
                     $this->dispatch('actualizar_tabla_orps');
                     $this->closeModal();
                     // Toaster::success('Orp created!' . $contador);
-                    // $this->dispatch('success', mensaje: 'Importacion realizada exitosamente cantidad de orps registradas:   ' . $contador);
+                     $this->dispatch('success', mensaje: 'Importacion realizada exitosamente cantidad de orps registradas:   ' . $contador);
 
                 } catch (\Throwable $th) {
                     $this->closeModal();
-                    Toaster::error('not Orp created!' . $th->getMessage())->duration(null);
-                    // $this->dispatch('error_mensaje', mensaje: 'problema' . $th->getMessage());
+                    
+                    $this->dispatch('error_mensaje', mensaje: 'problema' . $th->getMessage());
                 }
             } else {
-                Toaster::error('El producto no existe de la orp: '.$registro['ORP']. 'codigo de producto: ' . $codigoProducto)->duration(99999);
-                // $this->dispatch('alert', mensaje: 'Importacion realizada exitosamente cantidad de orps registradas:   ' . $contador);
+                
+                 $this->dispatch('alert', mensaje: 'Importacion realizada exitosamente cantidad de orps registradas:   ' . $contador);
             }
         }
-        Toaster::success('analisis completo del archivo, orps subidas:' . $contador);
+        // Toaster::success('analisis completo del archivo, orps subidas:' . $contador);
+        // $this->dispatch('success', mensaje:'analisis completo del archivo, orps subidas:' . $contador);
         // Limpiar el campo del archivo CSV
         $this->archivoCsv = '';
         // Mostrar un mensaje de éxito si no hay errores

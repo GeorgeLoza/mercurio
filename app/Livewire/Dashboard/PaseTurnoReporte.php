@@ -84,6 +84,7 @@ class PaseTurnoReporte extends Component
     {
         ini_set('max_execution_time', 300);
         ini_set('memory_limit', '512M');
+        
         // Subconsulta para obtener el último registro por origen_id
         $latestEstadoPlantas = DB::table('estado_plantas')
             ->select('origen_id', DB::raw('MAX(created_at) as max_created_at'))

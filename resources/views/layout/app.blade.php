@@ -567,7 +567,7 @@
     @livewire('wire-elements-modal')
 
     
-    <x-toaster-hub />
+  
 </body>
 
 </html>
