@@ -61,7 +61,7 @@
                         categoria
                     </th>
                     {{-- fin categoria --}}
-                    <th scope="col" class="px-2 py-1 sticky top-0 bg-white dark:bg-gray-700"
+                    <th scope="col" class="px-2 py-1 sticky top-0 bg-white dark:bg-gray-700 "
                         wire:click="sortBy('estado')">
                         estado
                     </th>
@@ -224,35 +224,35 @@
 
 
                         </td>
-                        <td class="px-2 " nowrap>
+                        <td class="px-2 border-r  " nowrap>
 
                             @if ($orp->estado == 'Pendiente')
-                                <span class="flex items-center text-sm font-medium me-3"><span
-                                        class="flex w-2.5 h-2.5 bg-yellow-500 rounded-full me-1.5 flex-shrink-0 text-2xs"></span>{{ $orp->estado }}</span>
+                                <span class="flex items-center text-sm font-medium me-3 text-yellow-500 uppercase"><span
+                                        class="flex w-2.5 h-2.5 bg-yellow-500  rounded-full me-1.5 flex-shrink-0 text-2xs"></span>{{ $orp->estado }}</span>
                             @endif
 
                             @if ($orp->estado == 'En proceso')
-                                <span class="flex items-center text-sm font-medium me-3"><span
-                                        class="flex w-2.5 h-2.5 bg-blue-600 rounded-full me-1.5 flex-shrink-0"></span>{{ $orp->estado }}</span>
+                                <span class="flex items-center text-sm font-medium me-3 text-blue-500 uppercase"><span
+                                        class="flex w-2.5 h-2.5 bg-blue-600  rounded-full me-1.5 flex-shrink-0"></span>{{ $orp->estado }}</span>
                             @endif
 
                             @if ($orp->estado == 'Completado')
-                                <span class="flex items-center text-sm font-medium me-3"><span
+                                <span class="flex items-center text-sm font-medium me-3 text-green-500 uppercase "><span
                                         class="flex w-2.5 h-2.5 bg-green-500 rounded-full me-1.5 flex-shrink-0"></span>{{ $orp->estado }}</span>
                             @endif
 
                             @if ($orp->estado == 'Rechazado')
-                                <span class="flex items-center text-sm font-medium me-3"><span
-                                        class="flex w-2.5 h-2.5 bg-red-500 rounded-full me-1.5 flex-shrink-0"></span>{{ $orp->estado }}</span>
+                                <span class="flex items-center text-sm font-medium me-3 text-red-500 uppercase"><span
+                                        class="flex w-2.5 h-2.5 bg-red-500  rounded-full me-1.5 flex-shrink-0"></span>{{ $orp->estado }}</span>
                             @endif
 
                             @if ($orp->estado == 'Cancelado')
-                                <span class="flex items-center text-sm font-medium me-3"><span
+                                <span class="flex items-center text-sm font-medium me-3 text-red-600 uppercase"><span
                                         class="flex w-2.5 h-2.5 bg-red-600 rounded-full me-1.5 flex-shrink-0"></span>{{ $orp->estado }}</span>
                             @endif
                             @if ($orp->estado == 'Programado')
-                                <span class="flex items-center text-sm font-medium me-3"><span
-                                        class="flex w-2.5 h-2.5 bg-purple-600 rounded-full me-1.5 flex-shrink-0"></span>{{ $orp->estado }}</span>
+                                <span class="flex items-center text-sm font-medium me-3 text-purple-500 uppercase"><span
+                                        class="flex w-2.5 h-2.5 bg-purple-600  rounded-full me-1.5 flex-shrink-0"></span>{{ $orp->estado }}</span>
                             @endif
                         </td>
                         <td class="px-2  hidden ">
@@ -265,13 +265,13 @@
                             {{ $orp->fecha_vencimiento2 }}
                         </td>
 
-                        <td class="flex items-center px-2  gap-1">
+                        <td class="flex items-center px-2  gap-1 ">
                             <!--boton para programar-->
                             @if ($orp->estado == 'Pendiente')
                                 @if (in_array(auth()->user()->rol, ['Admi', 'Jef', 'Sup', 'HTST']) && auth()->user()->division->nombre == 'Produccion')
                                     <button class="p-2 rounded-md " wire:click="programar({{ $orp->id }})">
                                         <span
-                                            class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">Programar</span>
+                                            class=" text-purple-700 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-purple-300 border">Programar</span>
                                     </button>
                                 @endif
                             @endif
@@ -280,7 +280,7 @@
                                 <button class="p-2 rounded-md whitespace-nowrap"
                                     wire:click="cancelar({{ $orp->id }})">
                                     <span
-                                        class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Cancelar</span>
+                                        class=" text-red-700 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-red-400 border-collapse border border-red-500  ">Cancelar</span>
                                 </button>
                             @endif
                             <!--boton para pendiente-->
@@ -288,7 +288,7 @@
                                 <button class="p-2 rounded-md whitespace-nowrap"
                                     wire:click="pendiente({{ $orp->id }})">
                                     <span
-                                        class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">Pendiente</span>
+                                        class=" text-yellow-700 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-yellow-300 border">Pendiente</span>
                                 </button>
                             @endif
 
@@ -298,7 +298,7 @@
                                     <button class="p-2 rounded-md whitespace-nowrap"
                                         wire:click="iniciar({{ $orp->id }})">
                                         <span
-                                            class="bg-blue-100 row text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">En
+                                            class=" row text-blue-700 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-blue-300 border">En
                                             Proceso</span>
                                     </button>
                                 @endif
@@ -310,7 +310,7 @@
                                     <button class="p-2 rounded-md whitespace-nowrap"
                                         wire:click="completar({{ $orp->id }})">
                                         <span
-                                            class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Completado</span>
+                                            class=" text-green-700 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-green-300 border">Completado</span>
                                     </button>
                                 @endif
                             @endif
