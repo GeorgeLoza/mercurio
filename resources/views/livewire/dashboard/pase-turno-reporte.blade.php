@@ -3553,7 +3553,7 @@
 
                         <div class=" rounded-lg border-gray-500 hover:bg-gray-100 hover:dark:bg-gray-700 flex items-center justify-between">
                         @if ($orp && $preparacion)
-                            <h2 class="text-xs {{$orp->color->color}} ">{{ $orp->codigo }} :
+                            <h2 class="text-xs {{ $orp->color != null ? $orp->color->color : '' }} ">{{ $orp->codigo }} :
                                 {{ $preparacion }} </h2>
                         @else
                             <h2 class="text-sm">Código: No encontrado, error con orp o preparacion</h2>
@@ -3690,7 +3690,7 @@
 
                                 <div class=" rounded-lg border-gray-500 hover:bg-gray-100 hover:dark:bg-gray-700 flex items-center justify-between">
                                 @if ($orp && $preparacion)
-                                    <h2 class="text-xs   {{$orp->color->color}} "  >{{ $orp->codigo }} :
+                                    <h2 class="text-xs   {{ $orp->color != null ? $orp->color->color : '' }} "  >{{ $orp->codigo }} :
                                         {{ $preparacion }} </h2>
                                 @else
                                     <h2 class="text-sm">Código: No encontrado, error con orp o preparacion</h2>
@@ -3740,7 +3740,7 @@
 
                             <div class=" rounded-lg border-gray-500 hover:bg-gray-100 hover:dark:bg-gray-700 flex items-center justify-between">
                             @if ($orp && $preparacion)
-                                <h2 class="text-xs {{$orp->color->color}} " >{{ $orp->codigo }} :
+                                <h2 class="text-xs {{ $orp->color != null ? $orp->color->color : '' }} " >{{ $orp->codigo }} :
                                     {{ $preparacion }} </h2>
                             @else
                                 <h2 class="text-sm">Código: No encontrado, error con orp o preparacion</h2>
@@ -3840,7 +3840,7 @@
 
                             <div class=" rounded-lg border-gray-500 hover:bg-gray-100 hover:dark:bg-gray-700 flex items-center justify-between">
                             @if ($orp && $preparacion)
-                                <h2 class="text-xs {{$orp->color->color}} ">{{ $orp->codigo }} :
+                                <h2 class="text-xs {{ $orp->color != null ? $orp->color->color : '' }} ">{{ $orp->codigo }} :
                                     {{ $preparacion }} </h2>
                             @else
                                 <h2 class="text-sm">Código: No encontrado, error con orp o preparacion</h2>
@@ -5016,7 +5016,7 @@
 
                                         <div class=" rounded-lg border-gray-500 hover:bg-gray-100 hover:dark:bg-gray-700 flex items-center justify-between">
                                         @if ($orp && $preparacion)
-                                            <h2 class="text-xs {{$orp->color->color}} ">{{ $orp->codigo }} :
+                                            <h2 class="text-xs {{ $orp->color != null ? $orp->color->color : '' }} ">{{ $orp->codigo }} :
                                                 {{ $preparacion }} </h2>
                                         @else
                                             <h2 class="text-sm">Código: No encontrado, error con orp o preparacion</h2>
@@ -5039,7 +5039,7 @@
                         <div class=" flex  justify-center ">
 
                             <div class="flex items-center gap-8  p-3 justify-between ">
-
+{{-- {{ $UHT_1A->proceso == 'Produccion' ? optional(optional(optional($UHT_1A->estadoDetalle[0] ?? null)->orp ?? null)->color ?? null)->color : '' }} --}}
                                 <div class="text-lg  {{ $l1->proceso == 'Produccion' ? $l1->estadoDetalle[0]->orp->color->color : ''}}" data-popover-trigger="click" data-popover-target="57-popover">L1</div>
                                 <div class="text-lg {{ $l2->proceso == 'Produccion' ? $l2->estadoDetalle[0]->orp->color->color : ''}}" data-popover-trigger="click" data-popover-target="58-popover">L2</div>
                                 <div class="text-lg {{ $l3->proceso == 'Produccion' ? $l3->estadoDetalle[0]->orp->color->color : ''}}" data-popover-trigger="click" data-popover-target="59-popover">L3</div>

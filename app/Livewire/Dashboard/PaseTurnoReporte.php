@@ -470,13 +470,20 @@ class PaseTurnoReporte extends Component
     try {
         $userId = auth()->id();
 
+
         $registro = Orp::find($id);
         $registro->estado = 'Completado';
         $registro->save();
 
-        DB::table('colors')
-            ->where('orp_id', $id)
-            ->update(['orp_id' => null]);
+
+        try {
+            DB::table('colors')
+                ->where('orp_id', $id)
+                ->update(['orp_id' => null]);
+        } catch (\Throwable $th) {
+            // Manejo de error: puedes registrar el error si es necesario
+            // Log::error('Error al actualizar colors: ' . $th->getMessage());
+        }
         // Obtener los registros que cumplen con las condiciones
         // $registros = EstadoPlanta::where('proceso', 'Produccion')
         //     ->where('etapa_id', 8)

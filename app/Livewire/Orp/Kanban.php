@@ -9,6 +9,7 @@ use App\Models\Color;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 use App\Notifications\orpNotification;
+use PhpParser\Node\Stmt\TryCatch;
 
 class Kanban extends Component
 {
@@ -30,7 +31,11 @@ class Kanban extends Component
         if ($orp) {
             $orp->estado = $estado;
             if ($estado == 'En proceso') {
+
+
                 $colorDisponible = Color::whereNull('orp_id')->first();
+
+
         if ($colorDisponible) {
             $colorDisponible->orp_id = $orpId;
             $colorDisponible->save();
@@ -41,9 +46,17 @@ class Kanban extends Component
             // 
 
             if ($estado == 'Completado') {
-                DB::table('colors')
-                 ->where('orp_id', $orpId)
-                ->update(['orp_id' => null]); 
+
+
+                try {
+                    DB::table('colors')
+                        ->where('orp_id', $orpId)
+                        ->update(['orp_id' => null]);
+                } catch (\Throwable $th) {
+                    // Manejo de error: puedes registrar el error si es necesario
+                    // Log::error('Error al actualizar colors: ' . $th->getMessage());
+                }
+
             }   
 
 
