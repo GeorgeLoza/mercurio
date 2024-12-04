@@ -15,47 +15,50 @@
                     <div
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 row-start-1 row-span-1 col-span-1 ">
                             {{-- cabecera --}}
-                        <div class=" flex  justify-between  items-center">
-                            {{-- nombre --}}
-                            <div>
-                                <p class="text-base flex">{{ $R1->origen->alias }}
+                            <div class=" flex  justify-between  items-center">
+                                {{-- nombre --}}
+                                <div>
+                                    <p class="text-base flex">{{ $R1->origen->alias }} 
+                                        
+                                        @if ($R1->etapa)
+                                        {{ $R1->etapa->nombre }}
+                                       @endif
 
 
+                                    </p>
+                                </div>
 
-                                </p>
-                            </div>
-                            {{-- hora --}}
-                            <div>
-                                <p class="text-base"> {{ \Carbon\Carbon::parse($R1->tiempo)->isoFormat('HH:mm') }}
-                                </p>
-                            </div>
-                            {{-- svg --}}
-                            @if ($R1->proceso == 'Produccion' || $R1->proceso == 'Almacen')
-                                @if ($R1->proceso == 'Produccion')
-                                    <div data-popover-trigger="click" data-popover-target="r1-analizar-popover">
-                                        <svg class="w-full max-h-3 fill-green-600" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 512 512">
-                                            <path
-                                                d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
-                                        </svg>
-                                    </div>
+                                {{-- svg --}}
+                                
+                                    @if ($R1->proceso == 'Produccion' || $R1->proceso == 'Almacen')
+                                    @if ($R1->proceso == 'Produccion')
+                                        <div data-popover-trigger="click" data-popover-target="r1-analizar-popover" class="flex items-center gap-1">
+                                            <p class="text-xs"> {{ \Carbon\Carbon::parse($R1->tiempo)->isoFormat('HH:mm') }} 
+                                            </p>
+                                            <svg class="w-full max-h-3 fill-green-600" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 512 512">
+                                                <path
+                                                    d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
+                                            </svg>
+                                        </div>
+                                    @endif
+                                    @if ($R1->proceso == 'Almacen')
+                                        <div data-popover-trigger="click" data-popover-target="r1-analizar-popover" class="flex items-center gap-1">
+                                            <p class="text-xs"> {{ \Carbon\Carbon::parse($R1->tiempo)->isoFormat('HH:mm') }}
+                                            </p>
+                                            <svg class="w-full max-h-3 fill-orange-600" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 512 512">
+                                                <path
+                                                    d="M464 160c8.8 0 16 7.2 16 16l0 160c0 8.8-7.2 16-16 16L80 352c-8.8 0-16-7.2-16-16l0-160c0-8.8 7.2-16 16-16l384 0zM80 96C35.8 96 0 131.8 0 176L0 336c0 44.2 35.8 80 80 80l384 0c44.2 0 80-35.8 80-80l0-16c17.7 0 32-14.3 32-32l0-64c0-17.7-14.3-32-32-32l0-16c0-44.2-35.8-80-80-80L80 96zm368 96L96 192l0 128 352 0 0-128z" />
+                                            </svg>
+                                        </div>
+                                    @endif
+                                    @else
+                                    <p class="text-xs"> {{ \Carbon\Carbon::parse($TKMIX3->tiempo)->isoFormat('HH:mm') }}
+                                    </p>
                                 @endif
-                                @if ($R1->proceso == 'Almacen')
-                                    <div data-popover-trigger="click" data-popover-target="r1-analizar-popover">
-                                        <svg class="w-full max-h-3 fill-orange-600" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 512 512">
-                                            <path
-                                                d="M464 160c8.8 0 16 7.2 16 16l0 160c0 8.8-7.2 16-16 16L80 352c-8.8 0-16-7.2-16-16l0-160c0-8.8 7.2-16 16-16l384 0zM80 96C35.8 96 0 131.8 0 176L0 336c0 44.2 35.8 80 80 80l384 0c44.2 0 80-35.8 80-80l0-16c17.7 0 32-14.3 32-32l0-64c0-17.7-14.3-32-32-32l0-16c0-44.2-35.8-80-80-80L80 96zm368 96L96 192l0 128 352 0 0-128z" />
-                                        </svg>
-                                    </div>
-                                @endif
-
-                            @endif
-
-
-
-
-                        </div>
+                            </div>
+                        
                             {{-- cuerpo --}}
                         <div class="grid gap-2  h-full w-full  ">
                             <div class=" p-2 flex items-center justify-center ">
@@ -285,35 +288,46 @@
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 row-start-2 row-span-1 col-span-1">
                         <div class=" flex  justify-between  items-center">
                             <div>
-                                <p class="text-base">{{ $R2->origen->alias }}</p>
-                            </div>
+                                <p class="text-base flex">{{ $R2->origen->alias }} 
+                                    
+                                    @if ($R2->etapa)
+                                    {{ $R2->etapa->nombre }}
+                                   @endif
 
-                            <div>
-                                <p class="text-base"> {{ \Carbon\Carbon::parse($R2->tiempo)->isoFormat('HH:mm') }}
+
                                 </p>
                             </div>
-
                             @if ($R2->proceso == 'Produccion' || $R2->proceso == 'Almacen')
-                                @if ($R2->proceso == 'Produccion')
-                                    <div data-popover-trigger="click" data-popover-target="r2-analizar-popover">
-                                        <svg class="w-full max-h-3 fill-green-600" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 512 512">
-                                            <path
-                                                d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
-                                        </svg>
-                                    </div>
-                                @endif
-                                @if ($R2->proceso == 'Almacen')
-                                    <div data-popover-trigger="click" data-popover-target="r2-analizar-popover">
-                                        <svg class="w-full max-h-3 fill-orange-600" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 512 512">
-                                            <path
-                                                d="M464 160c8.8 0 16 7.2 16 16l0 160c0 8.8-7.2 16-16 16L80 352c-8.8 0-16-7.2-16-16l0-160c0-8.8 7.2-16 16-16l384 0zM80 96C35.8 96 0 131.8 0 176L0 336c0 44.2 35.8 80 80 80l384 0c44.2 0 80-35.8 80-80l0-16c17.7 0 32-14.3 32-32l0-64c0-17.7-14.3-32-32-32l0-16c0-44.2-35.8-80-80-80L80 96zm368 96L96 192l0 128 352 0 0-128z" />
-                                        </svg>
-                                    </div>
-                                @endif
-
+                            @if ($R2->proceso == 'Produccion')
+                                <div data-popover-trigger="click" data-popover-target="r2-analizar-popover" class="flex items-center gap-1">
+                                    <p class="text-xs"> {{ \Carbon\Carbon::parse($R2->tiempo)->isoFormat('HH:mm') }} 
+                                    </p>
+                                    <svg class="w-full max-h-3 fill-green-600" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 512 512">
+                                        <path
+                                            d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
+                                    </svg>
+                                </div>
                             @endif
+                            @if ($R2->proceso == 'Almacen')
+                                <div data-popover-trigger="click" data-popover-target="r2-analizar-popover" class="flex items-center gap-1">
+                                    <p class="text-xs"> {{ \Carbon\Carbon::parse($R2->tiempo)->isoFormat('HH:mm') }}
+                                    </p>
+                                    <svg class="w-full max-h-3 fill-orange-600" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 512 512">
+                                        <path
+                                            d="M464 160c8.8 0 16 7.2 16 16l0 160c0 8.8-7.2 16-16 16L80 352c-8.8 0-16-7.2-16-16l0-160c0-8.8 7.2-16 16-16l384 0zM80 96C35.8 96 0 131.8 0 176L0 336c0 44.2 35.8 80 80 80l384 0c44.2 0 80-35.8 80-80l0-16c17.7 0 32-14.3 32-32l0-64c0-17.7-14.3-32-32-32l0-16c0-44.2-35.8-80-80-80L80 96zm368 96L96 192l0 128 352 0 0-128z" />
+                                    </svg>
+                                </div>
+                            @endif
+                            @else
+                                    <p class="text-xs"> {{ \Carbon\Carbon::parse($TKMIX3->tiempo)->isoFormat('HH:mm') }}
+                                    </p>
+
+                        @endif
+                            
+
+                            
 
 
 
@@ -512,39 +526,51 @@
                     {{-- R3 --}}
                     <div
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-start dark:bg-gray-800 row-start-3 row-span-1 col-span-1">
-                        <div class=" flex  justify-between items-center ">
-                            <div>
-                                <p class="text-base">{{ $R3->origen->alias }}</p>
-                            </div>
+                        {{-- cabecera --}}
+                            <div class=" flex  justify-between  items-center">
+                                {{-- nombre --}}
+                                <div>
+                                    <p class="text-base flex">{{ $R3->origen->alias }} 
+                                        
+                                        @if ($R3->etapa)
+                                        {{ $R3->etapa->nombre }}
+                                    @endif
 
-                            <div>
-                                <p class="text-base"> {{ \Carbon\Carbon::parse($R3->tiempo)->isoFormat('HH:mm') }}
-                                </p>
-                            </div>
-                            @if ($R3->proceso == 'Produccion' || $R3->proceso == 'Almacen')
-                                @if ($R3->proceso == 'Produccion')
-                                    <div data-popover-trigger="click" data-popover-target="r3-analizar-popover">
-                                        <svg class="w-full max-h-3 fill-green-600" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 512 512">
-                                            <path
-                                                d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
-                                        </svg>
-                                    </div>
+
+                                    </p>
+                                </div>
+
+                                {{-- svg --}}
+                                
+                                    @if ($R3->proceso == 'Produccion' || $R3->proceso == 'Almacen')
+                                    @if ($R3->proceso == 'Produccion')
+                                        <div data-popover-trigger="click" data-popover-target="r3-analizar-popover" class="flex items-center gap-1">
+                                            <p class="text-xs"> {{ \Carbon\Carbon::parse($R3->tiempo)->isoFormat('HH:mm') }} 
+                                            </p>
+                                            <svg class="w-full max-h-3 fill-green-600" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 512 512">
+                                                <path
+                                                    d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
+                                            </svg>
+                                        </div>
+                                    @endif
+                                    @if ($R3->proceso == 'Almacen')
+                                        <div data-popover-trigger="click" data-popover-target="r3-analizar-popover" class="flex items-center gap-1">
+                                            <p class="text-xs"> {{ \Carbon\Carbon::parse($R3->tiempo)->isoFormat('HH:mm') }}
+                                            </p>
+                                            <svg class="w-full max-h-3 fill-orange-600" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 512 512">
+                                                <path
+                                                    d="M464 160c8.8 0 16 7.2 16 16l0 160c0 8.8-7.2 16-16 16L80 352c-8.8 0-16-7.2-16-16l0-160c0-8.8 7.2-16 16-16l384 0zM80 96C35.8 96 0 131.8 0 176L0 336c0 44.2 35.8 80 80 80l384 0c44.2 0 80-35.8 80-80l0-16c17.7 0 32-14.3 32-32l0-64c0-17.7-14.3-32-32-32l0-16c0-44.2-35.8-80-80-80L80 96zm368 96L96 192l0 128 352 0 0-128z" />
+                                            </svg>
+                                        </div>
+                                    @endif
+                                    @else
+                                    <p class="text-xs"> {{ \Carbon\Carbon::parse($TKMIX3->tiempo)->isoFormat('HH:mm') }}
+                                    </p>
+
                                 @endif
-                                @if ($R3->proceso == 'Almacen')
-                                    <div data-popover-trigger="click" data-popover-target="r3-analizar-popover">
-                                        <svg class="w-full max-h-3 fill-orange-600" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 512 512">
-                                            <path
-                                                d="M464 160c8.8 0 16 7.2 16 16l0 160c0 8.8-7.2 16-16 16L80 352c-8.8 0-16-7.2-16-16l0-160c0-8.8 7.2-16 16-16l384 0zM80 96C35.8 96 0 131.8 0 176L0 336c0 44.2 35.8 80 80 80l384 0c44.2 0 80-35.8 80-80l0-16c17.7 0 32-14.3 32-32l0-64c0-17.7-14.3-32-32-32l0-16c0-44.2-35.8-80-80-80L80 96zm368 96L96 192l0 128 352 0 0-128z" />
-                                        </svg>
-                                    </div>
-                                @endif
-
-                            @endif
-
-
-                        </div>
+                            </div>
 
                         <div class="grid gap-2 h-full w-full  ">
                             <div class=" p-2 flex items-center justify-center ">
@@ -821,39 +847,51 @@
                     {{-- Mx1 --}}
                     <div
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-start dark:bg-gray-800 col-start-1 row-span-1 col-span-1">
-                        <div class=" flex  justify-between  items-center">
-                            <div>
-                                <p class="text-base">{{ $TKMIX1->origen->alias }}</p>
-                            </div>
+                                                        {{-- cabecera --}}
+                                <div class=" flex  justify-between  items-center">
+                                    {{-- nombre --}}
+                                    <div>
+                                        <p class="text-base flex">{{ $TKMIX1->origen->alias }} 
+                                            
+                                            @if ($TKMIX1->etapa)
+                                            {{ $TKMIX1->etapa->nombre }}
+                                        @endif
 
-                            <div>
-                                <p class="text-base"> {{ \Carbon\Carbon::parse($TKMIX1->tiempo)->isoFormat('HH:mm') }}
-                                </p>
-                            </div>
-                            @if ($TKMIX1->proceso == 'Produccion' || $TKMIX1->proceso == 'Almacen')
-                                @if ($TKMIX1->proceso == 'Produccion')
-                                    <div data-popover-trigger="click" data-popover-target="mix1-analizar-popover">
-                                        <svg class="w-full max-h-3 fill-green-600" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 512 512">
-                                            <path
-                                                d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
-                                        </svg>
+
+                                        </p>
                                     </div>
-                                @endif
-                                @if ($TKMIX1->proceso == 'Almacen')
-                                    <div data-popover-trigger="click" data-popover-target="mix1-analizar-popover">
-                                        <svg class="w-full max-h-3 fill-orange-600" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 512 512">
-                                            <path
-                                                d="M464 160c8.8 0 16 7.2 16 16l0 160c0 8.8-7.2 16-16 16L80 352c-8.8 0-16-7.2-16-16l0-160c0-8.8 7.2-16 16-16l384 0zM80 96C35.8 96 0 131.8 0 176L0 336c0 44.2 35.8 80 80 80l384 0c44.2 0 80-35.8 80-80l0-16c17.7 0 32-14.3 32-32l0-64c0-17.7-14.3-32-32-32l0-16c0-44.2-35.8-80-80-80L80 96zm368 96L96 192l0 128 352 0 0-128z" />
-                                        </svg>
-                                    </div>
-                                @endif
 
-                            @endif
+                                    {{-- svg --}}
+                                    
+                                        @if ($TKMIX1->proceso == 'Produccion' || $TKMIX1->proceso == 'Almacen')
+                                        @if ($TKMIX1->proceso == 'Produccion')
+                                            <div data-popover-trigger="click" data-popover-target="mix1-analizar-popover" class="flex items-center gap-1">
+                                                <p class="text-xs"> {{ \Carbon\Carbon::parse($TKMIX1->tiempo)->isoFormat('HH:mm') }} 
+                                                </p>
+                                                <svg class="w-full max-h-3 fill-green-600" xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 512 512">
+                                                    <path
+                                                        d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
+                                                </svg>
+                                            </div>
+                                        @endif
+                                        @if ($TKMIX1->proceso == 'Almacen')
+                                            <div data-popover-trigger="click" data-popover-target="mix1-analizar-popover" class="flex items-center gap-1">
+                                                <p class="text-xs"> {{ \Carbon\Carbon::parse($TKMIX1->tiempo)->isoFormat('HH:mm') }}
+                                                </p>
+                                                <svg class="w-full max-h-3 fill-orange-600" xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 512 512">
+                                                    <path
+                                                        d="M464 160c8.8 0 16 7.2 16 16l0 160c0 8.8-7.2 16-16 16L80 352c-8.8 0-16-7.2-16-16l0-160c0-8.8 7.2-16 16-16l384 0zM80 96C35.8 96 0 131.8 0 176L0 336c0 44.2 35.8 80 80 80l384 0c44.2 0 80-35.8 80-80l0-16c17.7 0 32-14.3 32-32l0-64c0-17.7-14.3-32-32-32l0-16c0-44.2-35.8-80-80-80L80 96zm368 96L96 192l0 128 352 0 0-128z" />
+                                                </svg>
+                                            </div>
+                                        @endif
+                                        @else
+                                    <p class="text-xs"> {{ \Carbon\Carbon::parse($TKMIX3->tiempo)->isoFormat('HH:mm') }}
+                                    </p>
 
-
-                        </div>
+                                    @endif
+                                </div>
 
                         <div class="grid gap-2 h-full w-full  ">
                             <div class=" p-2 flex items-center justify-center ">
@@ -1103,39 +1141,51 @@
                     {{-- Mx2 --}}
                     <div
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 col-start-2 row-span-1 col-span-1">
-                        <div class=" flex  justify-between items-center ">
-                            <div>
-                                <p class="text-base">{{ $TKMIX2->origen->alias }}</p>
-                            </div>
+                        {{-- cabecera --}}
+                            <div class=" flex  justify-between  items-center">
+                                {{-- nombre --}}
+                                <div>
+                                    <p class="text-base flex">{{ $TKMIX2->origen->alias }} 
+                                        
+                                        @if ($TKMIX2->etapa)
+                                        {{ $TKMIX2->etapa->nombre }}
+                                    @endif
 
-                            <div>
-                                <p class="text-base"> {{ \Carbon\Carbon::parse($TKMIX2->tiempo)->isoFormat('HH:mm') }}
-                                </p>
-                            </div>
-                            @if ($TKMIX2->proceso == 'Produccion' || $TKMIX2->proceso == 'Almacen')
-                                @if ($TKMIX2->proceso == 'Produccion')
-                                    <div data-popover-trigger="click" data-popover-target="mix2-analizar-popover">
-                                        <svg class="w-full max-h-3 fill-green-600" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 512 512">
-                                            <path
-                                                d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
-                                        </svg>
-                                    </div>
+
+                                    </p>
+                                </div>
+
+                                {{-- svg --}}
+                                
+                                    @if ($TKMIX2->proceso == 'Produccion' || $TKMIX2->proceso == 'Almacen')
+                                    @if ($TKMIX2->proceso == 'Produccion')
+                                        <div data-popover-trigger="click" data-popover-target="mix2-analizar-popover" class="flex items-center gap-1">
+                                            <p class="text-xs"> {{ \Carbon\Carbon::parse($TKMIX2->tiempo)->isoFormat('HH:mm') }} 
+                                            </p>
+                                            <svg class="w-full max-h-3 fill-green-600" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 512 512">
+                                                <path
+                                                    d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
+                                            </svg>
+                                        </div>
+                                    @endif
+                                    @if ($TKMIX2->proceso == 'Almacen')
+                                        <div data-popover-trigger="click" data-popover-target="mix2-analizar-popover" class="flex items-center gap-1">
+                                            <p class="text-xs"> {{ \Carbon\Carbon::parse($TKMIX2->tiempo)->isoFormat('HH:mm') }}
+                                            </p>
+                                            <svg class="w-full max-h-3 fill-orange-600" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 512 512">
+                                                <path
+                                                    d="M464 160c8.8 0 16 7.2 16 16l0 160c0 8.8-7.2 16-16 16L80 352c-8.8 0-16-7.2-16-16l0-160c0-8.8 7.2-16 16-16l384 0zM80 96C35.8 96 0 131.8 0 176L0 336c0 44.2 35.8 80 80 80l384 0c44.2 0 80-35.8 80-80l0-16c17.7 0 32-14.3 32-32l0-64c0-17.7-14.3-32-32-32l0-16c0-44.2-35.8-80-80-80L80 96zm368 96L96 192l0 128 352 0 0-128z" />
+                                            </svg>
+                                        </div>
+                                    @endif
+                                    @else
+                                    <p class="text-xs"> {{ \Carbon\Carbon::parse($TKMIX3->tiempo)->isoFormat('HH:mm') }}
+                                    </p>
+
                                 @endif
-                                @if ($TKMIX2->proceso == 'Almacen')
-                                    <div data-popover-trigger="click" data-popover-target="mix2-analizar-popover">
-                                        <svg class="w-full max-h-3 fill-orange-600" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 512 512">
-                                            <path
-                                                d="M464 160c8.8 0 16 7.2 16 16l0 160c0 8.8-7.2 16-16 16L80 352c-8.8 0-16-7.2-16-16l0-160c0-8.8 7.2-16 16-16l384 0zM80 96C35.8 96 0 131.8 0 176L0 336c0 44.2 35.8 80 80 80l384 0c44.2 0 80-35.8 80-80l0-16c17.7 0 32-14.3 32-32l0-64c0-17.7-14.3-32-32-32l0-16c0-44.2-35.8-80-80-80L80 96zm368 96L96 192l0 128 352 0 0-128z" />
-                                        </svg>
-                                    </div>
-                                @endif
-
-                            @endif
-
-
-                        </div>
+                            </div>
 
                         <div class="grid gap-2 h-full w-full  ">
                             <div class=" p-2 flex items-center justify-center ">
@@ -1328,39 +1378,51 @@
                     {{-- Mx3 --}}
                     <div
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 col-start-3 row-span-1 col-span-1">
-                        <div class=" flex  justify-between  items-center">
-                            <div>
-                                <p class="text-base">{{ $TKMIX3->origen->alias }}</p>
-                            </div>
+                        {{-- cabecera --}}
+                            <div class=" flex  justify-between  items-center">
+                                {{-- nombre --}}
+                                <div>
+                                    <p class="text-base flex">{{ $TKMIX3->origen->alias }} 
+                                        
+                                        @if ($TKMIX3->etapa)
+                                        {{ $TKMIX3->etapa->nombre }}
+                                    @endif
 
-                            <div>
-                                <p class="text-base"> {{ \Carbon\Carbon::parse($TKMIX3->tiempo)->isoFormat('HH:mm') }}
-                                </p>
-                            </div>
-                            @if ($TKMIX3->proceso == 'Produccion' || $TKMIX3->proceso == 'Almacen')
-                                @if ($TKMIX3->proceso == 'Produccion')
-                                    <div data-popover-trigger="click" data-popover-target="mix3-analizar-popover">
-                                        <svg class="w-full max-h-3 fill-green-600" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 512 512">
-                                            <path
-                                                d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
-                                        </svg>
-                                    </div>
+
+                                    </p>
+                                </div>
+
+                                {{-- svg --}}
+                                
+                                    @if ($TKMIX3->proceso == 'Produccion' || $TKMIX3->proceso == 'Almacen')
+                                    @if ($TKMIX3->proceso == 'Produccion')
+                                        <div data-popover-trigger="click" data-popover-target="mix3-analizar-popover" class="flex items-center gap-1">
+                                            <p class="text-xs"> {{ \Carbon\Carbon::parse($TKMIX3->tiempo)->isoFormat('HH:mm') }} 
+                                            </p>
+                                            <svg class="w-full max-h-3 fill-green-600" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 512 512">
+                                                <path
+                                                    d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
+                                            </svg>
+                                        </div>
+                                    @endif
+                                    @if ($TKMIX3->proceso == 'Almacen')
+                                        <div data-popover-trigger="click" data-popover-target="mix3-analizar-popover" class="flex items-center gap-1">
+                                            <p class="text-xs"> {{ \Carbon\Carbon::parse($TKMIX3->tiempo)->isoFormat('HH:mm') }}
+                                            </p>
+                                            <svg class="w-full max-h-3 fill-orange-600" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 512 512">
+                                                <path
+                                                    d="M464 160c8.8 0 16 7.2 16 16l0 160c0 8.8-7.2 16-16 16L80 352c-8.8 0-16-7.2-16-16l0-160c0-8.8 7.2-16 16-16l384 0zM80 96C35.8 96 0 131.8 0 176L0 336c0 44.2 35.8 80 80 80l384 0c44.2 0 80-35.8 80-80l0-16c17.7 0 32-14.3 32-32l0-64c0-17.7-14.3-32-32-32l0-16c0-44.2-35.8-80-80-80L80 96zm368 96L96 192l0 128 352 0 0-128z" />
+                                            </svg>
+                                        </div>
+                                    @endif
+                                    @else
+                                    <p class="text-xs"> {{ \Carbon\Carbon::parse($TKMIX3->tiempo)->isoFormat('HH:mm') }}
+                                    </p>
+
                                 @endif
-                                @if ($TKMIX3->proceso == 'Almacen')
-                                    <div data-popover-trigger="click" data-popover-target="mix3-analizar-popover">
-                                        <svg class="w-full max-h-3 fill-orange-600" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 512 512">
-                                            <path
-                                                d="M464 160c8.8 0 16 7.2 16 16l0 160c0 8.8-7.2 16-16 16L80 352c-8.8 0-16-7.2-16-16l0-160c0-8.8 7.2-16 16-16l384 0zM80 96C35.8 96 0 131.8 0 176L0 336c0 44.2 35.8 80 80 80l384 0c44.2 0 80-35.8 80-80l0-16c17.7 0 32-14.3 32-32l0-64c0-17.7-14.3-32-32-32l0-16c0-44.2-35.8-80-80-80L80 96zm368 96L96 192l0 128 352 0 0-128z" />
-                                        </svg>
-                                    </div>
-                                @endif
-
-                            @endif
-
-
-                        </div>
+                            </div>
 
                         <div class="grid gap-2 h-full w-full  ">
                             <div class=" p-2 flex items-center justify-center ">
@@ -1555,39 +1617,51 @@
                     {{-- Mx4 --}}
                     <div
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 col-start-4 row-span-1 col-span-1">
-                        <div class=" flex  justify-between items-center  ">
-                            <div>
-                                <p class="text-base">{{ $TKMIX4->origen->alias }}</p>
-                            </div>
+                                                    {{-- cabecera --}}
+                            <div class=" flex  justify-between  items-center">
+                                {{-- nombre --}}
+                                <div>
+                                    <p class="text-base flex">{{ $TKMIX4->origen->alias }} 
+                                        
+                                        @if ($TKMIX4->etapa)
+                                        {{ $TKMIX4->etapa->nombre }}
+                                    @endif
 
-                            <div>
-                                <p class="text-base"> {{ \Carbon\Carbon::parse($TKMIX4->tiempo)->isoFormat('HH:mm') }}
-                                </p>
-                            </div>
-                            @if ($TKMIX4->proceso == 'Produccion' || $TKMIX4->proceso == 'Almacen')
-                                @if ($TKMIX4->proceso == 'Produccion')
-                                    <div data-popover-trigger="click" data-popover-target="mix4-analizar-popover">
-                                        <svg class="w-full max-h-3 fill-green-600" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 512 512">
-                                            <path
-                                                d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
-                                        </svg>
-                                    </div>
+
+                                    </p>
+                                </div>
+
+                                {{-- svg --}}
+                                
+                                    @if ($TKMIX4->proceso == 'Produccion' || $TKMIX4->proceso == 'Almacen')
+                                    @if ($TKMIX4->proceso == 'Produccion')
+                                        <div data-popover-trigger="click" data-popover-target="mix4-analizar-popover" class="flex items-center gap-1">
+                                            <p class="text-xs"> {{ \Carbon\Carbon::parse($TKMIX4->tiempo)->isoFormat('HH:mm') }} 
+                                            </p>
+                                            <svg class="w-full max-h-3 fill-green-600" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 512 512">
+                                                <path
+                                                    d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
+                                            </svg>
+                                        </div>
+                                    @endif
+                                    @if ($TKMIX4->proceso == 'Almacen')
+                                        <div data-popover-trigger="click" data-popover-target="mix4-analizar-popover" class="flex items-center gap-1">
+                                            <p class="text-xs"> {{ \Carbon\Carbon::parse($TKMIX4->tiempo)->isoFormat('HH:mm') }}
+                                            </p>
+                                            <svg class="w-full max-h-3 fill-orange-600" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 512 512">
+                                                <path
+                                                    d="M464 160c8.8 0 16 7.2 16 16l0 160c0 8.8-7.2 16-16 16L80 352c-8.8 0-16-7.2-16-16l0-160c0-8.8 7.2-16 16-16l384 0zM80 96C35.8 96 0 131.8 0 176L0 336c0 44.2 35.8 80 80 80l384 0c44.2 0 80-35.8 80-80l0-16c17.7 0 32-14.3 32-32l0-64c0-17.7-14.3-32-32-32l0-16c0-44.2-35.8-80-80-80L80 96zm368 96L96 192l0 128 352 0 0-128z" />
+                                            </svg>
+                                        </div>
+                                    @endif
+                                    @else
+                                        <p class="text-xs"> {{ \Carbon\Carbon::parse($TKMIX4->tiempo)->isoFormat('HH:mm') }}
+                                        </p>
+
                                 @endif
-                                @if ($TKMIX4->proceso == 'Almacen')
-                                    <div data-popover-trigger="click" data-popover-target="mix4-analizar-popover">
-                                        <svg class="w-full max-h-3 fill-orange-600" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 512 512">
-                                            <path
-                                                d="M464 160c8.8 0 16 7.2 16 16l0 160c0 8.8-7.2 16-16 16L80 352c-8.8 0-16-7.2-16-16l0-160c0-8.8 7.2-16 16-16l384 0zM80 96C35.8 96 0 131.8 0 176L0 336c0 44.2 35.8 80 80 80l384 0c44.2 0 80-35.8 80-80l0-16c17.7 0 32-14.3 32-32l0-64c0-17.7-14.3-32-32-32l0-16c0-44.2-35.8-80-80-80L80 96zm368 96L96 192l0 128 352 0 0-128z" />
-                                        </svg>
-                                    </div>
-                                @endif
-
-                            @endif
-
-
-                        </div>
+                            </div>
 
                         <div class="grid gap-2 h-full w-full  ">
                             <div class=" p-2 flex items-center justify-center ">
@@ -1860,32 +1934,42 @@
                     {{-- MP --}}
                     <div
                         class="p-2 h-full align-center bg-gray-100 rounded-xl flex flex-col justify-between dark:bg-gray-800 col-start-1 row-span-1 col-span-1">
-                        <div class=" flex  justify-between items-center ">
-                            <div>
-                                <p class="text-base">{{ $TKMP->origen->alias }}</p>
-                            </div>
+                        {{-- cabecera --}}
+                            <div class=" flex  justify-between  items-center">
+                                {{-- nombre --}}
+                                <div>
+                                    <p class="text-base flex">{{ $TKMP->origen->alias }} 
+                                        
+                                        @if ($TKMP->etapa)
+                                        {{ $TKMP->etapa->nombre }}
+                                    @endif
 
-                            <div>
-                                <p class="text-base"> {{ \Carbon\Carbon::parse($TKMP->tiempo)->isoFormat('HH:mm') }}
-                                </p>
-                            </div>
 
-                            @if ($TKMP->proceso == 'Produccion')
-                                <div data-popover-trigger="click" data-popover-target="tkmp-analizar-popover">
-                                    <svg class="w-full max-h-3 fill-green-600" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 512 512">
-                                        <path
-                                            d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
-                                    </svg>
+                                    </p>
                                 </div>
-                            @else
-                                <div></div>
-                            @endif
 
+                                {{-- svg --}}
+                                
+                                    
+                                    @if ($TKMP->proceso == 'Produccion')
+                                        <div data-popover-trigger="click" data-popover-target="tkmp-analizar-popover" class="flex items-center gap-1">
+                                            <p class="text-xs"> {{ \Carbon\Carbon::parse($TKMP->tiempo)->isoFormat('HH:mm') }} 
+                                            </p>
+                                            <svg class="w-full max-h-3 fill-green-600" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 512 512">
+                                                <path
+                                                    d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
+                                            </svg>
+                                        </div>
+                                        @else
+                                        <p class="text-xs"> {{ \Carbon\Carbon::parse($TKMP->tiempo)->isoFormat('HH:mm') }}
+                                        </p>
+                                    @endif
+                                    
+                                    
 
-
-
-                        </div>
+                            
+                            </div>
 
                         <div class="grid gap-2 h-full w-full  ">
                             <div class=" p-2 flex items-center justify-center ">

@@ -128,6 +128,10 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+    Route::get('/dashboard', function () {
+        return view('dashboard.index');
+    })->name('dashboard.index');
+
     
 
     /*Rutas de salida login */
@@ -147,3 +151,5 @@ Route::middleware(['roles:Admi,Jef'])->group(function () {
     /*ruta para orp */
     Route::get('/datos', [DatosController::class, 'index'])->name('datos.index');
 });
+
+

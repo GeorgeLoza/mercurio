@@ -163,7 +163,8 @@ Configuración Inicial
     
 </div>
 
-@livewire('dashboard.paseTurnoReporte') 
+
+@livewire('SqlExecutor')
 @endsection
 
 
