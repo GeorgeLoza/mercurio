@@ -43,6 +43,25 @@
 
         </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
         <div>
             <button wire:click="show_filtro">
 
@@ -55,7 +74,14 @@
     </button>
    
     </div>
+   
     
+
+
+
+
+
+
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg  overflow-y-auto h-[28rem] overflow-hidden">
         <table class=" w-full text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
 

@@ -23,7 +23,8 @@ class Vencimiento extends Component
         ->whereHas('producto.categoriaProducto', function ($query) {
             $query->where('grupo', 'HTST');
         })
-        ->where('created_at', '>=', Carbon::now()->subDays(5))
+        // ->where('created_at', '>=', Carbon::now()->subDays(5))
+        ->where('estado', 'En Proceso')
         ->get();
         return view('livewire.htst.vencimiento', ['orps' => $this->orps]);
     }

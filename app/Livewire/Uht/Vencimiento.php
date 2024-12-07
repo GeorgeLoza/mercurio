@@ -17,10 +17,12 @@ class Vencimiento extends Component
         $this->orps = Orp::where(function ($query) {
                 $query->whereNull('fecha_vencimiento1');
             })
+            
             ->whereHas('producto.categoriaProducto', function ($query) {
                 $query->where('grupo', 'UHT');
             })
-            ->where('created_at', '>=', Carbon::now()->subDays(5))
+            // ->where('created_at', '>=', Carbon::now()->subDays(5))
+             ->where('estado', 'En Proceso')
             ->get();
 
         return view('livewire.uht.vencimiento', ['orps' => $this->orps]);

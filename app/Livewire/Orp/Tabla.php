@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Orp;
 
+use App\Exports\MuestrasExport;
 use App\Models\Orp;
 use App\Models\Color;
 use App\Models\User;
@@ -10,6 +11,9 @@ use App\Notifications\orpNotification;
 use Livewire\WithPagination;
 use Livewire\Component;
 use Livewire\Attributes\On;
+use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\DB;
 
 class Tabla extends Component
 {
@@ -36,6 +40,12 @@ class Tabla extends Component
     public $sortAsc = true;
     //mostrar filtro
     public $filtro = false;
+
+
+    public $anio;  // Año, por ejemplo: 2024
+    public $mes; 
+    public $dia; 
+    public $fecha; 
 
     public function show_filtro()
     {
@@ -105,6 +115,16 @@ class Tabla extends Component
         $registro = Orp::find($id);
         $registro->estado = 'Completado';
         $registro->save();
+
+
+        try {
+            DB::table('colors')
+                ->where('orp_id', $id)
+                ->update(['orp_id' => null]);
+        } catch (\Throwable $th) {
+            // Manejo de error: puedes registrar el error si es necesario
+            // Log::error('Error al actualizar colors: ' . $th->getMessage());
+        }
 
         // DB::table('colors')
         //     ->where('orp_id', $id)
@@ -201,4 +221,42 @@ class Tabla extends Component
     {
         return $this->f_codigo || $this->f_codigoProducto || $this->f_nombreProducto || $this->f_lote || $this->f_estado || $this->f_tiempoElaboracion || $this->f_fechaVencimiento1 || $this->f_fechaVencimiento2 || $this->f_productoCodigo || $this->f_grupo;
     }
+
+
+
+    public function exportarExcel()
+{
+    // Asegúrate de que $this->fecha esté correctamente definido
+    // Extraer año, mes y día de la fecha seleccionada
+    $anio = Carbon::parse($this->fecha)->year;
+    $mes = Carbon::parse($this->fecha)->month;
+    $dia = Carbon::parse($this->fecha)->day;
+    
+    // Consultar registros basados en la fecha completa
+    $orp = Orp::whereNotIn('codigo', [0, 1, 2, 10073794]) // Filtra por códigos específicos
+        ->when($anio, function ($query) use ($anio) {
+            return $query->whereYear('tiempo_elaboracion', $anio);
+        })
+        ->when($mes, function ($query) use ($mes) {
+            return $query->whereMonth('tiempo_elaboracion', $mes);
+        })
+        ->when($dia, function ($query) use ($dia) {
+            return $query->whereDay('tiempo_elaboracion', $dia);
+        })
+        ->orderBy('tiempo_elaboracion', 'asc') // Ordena por fecha
+        ->get();
+
+    
+
+    // Crear nombre del archivo con la fecha seleccionada
+    $nombreMes = Carbon::createFromFormat('m', $mes)->translatedFormat('F'); // Obtener el nombre del mes
+    $nombreArchivo = "{$dia}-{$nombreMes}-{$anio}.csv";
+
+    // Exportar datos usando el paquete maatwebsite/excel
+    return Excel::download(new MuestrasExport($orp), $nombreArchivo, \Maatwebsite\Excel\Excel::CSV);
+}
+
+
+
+
 }
