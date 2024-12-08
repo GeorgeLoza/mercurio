@@ -46,6 +46,7 @@ class Tabla extends Component
     public $mes; 
     public $dia; 
     public $fecha; 
+    public $cat; 
 
     public function show_filtro()
     {
@@ -231,6 +232,7 @@ class Tabla extends Component
     $anio = Carbon::parse($this->fecha)->year;
     $mes = Carbon::parse($this->fecha)->month;
     $dia = Carbon::parse($this->fecha)->day;
+     $cat= $this->cat ;
     
     // Consultar registros basados en la fecha completa
     $orp = Orp::whereNotIn('codigo', [0, 1, 2, 10073794]) // Filtra por códigos específicos
@@ -243,6 +245,13 @@ class Tabla extends Component
         ->when($dia, function ($query) use ($dia) {
             return $query->whereDay('tiempo_elaboracion', $dia);
         })
+        ->when($cat, function ($query) use ($cat) {
+            $query->whereHas('producto.categoriaProducto', function ($q) use ($cat) {
+                $q->where('grupo', $cat);
+            });
+        })
+
+
         ->orderBy('tiempo_elaboracion', 'asc') // Ordena por fecha
         ->get();
 

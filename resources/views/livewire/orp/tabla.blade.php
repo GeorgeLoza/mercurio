@@ -375,6 +375,19 @@
         @error('fecha')
             <span class="text-red-500 text-base">{{ $message }}</span>
         @enderror
+
+
+
+        <label >Mes:</label>
+    <select class="rounded p-1 mx-2 bg-white text-black" wire:model.defer="cat" >
+        <option value="">Selecciona</option>
+        <option value="UHT">UHT</option>
+        <option value="HTST">HTST</option>
+    
+    </select>
+     @error('cat') <span class="text-red-500 text-base">{{ $message }}</span> @enderror
+    
+
     </div>
 
 

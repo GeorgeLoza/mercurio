@@ -25,11 +25,12 @@ public function collection(): Collection
         $estadoDetalles = $orp->estadoDetalle;
         return collect($estadoDetalles)->map(function ($detalle) use ($orp) {
             return [
+                'tiempo_elaboracion '=> $orp->tiempo_elaboracion,
                 'Producto' => $orp->producto->nombre,
                 'Destino'=> $orp->producto->destinoProducto->nombre,
                 'Orp' => $orp->codigo,
                 'Vencimiento' => $orp->fecha_vencimiento1,
-                'preparacion' => $detalle->preparacion,
+                'preparacion' => $orp->lote,
             ];
         });
     })->unique(function ($item) {
@@ -41,7 +42,7 @@ public function collection(): Collection
 public function headings(): array
 {
     return [
-        'Producto','Destino', 'Orp', 'Vencimiento', 'Preparacion'
+        'Fecha','Producto','Destino', 'Orp', 'Vencimiento', 'lotes'
     ];
 }
 
