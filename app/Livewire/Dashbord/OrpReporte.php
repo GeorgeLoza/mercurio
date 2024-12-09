@@ -221,4 +221,112 @@ class OrpReporte extends Component
            "{$this->reporte->codigo} {$this->reporte->producto->nombre}.pdf" 
         );
     }
+
+
+
+
+    public function generatePDF4()
+    {
+
+        return response()->streamDownload(
+            function () {
+
+                // Consulta con filtros
+                $orpId = $this->orpId;
+
+                // Consulta con filtro de orp_id y etapa_id = 1
+                $mezclas = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function($query) {
+                    $query->where('etapa_id', 1); // Filtra registros con etapa_id = 1
+                })
+                ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function($query) use ($orpId) {
+                    $query->where('orp_id', $orpId); // Filtra siempre por orp_id
+                })
+
+               
+                ->get();
+                
+
+                $inoculaciones = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function($query) {
+                    $query->where('etapa_id', 3); // Filtra registros con etapa_id = 1
+                })
+                ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function($query) use ($orpId) {
+                    $query->where('orp_id', $orpId); // Filtra siempre por orp_id
+                })
+
+               
+                ->get();
+                
+                $Acortes = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function($query) {
+                    $query->where('etapa_id', 4); // Filtra registros con etapa_id = 1
+                })
+                ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function($query) use ($orpId) {
+                    $query->where('orp_id', $orpId); // Filtra siempre por orp_id
+                })
+
+               
+                ->get();
+
+                $Dcortes = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function($query) {
+                    $query->where('etapa_id', 5); // Filtra registros con etapa_id = 1
+                })
+                ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function($query) use ($orpId) {
+                    $query->where('orp_id', $orpId); // Filtra siempre por orp_id
+                })
+
+               
+                ->get();
+
+                $saborizaciones = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function($query) {
+                    $query->where('etapa_id', 6); // Filtra registros con etapa_id = 1
+                })
+                ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function($query) use ($orpId) {
+                    $query->where('orp_id', $orpId); // Filtra siempre por orp_id
+                })
+
+               
+                ->get();
+
+
+
+                $envasados = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function($query) {
+                    $query->where('etapa_id', 8); // Filtra registros con etapa_id = 8
+                })
+                ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function($query) use ($orpId) {
+                    $query->where('orp_id', $orpId); // Filtra siempre por orp_id
+                })
+                ->join('solicitud_analisis_lineas', 'analisis_lineas.solicitud_analisis_linea_id', '=', 'solicitud_analisis_lineas.id')
+                ->orderBy('solicitud_analisis_lineas.tiempo') // Ordena por tiempo en SolicitudAnalisisLinea
+                ->select('analisis_lineas.*') // Ensure only AnalisisLinea columns are selected
+                ->get();
+
+
+
+
+
+
+                $obs = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function($query) use ($orpId) {
+                    $query->whereHas('estadoDetalle', function($query) use ($orpId) {
+                        $query->where('orp_id', $orpId);
+                    });
+                })->get();
+
+
+
+              
+
+
+                $data = $this->resultados_agrupados;
+                $informacion = $this->reporte;
+                $usuariosInvolucrados = $this->usuariosInvolucrados;
+                $pdf = App::make('dompdf.wrapper');
+                $pdf = Pdf::loadView('pdf.reportes.orpHTST', compact(['data', 'informacion', 'usuariosInvolucrados','mezclas','inoculaciones','Acortes','Dcortes','envasados', 'obs', 'orpId']));
+                $pdf->setPaper('letter', 'portrait');
+                echo $pdf->stream();
+            },
+           "{$this->reporte->codigo} {$this->reporte->producto->nombre}.pdf" 
+        );
+    }
+
+
+
 }

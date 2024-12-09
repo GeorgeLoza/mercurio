@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Control UHT</title>
+    <title>Control HTST</title>
     <style>
         @page {
             margin-top: 1cm;
@@ -224,7 +224,7 @@
                 </tr>
                 <tr>
                     <td colspan="3" style="text-align: center; padding: 0.6rem;  font-weight:bold;">Control de
-                        calidad en proceso - Linea Ulta Pasteurizado UHT</td>
+                        calidad en proceso - Linea HTST</td>
                 </tr>
             </table>
         </head>
@@ -297,12 +297,12 @@
             <table class="table-container " style="  font-wheight:0">
                 <thead>
                     <tr>
-                        <th colspan="17" style="font-weight:bold;">
-                            Control de Calidad en Proceso - Línea Ultra Pasteurizado UHT
+                        <th colspan="11" style="font-weight:bold;">
+                            MEZCLA
                         </th>
                     </tr>
                     <tr>
-                        <th>Datos de Proceso </th>
+                        <th>Prep.</th>
                         <th>Tanque</th>
                         <th>Juliano</th>
                         <th>Hora S. </th>
@@ -311,12 +311,10 @@
                         <th>pH</th>
                         <th>Acidez [%]</th>
                         <th>°Brix</th>
-                        <th>µ [s]</th>
-                        <th>Color</th>
-                        <th>Olor</th>
-                        <th>Sabor</th>
-                        <th>Volumen</th>
-                        <th>Prep.</th>
+                        
+                        
+                        
+                        
                         <th>Solicitante</th>
                         <th>Analista</th>
 
@@ -330,7 +328,14 @@
                     @foreach ($mezclas as $dato)
 
                         <tr>
-                            <th>Pre/Rec {{ $contador }}</th>
+                            <th>
+                                @foreach ($dato->solicitudAnalisisLinea->estadoPlanta->estadoDetalle as $estado)
+                                    @if ($estado->orp_id == $orpId)
+                                        {{ $estado->preparacion }}
+                                    @endif
+                                @endforeach
+                            </th>
+                            
                             @php
                                 $contador = $contador + 1;
                             @endphp
@@ -380,11 +385,387 @@
                                     <th>-</th>
                                 @endif
 
+                               
+
+                                
+                                
+                                
+
+                                @if ($dato->solicitudAnalisisLinea->user != null)
+                                    <th>
+                                        {{ $dato->solicitudAnalisisLinea->user->codigo }}
+                                    </th>
+                                @else
+                                    <th>-</th>
+                                @endif
+
+                                @if ($dato->solicitudAnalisisLinea->analisisLinea->user != null)
+                                    <th>
+                                        {{ $dato->solicitudAnalisisLinea->analisisLinea->user->codigo }}
+                                    </th>
+                                @else
+                                    <th>-</th>
+                                @endif
+                            @endif
+
+
+
+                        </tr>
+                    @endforeach
+                </tbody>
+
+            </table>
+
+
+            <table class="table-container " style="  font-wheight:0">
+                <thead>
+                    <tr>
+                        <th colspan="11" style="font-weight:bold;">
+                            INOCULACION
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Prep.</th>
+                        <th>Tanque</th>
+                        <th>Juliano</th>
+                        <th>Hora S. </th>
+                        <th>Hora R. </th>
+                        <th>Temp [°C]</th>
+                        <th>pH</th>
+                        <th>Acidez [%]</th>
+                        <th>°Brix</th>
+                        
+                        
+                        
+                        
+                        <th>Solicitante</th>
+                        <th>Analista</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+
+                        $contador = 1;
+                    @endphp
+                    @foreach ($inoculaciones as $dato)
+
+                        <tr>
+                            <th>
+                                @foreach ($dato->solicitudAnalisisLinea->estadoPlanta->estadoDetalle as $estado)
+                                    @if ($estado->orp_id == $orpId)
+                                        {{ $estado->preparacion }}
+                                    @endif
+                                @endforeach
+                            </th>
+                            
+                            @php
+                                $contador = $contador + 1;
+                            @endphp
+                            <th>{{ $dato->solicitudAnalisisLinea->estadoPlanta->origen->alias }}</th>
+                            @php
+                                $fecha = new DateTime($dato->solicitudAnalisisLinea->tiempo);
+                                $diaDelAno = $fecha->format('z') + 1;
+                            @endphp
+                            <th>{{$diaDelAno}}</th>
+
+                            <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
+                            </th>
+
+
+                            @if ($dato->solicitudAnalisisLinea->estadoPlanta)
+                                <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->analisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
+                                </th>
+                            @else
+                                <th>-</th>
+                            @endif
+
+                            @if ($dato->solicitudAnalisisLinea)
+                                @php
+                                    $analisis = $dato->solicitudAnalisisLinea->analisisLinea;
+                                @endphp
+                                @if ($analisis->temperatura)
+                                    <th>{{ $analisis->temperatura }}</th>
+                                @else
+                                    <th>-</th>
+                                @endif
+
+                                @if ($analisis->ph)
+                                    <th>{{ $analisis->ph }}</th>
+                                @else
+                                    <th>-</th>
+                                @endif
+
+                                @if ($analisis->acidez)
+                                    <th>{{ $analisis->acidez }}</th>
+                                @else
+                                    <th>-</th>
+                                @endif
+
+                                @if ($analisis->brix)
+                                    <th>{{ $analisis->brix }}</th>
+                                @else
+                                    <th>-</th>
+                                @endif
+
+                               
+
+                                
+                                
+                                
+
+                                @if ($dato->solicitudAnalisisLinea->user != null)
+                                    <th>
+                                        {{ $dato->solicitudAnalisisLinea->user->codigo }}
+                                    </th>
+                                @else
+                                    <th>-</th>
+                                @endif
+
+                                @if ($dato->solicitudAnalisisLinea->analisisLinea->user != null)
+                                    <th>
+                                        {{ $dato->solicitudAnalisisLinea->analisisLinea->user->codigo }}
+                                    </th>
+                                @else
+                                    <th>-</th>
+                                @endif
+                            @endif
+
+
+
+                        </tr>
+                    @endforeach
+                </tbody>
+
+            </table>
+
+
+            <table class="table-container " style="  font-wheight:0">
+                <thead>
+                    <tr>
+                        <th colspan="12" style="font-weight:bold;">
+                            ANTES DE CORTE
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Prep.</th>
+                        <th>Tanque</th>
+                        <th>Juliano</th>
+                        <th>Hora S. </th>
+                        <th>Hora R. </th>
+                        <th>Temp [°C]</th>
+                        <th>pH</th>
+                        <th>Acidez [%]</th>
+                        <th>°Brix</th>
+                        <th>µ [s]</th>
+                        
+                        
+                        
+                        
+                        <th>Solicitante</th>
+                        <th>Analista</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+
+                        $contador = 1;
+                    @endphp
+                    @foreach ($Acortes as $dato)
+
+                        <tr>
+                            <th>
+                                @foreach ($dato->solicitudAnalisisLinea->estadoPlanta->estadoDetalle as $estado)
+                                    @if ($estado->orp_id == $orpId)
+                                        {{ $estado->preparacion }}
+                                    @endif
+                                @endforeach
+                            </th>
+                            
+                            @php
+                                $contador = $contador + 1;
+                            @endphp
+                            <th>{{ $dato->solicitudAnalisisLinea->estadoPlanta->origen->alias }}</th>
+                            @php
+                                $fecha = new DateTime($dato->solicitudAnalisisLinea->tiempo);
+                                $diaDelAno = $fecha->format('z') + 1;
+                            @endphp
+                            <th>{{$diaDelAno}}</th>
+
+                            <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
+                            </th>
+
+
+                            @if ($dato->solicitudAnalisisLinea->estadoPlanta)
+                                <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->analisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
+                                </th>
+                            @else
+                                <th>-</th>
+                            @endif
+
+                            @if ($dato->solicitudAnalisisLinea)
+                                @php
+                                    $analisis = $dato->solicitudAnalisisLinea->analisisLinea;
+                                @endphp
+                                @if ($analisis->temperatura)
+                                    <th>{{ $analisis->temperatura }}</th>
+                                @else
+                                    <th>-</th>
+                                @endif
+
+                                @if ($analisis->ph)
+                                    <th>{{ $analisis->ph }}</th>
+                                @else
+                                    <th>-</th>
+                                @endif
+
+                                @if ($analisis->acidez)
+                                    <th>{{ $analisis->acidez }}</th>
+                                @else
+                                    <th>-</th>
+                                @endif
+
+                                @if ($analisis->brix)
+                                    <th>{{ $analisis->brix }}</th>
+                                @else
+                                    <th>-</th>
+                                @endif
                                 @if ($analisis->viscosidad)
                                     <th>{{ $analisis->viscosidad }}</th>
                                 @else
                                     <th>-</th>
                                 @endif
+                               
+
+                                
+                                
+                                
+
+                                @if ($dato->solicitudAnalisisLinea->user != null)
+                                    <th>
+                                        {{ $dato->solicitudAnalisisLinea->user->codigo }}
+                                    </th>
+                                @else
+                                    <th>-</th>
+                                @endif
+
+                                @if ($dato->solicitudAnalisisLinea->analisisLinea->user != null)
+                                    <th>
+                                        {{ $dato->solicitudAnalisisLinea->analisisLinea->user->codigo }}
+                                    </th>
+                                @else
+                                    <th>-</th>
+                                @endif
+                            @endif
+
+
+
+                        </tr>
+                    @endforeach
+                </tbody>
+
+            </table>
+
+            <table class="table-container " style="  font-wheight:0">
+                <thead>
+                    <tr>
+                        <th colspan="15" style="font-weight:bold;">
+                            DESPUES DE CORTE
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Prep.</th>
+                        <th>Tanque</th>
+                        <th>Juliano</th>
+                        <th>Hora S. </th>
+                        <th>Hora R. </th>
+                        <th>Temp [°C]</th>
+                        <th>pH</th>
+                        <th>Acidez [%]</th>
+                        <th>°Brix</th>
+                        <th>µ [s]</th>
+                        <th>Color</th>
+                        <th>Olor</th>
+                        <th>Sabor</th>
+                        
+                        
+                        
+                        <th>Solicitante</th>
+                        <th>Analista</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+
+                        $contador = 1;
+                    @endphp
+                    @foreach ($Dcortes as $dato)
+
+                        <tr>
+                            <th>
+                                @foreach ($dato->solicitudAnalisisLinea->estadoPlanta->estadoDetalle as $estado)
+                                    @if ($estado->orp_id == $orpId)
+                                        {{ $estado->preparacion }}
+                                    @endif
+                                @endforeach
+                            </th>
+                            
+                            @php
+                                $contador = $contador + 1;
+                            @endphp
+                            <th>{{ $dato->solicitudAnalisisLinea->estadoPlanta->origen->alias }}</th>
+                            @php
+                                $fecha = new DateTime($dato->solicitudAnalisisLinea->tiempo);
+                                $diaDelAno = $fecha->format('z') + 1;
+                            @endphp
+                            <th>{{$diaDelAno}}</th>
+
+                            <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
+                            </th>
+
+
+                            @if ($dato->solicitudAnalisisLinea->estadoPlanta)
+                                <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->analisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
+                                </th>
+                            @else
+                                <th>-</th>
+                            @endif
+
+                            @if ($dato->solicitudAnalisisLinea)
+                                @php
+                                    $analisis = $dato->solicitudAnalisisLinea->analisisLinea;
+                                @endphp
+                                @if ($analisis->temperatura)
+                                    <th>{{ $analisis->temperatura }}</th>
+                                @else
+                                    <th>-</th>
+                                @endif
+
+                                @if ($analisis->ph)
+                                    <th>{{ $analisis->ph }}</th>
+                                @else
+                                    <th>-</th>
+                                @endif
+
+                                @if ($analisis->acidez)
+                                    <th>{{ $analisis->acidez }}</th>
+                                @else
+                                    <th>-</th>
+                                @endif
+
+                                @if ($analisis->brix)
+                                    <th>{{ $analisis->brix }}</th>
+                                @else
+                                    <th>-</th>
+                                @endif
+                                @if ($analisis->viscosidad)
+                                    <th>{{ $analisis->viscosidad }}</th>
+                                @else
+                                    <th>-</th>
+                                @endif
+                                
 
                                 @if ($analisis->color)
                                     @if ($analisis->color == true)
@@ -407,15 +788,11 @@
                                         <th>N.C.</th>
                                     @endif
                                 @endif
-                                {{-- volumen --}}
-                                <th>-</th>
-                                <th>
-                                    @foreach ($dato->solicitudAnalisisLinea->estadoPlanta->estadoDetalle as $estado)
-                                        @if ($estado->orp_id == $orpId)
-                                            {{ $estado->preparacion }}
-                                        @endif
-                                    @endforeach
-                                </th>
+
+
+                                
+                                
+                                
 
                                 @if ($dato->solicitudAnalisisLinea->user != null)
                                     <th>
@@ -449,7 +826,7 @@
                 <thead>
                     <tr>
                         <th colspan="15" style="font-weight:bold;">
-                            Control de Calidad de Producto Envasado
+                            ENVASADO
                         </th>
                     </tr>
 
@@ -460,7 +837,7 @@
                         <th>Juliano</th>
                         <th>Hora S.</th>
                         <th>Hora R.</th>
-                        <th>Temp UHT [°C]</th>
+                        
                         <th>Temp [°C]</th>
                         <th>pH</th>
                         <th>Acidez [%]</th>
@@ -470,6 +847,8 @@
                         <th>Olor</th>
                         <th>Sabor</th>
                         <th>Peso [g]</th>
+                        <th>Densidad </th>
+
 
 
                         <th>Encargados</th>
@@ -500,7 +879,7 @@
                             @endif
 
 
-                            <th>-</th>
+                            
 
                             @if ($dato->solicitudAnalisisLinea)
                                 @php
@@ -563,6 +942,13 @@
                                 @else
                                     <th>-</th>
                                 @endif
+
+                                @if ($analisis->densidad)
+                                    <th>{{ $analisis->densidad }}</th>
+                                @else
+                                    <th>-</th>
+                                @endif
+
                                 <th>
                                     @if ($dato->solicitudAnalisisLinea->user != null)
                                         {{ $dato->solicitudAnalisisLinea->user->codigo }}
@@ -586,6 +972,11 @@
 
             </table>
             <br>
+
+
+
+
+
             <table class="table-container">
                 <tbody>
                     @php

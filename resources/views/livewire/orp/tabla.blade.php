@@ -380,7 +380,7 @@
 
         <label >Mes:</label>
     <select class="rounded p-1 mx-2 bg-white text-black" wire:model.defer="cat" >
-        <option value="">Selecciona</option>
+        <option value="">UHT/HTST</option>
         <option value="UHT">UHT</option>
         <option value="HTST">HTST</option>
     

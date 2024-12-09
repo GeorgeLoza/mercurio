@@ -31,6 +31,25 @@ public function collection(): Collection
                 'Orp' => $orp->codigo,
                 'Vencimiento' => $orp->fecha_vencimiento1,
                 'preparacion' => $orp->lote,
+                'c_p' =>'1',
+                'd_p'=>'1',
+                'j_p'=>'1',
+                'k_p'=>'1',
+                'u_p'=>'1',
+                'h_p'=>'1',
+                't_p'=>'1',
+                'obs'=>'',
+                'c_a'=> ceil($orp->lote)  * 3 ,
+                'd_a' => ceil($orp->lote)* 3 ,
+                'j_a' => ceil($orp->lote) * 3 ,
+                'k_a'=> ceil($orp->lote) * 3 ,
+                'u_a'=> ceil($orp->lote)* 3 ,
+                'h_a'=> ceil($orp->lote) * 3 ,
+                't_a'=> ceil($orp->lote) * 3 ,
+
+                'obs'=>'',
+                
+
             ];
         });
     })->unique(function ($item) {
@@ -42,7 +61,7 @@ public function collection(): Collection
 public function headings(): array
 {
     return [
-        'Fecha','Producto','Destino', 'Orp', 'Vencimiento', 'lotes'
+        'Fecha','Producto','Destino', 'Orp', 'Vencimiento', 'lotes', 'c_p' , 'd_p','j_p', 'k_p', 'u_p','h_p', 't_p' , 'observaciones_p','c_a' , 'd_a','j_a', 'k_a', 'u_a','h_a', 't_a' , 'observaciones_a','c_i' , 'd_i','j_i', 'k_i', 'u_i','h_i', 't_i' , 'observaciones_i'
     ];
 }
 
