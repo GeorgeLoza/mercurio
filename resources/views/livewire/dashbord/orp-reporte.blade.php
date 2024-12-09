@@ -4,7 +4,8 @@
     <div class="flex justify-end m-1">
 
         @if ($reporte->producto->categoriaProducto->tipo == 'yogurts')
-            {{-- UHT --}}
+            
+            {{-- yogurt --}}
             <button class="bg-green-600 p-2 text-center rounded-md flex gap-2" wire:click="generatePDF4"
                 wire:loading.attr="disabled">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="h-5 w-5 fill-white">
@@ -31,10 +32,13 @@
                 </div>
 
             </button>
-            {{-- FIN UHT --}}
+            {{-- FIN yogurt --}}
 
         @endif
-        @if ($reporte->producto->categoriaProducto->grupo == 'HTST')
+
+
+
+        {{-- @if ($reporte->producto->categoriaProducto->grupo == 'HTST')
             <button class="bg-red-500 p-2 text-center rounded-md flex gap-2" wire:click="generatePDF"
                 wire:loading.attr="disabled">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="h-5 w-5 fill-white">
@@ -91,7 +95,10 @@
 
             
 
-        @endif
+        @endif --}}
+
+
+
         @if ($reporte->producto->categoriaProducto->grupo == 'UHT')
             {{-- UHT --}}
             <button class="bg-green-600 p-2 text-center rounded-md flex gap-2" wire:click="generatePDF3"
