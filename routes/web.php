@@ -148,7 +148,7 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'store']);
 
 Route::middleware(['roles:Admi,Jef'])->group(function () {
-    /*ruta para orp */
+    /*ruta para reporte de daatos */
     Route::get('/datos', [DatosController::class, 'index'])->name('datos.index');
 });
 

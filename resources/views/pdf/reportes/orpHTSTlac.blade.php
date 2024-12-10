@@ -293,7 +293,7 @@
 
             <br>
 
-
+            {{-- mezcla --}}
             <table class="table-container " style="  font-wheight:0">
                 <thead>
                     <tr>
@@ -412,12 +412,12 @@
 
             </table>
 
-
+            {{-- saborizacion --}}
             <table class="table-container " style="  font-wheight:0">
                 <thead>
                     <tr>
-                        <th colspan="10" style="font-weight:bold;">
-                            INOCULACION
+                        <th colspan="13" style="font-weight:bold;">
+                            Saborizacion
                         </th>
                     </tr>
                     <tr>
@@ -428,281 +428,12 @@
                         <th>Hora R. </th>
                         <th>Temp [°C]</th>
                         <th>pH</th>
-                        <th>Acidez [%]</th>
+                        
                         <th>°Brix</th>
-                        
-                        
-                        
-                        
-                        <th>Solicitante</th>
-                        <th>Analista</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    @php
-
-                        $contador = 1;
-                    @endphp
-                    @foreach ($inoculaciones as $dato)
-
-                        <tr>
-                            <th>
-                                @foreach ($dato->solicitudAnalisisLinea->estadoPlanta->estadoDetalle as $estado)
-                                    @if ($estado->orp_id == $orpId)
-                                        {{ $estado->preparacion }}
-                                    @endif
-                                @endforeach
-                            </th>
-                            
-                            @php
-                                $contador = $contador + 1;
-                            @endphp
-                            <th>{{ $dato->solicitudAnalisisLinea->estadoPlanta->origen->alias }}</th>
-                            
-
-                            <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
-                            </th>
-
-
-                            @if ($dato->solicitudAnalisisLinea->estadoPlanta)
-                                <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->analisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
-                                </th>
-                            @else
-                                <th>-</th>
-                            @endif
-
-                            @if ($dato->solicitudAnalisisLinea)
-                                @php
-                                    $analisis = $dato->solicitudAnalisisLinea->analisisLinea;
-                                @endphp
-                                @if ($analisis->temperatura)
-                                    <th>{{ $analisis->temperatura }}</th>
-                                @else
-                                    <th>-</th>
-                                @endif
-
-                                @if ($analisis->ph)
-                                    <th>{{ $analisis->ph }}</th>
-                                @else
-                                    <th>-</th>
-                                @endif
-
-                                @if ($analisis->acidez)
-                                    <th>{{ $analisis->acidez }}</th>
-                                @else
-                                    <th>-</th>
-                                @endif
-
-                                @if ($analisis->brix)
-                                    <th>{{ $analisis->brix }}</th>
-                                @else
-                                    <th>-</th>
-                                @endif
-
-                               
-
-                                
-                                
-                                
-
-                                @if ($dato->solicitudAnalisisLinea->user != null)
-                                    <th>
-                                        {{ $dato->solicitudAnalisisLinea->user->codigo }}
-                                    </th>
-                                @else
-                                    <th>-</th>
-                                @endif
-
-                                @if ($dato->solicitudAnalisisLinea->analisisLinea->user != null)
-                                    <th>
-                                        {{ $dato->solicitudAnalisisLinea->analisisLinea->user->codigo }}
-                                    </th>
-                                @else
-                                    <th>-</th>
-                                @endif
-                            @endif
-
-
-
-                        </tr>
-                    @endforeach
-                </tbody>
-
-            </table>
-
-
-            <table class="table-container " style="  font-wheight:0">
-                <thead>
-                    <tr>
-                        <th colspan="@if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
-                            10
-                        @else
-                        11
-                        @endif" style="font-weight:bold;">
-                            ANTES DE CORTE
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>Prep.</th>
-                        <th>Tanque</th>
-                        
-                        <th>Hora S. </th>
-                        <th>Hora R. </th>
-                        <th>Temp [°C]</th>
-                        <th>pH</th>
-                        <th>Acidez [%]</th>
-                        <th>°Brix</th>
-                        @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
-                        @else
-                        <th>µ [s]</th>
-                        @endif
-                        
-                        
-                        
-                        <th>Solicitante</th>
-                        <th>Analista</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    @php
-
-                        $contador = 1;
-                    @endphp
-                    @foreach ($Acortes as $dato)
-
-                        <tr>
-                            <th>
-                                @foreach ($dato->solicitudAnalisisLinea->estadoPlanta->estadoDetalle as $estado)
-                                    @if ($estado->orp_id == $orpId)
-                                        {{ $estado->preparacion }}
-                                    @endif
-                                @endforeach
-                            </th>
-                            
-                            @php
-                                $contador = $contador + 1;
-                            @endphp
-                            <th>{{ $dato->solicitudAnalisisLinea->estadoPlanta->origen->alias }}</th>
-                            
-
-                            <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
-                            </th>
-
-
-                            @if ($dato->solicitudAnalisisLinea->estadoPlanta)
-                                <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->analisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
-                                </th>
-                            @else
-                                <th>-</th>
-                            @endif
-
-                            @if ($dato->solicitudAnalisisLinea)
-                                @php
-                                    $analisis = $dato->solicitudAnalisisLinea->analisisLinea;
-                                @endphp
-                                @if ($analisis->temperatura)
-                                    <th>{{ $analisis->temperatura }}</th>
-                                @else
-                                    <th>-</th>
-                                @endif
-
-                                @if ($analisis->ph)
-                                    <th>{{ $analisis->ph }}</th>
-                                @else
-                                    <th>-</th>
-                                @endif
-
-                                @if ($analisis->acidez)
-                                    <th>{{ $analisis->acidez }}</th>
-                                @else
-                                    <th>-</th>
-                                @endif
-
-                                @if ($analisis->brix)
-                                    <th>{{ $analisis->brix }}</th>
-                                @else
-                                    <th>-</th>
-                                @endif
-
-                                @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
-
-                                
-                        @else
-                        @if ($analisis->viscosidad)
-                        <th>{{ $analisis->viscosidad }}</th>
-                    @else
-                        <th>-</th>
-                    @endif
-                        @endif
-                                
-                               
-
-                                
-                                
-                                
-
-                                @if ($dato->solicitudAnalisisLinea->user != null)
-                                    <th>
-                                        {{ $dato->solicitudAnalisisLinea->user->codigo }}
-                                    </th>
-                                @else
-                                    <th>-</th>
-                                @endif
-
-                                @if ($dato->solicitudAnalisisLinea->analisisLinea->user != null)
-                                    <th>
-                                        {{ $dato->solicitudAnalisisLinea->analisisLinea->user->codigo }}
-                                    </th>
-                                @else
-                                    <th>-</th>
-                                @endif
-                            @endif
-
-
-
-                        </tr>
-                    @endforeach
-                </tbody>
-
-            </table>
-
-            <table class="table-container " style="  font-wheight:0">
-                <thead>
-                    <tr>
-                        <th colspan="
-                        @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
-                            10
-                        @else
-                        14
-                        @endif
-                        " style="font-weight:bold;">
-                            DESPUES DE CORTE
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>Prep.</th>
-                        <th>Tanque</th>
-                        
-                        <th>Hora S. </th>
-                        <th>Hora R. </th>
-                        <th>Temp [°C]</th>
-                        <th>pH</th>
-                        <th>Acidez [%]</th>
-                        <th>°Brix</th>
-                        
-
-                        @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
-                            
-                        @else
                         <th>µ [s]</th>
                         <th>Color</th>
                         <th>Olor</th>
                         <th>Sabor</th>
-                        @endif
-
-                        
                         
                         
                         
@@ -716,7 +447,7 @@
 
                         $contador = 1;
                     @endphp
-                    @foreach ($Dcortes as $dato)
+                    @foreach ($saborizaciones as $dato)
 
                         <tr>
                             <th>
@@ -760,11 +491,7 @@
                                     <th>-</th>
                                 @endif
 
-                                @if ($analisis->acidez)
-                                    <th>{{ $analisis->acidez }}</th>
-                                @else
-                                    <th>-</th>
-                                @endif
+                                
 
                                 @if ($analisis->brix)
                                     <th>{{ $analisis->brix }}</th>
@@ -778,10 +505,7 @@
                                 @endif
                                 
 
-                                @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
-                                    
-                                @else
-                                @if ($analisis->color)
+                            @if ($analisis->color)
                                 @if ($analisis->color == true)
                                     <th>C.</th>
                                 @else
@@ -803,8 +527,6 @@
                                 @endif
                             @endif
 
-                                @endif
-
                                
 
                                 
@@ -837,16 +559,18 @@
             </table>
 
 
-            <br>
             
 
-            @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
-            @else
+
+            <br>
+
+
+            
             <table class="table-container">
 
                 <thead>
                     <tr>
-                        <th colspan="15" style="font-weight:bold;">
+                        <th colspan="14" style="font-weight:bold;">
                             ENVASADO
                         </th>
                     </tr>
@@ -861,7 +585,7 @@
                         
                         <th>Temp [°C]</th>
                         <th>pH</th>
-                        <th>Acidez [%]</th>
+                        
                         <th>°Brix</th>
                         <th>µ [s]</th>
                         <th>Color</th>
@@ -918,23 +642,19 @@
                                     <th>-</th>
                                 @endif
 
-                                @if ($analisis->acidez)
-                                    <th>{{ $analisis->acidez }}</th>
-                                @else
-                                    <th>-</th>
-                                @endif
+                              
 
                                 @if ($analisis->brix)
                                     <th>{{ $analisis->brix }}</th>
                                 @else
                                     <th>-</th>
                                 @endif
-
                                 @if ($analisis->viscosidad)
                                     <th>{{ $analisis->viscosidad }}</th>
                                 @else
                                     <th>-</th>
                                 @endif
+                                
 
                                 @if ($analisis->color)
                                     @if ($analisis->color == true)
@@ -992,10 +712,6 @@
                 </tbody>
 
             </table>
-
-
-
-            @endif
             <br>
 
 
