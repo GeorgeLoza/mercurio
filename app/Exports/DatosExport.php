@@ -41,6 +41,11 @@ use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
                      'c' => $analisis->color,
                      'o' => $analisis->olor,
                      's' => $analisis->sabor,
+                     
+                     'solicitante' => $analisis->solicitudAnalisisLinea->user->codigo,
+                     'analista' =>  optional($analisis->user)->codigo,
+                     
+
                  ];
              });
          });
@@ -51,7 +56,7 @@ use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
          return [
              'fecha', 'hora S', 'hora R', 'ORP', 'CAT', 'PT', 'Producto', 
              'preparacion', 'origen', 'etapa', 't', 'ph', 'ac', 'brix', 
-             'vis', 'dens', 'c', 'o', 's'
+             'vis', 'dens', 'c', 'o', 's','solicitante','analista'
          ];
      }
 
