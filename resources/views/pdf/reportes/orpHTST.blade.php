@@ -8,6 +8,8 @@
 
     <title>Control HTST</title>
     <style>
+
+        
         @page {
             margin-top: 1cm;
             margin-bottom: 0cm;
@@ -182,6 +184,11 @@
         .table-container {
             width: 100%;
             font-weight: normal;
+            
+        table-layout: fixed;
+        border-collapse: collapse;
+        border: 1px solid #ddd;
+        font-size: 12px;
 
         }
 
@@ -208,6 +215,19 @@
         }
 
         .columna_secundaria {}
+
+
+        .table-container {
+        width: 100%;
+        table-layout: fixed; /* Para que las columnas tengan el mismo ancho */
+        border-collapse: collapse;
+    }
+    .table-container th, .table-container td {
+        text-align: center; /* Opcional, para centrar el contenido */
+        padding: 3px; /* Opcional, mejora legibilidad al imprimir */
+        white-space: nowrap; 
+    }
+
     </style>
 
 </head>
@@ -258,7 +278,7 @@
                                 @endif
 
                             </p>
-                            <p>Lote: {{ $informacion->lote / 1 }} </p>
+                            <p>Preparacion: {{ $informacion->lote / 1 }} </p>
 
                             <p>Destino: {{ $informacion->producto->destinoProducto->nombre }}</p>
 
@@ -297,7 +317,14 @@
             <table class="table-container " style="  font-wheight:0">
                 <thead>
                     <tr>
-                        <th colspan="10" style="font-weight:bold;">
+                        <th colspan="
+                        @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
+                            10
+                        @else
+                        14
+                        @endif
+                        
+                        " style="font-weight:bold;">
                             MEZCLA
                         </th>
                     </tr>
@@ -311,7 +338,14 @@
                         <th>pH</th>
                         <th>Acidez [%]</th>
                         <th>°Brix</th>
-                        
+                        @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
+                            
+                        @else
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        @endif
                         
                         
                         
@@ -379,10 +413,16 @@
                                     <th>{{ $analisis->brix }}</th>
                                 @else
                                     <th>-</th>
-                                @endif
+                                @endif  
 
-                               
-
+                                @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
+                            
+                        @else
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        @endif
                                 
                                 
                                 
@@ -416,7 +456,11 @@
             <table class="table-container " style="  font-wheight:0">
                 <thead>
                     <tr>
-                        <th colspan="10" style="font-weight:bold;">
+                        <th colspan="@if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
+                            10
+                        @else
+                        14
+                        @endif" style="font-weight:bold;">
                             INOCULACION
                         </th>
                     </tr>
@@ -430,7 +474,16 @@
                         <th>pH</th>
                         <th>Acidez [%]</th>
                         <th>°Brix</th>
-                        
+
+                        @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
+                            
+                        @else
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        @endif
+                       
                         
                         
                         
@@ -499,8 +552,14 @@
                                 @else
                                     <th>-</th>
                                 @endif
-
-                               
+                                @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
+                            
+                        @else
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        @endif
 
                                 
                                 
@@ -538,7 +597,7 @@
                         <th colspan="@if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
                             10
                         @else
-                        11
+                        14
                         @endif" style="font-weight:bold;">
                             ANTES DE CORTE
                         </th>
@@ -557,9 +616,14 @@
                         @else
                         <th>µ [s]</th>
                         @endif
+                        @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
+                            
+                        @else
+                        <th></th>
+                        <th></th>
+                        <th></th>
                         
-                        
-                        
+                        @endif
                         <th>Solicitante</th>
                         <th>Analista</th>
 
@@ -636,6 +700,14 @@
                         <th>-</th>
                     @endif
                         @endif
+                        @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
+                            
+                        @else
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        
+                        @endif
                                 
                                
 
@@ -702,10 +774,6 @@
                         <th>Sabor</th>
                         @endif
 
-                        
-                        
-                        
-                        
                         <th>Solicitante</th>
                         <th>Analista</th>
 
@@ -868,11 +936,12 @@
                         <th>Olor</th>
                         <th>Sabor</th>
                         <th>Peso [g]</th>
-                        <th>Densidad </th>
+                        <th>Dens. </th>
 
 
 
-                        <th>Encargados</th>
+                        <th>Sol.</th>
+                        <th>Ana.</th>
 
                     </tr>
                     @foreach ($envasados as $dato)
@@ -970,18 +1039,18 @@
                                     <th>-</th>
                                 @endif
 
-                                <th>
+                                
                                     @if ($dato->solicitudAnalisisLinea->user != null)
-                                        {{ $dato->solicitudAnalisisLinea->user->codigo }}
+                                    <th>{{ $dato->solicitudAnalisisLinea->user->codigo }}</th>
                                     @endif
 
-                                    -
+                                    
 
 
                                     @if ($dato->solicitudAnalisisLinea->analisisLinea->user != null)
-                                        {{ $dato->solicitudAnalisisLinea->analisisLinea->user->codigo }}
+                                <th>  {{ $dato->solicitudAnalisisLinea->analisisLinea->user->codigo }}</th>
                                     @endif
-                                </th>
+                                
                             @endif
 
 

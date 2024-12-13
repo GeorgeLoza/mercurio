@@ -61,18 +61,21 @@
                         categoria
                     </th>
                     {{-- fin categoria --}}
+
+                    <th scope="col" nowrap class="  px-2 py-1 sticky top-0 bg-white dark:bg-gray-700"
+                        wire:click="sortBy('fecha_vencimiento1')">
+                        Fecha Vencimiento 
+                    </th>
                     <th scope="col" class="px-2 py-1 sticky top-0 bg-white dark:bg-gray-700 "
                         wire:click="sortBy('estado')">
                         estado
                     </th>
+                    
                     <th scope="col" class=" hidden px-2 py-1 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('tiempo_elaboracion')">
                         Programación
                     </th>
-                    <th scope="col" nowrap class=" hidden px-2 py-1 sticky top-0 bg-white dark:bg-gray-700"
-                        wire:click="sortBy('fecha_vencimiento1')">
-                        Fecha Vencimiento 1
-                    </th>
+                    
                     <th scope="col" nowrap class=" hidden px-2 py-1 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('fecha_vencimiento2')">
                         Fecha Vencimiento 2
@@ -137,6 +140,12 @@
 
                             </select>
                         </th>
+
+                        <th class="p-1">
+                            <input type="text" wire:model.live='f_fechaVencimiento1'
+                                placeholder="Filtrar por Vencimiento"
+                                class="  block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        </th>
                         {{-- fin filtro categoria --}}
                         <th class="p-1 ">
                             <select wire:model.live='f_estado'
@@ -149,16 +158,13 @@
                                 <option value="Completado"> Completado</option>
                             </select>
                         </th>
+                        
                         <th class="p-1">
                             <input type="text" wire:model.live='f_tiempoElaboracion'
                                 placeholder="Filtrar por Elaboración"
                                 class=" hidden block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         </th>
-                        <th class="p-1">
-                            <input type="text" wire:model.live='f_fechaVencimiento1'
-                                placeholder="Filtrar por Vencimiento"
-                                class=" hidden block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        </th>
+                        
                         <th class="p-1">
                             <input type="text" wire:model.live='f_fechaVencimiento2'
                                 placeholder="Filtrar por Vencimiento"
@@ -224,6 +230,9 @@
 
 
                         </td>
+                        <td class="px-2   ">
+                            {{ $orp->fecha_vencimiento1 }}
+                        </td>
                         <td class="px-2 border-r  " nowrap>
 
                             @if ($orp->estado == 'Pendiente')
@@ -258,9 +267,7 @@
                         <td class="px-2  hidden ">
                             {{ $orp->tiempo_elaboracion }}
                         </td>
-                        <td class="px-2  hidden ">
-                            {{ $orp->fecha_vencimiento1 }}
-                        </td>
+                        
                         <td class="px-2  hidden ">
                             {{ $orp->fecha_vencimiento2 }}
                         </td>
@@ -357,8 +364,13 @@
 
 
     {{-- filtro --}}
-    <div>
+    <div class="p-2 ">
+        
         <!-- Botón para exportar -->
+        
+        <p class="mb-1" >
+        Descargar Reporte
+        </p>
         <button class="bg-green-500 p-2 text-center rounded-md" wire:click="exportarExcel">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="h-5 w-5 fill-white">
                 <path

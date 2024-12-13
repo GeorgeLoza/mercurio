@@ -188,7 +188,7 @@
                         @endif
                     </td>
                     <td class="flex items-center px-6 py-2 gap-2">
-                        @if(now()->diffInMinutes($registro->created_at)<90)
+                        @if(now()->diffInMinutes($registro->created_at)<2400)
                         <svg onclick="Livewire.dispatch('openModal', { component: 'leche-cruda.analisis.editar', arguments: { id: {{ $registro->id}} } })"
                             xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-blue-600 dark:fill-blue-500"
                             viewBox="0 0 512 512">
@@ -197,7 +197,7 @@
                         </svg>
                         @endif  
                         @if(in_array(auth()->user()->rol, ['Admi']))
-                        @if(now()->diffInMinutes($registro->created_at)<90)
+                        @if(now()->diffInMinutes($registro->created_at)<2400)
                         <svg onclick="Livewire.dispatch('openModal', { component: 'leche-cruda.analisis.eliminar', arguments: { id: {{ $registro->id}} } })"
                             xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-red-600 dark:fill-red-500"
                             viewBox="0 0 448 512">

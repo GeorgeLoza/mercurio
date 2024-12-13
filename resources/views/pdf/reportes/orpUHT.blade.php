@@ -258,7 +258,7 @@
                                 @endif
 
                             </p>
-                            <p>Lote: {{ $informacion->lote / 1 }} </p>
+                            <p>Preparacion: {{ $informacion->lote / 1 }} </p>
 
                             <p>Destino: {{ $informacion->producto->destinoProducto->nombre }}</p>
 

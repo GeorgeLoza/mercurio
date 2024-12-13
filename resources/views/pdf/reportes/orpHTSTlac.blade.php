@@ -208,6 +208,18 @@
         }
 
         .columna_secundaria {}
+
+        
+        .table-container {
+        width: 100%;
+        table-layout: fixed; /* Para que las columnas tengan el mismo ancho */
+        border-collapse: collapse;
+    }
+    .table-container th, .table-container td {
+        text-align: center; /* Opcional, para centrar el contenido */
+        padding: 3px; /* Opcional, mejora legibilidad al imprimir */
+        white-space: nowrap; 
+    }
     </style>
 
 </head>
@@ -258,7 +270,7 @@
                                 @endif
 
                             </p>
-                            <p>Lote: {{ $informacion->lote / 1 }} </p>
+                            <p>Preparacion: {{ $informacion->lote / 1 }} </p>
 
                             <p>Destino: {{ $informacion->producto->destinoProducto->nombre }}</p>
 
@@ -297,7 +309,7 @@
             <table class="table-container " style="  font-wheight:0">
                 <thead>
                     <tr>
-                        <th colspan="10" style="font-weight:bold;">
+                        <th colspan="13" style="font-weight:bold;">
                             MEZCLA
                         </th>
                     </tr>
@@ -309,12 +321,13 @@
                         <th>Hora R. </th>
                         <th>Temp [°C]</th>
                         <th>pH</th>
-                        <th>Acidez [%]</th>
                         <th>°Brix</th>
+                        <th>Acidez [%]</th>
                         
                         
-                        
-                        
+                        <th></th>
+                        <th></th>
+                        <th></th>
                         <th>Solicitante</th>
                         <th>Analista</th>
 
@@ -369,22 +382,23 @@
                                     <th>-</th>
                                 @endif
 
-                                @if ($analisis->acidez)
-                                    <th>{{ $analisis->acidez }}</th>
-                                @else
-                                    <th>-</th>
-                                @endif
+                               
 
                                 @if ($analisis->brix)
                                     <th>{{ $analisis->brix }}</th>
                                 @else
                                     <th>-</th>
                                 @endif
-
+                                @if ($analisis->acidez)
+                                <th>{{ $analisis->acidez }}</th>
+                            @else
+                                <th>-</th>
+                            @endif
+                                
                                
-
-                                
-                                
+                                <th></th>
+                                <th></th>
+                                <th></th>
                                 
 
                                 @if ($dato->solicitudAnalisisLinea->user != null)
@@ -570,7 +584,7 @@
 
                 <thead>
                     <tr>
-                        <th colspan="14" style="font-weight:bold;">
+                        <th colspan="15" style="font-weight:bold;">
                             ENVASADO
                         </th>
                     </tr>
@@ -596,7 +610,8 @@
 
 
 
-                        <th>Encargados</th>
+                        <th>Solicitante</th>
+                        <th>Analista</th>
 
                     </tr>
                     @foreach ($envasados as $dato)
@@ -690,18 +705,20 @@
                                     <th>-</th>
                                 @endif
 
-                                <th>
+                                
                                     @if ($dato->solicitudAnalisisLinea->user != null)
-                                        {{ $dato->solicitudAnalisisLinea->user->codigo }}
+                                    <th>  {{ $dato->solicitudAnalisisLinea->user->codigo }}</th>
                                     @endif
 
-                                    -
+                                    
 
 
                                     @if ($dato->solicitudAnalisisLinea->analisisLinea->user != null)
-                                        {{ $dato->solicitudAnalisisLinea->analisisLinea->user->codigo }}
+                                <th>  {{ $dato->solicitudAnalisisLinea->analisisLinea->user->codigo }}</th>
+                                @else
+                                <th>-</th>
                                     @endif
-                                </th>
+                                
                             @endif
 
 
