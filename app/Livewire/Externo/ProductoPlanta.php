@@ -25,7 +25,6 @@ class ProductoPlanta extends Component
     public function render()
     {
         if(auth()->user()->rol == 'Ext'){
-            $productosPlanta = ProductosPlantas::all();
             $productosPlanta = ProductosPlantas::whereHas('planta', function ($query) {
                 $query->where('id',auth()->user()->planta->id);
             })->get();

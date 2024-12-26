@@ -22,21 +22,50 @@
                     </div>
 
                 </div>
+
+
+
                 <div class="flex gap-2">
                     @if ($muestra == 1)
-                        <div class="form-group w-1/3">
+
+
+                        <div class="form-group w-1/2">
                             <label for="productos"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Producto</label>
-                            <select wire:model="productos_planta_id" id="productos"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option value="">Seleccionar Producto (Opcional)</option>
-                                @foreach ($productos as $producto)
-                                    <option value="{{ $producto->id }}">{{ $producto->nombre }}</option>
-                                @endforeach
-                            </select>
-                            @error('productos_planta_id')
-                                <span class="error">{{ $message }}</span>
-                            @enderror
+                            <div class="flex justify-between gap-1">
+
+                                <div class="w-1/2 relative">
+                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                        <svg class="w-auto h-3 text-gray-400 dark:text-gray-300" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                        </svg>
+                                    </div>
+                                    <input type="search" id="default-search" wire:model.live="buscador_producto"
+                                        class="block w-full  p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Buscar producto..." required />
+                                </div>
+                                <div class="w-1/2">
+                                    <select wire:model="productos_planta_id" id="productos"
+                                        class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <option value="">Seleccionar Producto (Opcional)</option>
+                                        @foreach ($productos as $producto)
+                                            <option value="{{ $producto->id }}">
+                                                @if ($producto->codigo != null)
+                                                    {{ $producto->codigo }}
+                                                @endif {{ $producto->nombre }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('productos_planta_id')
+                                        <span class="error">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+
+                            </div>
+
                         </div>
                     @else
                         <div class="form-group w-1/3">
@@ -202,7 +231,8 @@
                             -
                         @endif
                     </td>
-                    <td>{{ \Carbon\Carbon::parse($detalle->fecha_muestreo)->isoFormat('DD / MM / YYYY', 0, 'es') }}</td>
+                    <td>{{ \Carbon\Carbon::parse($detalle->fecha_muestreo)->isoFormat('DD / MM / YYYY', 0, 'es') }}
+                    </td>
                     <td>{{ $detalle->tipoMuestra->nombre }}</td>
                     <td>{{ $detalle->tipo_analisis }}</td>
                     <td class="flex gap-2">
@@ -225,10 +255,10 @@
     </table>
 
     <div class="flex justify-end">
-        <button class="bg-green-600 text-white px-6 py-1 mt-4 rounded-md  @if ($detalles->isEmpty()) bg-green-400 cursor-not-allowed @endif " 
-        wire:click="generar"
-        @if ($detalles->isEmpty()) disabled @endif>
-        Generar solicitud
-    </button>
+        <button
+            class="bg-green-600 text-white px-6 py-1 mt-4 rounded-md  @if ($detalles->isEmpty()) bg-green-400 cursor-not-allowed @endif "
+            wire:click="generar" @if ($detalles->isEmpty()) disabled @endif>
+            Generar solicitud
+        </button>
     </div>
 </div>

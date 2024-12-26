@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ asset('build/assets/app-da32ce76.css') }}">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-9386c00a.css ') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-c8c7f739.css') }}">
 
-    <script src="{{ asset('build/assets/app-989fb96d.js') }}" defer></script>
+    <script src="{{ asset('build/assets/app-56df689c.js') }}" defer></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/flowbite.js') }}"></script>
 
@@ -24,7 +24,7 @@
                     <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar"
                         aria-controls="logo-sidebar" type="button"
                         class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg 2xl:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-                        <span class="sr-only">-bg-cyan-950bar</span>
+                        <span class="sr-only">  </span>
                         <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
                             <path clip-rule="evenodd" fill-rule="evenodd"
@@ -153,6 +153,7 @@
 
                 <!--dashboard-->
                 
+                @if (auth()->user()->rol != 'Ext')
                     <li>
                         <a href="{{ route('dashboard.index') }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -160,10 +161,10 @@
 
                             <svg class="w-4 h-4 fill-gray-500 transition duration-75 dark:fill-gray-400 group-hover:fill-gray-900 dark:group-hover:fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M575.8 255.5c0 18-15 32.1-32 32.1l-32 0 .7 160.2c0 2.7-.2 5.4-.5 8.1l0 16.2c0 22.1-17.9 40-40 40l-16 0c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1L416 512l-24 0c-22.1 0-40-17.9-40-40l0-24 0-64c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32 14.3-32 32l0 64 0 24c0 22.1-17.9 40-40 40l-24 0-31.9 0c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2l-16 0c-22.1 0-40-17.9-40-40l0-112c0-.9 0-1.9 .1-2.8l0-69.7-32 0c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/></svg>
                           
-                            <span class="ms-3">DASHBOARD</span>
+                            <span class="ms-3">DASHBOARD </span>
                         </a>
                     </li>
-                
+                    @endif
                 <!--ESTADO-->
                 @if (in_array(auth()->user()->rol, ['Admi', 'Jef', 'Sup', 'HTST', 'UHT']))
                     <li>
@@ -555,6 +556,23 @@
                          <span class="ms-3">DATOS</span>
                      </a>
                  </li>
+                @endif
+                @if (in_array(auth()->user()->rol, ['Admi', 'Jef'])|| auth()->user()->id == 15)
+                    <!--sustancia controladas-->
+                    <li>
+                        <a href="{{ route('sustanciasControladas.index') }}"
+                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="w-4 h-4 fill-gray-500 transition duration-75 dark:fill-gray-400 group-hover:fill-gray-900 dark:group-hover:fill-white"
+                                viewBox="0 0 640 512">
+                                <path
+                                d="M288 0L160 0 128 0C110.3 0 96 14.3 96 32s14.3 32 32 32l0 132.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512l309.2 0c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5L320 64c17.7 0 32-14.3 32-32s-14.3-32-32-32L288 0zM192 196.8L192 64l64 0 0 132.8c0 23.7 6.6 46.9 19 67.1L309.5 320l-171 0L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                            </svg>
+
+
+                            <span class="ms-3">Sustancias Controladas</span>
+                        </a>
+                    </li>
                 @endif
 
 

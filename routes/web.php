@@ -120,7 +120,7 @@ Route::middleware(['auth'])->group(function () {
     })->name('uht.index');
 
 
-    
+
 
     Route::get('/htst', function () {
         return view('htst.index');
@@ -132,10 +132,22 @@ Route::middleware(['auth'])->group(function () {
         return view('dashboard.index');
     })->name('dashboard.index');
 
-    
+
+    Route::get('/sustanciasControladas', function () {
+        return view('sustanciasControladas.index');
+    })->name('sustanciasControladas.index');
+
+
 
     /*Rutas de salida login */
     Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
+
+
+    Route::middleware(['roles:Admi,Jef'])->group(function () {
+        /*ruta para reporte de daatos */
+        Route::get('/datos', [DatosController::class, 'index'])->name('datos.index');
+    });
+    
 });
 
 
@@ -147,9 +159,5 @@ Route::post('/register', [RegisterController::class, 'store']);
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'store']);
 
-Route::middleware(['roles:Admi,Jef'])->group(function () {
-    /*ruta para reporte de daatos */
-    Route::get('/datos', [DatosController::class, 'index'])->name('datos.index');
-});
 
 

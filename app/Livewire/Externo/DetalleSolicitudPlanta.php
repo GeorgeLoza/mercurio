@@ -10,7 +10,9 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class DetalleSolicitudPlanta extends Component
-{
+{   // input buscador
+    public $buscador_producto = '';
+    public $productos;
     public $muestra = 1;
     public $detalleId;
     public  $productos_planta_id, $subcodigo, $lote, $fecha_elaboracion, $fecha_vencimiento, $fecha_muestreo, $tipo_muestra_id, $tipo_analisis, $tipo_analisis_1 = true, $tipo_analisis_2 = true, $otro, $user_id;
@@ -25,6 +27,12 @@ class DetalleSolicitudPlanta extends Component
         'otro' => 'nullable|string',
     ];
 
+
+    public function mount()
+    {
+        $this->productos = ProductosPlantas::where('planta_id', auth()->user()->planta->id)->get(); // Asthis->egúrate de cargar los productos disponibles
+       
+    }
     public function render()
     {
         if ($this->muestra == 1) {
@@ -34,14 +42,13 @@ class DetalleSolicitudPlanta extends Component
             $this->tipo_analisis_1 = false;
             $this->tipo_analisis_2 = true;
         }
-        $productos = ProductosPlantas::where('planta_id', auth()->user()->planta->id)->get(); // Asthis->egúrate de cargar los productos disponibles
-        $tiposMuestra = TipoMuestra::all();
+         $tiposMuestra = TipoMuestra::all();
 
         $detalles = ModelsDetalleSolicitudPlanta::where('user_id', auth()->user()->id)->whereNull('subcodigo')->get();
 
         return view('livewire.externo.detalle-solicitud-planta', [
             'detalles' => $detalles,
-            'productos' => $productos,
+            'productos' => $this->productos,
             'tiposMuestra' => $tiposMuestra
         ]);
     }
@@ -197,5 +204,20 @@ class DetalleSolicitudPlanta extends Component
             dd($th);
         }
         return redirect()->route('solicitudPlanta.index');
+    }
+
+
+    public function updatedBuscadorProducto()
+    {
+        // Si el campo buscador tiene texto, filtramos los productos
+        if ($this->buscador_producto != '') {
+            $this->productos = ProductosPlantas::where('nombre', 'like', '%' . $this->buscador_producto . '%')
+                ->where('planta_id', auth()->user()->planta->id)
+                ->orWhere('codigo', 'like', '%' . $this->buscador_producto . '%')
+                ->get();
+        } else {
+            // Si no hay texto, mostramos todos los productos
+            $this->productos = ProductosPlantas::all();
+        }
     }
 }

@@ -85,7 +85,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(PaseTurno::class);
     }
-    
+
+    public function autorizantes(){
+        return $this->hasMany(Mov::class , 'autorizante');
+    }
+    public function entregantes(){
+        return $this->hasMany(Mov::class , 'entregante');
+    }
 
 
     /**
