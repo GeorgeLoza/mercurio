@@ -7,8 +7,8 @@
         <p class="bg-red-500 text-white p-1 rounded-md"> Tienes análisis de recepción de leche pendiente</p>
         @endif
     </div>
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg  overflow-y-auto h-[28rem] overflow-hidden">   
-        
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg  overflow-y-auto h-[28rem] overflow-hidden">
+
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
@@ -73,7 +73,7 @@
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('tram_lapso')" nowrap>
-                        TRAM lapso  
+                        TRAM lapso
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('temperatura_congelacion')" nowrap>
@@ -109,7 +109,7 @@
                             class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     </th>
                     <th class="p-1">
-                        
+
                     </th>
                     <th class="p-1">
                         <!--temperatura-->
@@ -195,7 +195,7 @@
                             <path
                                 d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z" />
                         </svg>
-                        @endif  
+                        @endif
                         @if(in_array(auth()->user()->rol, ['Admi']))
                         @if(now()->diffInMinutes($registro->created_at)<2400)
                         <svg onclick="Livewire.dispatch('openModal', { component: 'leche-cruda.analisis.eliminar', arguments: { id: {{ $registro->id}} } })"
@@ -206,7 +206,7 @@
                         </svg>
                         @endif
                         @endif
-                        
+
                     </td>
                     <td class="px-6 py-2 @if($parametro && $registro->temperatura !== null) {{ ($registro->temperatura <= $parametro->temperatura_max) ? 'text-green-500' : 'text-red-500' }} @endif" nowrap>
                         {{$registro->temperatura}}
@@ -252,7 +252,7 @@
                         {{$registro->user->nombre}} {{$registro->user->apellido}}
                         @endif
                     </td>
-                    
+
                 </tr>
                 @endforeach
 
@@ -266,5 +266,48 @@
         {{ $registros->links('pagination::tailwind') }}
     </div>
 @endif
+
+
+
+
+<div class="p-2 ">
+
+    <!-- Botón para exportar -->
+
+    <p class="mb-1">
+        Descargar Reporte
+    </p>
+    <button class="bg-green-500 p-2 text-center rounded-md" wire:click="exportarExcel">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="h-5 w-5 fill-white">
+            <path
+                d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM155.7 250.2L192 302.1l36.3-51.9c7.6-10.9 22.6-13.5 33.4-5.9s13.5 22.6 5.9 33.4L221.3 344l46.4 66.2c7.6 10.9 5 25.8-5.9 33.4s-25.8 5-33.4-5.9L192 385.8l-36.3 51.9c-7.6 10.9-22.6 13.5-33.4 5.9s-13.5-22.6-5.9-33.4L162.7 344l-46.4-66.2c-7.6-10.9-5-25.8 5.9-33.4s25.8-5 33.4 5.9z" />
+        </svg>
+    </button>
+
+    <!-- Campo de selección de fecha completa -->
+    <label>Fecha:</label>
+    <input type="date" class="rounded p-1 text-black" wire:model.defer="fecha">
+    @error('fecha')
+        <span class="text-red-500 text-base">{{ $message }}</span>
+    @enderror
+
+
+
+
+
+
+    <label>Mes:</label>
+    <select class="rounded p-1 mx-2 bg-white text-black" wire:model.defer="cat">
+        <option value="">UHT/HTST</option>
+        <option value="UHT">UHT</option>
+        <option value="HTST">HTST</option>
+
+    </select>
+    @error('cat')
+        <span class="text-red-500 text-base">{{ $message }}</span>
+    @enderror
+
+
+</div>
 
 </div>

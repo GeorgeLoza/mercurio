@@ -9,13 +9,20 @@ use Livewire\WithPagination;
 use App\Models\ParametroLeche;
 use App\Models\SolicitudAnalisisLinea;
 use Carbon\Carbon;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\AnalisisLeche;
 class Tabla extends Component
 {
 
     use WithPagination;
 //parametros
 public $parametro;
+
+public $anio;  // Año, por ejemplo: 2024
+public $mes;
+public $dia;
+public $fecha;
+public $cat;
     //filtros-busqueda
     public $f_tiempo = null;
     public $f_ruta = null;
@@ -52,14 +59,14 @@ public $parametro;
         $this->sortField = 'created_at';
         $this->sortAsc = false;
         $this->parametro = ParametroLeche::first();
-        
+
     }
 
     #[On('actualizar_tabla_CalidadLeche')]
     public function render()
     {
         $this->aplicandoFiltros = $this->hayFiltrosActivos();
-       
+
         $query = CalidadLeche::query()
             ->when($this->f_tiempo, function ($query) {
                 return $query->where('tiempo', 'like', '%' . $this->f_tiempo . '%');
@@ -93,7 +100,7 @@ public $parametro;
             ->when($this->sortField, function ($query) {
                 $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
             });
-            $registros = $this->aplicandoFiltros ? $query->get() : $query->paginate(50); 
+            $registros = $this->aplicandoFiltros ? $query->get() : $query->paginate(50);
             $pendiente = SolicitudAnalisisLinea::where('estado', 'pendiente')
             ->where('created_at', '>=', Carbon::now()->subMinutes(20))
             ->exists(); // Devuelve true si existen registros, false si no
@@ -122,5 +129,37 @@ public $parametro;
     }
 
 
-    
+
+    public function exportarExcel()
+{
+    // Asegúrate de que $this->fecha esté correctamente definido
+    // Extraer año, mes y día de la fecha seleccionada
+    $anio = Carbon::parse($this->fecha)->year;
+    $mes = Carbon::parse($this->fecha)->month;
+    $dia = Carbon::parse($this->fecha)->day;
+
+
+
+    // Consultar registros basados en la fecha completa
+    $orp = CalidadLeche::all(); // Filtra por códigos específicos
+
+
+
+
+        // Ordena por fecha
+
+
+
+
+    // Crear nombre del archivo con la fecha seleccionada
+    $nombreMes = Carbon::createFromFormat('m', $mes)->translatedFormat('F'); // Obtener el nombre del mes
+    $nombreArchivo = "{$dia}-{$nombreMes}-{$anio}.csv";
+
+    // Exportar datos usando el paquete maatwebsite/excel
+    return Excel::download(new AnalisisLeche($orp), 'leche.xlsx');
+
+}
+
+
+
 }
