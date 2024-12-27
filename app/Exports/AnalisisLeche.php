@@ -27,7 +27,7 @@ public function collection(): Collection
         return [
 
             'Fecha' => $orp->tiempo,
-            'Ruta' => $orp->recepcion_leche->subruta_acopio->nombre,
+            'Ruta' => $orp->recepcion_leche->subruta_acopio->ruta_acopio->nombre,
             'Temperatura' => $orp->temperatura,
             'Ph' => $orp->ph,
             'Acidez' => $orp->acidez,
@@ -41,6 +41,7 @@ public function collection(): Collection
             'Tempertatura Congelacion' => $orp->temperatura_congelacion,
             'porcentaje de agua' => $orp->porcentaje_agua,
             'Observaciones  ' => $orp->observaciones,
+            'analista' =>  optional($orp->user)->codigo,
 
 
 
@@ -68,6 +69,7 @@ public function headings(): array
             'Tempertatura Congelacion' ,
             'porcentaje de agua' ,
             'Observaciones  ' ,
+            'usuario  ' ,
          ];
      }
 

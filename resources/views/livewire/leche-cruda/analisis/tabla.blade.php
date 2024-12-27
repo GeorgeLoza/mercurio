@@ -270,13 +270,9 @@
 
 
 
-<div class="p-2 ">
+<div class="p-2">
+    <p class="mb-1">Descargar Reporte</p>
 
-    <!-- Botón para exportar -->
-
-    <p class="mb-1">
-        Descargar Reporte
-    </p>
     <button class="bg-green-500 p-2 text-center rounded-md" wire:click="exportarExcel">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="h-5 w-5 fill-white">
             <path
@@ -284,30 +280,29 @@
         </svg>
     </button>
 
-    <!-- Campo de selección de fecha completa -->
-    <label>Fecha:</label>
-    <input type="date" class="rounded p-1 text-black" wire:model.defer="fecha">
-    @error('fecha')
+    <!-- Campo de fecha inicio -->
+    <label for="fechaInicio">Fecha Inicio:</label>
+    <input type="date" id="fechaInicio" class="rounded p-1 text-black" wire:model.defer="fechaInicio">
+    @error('fechaInicio')
         <span class="text-red-500 text-base">{{ $message }}</span>
     @enderror
 
+    <!-- Campo de fecha fin -->
+    <label for="fechaFin">Fecha Fin:</label>
+    <input type="date" id="fechaFin" class="rounded p-1 text-black" wire:model.defer="fechaFin">
+    @error('fechaFin')
+        <span class="text-red-500 text-base">{{ $message }}</span>
+    @enderror
 
-
-
-
-
-    <label>Mes:</label>
-    <select class="rounded p-1 mx-2 bg-white text-black" wire:model.defer="cat">
-        <option value="">UHT/HTST</option>
-        <option value="UHT">UHT</option>
-        <option value="HTST">HTST</option>
-
+    <!-- Campo de filtro por ruta -->
+    <label for="ruta">Ruta:</label>
+    <select id="ruta" class="rounded p-1 mx-2 bg-white text-black" wire:model.defer="ruta">
+        <option value="">Seleccionar Ruta</option>
+        @foreach ($rutas as $ruta)
+            <option value="{{ $ruta }}">{{ $ruta }}</option>
+        @endforeach
     </select>
-    @error('cat')
-        <span class="text-red-500 text-base">{{ $message }}</span>
-    @enderror
-
-
 </div>
+
 
 </div>

@@ -11,6 +11,8 @@ use App\Models\SolicitudAnalisisLinea;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\AnalisisLeche;
+use App\Models\RutaAcopio;
+
 class Tabla extends Component
 {
 
@@ -18,11 +20,13 @@ class Tabla extends Component
 //parametros
 public $parametro;
 
-public $anio;  // Año, por ejemplo: 2024
-public $mes;
-public $dia;
-public $fecha;
-public $cat;
+public $fechaInicio;
+public $fechaFin;
+public $ruta;
+public $rutas;
+
+
+
     //filtros-busqueda
     public $f_tiempo = null;
     public $f_ruta = null;
@@ -59,6 +63,7 @@ public $cat;
         $this->sortField = 'created_at';
         $this->sortAsc = false;
         $this->parametro = ParametroLeche::first();
+        $this->rutas     = RutaAcopio::pluck('nombre')->unique();
 
     }
 
@@ -130,34 +135,36 @@ public $cat;
 
 
 
-    public function exportarExcel()
+//
+public function exportarExcel()
 {
-    // Asegúrate de que $this->fecha esté correctamente definido
-    // Extraer año, mes y día de la fecha seleccionada
-    $anio = Carbon::parse($this->fecha)->year;
-    $mes = Carbon::parse($this->fecha)->month;
-    $dia = Carbon::parse($this->fecha)->day;
+    // Validar que las fechas sean correctas
+    $this->validate([
+        'fechaInicio' => 'required|date',
+        'fechaFin' => 'required|date|after_or_equal:fechaInicio',
+    ]);
 
+    // Convertir las fechas a formato adecuado
+    $fechaInicio = Carbon::parse($this->fechaInicio)->startOfDay();
+    $fechaFin = Carbon::parse($this->fechaFin)->endOfDay();
 
+    // Consultar registros basados en el rango de fechas y la ruta seleccionada
+    $query = CalidadLeche::query()
+        ->whereBetween('tiempo', [$fechaInicio, $fechaFin]);
 
-    // Consultar registros basados en la fecha completa
-    $orp = CalidadLeche::all(); // Filtra por códigos específicos
+    if ($this->ruta) {
+        $query->whereHas('recepcion_leche.subruta_acopio.ruta_acopio', function ($subQuery) {
+            $subQuery->where('nombre', $this->ruta);
+        });
+    }
 
+    $orp = $query->get();
 
+    // Crear nombre del archivo con las fechas seleccionadas
+    $nombreArchivo = "Reporte_{$this->fechaInicio}_a_{$this->fechaFin}.xlsx";
 
-
-        // Ordena por fecha
-
-
-
-
-    // Crear nombre del archivo con la fecha seleccionada
-    $nombreMes = Carbon::createFromFormat('m', $mes)->translatedFormat('F'); // Obtener el nombre del mes
-    $nombreArchivo = "{$dia}-{$nombreMes}-{$anio}.csv";
-
-    // Exportar datos usando el paquete maatwebsite/excel
-    return Excel::download(new AnalisisLeche($orp), 'leche.xlsx');
-
+    // Exportar datos
+    return Excel::download(new AnalisisLeche($orp), $nombreArchivo);
 }
 
 
