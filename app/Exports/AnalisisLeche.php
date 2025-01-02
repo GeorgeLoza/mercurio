@@ -34,7 +34,7 @@ public function collection(): Collection
             'Brix' => $orp->brix,
             'Densidad' => $orp->densidad,
             'Alcohol' => $orp->prueba_alcohol,
-            'Grasa' => $orp->contenido_graso,
+
             'Inicio' => $orp->tram_inicio,
             'Fin' => $orp->tram_fin,
             'Lapso' => $orp->tram_lapso,
@@ -62,7 +62,7 @@ public function headings(): array
             'Brix' ,
             'Densidad' ,
             'Alcohol' ,
-            'Grasa' ,
+
             'Inicio' ,
             'Fin' ,
             'Lapso' ,

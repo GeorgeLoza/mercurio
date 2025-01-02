@@ -152,15 +152,15 @@
             <ul class="space-y-2 font-medium text-xs">
 
                 <!--dashboard-->
-                
+
                 @if (auth()->user()->rol != 'Ext')
                     <li>
                         <a href="{{ route('dashboard.index') }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                            
+
 
                             <svg class="w-4 h-4 fill-gray-500 transition duration-75 dark:fill-gray-400 group-hover:fill-gray-900 dark:group-hover:fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M575.8 255.5c0 18-15 32.1-32 32.1l-32 0 .7 160.2c0 2.7-.2 5.4-.5 8.1l0 16.2c0 22.1-17.9 40-40 40l-16 0c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1L416 512l-24 0c-22.1 0-40-17.9-40-40l0-24 0-64c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32 14.3-32 32l0 64 0 24c0 22.1-17.9 40-40 40l-24 0-31.9 0c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2l-16 0c-22.1 0-40-17.9-40-40l0-112c0-.9 0-1.9 .1-2.8l0-69.7-32 0c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/></svg>
-                          
+
                             <span class="ms-3">DASHBOARD </span>
                         </a>
                     </li>
@@ -264,7 +264,7 @@
                                     stroke-width="2" d="m1 1 4 4 4-4" />
                             </svg>
                         </button>
-                        
+
                         <ul id="dropdown-example" class="hidden py-2 space-y-2">
                             <li>
                                 <a href="{{ route('parametroLinea.index') }}"
@@ -305,7 +305,7 @@
                     <li>
                         <a href="{{ route('uht.index') }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                            
+
                             <svg class="w-4 h-4 fill-gray-500 transition duration-75 dark:fill-gray-400 group-hover:fill-gray-900 dark:group-hover:fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M32 32c17.7 0 32 14.3 32 32l0 224c0 70.7 57.3 128 128 128s128-57.3 128-128l0-224c0-17.7 14.3-32 32-32s32 14.3 32 32l0 224c0 106-86 192-192 192S0 394 0 288L0 64C0 46.3 14.3 32 32 32z"/></svg>
                             <span class="ms-3">UHT</span>
                         </a>
@@ -318,7 +318,7 @@
                     <li>
                         <a href="{{ route('htst.index') }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                            
+
                             <svg class="w-4 h-4 fill-gray-500 transition duration-75 dark:fill-gray-400 group-hover:fill-gray-900 dark:group-hover:fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M320 256l0 192c0 17.7 14.3 32 32 32s32-14.3 32-32l0-224 0-160c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 128L64 192 64 64c0-17.7-14.3-32-32-32S0 46.3 0 64L0 448c0 17.7 14.3 32 32 32s32-14.3 32-32l0-192 256 0z"/></svg>
                             <span class="ms-3">HTST</span>
                         </a>
@@ -557,7 +557,7 @@
                      </a>
                  </li>
                 @endif
-                @if (in_array(auth()->user()->rol, ['Admi', 'Jef'])|| auth()->user()->id == 15)
+                @if (auth()->user()->division->id ==2)
                     <!--sustancia controladas-->
                     <li>
                         <a href="{{ route('sustanciasControladas.index') }}"
@@ -602,8 +602,8 @@
 
     @livewire('wire-elements-modal')
 
-    
-  
+
+
 </body>
 
 </html>

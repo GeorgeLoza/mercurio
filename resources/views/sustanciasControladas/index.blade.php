@@ -13,8 +13,8 @@ Sustancias Controladas
 
 {{-- ingresos --}}
 @if (in_array(auth()->user()->rol, ['Admi', 'Jef' ]) && in_array(auth()->user()->division_id, [2 ])  )
-    
-<button onclick="Livewire.dispatch('openModal', { component: 'sustancias.movimiento', arguments: { id: 1 } })"
+
+<button onclick="Livewire.dispatch('openModal', { component: 'sustancias.movimiento', arguments: { est: 1 } })"
 class="rounded bg-green-500 text-white p-2">
     Ingreso de sustancia
 </button>
@@ -22,8 +22,8 @@ class="rounded bg-green-500 text-white p-2">
 
 {{-- egresos --}}
 @if (in_array(auth()->user()->division_id, [2 ]) )
-    
-<button onclick="Livewire.dispatch('openModal', { component: 'sustancias.movimiento', arguments: { id: 0 } })"
+
+<button onclick="Livewire.dispatch('openModal', { component: 'sustancias.movimiento', arguments: { est: 0 } })"
 class="rounded bg-green-500 text-white p-2">
 Nueva solicitud
 </button>
@@ -33,4 +33,4 @@ Nueva solicitud
 
 
 @livewire('sustancias.tabla')
-@endsection 
+@endsection

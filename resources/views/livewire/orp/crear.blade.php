@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="md:flex gap-2">
-                <div class="px-3 mb-1 md:w-1/3">     
+                <div class="px-3 mb-1 md:w-1/3">
                     <div class="relative">
                         <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                             <svg class="w-3 h-3 text-gray-500 dark:text-gray-400" aria-hidden="true"
@@ -50,7 +50,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class=" px-3 mb-5">
                 <div class="relative z-0 w-full mb-5 group">
                     <input type="text" wire:model="lote" id="lote"

@@ -3,26 +3,36 @@
 namespace App\Livewire\Sustancias;
 
 use App\Models\Item;
+use App\Models\Mov;
 use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
-use App\Models\Mov;
-
 
 class Movimiento extends ModalComponent
 {
-
     public $id;
+    public $est;
+
     public $items;
     public $detalles = [];
+    public $movimiento;
 
     protected $rules = [
-        
         'detalles.*.item_id' => 'required|exists:items,id',
         'detalles.*.cantidad' => 'required|numeric|min:1',
     ];
-    public function mount()
+
+    public function mount($id = null)
     {
         $this->items = Item::all();
+
+        // Si el ID no es nulo, estamos en modo edición
+        if ($id) {
+            $this->movimiento = Mov::with('detalleMovs')->find($id);
+            if ($this->movimiento) {
+                // Cargar los detalles del movimiento
+                $this->detalles = $this->movimiento->detalleMovs->toArray();
+            }
+        }
     }
 
     public function addDetalle()
@@ -32,12 +42,13 @@ class Movimiento extends ModalComponent
             'cantidad' => '',
         ];
     }
-    
+
     public function removeDetalle($index)
     {
         unset($this->detalles[$index]);
         $this->detalles = array_values($this->detalles); // Reindexar el arreglo
     }
+
     public function render()
     {
         return view('livewire.sustancias.movimiento');
@@ -48,72 +59,56 @@ class Movimiento extends ModalComponent
         $this->closeModal();
     }
 
-
-
-
-    public function save()
-    {   
-        // dd($this->detalles);
+    /**
+     * Función para guardar o actualizar el movimiento.
+     *
+     * @param int $tipo Movimiento entrante (1) o solicitud (0).
+     */
+    public function save(int $tipo)
+    {
         $this->validate();
 
         try {
-               // Crear el movimiento
-               $movimiento = Mov::create([
-                   'user_id' =>  auth()->user()->id,
-                'tiempo' => now(),
-                'tipo' => 1,
-                'estado' => 'Entregado',
-                
-                
-                
-                
-                
-            ]); 
+            $estado = $tipo === 1 ? 'Entregado' : 'Solicitado'; // Definir estado según tipo de movimiento
 
-            $movimiento->detalleMovs()->createMany($this->detalles);
+            if ($this->movimiento) {
+                // Si el movimiento ya existe, actualizamos
+                $this->movimiento->update([
+                    'estado' => 'Entregado',
+                    'tipo' => $tipo,
+                    'tiempo' => now(),
+                ]);
 
-        $this->closeModal();
-        session()->flash('success', 'Movimiento creado exitosamente.');
-         
-        $this->dispatch('actualizar_movimiento_sustancia');
+                // Eliminar detalles previos y agregar los nuevos
+                $this->movimiento->detalleMovs()->delete();
+                $this->movimiento->detalleMovs()->createMany($this->detalles);
+
+                session()->flash('success', 'Movimiento actualizado exitosamente.');
+                $this->dispatch('actualizar_movimiento_sustancia');
+            } else {
+                // Crear un nuevo movimiento
+                $movimiento = Mov::create([
+                    'user_id' => auth()->user()->id,
+                    'tiempo' => now(),
+                    'tipo' => $tipo,
+                    'estado' => $estado,
+                ]);
+
+                // Crear los detalles del movimiento
+                $movimiento->detalleMovs()->createMany($this->detalles);
+
+                session()->flash('success', 'Movimiento creado exitosamente.');
+            }
+
+            $this->closeModal();
+
+            if ($tipo === 1) {
+                $this->dispatch('actualizar_movimiento_sustancia');
+            }
 
         } catch (\Throwable $th) {
-            // Manejar errores y mostrar un mensaje de error
-        session()->flash('error', 'Ocurrió un error al guardar el movimiento.');
-        dd($th); // Registrar el error en los logs
+            session()->flash('error', 'Ocurrió un error al guardar el movimiento.');
+            // Log::error($th);
         }
-
-    }
-    public function save2()
-    {   
-        // dd($this->detalles);
-        $this->validate();
-
-        try {
-               // Crear el movimiento
-               $movimiento = Mov::create([
-                   'user_id' =>  auth()->user()->id,
-                'tiempo' => now(),
-                'tipo' => 0,
-                'estado' => 'solicitado',
-                
-                
-                
-                
-                
-            ]); 
-
-            $movimiento->detalleMovs()->createMany($this->detalles);
-
-        $this->closeModal();
-        session()->flash('success', 'Movimiento creado exitosamente.');
-              
-            
-        } catch (\Throwable $th) {
-            // Manejar errores y mostrar un mensaje de error
-        session()->flash('error', 'Ocurrió un error al guardar el movimiento.');
-        dd($th); // Registrar el error en los logs
-        }
-
     }
 }

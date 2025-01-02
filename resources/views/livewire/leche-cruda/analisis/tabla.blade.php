@@ -14,7 +14,7 @@
                 <tr>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('tiempo')" nowrap>
-                        Hora - Fecha
+                        Hora
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('subruta')" nowrap>
@@ -87,8 +87,12 @@
                         Observaciones
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
+                    wire:click="sortBy('user')">
+                    Solicitante
+                </th>
+                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('user')">
-                        Encargado
+                        Analista
                     </th>
                 </tr>
             </thead>
@@ -160,7 +164,13 @@
                 <tr
                     class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                     <th scope="row" class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{$registro->tiempo}}
+
+                        {{\Carbon\Carbon::parse($registro->recepcion_leche->tiempo)->isoFormat('HH:mm', 0, 'es') }} -
+
+                        @if ($registro->tiempo)
+                        {{\Carbon\Carbon::parse($registro->tiempo)->isoFormat('HH:mm', 0, 'es') }}
+                        @endif
+
                     </th>
                     <td class="px-6 py-2" nowrap>
                         {{$registro->recepcion_leche->subruta_acopio->nombre}}
@@ -246,6 +256,11 @@
                     </td>
                     <td class="px-6 py-2" nowrap>
                         {{$registro->observaciones}}
+                    </td>
+                    <td class="px-6 py-2" nowrap>
+                        @if($registro->recepcion_leche->user)
+                        {{$registro->recepcion_leche->user->nombre}} {{$registro->recepcion_leche->user->apellido}}
+                        @endif
                     </td>
                     <td class="px-6 py-2" nowrap>
                         @if($registro->user)
