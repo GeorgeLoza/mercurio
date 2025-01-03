@@ -12,7 +12,9 @@ class Item extends Model
     protected $fillable =[
 
         'nombre',
-        'codigo'
+        'codigo',
+        'unidad',
+
     ];
 
     public function detalleMovs()

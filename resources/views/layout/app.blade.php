@@ -570,7 +570,7 @@
                             </svg>
 
 
-                            <span class="ms-3">Sustancias Controladas</span>
+                            <span class="ms-3">Sustancias Quimicas</span>
                         </a>
                     </li>
                 @endif

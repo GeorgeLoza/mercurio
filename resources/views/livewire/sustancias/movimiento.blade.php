@@ -27,7 +27,7 @@
                     </select>
                     <input type="number" wire:model="detalles.{{ $index }}.cantidad"
                            class="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                           placeholder="Cantidad" min="1" />
+                           placeholder="Cantidad" min="0" />
                     <button type="button" wire:click="removeDetalle({{ $index }})" class="bg-red-500 text-white rounded-md px-2 py-1">Eliminar</button>
                 </div>
                 @error('detalles.' . $index . '.item_id')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror

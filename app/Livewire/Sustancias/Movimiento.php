@@ -18,7 +18,7 @@ class Movimiento extends ModalComponent
 
     protected $rules = [
         'detalles.*.item_id' => 'required|exists:items,id',
-        'detalles.*.cantidad' => 'required|numeric|min:1',
+        'detalles.*.cantidad' => 'required|numeric|min:0',
     ];
 
     public function mount($id = null)

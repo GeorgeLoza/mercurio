@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('titulo')
-Sustancias Controladas
+Sustancias Quimicas
 @endsection
 
 @section('contenido')
@@ -12,7 +12,15 @@ Sustancias Controladas
 {{-- @livewire('') --}}
 
 {{-- ingresos --}}
-@if (in_array(auth()->user()->rol, ['Admi', 'Jef' ]) && in_array(auth()->user()->division_id, [2 ])  )
+@if (in_array(auth()->user()->rol, ['Admi', 'Jef' ]) && in_array(auth()->user()->division_id, [2 ]) )
+
+<button onclick="Livewire.dispatch('openModal', { component: 'sustancias.movimiento', arguments: { est: 1 } })"
+class="rounded bg-green-500 text-white p-2">
+    Ingreso de sustancia
+</button>
+@endif
+
+@if (in_array(auth()->user()->id, [15 ]) )
 
 <button onclick="Livewire.dispatch('openModal', { component: 'sustancias.movimiento', arguments: { est: 1 } })"
 class="rounded bg-green-500 text-white p-2">

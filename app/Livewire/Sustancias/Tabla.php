@@ -24,6 +24,7 @@ class Tabla extends Component
     {
 
         $this->calcularCantidadActualPorItem();
+        // dd($this->totalesPorItem);
 
     }
 
@@ -127,6 +128,7 @@ class Tabla extends Component
         return [
             'nombre' => $item->nombre,
             'codigo' => $item->codigo,
+            'unidad' => $item->unidad ?? ' ',
 
             'cantidad_actual' => $movimiento['cantidad_actual'],
             'ultimo_egreso' => $movimiento['ultimo_egreso'],
