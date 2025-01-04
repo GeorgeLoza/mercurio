@@ -71,14 +71,15 @@ class OrpReporte extends Component
             ->pluck('estadoPlanta.user_id')
             ->unique();
 
-        // Recolectar IDs de usuarios desde SolicitudAnalisisLinea a través de EstadoPlanta
-        $userIdsFromSolicitudAnalisis = EstadoPlanta::whereHas('estadoDetalle', function ($query) {
-            $query->where('orp_id', $this->orpId);
-        })
-            ->with('solicitudAnalisisLinea')
-            ->get()
-            ->pluck('solicitudAnalisisLinea.user_id')
-            ->unique();
+            // Recolectar IDs de usuarios desde SolicitudAnalisisLinea a través de EstadoPlanta
+           // Recolectar IDs de usuarios relacionados con una ORP específica desde SolicitudAnalisisLinea
+$userIdsFromSolicitudAnalisis = SolicitudAnalisisLinea::whereHas('estadoPlanta.estadoDetalle', function ($query) {
+    $query->where('orp_id', $this->orpId);
+})
+    ->pluck('user_id')
+    ->unique();
+
+
 
         // Recolectar IDs de usuarios desde AnalisisLinea a través de SolicitudAnalisisLinea
         $userIdsFromAnalisisLinea = SolicitudAnalisisLinea::whereHas('estadoPlanta.estadoDetalle', function ($query) {
@@ -98,6 +99,8 @@ class OrpReporte extends Component
 
         // Recuperar los detalles de los usuarios
         $this->usuariosInvolucrados = User::whereIn('id', $allUserIds)->get();
+
+
     }
 
     public function render()
@@ -138,7 +141,7 @@ class OrpReporte extends Component
                 $pdf->setPaper('letter', 'portrait');
                 echo $pdf->stream();
             },
-            "{$this->reporte->codigo} {$this->reporte->producto->nombre}.pdf" 
+            "{$this->reporte->codigo} {$this->reporte->producto->nombre}.pdf"
         );
     }
 
@@ -156,7 +159,7 @@ class OrpReporte extends Component
                 $pdf->setPaper('letter', 'portrait');
                 echo $pdf->stream();
             },
-            "{$this->reporte->codigo} {$this->reporte->producto->nombre}.pdf" 
+            "{$this->reporte->codigo} {$this->reporte->producto->nombre}.pdf"
         );
     }
 
@@ -177,10 +180,10 @@ class OrpReporte extends Component
                     $query->where('orp_id', $orpId); // Filtra siempre por orp_id
                 })
 
-               
+
                 ->get();
-                
-                
+
+
 
 
                 $envasados = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function($query) {
@@ -207,7 +210,7 @@ class OrpReporte extends Component
 
 
 
-              
+
 
 
                 $data = $this->resultados_agrupados;
@@ -218,7 +221,7 @@ class OrpReporte extends Component
                 $pdf->setPaper('letter', 'portrait');
                 echo $pdf->stream();
             },
-           "{$this->reporte->codigo} {$this->reporte->producto->nombre}.pdf" 
+           "{$this->reporte->codigo} {$this->reporte->producto->nombre}.pdf"
         );
     }
 
@@ -247,17 +250,17 @@ class OrpReporte extends Component
                 ->groupBy(function ($item) {
                     // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
                     return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
-                    
+
                 })
                 ->map(function ($group) {
                     // Ordena por 'tiempo' y toma el último registro
                     return $group->sortByDesc('tiempo')->first();
                 })
                 ->values(); // Reindexa la colección para eliminar claves asociativas
-            
-               
+
+
                 // ->get();
-                
+
 
                 $inoculaciones = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function($query) {
                     $query->where('etapa_id', 3); // Filtra registros con etapa_id = 1
@@ -270,18 +273,18 @@ class OrpReporte extends Component
                 ->groupBy(function ($item) {
                     // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
                     return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
-                    
+
                 })
                 ->map(function ($group) {
                     // Ordena por 'tiempo' y toma el último registro
                     return $group->sortByDesc('tiempo')->first();
                 })
                 ->values(); // Reindexa la colección para eliminar claves asociativas
-            
 
-               
+
+
                 // ->get();
-                
+
                 $Acortes = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) {
                     $query->where('etapa_id', 4); // Filtra registros con etapa_id = 4
                 })
@@ -293,14 +296,14 @@ class OrpReporte extends Component
                 ->groupBy(function ($item) {
                     // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
                     return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
-                    
+
                 })
                 ->map(function ($group) {
                     // Ordena por 'tiempo' y toma el último registro
                     return $group->sortByDesc('tiempo')->first();
                 })
                 ->values(); // Reindexa la colección para eliminar claves asociativas
-            
+
 
                 $Dcortes = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function($query) {
                     $query->where('etapa_id', 5); // Filtra registros con etapa_id = 1
@@ -314,16 +317,16 @@ class OrpReporte extends Component
                 ->groupBy(function ($item) {
                     // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
                     return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
-                    
+
                 })
                 ->map(function ($group) {
                     // Ordena por 'tiempo' y toma el último registro
                     return $group->sortByDesc('tiempo')->first();
                 })
                 ->values(); // Reindexa la colección para eliminar claves asociativas
-            
 
-               
+
+
                 // ->get();
 
                 $saborizaciones = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function($query) {
@@ -338,16 +341,16 @@ class OrpReporte extends Component
                 ->groupBy(function ($item) {
                     // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
                     return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
-                    
+
                 })
                 ->map(function ($group) {
                     // Ordena por 'tiempo' y toma el último registro
                     return $group->sortByDesc('tiempo')->first();
                 })
                 ->values(); // Reindexa la colección para eliminar claves asociativas
-            
 
-               
+
+
                 // ->get();
 
 
@@ -376,7 +379,7 @@ class OrpReporte extends Component
 
 
 
-              
+
 
 
                 $data = $this->resultados_agrupados;
@@ -387,7 +390,7 @@ class OrpReporte extends Component
                 $pdf->setPaper('letter', 'portrait');
                 echo $pdf->stream();
             },
-           "{$this->reporte->codigo} {$this->reporte->producto->nombre}.pdf" 
+           "{$this->reporte->codigo} {$this->reporte->producto->nombre}.pdf"
         );
     }
 
@@ -414,22 +417,22 @@ class OrpReporte extends Component
                 ->groupBy(function ($item) {
                     // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
                     return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
-                    
+
                 })
                 ->map(function ($group) {
                     // Ordena por 'tiempo' y toma el último registro
                     return $group->sortByDesc('tiempo')->first();
                 })
                 ->values(); // Reindexa la colección para eliminar claves asociativas
-            
-               
-                // ->get();
-                
 
-               
-               
-            
-                
+
+                // ->get();
+
+
+
+
+
+
                 $Acortes = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) {
                     $query->where('etapa_id', 4); // Filtra registros con etapa_id = 4
                 })
@@ -441,14 +444,14 @@ class OrpReporte extends Component
                 ->groupBy(function ($item) {
                     // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
                     return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
-                    
+
                 })
                 ->map(function ($group) {
                     // Ordena por 'tiempo' y toma el último registro
                     return $group->sortByDesc('tiempo')->first();
                 })
                 ->values(); // Reindexa la colección para eliminar claves asociativas
-            
+
 
                 $Dcortes = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function($query) {
                     $query->where('etapa_id', 5); // Filtra registros con etapa_id = 1
@@ -462,16 +465,16 @@ class OrpReporte extends Component
                 ->groupBy(function ($item) {
                     // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
                     return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
-                    
+
                 })
                 ->map(function ($group) {
                     // Ordena por 'tiempo' y toma el último registro
                     return $group->sortByDesc('tiempo')->first();
                 })
                 ->values(); // Reindexa la colección para eliminar claves asociativas
-            
 
-               
+
+
                 // ->get();
 
                 $saborizaciones = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function($query) {
@@ -486,16 +489,16 @@ class OrpReporte extends Component
                 ->groupBy(function ($item) {
                     // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
                     return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
-                    
+
                 })
                 ->map(function ($group) {
                     // Ordena por 'tiempo' y toma el último registro
                     return $group->sortByDesc('tiempo')->first();
                 })
                 ->values(); // Reindexa la colección para eliminar claves asociativas
-            
 
-               
+
+
                 // ->get();
 
 
@@ -524,7 +527,7 @@ class OrpReporte extends Component
 
 
 
-              
+
 
 
                 $data = $this->resultados_agrupados;
@@ -535,7 +538,7 @@ class OrpReporte extends Component
                 $pdf->setPaper('letter', 'portrait');
                 echo $pdf->stream();
             },
-           "{$this->reporte->codigo} {$this->reporte->producto->nombre}.pdf" 
+           "{$this->reporte->codigo} {$this->reporte->producto->nombre}.pdf"
         );
     }
 
@@ -561,22 +564,22 @@ class OrpReporte extends Component
                 ->groupBy(function ($item) {
                     // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
                     return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
-                    
+
                 })
                 ->map(function ($group) {
                     // Ordena por 'tiempo' y toma el último registro
                     return $group->sortByDesc('tiempo')->first();
                 })
                 ->values(); // Reindexa la colección para eliminar claves asociativas
-            
-               
-                // ->get();
-                
 
-               
-               
-            
-                
+
+                // ->get();
+
+
+
+
+
+
                 $Acortes = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) {
                     $query->where('etapa_id', 4); // Filtra registros con etapa_id = 4
                 })
@@ -588,14 +591,14 @@ class OrpReporte extends Component
                 ->groupBy(function ($item) {
                     // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
                     return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
-                    
+
                 })
                 ->map(function ($group) {
                     // Ordena por 'tiempo' y toma el último registro
                     return $group->sortByDesc('tiempo')->first();
                 })
                 ->values(); // Reindexa la colección para eliminar claves asociativas
-            
+
 
                 $Dcortes = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function($query) {
                     $query->where('etapa_id', 5); // Filtra registros con etapa_id = 1
@@ -609,16 +612,16 @@ class OrpReporte extends Component
                 ->groupBy(function ($item) {
                     // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
                     return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
-                    
+
                 })
                 ->map(function ($group) {
                     // Ordena por 'tiempo' y toma el último registro
                     return $group->sortByDesc('tiempo')->first();
                 })
                 ->values(); // Reindexa la colección para eliminar claves asociativas
-            
 
-               
+
+
                 // ->get();
 
                 $saborizaciones = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function($query) {
@@ -633,16 +636,16 @@ class OrpReporte extends Component
                 ->groupBy(function ($item) {
                     // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
                     return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
-                    
+
                 })
                 ->map(function ($group) {
                     // Ordena por 'tiempo' y toma el último registro
                     return $group->sortByDesc('tiempo')->first();
                 })
                 ->values(); // Reindexa la colección para eliminar claves asociativas
-            
 
-               
+
+
                 // ->get();
 
 
@@ -671,7 +674,7 @@ class OrpReporte extends Component
 
 
 
-              
+
 
 
                 $data = $this->resultados_agrupados;
@@ -682,7 +685,7 @@ class OrpReporte extends Component
                 $pdf->setPaper('letter', 'portrait');
                 echo $pdf->stream();
             },
-           "{$this->reporte->codigo} {$this->reporte->producto->nombre}.pdf" 
+           "{$this->reporte->codigo} {$this->reporte->producto->nombre}.pdf"
         );
     }
 

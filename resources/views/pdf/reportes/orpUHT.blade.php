@@ -345,7 +345,7 @@
                             </th>
 
 
-                            @if ($dato->solicitudAnalisisLinea->estadoPlanta)
+                            @if ($dato->solicitudAnalisisLinea->analisisLinea->tiempo)
                                 <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->analisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
                                 </th>
                             @else
@@ -492,7 +492,7 @@
                             <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
                             </th>
 
-                            @if ($dato->solicitudAnalisisLinea->estadoPlanta)
+                            @if ($dato->solicitudAnalisisLinea->analisisLinea->tiempo)
                                 <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->analisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
                                 </th>
                             @else

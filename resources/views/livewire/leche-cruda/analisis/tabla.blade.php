@@ -221,7 +221,7 @@
                     <td class="px-6 py-2 @if($parametro && $registro->temperatura !== null) {{ ($registro->temperatura <= $parametro->temperatura_max) ? 'text-green-500' : 'text-red-500' }} @endif" nowrap>
                         {{$registro->temperatura}}
                     </td>
-                    <td class="px-6 py-2 @if($parametro && $registro->ph !== null) {{ ($registro->ph >= $parametro->ph_min && $registro->temperatura <= $parametro->ph_max) ? 'text-green-500' : 'text-red-500' }} @endif" nowrap>
+                    <td class="px-6 py-2 @if($parametro && $registro->ph !== null) {{ ($registro->ph >= $parametro->ph_min && $registro->ph <= $parametro->ph_max) ? 'text-green-500' : 'text-red-500' }} @endif" nowrap>
                         {{$registro->ph}}
                     </td>
                     <td class="px-6 py-2 @if($parametro && $registro->acidez !== null) {{ ($registro->acidez >= $parametro->acidez_min && $registro->acidez <= $parametro->acidez_max) ? 'text-green-500' : 'text-red-500' }} @endif" nowrap>

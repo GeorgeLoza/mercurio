@@ -209,7 +209,7 @@
 
         .columna_secundaria {}
 
-        
+
         .table-container {
         width: 100%;
         table-layout: fixed; /* Para que las columnas tengan el mismo ancho */
@@ -218,7 +218,7 @@
     .table-container th, .table-container td {
         text-align: center; /* Opcional, para centrar el contenido */
         padding: 3px; /* Opcional, mejora legibilidad al imprimir */
-        white-space: nowrap; 
+        white-space: nowrap;
     }
     </style>
 
@@ -309,22 +309,23 @@
             <table class="table-container " style="  font-wheight:0">
                 <thead>
                     <tr>
-                        <th colspan="13" style="font-weight:bold;">
+                        <th colspan="14" style="font-weight:bold;">
                             MEZCLA
                         </th>
                     </tr>
                     <tr>
                         <th>Prep.</th>
                         <th>Tanque</th>
-                        
+                        <th>Fecha</th>
+
                         <th>Hora S. </th>
                         <th>Hora R. </th>
                         <th>Temp [°C]</th>
                         <th>pH</th>
                         <th>°Brix</th>
                         <th>Acidez [%]</th>
-                        
-                        
+
+
                         <th></th>
                         <th></th>
                         <th></th>
@@ -348,18 +349,21 @@
                                     @endif
                                 @endforeach
                             </th>
-                            
+
                             @php
                                 $contador = $contador + 1;
                             @endphp
                             <th>{{ $dato->solicitudAnalisisLinea->estadoPlanta->origen->alias }}</th>
-                            
+
+
+                            <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('DD/MM/YY', 0, 'es') }}
+                            </th>
 
                             <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
                             </th>
 
 
-                            @if ($dato->solicitudAnalisisLinea->estadoPlanta)
+                            @if ($dato->solicitudAnalisisLinea->analisisLinea->tiempo)
                                 <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->analisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
                                 </th>
                             @else
@@ -382,7 +386,7 @@
                                     <th>-</th>
                                 @endif
 
-                               
+
 
                                 @if ($analisis->brix)
                                     <th>{{ $analisis->brix }}</th>
@@ -394,12 +398,12 @@
                             @else
                                 <th>-</th>
                             @endif
-                                
-                               
+
+
                                 <th></th>
                                 <th></th>
                                 <th></th>
-                                
+
 
                                 @if ($dato->solicitudAnalisisLinea->user != null)
                                     <th>
@@ -430,27 +434,28 @@
             <table class="table-container " style="  font-wheight:0">
                 <thead>
                     <tr>
-                        <th colspan="13" style="font-weight:bold;">
+                        <th colspan="14" style="font-weight:bold;">
                             Saborizacion
                         </th>
                     </tr>
                     <tr>
                         <th>Prep.</th>
                         <th>Tanque</th>
-                        
+                        <th>Fecha</th>
+
                         <th>Hora S. </th>
                         <th>Hora R. </th>
                         <th>Temp [°C]</th>
                         <th>pH</th>
-                        
+
                         <th>°Brix</th>
                         <th>µ [s]</th>
                         <th>Color</th>
                         <th>Olor</th>
                         <th>Sabor</th>
-                        
-                        
-                        
+
+
+
                         <th>Solicitante</th>
                         <th>Analista</th>
 
@@ -471,18 +476,20 @@
                                     @endif
                                 @endforeach
                             </th>
-                            
+
                             @php
                                 $contador = $contador + 1;
                             @endphp
                             <th>{{ $dato->solicitudAnalisisLinea->estadoPlanta->origen->alias }}</th>
-                            
+
+                            <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('DD/MM/YY', 0, 'es') }}
+                            </th>
 
                             <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
                             </th>
 
 
-                            @if ($dato->solicitudAnalisisLinea->estadoPlanta)
+                            @if ($dato->solicitudAnalisisLinea->analisisLinea->tiempo)
                                 <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->analisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
                                 </th>
                             @else
@@ -505,7 +512,7 @@
                                     <th>-</th>
                                 @endif
 
-                                
+
 
                                 @if ($analisis->brix)
                                     <th>{{ $analisis->brix }}</th>
@@ -517,7 +524,7 @@
                                 @else
                                     <th>-</th>
                                 @endif
-                                
+
 
                             @if ($analisis->color)
                                 @if ($analisis->color == true)
@@ -541,11 +548,11 @@
                                 @endif
                             @endif
 
-                               
 
-                                
-                                
-                                
+
+
+
+
 
                                 @if ($dato->solicitudAnalisisLinea->user != null)
                                     <th>
@@ -573,18 +580,18 @@
             </table>
 
 
-            
+
 
 
             <br>
 
 
-            
+
             <table class="table-container">
 
                 <thead>
                     <tr>
-                        <th colspan="15" style="font-weight:bold;">
+                        <th colspan="14" style="font-weight:bold;">
                             ENVASADO
                         </th>
                     </tr>
@@ -594,19 +601,20 @@
                     <tr>
                         <th>Cabezal </th>
                         <th>Lote</th>
+
                         <th>Hora S.</th>
                         <th>Hora R.</th>
-                        
+
                         <th>Temp [°C]</th>
                         <th>pH</th>
-                        
+
                         <th>°Brix</th>
                         <th>µ [s]</th>
                         <th>Color</th>
                         <th>Olor</th>
                         <th>Sabor</th>
                         <th>Peso [g]</th>
-                        <th>Densidad </th>
+
 
 
 
@@ -621,7 +629,14 @@
                             @php
                                 $contador = $contador + 1;
                             @endphp
-                            <th>{{ $dato->solicitudAnalisisLinea->estadoPlanta->origen->alias }}</th>
+                        @if ($dato->solicitudAnalisisLinea->estadoPlanta->origen->alias == 'EMBOTELLADORA')
+
+                        <th>EMB</th>
+                        @else
+                        <th>{{ $dato->solicitudAnalisisLinea->estadoPlanta->origen->alias }}</th>
+                        @endif
+
+
                             @php
                                 $fecha = new DateTime($dato->solicitudAnalisisLinea->tiempo);
                                 $diaDelAno = $fecha->format('z') + 1;
@@ -631,7 +646,7 @@
                             <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
                             </th>
 
-                            @if ($dato->solicitudAnalisisLinea->estadoPlanta)
+                            @if ($dato->solicitudAnalisisLinea->analisisLinea->tiempo)
                                 <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->analisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
                                 </th>
                             @else
@@ -639,7 +654,7 @@
                             @endif
 
 
-                            
+
 
                             @if ($dato->solicitudAnalisisLinea)
                                 @php
@@ -657,7 +672,7 @@
                                     <th>-</th>
                                 @endif
 
-                              
+
 
                                 @if ($analisis->brix)
                                     <th>{{ $analisis->brix }}</th>
@@ -669,7 +684,7 @@
                                 @else
                                     <th>-</th>
                                 @endif
-                                
+
 
                                 @if ($analisis->color)
                                     @if ($analisis->color == true)
@@ -699,18 +714,14 @@
                                     <th>-</th>
                                 @endif
 
-                                @if ($analisis->densidad)
-                                    <th>{{ $analisis->densidad }}</th>
-                                @else
-                                    <th>-</th>
-                                @endif
 
-                                
+
+
                                     @if ($dato->solicitudAnalisisLinea->user != null)
                                     <th>  {{ $dato->solicitudAnalisisLinea->user->codigo }}</th>
                                     @endif
 
-                                    
+
 
 
                                     @if ($dato->solicitudAnalisisLinea->analisisLinea->user != null)
@@ -718,7 +729,7 @@
                                 @else
                                 <th>-</th>
                                     @endif
-                                
+
                             @endif
 
 

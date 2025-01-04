@@ -2,18 +2,25 @@
 
 namespace App\Livewire\Sustancias;
 
+use App\Exports\SustaciasExports;
+use App\Models\DetalleMov;
 use App\Models\Item;
 use Livewire\Component;
-use App\Models\Mov;
 use Livewire\Attributes\On;
+use App\Models\Mov;
+use Carbon\Carbon;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Tabla extends Component
 {
     use WithPagination;
     // Lista de movimientos
     public $totalesPorItem = []; // Cantidad actual por ítem (ingresos - egresos)
-
+    public $rutas;
+    public $ruta;
+    public $fechaInicio;
+public $fechaFin;
 
    // Lista de movimientos
     public $detallesAbiertos = []; // Almacena qué movimientos tienen sus detalles abiertos
@@ -22,6 +29,7 @@ class Tabla extends Component
     #[On('actualizar_movimiento_sustancia')]
     public function mount()
     {
+        $this->rutas     = Item::pluck('nombre')->unique();
 
         $this->calcularCantidadActualPorItem();
         // dd($this->totalesPorItem);
@@ -135,6 +143,43 @@ class Tabla extends Component
 
         ];
     })->toArray();
+}
+
+
+public function exportarExcel()
+{
+    // Validar que las fechas sean correctas
+    $this->validate([
+        'fechaInicio' => 'required|date',
+        'fechaFin' => 'required|date|after_or_equal:fechaInicio',
+    ]);
+
+    // Convertir las fechas a formato adecuado
+    $fechaInicio = Carbon::parse($this->fechaInicio)->startOfDay();
+    $fechaFin = Carbon::parse($this->fechaFin)->endOfDay();
+
+    // Consultar registros basados en el rango de fechas y la ruta seleccionada
+    $query = DetalleMov::query()
+        ->whereBetween('updated_at', [$fechaInicio, $fechaFin]);
+        $query->whereHas('mov', function ($subQuery) {
+            $subQuery->where('estado', 'Entregado');
+        });
+        $query->whereHas('mov', function ($subQuery) {
+            $subQuery->where('tipo', 0);
+        });
+    if ($this->ruta) {
+        $query->whereHas('item', function ($subQuery) {
+            $subQuery->where('nombre', $this->ruta);
+        });
+    }
+
+    $orp = $query->get();
+
+    // Crear nombre del archivo con las fechas seleccionadas
+    $nombreArchivo = "Reporte_{$this->fechaInicio}_a_{$this->fechaFin}.xlsx";
+
+    // Exportar datos
+    return Excel::download(new SustaciasExports($orp), $nombreArchivo);
 }
 
 }
