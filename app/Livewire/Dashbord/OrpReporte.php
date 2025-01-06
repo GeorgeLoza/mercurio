@@ -136,6 +136,7 @@ $userIdsFromSolicitudAnalisis = SolicitudAnalisisLinea::whereHas('estadoPlanta.e
                 $data = $this->resultados_agrupados;
                 $informacion = $this->reporte;
                 $usuariosInvolucrados = $this->usuariosInvolucrados;
+
                 $pdf = App::make('dompdf.wrapper');
                 $pdf = Pdf::loadView('pdf.reportes.orpReport', compact(['data', 'informacion', 'usuariosInvolucrados']));
                 $pdf->setPaper('letter', 'portrait');
@@ -216,6 +217,7 @@ $userIdsFromSolicitudAnalisis = SolicitudAnalisisLinea::whereHas('estadoPlanta.e
                 $data = $this->resultados_agrupados;
                 $informacion = $this->reporte;
                 $usuariosInvolucrados = $this->usuariosInvolucrados;
+
                 $pdf = App::make('dompdf.wrapper');
                 $pdf = Pdf::loadView('pdf.reportes.orpUHT', compact(['data', 'informacion', 'usuariosInvolucrados','mezclas','envasados', 'obs', 'orpId']));
                 $pdf->setPaper('letter', 'portrait');

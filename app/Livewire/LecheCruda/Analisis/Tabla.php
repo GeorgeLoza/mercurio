@@ -11,19 +11,27 @@ use App\Models\SolicitudAnalisisLinea;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\AnalisisLeche;
+use App\Models\RecepcionLeche;
 use App\Models\RutaAcopio;
+use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
+
+use Illuminate\Support\Facades\App;
 
 class Tabla extends Component
 {
 
     use WithPagination;
-//parametros
-public $parametro;
+    //parametros
+    public $parametro;
 
-public $fechaInicio;
-public $fechaFin;
-public $ruta;
-public $rutas;
+    public $fechaInicio;
+    public $fechaFin;
+    public $ruta;
+    public $rutas;
+    public $usuariosInvolucrados;
+    public $analistasInvolucrados;
+    public $solicitantesInvolucrados;
 
 
 
@@ -64,7 +72,6 @@ public $rutas;
         $this->sortAsc = false;
         $this->parametro = ParametroLeche::first();
         $this->rutas     = RutaAcopio::pluck('nombre')->unique();
-
     }
 
     #[On('actualizar_tabla_CalidadLeche')]
@@ -105,13 +112,14 @@ public $rutas;
             ->when($this->sortField, function ($query) {
                 $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
             });
-            $registros = $this->aplicandoFiltros ? $query->get() : $query->paginate(50);
-            $pendiente = SolicitudAnalisisLinea::where('estado', 'pendiente')
+        $registros = $this->aplicandoFiltros ? $query->get() : $query->paginate(50);
+        $pendiente = SolicitudAnalisisLinea::where('estado', 'pendiente')
             ->where('created_at', '>=', Carbon::now()->subMinutes(20))
             ->exists(); // Devuelve true si existen registros, false si no
 
         return view('livewire.leche-cruda.analisis.tabla', [
-            'registros' => $registros,'pendiente' => $pendiente
+            'registros' => $registros,
+            'pendiente' => $pendiente
         ]);
     }
 
@@ -135,38 +143,113 @@ public $rutas;
 
 
 
-//
-public function exportarExcel()
-{
-    // Validar que las fechas sean correctas
-    $this->validate([
-        'fechaInicio' => 'required|date',
-        'fechaFin' => 'required|date|after_or_equal:fechaInicio',
-    ]);
+    //
+    public function exportarExcel()
+    {
+        // Validar que las fechas sean correctas
+        $this->validate([
+            'fechaInicio' => 'required|date',
+            'fechaFin' => 'required|date|after_or_equal:fechaInicio',
+        ]);
 
-    // Convertir las fechas a formato adecuado
-    $fechaInicio = Carbon::parse($this->fechaInicio)->startOfDay();
-    $fechaFin = Carbon::parse($this->fechaFin)->endOfDay();
+        // Convertir las fechas a formato adecuado
+        $fechaInicio = Carbon::parse($this->fechaInicio)->startOfDay();
+        $fechaFin = Carbon::parse($this->fechaFin)->endOfDay();
 
-    // Consultar registros basados en el rango de fechas y la ruta seleccionada
-    $query = CalidadLeche::query()
-        ->whereBetween('tiempo', [$fechaInicio, $fechaFin]);
+        // Consultar registros basados en el rango de fechas y la ruta seleccionada
+        $query = CalidadLeche::query()
+            ->whereBetween('tiempo', [$fechaInicio, $fechaFin]);
 
-    if ($this->ruta) {
-        $query->whereHas('recepcion_leche.subruta_acopio.ruta_acopio', function ($subQuery) {
-            $subQuery->where('nombre', $this->ruta);
-        });
+        if ($this->ruta) {
+            $query->whereHas('recepcion_leche.subruta_acopio.ruta_acopio', function ($subQuery) {
+                $subQuery->where('nombre', $this->ruta);
+            });
+        }
+
+        $orp = $query->get();
+
+        // Crear nombre del archivo con las fechas seleccionadas
+        $nombreArchivo = "Reporte_{$this->fechaInicio}_a_{$this->fechaFin}.xlsx";
+
+        // Exportar datos
+        return Excel::download(new AnalisisLeche($orp), $nombreArchivo);
     }
 
-    $orp = $query->get();
-
-    // Crear nombre del archivo con las fechas seleccionadas
-    $nombreArchivo = "Reporte_{$this->fechaInicio}_a_{$this->fechaFin}.xlsx";
-
-    // Exportar datos
-    return Excel::download(new AnalisisLeche($orp), $nombreArchivo);
-}
 
 
 
+
+    public function generatePDF6()
+    {
+
+        $this->validate([
+            'fechaInicio' => 'required|date',
+            'fechaFin' => 'required|date|after_or_equal:fechaInicio',
+        ]);
+
+        return response()->streamDownload(
+            function () {
+
+                $fechaInicio = Carbon::parse($this->fechaInicio)->startOfDay();
+                $fechaFin = Carbon::parse($this->fechaFin)->endOfDay();
+
+                // Consultar registros basados en el rango de fechas y la ruta seleccionada
+                $query = CalidadLeche::query()
+                    ->whereBetween('tiempo', [$fechaInicio, $fechaFin]);
+
+                if ($this->ruta) {
+                    $query->whereHas('recepcion_leche.subruta_acopio.ruta_acopio', function ($subQuery) {
+                        $subQuery->where('nombre', $this->ruta);
+                    });
+                }
+
+
+                $query2 = RecepcionLeche::query()
+                    ->whereBetween('tiempo', [$fechaInicio, $fechaFin])
+                    ->whereHas('calidad_leche', function ($query) {
+                        $query->whereNot('user_id',NULL);
+                    });
+                if ($this->ruta) {
+                    $query2->whereHas('subruta_acopio.ruta_acopio', function ($subQuery) {
+                        $subQuery->where('nombre', $this->ruta);
+                    });
+                }
+
+
+
+
+                $analistasid = $query->get()->pluck('user_id')
+                    ->unique();
+                $solicitantesid = $query2->get()->pluck('user_id')
+                    ->unique();
+
+                $allUserIds = $analistasid
+                    ->merge($solicitantesid)
+                    ->unique();
+
+
+                $this->usuariosInvolucrados = User::whereIn('id', $allUserIds)->get();
+
+
+                $this->analistasInvolucrados = User::whereIn('id', $analistasid)->get();
+                $this->solicitantesInvolucrados = User::whereIn('id', $solicitantesid)->get();
+
+
+
+
+
+
+                $usuariosInvolucrados = $this->usuariosInvolucrados;
+                $analistasInvolucrados = $this->analistasInvolucrados;
+                $solicitantesInvolucrados = $this->solicitantesInvolucrados;
+
+                $variable = $query->get();
+                $pdf = App::make('dompdf.wrapper');
+                $pdf = Pdf::loadView('pdf.reportes.analisisLeche', compact(['variable', 'usuariosInvolucrados', 'fechaInicio', 'fechaFin', 'analistasInvolucrados', 'solicitantesInvolucrados']));
+                $pdf->setPaper('letter', 'landscape');
+                echo $pdf->stream();
+            },
+            "{$this->fechaInicio}_a_{$this->fechaFin}.pdf"
+        );
+    }
 }
