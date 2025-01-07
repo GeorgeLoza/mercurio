@@ -5,16 +5,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ asset('build/assets/app-da32ce76.css') }}">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-c8c7f739.css') }}">
-   
+    <link rel="stylesheet" href="{{ asset('build/assets/app-a63f72d2.css') }}">
+
     <script src="{{ asset('build/assets/app-56df689c.js') }}" defer></script>
     <script src="{{asset('js/app.js')}}"></script>
     <script src="{{asset('js/flowbite.js')}}"></script>
 
-    
-   
-
     @vite('resources/css/app.css')
+    @vite('resources/js/app.js')
+
+
+
 
     <title>Soalpro</title>
 
@@ -51,7 +52,7 @@
                         @csrf
                         <div class=" px-3 mb-5">
                             <div class="relative z-0 w-full mb-5 group">
-                                <input type="text" name="codigo" id="codigo"
+                                <input type="tel" name="codigo" id="codigo"
                                     class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                     placeholder=" " required />
                                 <label for="codigo"
@@ -92,9 +93,9 @@
     <div class="flex items-end justify-end fixed bottom-0 right-0 mb-3 mr-3 z-10">
         <div>
             <img
-                class="block w-16 h-16 rounded-3xl transition-all shadow hover:shadow-lg transform hover:scale-110 hover:rotate-12 object-cover object-center " 
+                class="block w-16 h-16 rounded-3xl transition-all shadow hover:shadow-lg transform hover:scale-110 hover:rotate-12 object-cover object-center "
                     src="{{ asset('img/iconos/logo.svg') }}" />
-            
+
         </div>
     </div>
 

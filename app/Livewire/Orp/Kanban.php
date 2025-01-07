@@ -13,13 +13,24 @@ use PhpParser\Node\Stmt\TryCatch;
 
 class Kanban extends Component
 {
-    public $orps;
+    public $orpshtst;
+    public $orpsuht;
 
     public function mount()
     {
 
-        $this->orps = Orp::where('created_at', '>=', Carbon::now()->subWeek())
+        $this->orpshtst = Orp::where('created_at', '>=', Carbon::now()->subWeek())
             ->orderBy('estado')
+            ->whereHas('producto.categoriaProducto', function ($query) {
+                $query->where('grupo', 'HTST');
+            })
+            ->get();
+
+            $this->orpsuht = Orp::where('created_at', '>=', Carbon::now()->subWeek())
+            ->orderBy('estado')
+            ->whereHas('producto.categoriaProducto', function ($query) {
+                $query->where('grupo', 'UHT');
+            })
             ->get();
     }
 
@@ -43,7 +54,7 @@ class Kanban extends Component
                 $orp->tiempo_elaboracion = now();
             }
 
-            // 
+            //
 
             if ($estado == 'Completado') {
 
@@ -57,7 +68,7 @@ class Kanban extends Component
                     // Log::error('Error al actualizar colors: ' . $th->getMessage());
                 }
 
-            }   
+            }
 
 
 
@@ -73,19 +84,35 @@ class Kanban extends Component
                 }
             }
 
-            
+
             // Recargar las ORP después de actualizar el estado
-            $this->orps = Orp::where('created_at', '>=', Carbon::now()->subWeek())->orderBy('estado')->get();
+            $this->orpshtst = Orp::where('created_at', '>=', Carbon::now()->subWeek())
+
+            ->orderBy('estado')
+            ->whereHas('producto.categoriaProducto', function ($query) {
+                $query->where('grupo', 'HTST');
+            })
+            ->get();
+            $this->orpsuht = Orp::where('created_at', '>=', Carbon::now()->subWeek())
+            ->orderBy('estado')
+            ->whereHas('producto.categoriaProducto', function ($query) {
+                $query->where('grupo', 'UHT');
+            })
+            ->get();
         }
     }
     public function render()
     {
 
         return view('livewire.orp.kanban', [
-            'orpsPendientes' => $this->orps->where('estado', 'Pendiente'),
-            'orpsProgramados' => $this->orps->where('estado', 'Programado'),
-            'orpsEnProceso' => $this->orps->where('estado', 'En proceso'),
-            'orpsCompletados' => $this->orps->where('estado', 'Completado'),
+            'htstPendientes' => $this->orpshtst->where('estado', 'Pendiente'),
+            'htstProgramados' => $this->orpshtst->where('estado', 'Programado'),
+            'htstEnProceso' => $this->orpshtst->where('estado', 'En proceso'),
+            'htstCompletados' => $this->orpshtst->where('estado', 'Completado'),
+            'uhtPendientes' => $this->orpsuht->where('estado', 'Pendiente'),
+            'uhtProgramados' => $this->orpsuht->where('estado', 'Programado'),
+            'uhtEnProceso' => $this->orpsuht->where('estado', 'En proceso'),
+            'uhtCompletados' => $this->orpsuht->where('estado', 'Completado'),
         ]);
     }
 }

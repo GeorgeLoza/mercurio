@@ -5,14 +5,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ asset('build/assets/app-da32ce76.css') }}">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-c8c7f739.css') }}">
-    
+    <link rel="stylesheet" href="{{ asset('build/assets/app-a63f72d2.css') }}">
+
     <script src="{{ asset('build/assets/app-56df689c.js') }}" defer></script>
     <script src="{{asset('js/app.js')}}"></script>
     <script src="{{asset('js/flowbite.js')}}"></script>
 
-    
-    
+    @vite('resources/css/app.css')
+    @vite('resources/js/app.js')
+
 
     <title>Soalpro</title>
 
@@ -141,7 +142,7 @@
                                         @foreach ($plantas as $planta)
                                         <option value="{{$planta->id}}" class="bg-gray-100 dark:bg-gray-800">{{$planta->nombre}}</option>
                                         @endforeach
-                                        
+
                                     </select>
                                     @error('planta_id')
                                     <p class="text-red-500 text-xs">* {{$message}}</p>
@@ -157,7 +158,7 @@
                                         @foreach ($divisiones as $division)
                                         <option value="{{$division->id}}" class="bg-gray-100 dark:bg-gray-800">{{$division->nombre}}</option>
                                         @endforeach
-                                        
+
                                     </select>
                                     @error('correo')
                                     <p class="text-red-500 text-xs">* {{$message}}</p>
