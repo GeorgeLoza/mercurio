@@ -18,7 +18,8 @@ class Vencimiento extends Component
     {
 
         $this->orps = Orp::where(function ($query) {
-            $query->whereNull('fecha_vencimiento1');
+            $query->whereNull('fecha_vencimiento1')
+                 ->orWhere('updated_at', '>=', Carbon::now()->subMinutes(5));
         })
         ->whereHas('producto.categoriaProducto', function ($query) {
             $query->where('grupo', 'HTST');

@@ -1,20 +1,20 @@
 <div>
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg h-[calc(40vh)] bg-white dark:bg-gray-900">
         <table class="w-full text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    <th scope="col" class="px-1 py-2">ORP</th>
-                    <th scope="col" class="px-1 py-2">Producto</th>
-                    <th scope="col" class="px-1 py-2">Prep.</th>
-                    <th scope="col" class="px-1 py-2">Cabezal</th>
-                    <th scope="col" class="px-1 py-2">Peso</th>
-                    <th scope="col" class="px-1 py-2"><span class="sr-only">Edit</span></th>
+                    <th scope="col" class="px-1 py-1">Producto</th>
+                    <th scope="col" class="px-1 py-1">ORP</th>
+                    <th scope="col" class="px-1 py-1">Prep.</th>
+                    <th scope="col" class="px-1 py-1">Cabezal</th>
+                    <th scope="col" class="px-1 py-1">Peso</th>
+                    <th scope="col" class="px-1 py-1"><span class="sr-only">Edit</span></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($resultados as $index => $resultado)
                     <tr
-                        class="bg-white text-center border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        class="bg-white text-center border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <th scope="row"
                             class="px-1 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             @foreach ($resultado->solicitudAnalisisLinea->estadoPlanta->estadoDetalle as $dato)
@@ -40,7 +40,7 @@
                                 <span>{{ $resultado->peso ?? '-' }}</span>
                             @endif
                         </td>
-                        
+
                         <td class="px-1 py-2 text-right flex gap-2 align-middle">
                             @if ($editing === $index)
                                 <button wire:click="save({{ $index }})"

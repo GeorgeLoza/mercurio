@@ -15,15 +15,14 @@ class Vencimiento extends Component
     public function render()
     {
         $this->orps = Orp::where(function ($query) {
-                $query->whereNull('fecha_vencimiento1');
-            })
-            
-            ->whereHas('producto.categoriaProducto', function ($query) {
-                $query->where('grupo', 'UHT');
-            })
-            // ->where('created_at', '>=', Carbon::now()->subDays(5))
-             ->where('estado', 'En Proceso')
-            ->get();
+            $query->whereNull('fecha_vencimiento1') // Fecha de vencimiento es NULL
+                  ->orWhere('updated_at', '>=', Carbon::now()->subMinutes(5)); // Registro actualizado en los últimos 5 minutos
+        })
+        ->whereHas('producto.categoriaProducto', function ($query) {
+            $query->where('grupo', 'UHT');
+        })
+        ->where('estado', 'En Proceso')
+        ->get();
 
         return view('livewire.uht.vencimiento', ['orps' => $this->orps]);
     }
