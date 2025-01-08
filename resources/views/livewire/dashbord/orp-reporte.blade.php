@@ -4,8 +4,8 @@
     <div class="flex justify-end m-1">
  {{-- yogurt --}}
         @if ($reporte->producto->categoriaProducto->tipo == 'yogurts')
-            
-           
+
+
             <button class="bg-green-600 p-2 text-center rounded-md flex gap-2" wire:click="generatePDF4"
                 wire:loading.attr="disabled">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="h-5 w-5 fill-white">
@@ -32,7 +32,7 @@
                 </div>
 
             </button>
-            
+
 
         @endif
             {{-- FIN yogurt --}}
@@ -41,8 +41,8 @@
 
             {{-- jugos --}}
         @if ($reporte->producto->categoriaProducto->tipo == 'jugos')
-            
-           
+
+
         <button class="bg-green-600 p-2 text-center rounded-md flex gap-2" wire:click="generatePDF5"
             wire:loading.attr="disabled">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="h-5 w-5 fill-white">
@@ -69,7 +69,7 @@
             </div>
 
         </button>
-        
+
 
     @endif
         {{-- FIN jugos --}}
@@ -77,15 +77,15 @@
 
            {{-- lacteas --}}
            @if ($reporte->producto->categoriaProducto->tipo == 'lacteas')
-            
-           
+
+
            <button class="bg-green-600 p-2 text-center rounded-md flex gap-2" wire:click="generatePDF6"
                wire:loading.attr="disabled">
                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="h-5 w-5 fill-white">
                    <path
                        d="M0 64C0 28.7 28.7 0 64 0L224 0l0 128c0 17.7 14.3 32 32 32l128 0 0 144-208 0c-35.3 0-64 28.7-64 64l0 144-48 0c-35.3 0-64-28.7-64-64L0 64zm384 64l-128 0L256 0 384 128zM176 352l32 0c30.9 0 56 25.1 56 56s-25.1 56-56 56l-16 0 0 32c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-48 0-80c0-8.8 7.2-16 16-16zm32 80c13.3 0 24-10.7 24-24s-10.7-24-24-24l-16 0 0 48 16 0zm96-80l32 0c26.5 0 48 21.5 48 48l0 64c0 26.5-21.5 48-48 48l-32 0c-8.8 0-16-7.2-16-16l0-128c0-8.8 7.2-16 16-16zm32 128c8.8 0 16-7.2 16-16l0-64c0-8.8-7.2-16-16-16l-16 0 0 96 16 0zm80-112c0-8.8 7.2-16 16-16l48 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0 0 32 32 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0 0 48c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-64 0-64z" />
                </svg>
-   
+
                <div wire:loading wire:target="generatePDF6">
                    <div class="flex items-center justify-center w-6 h-6 ">
                        <div role="status">
@@ -103,10 +103,10 @@
                        </div>
                    </div>
                </div>
-   
+
            </button>
-           
-   
+
+
        @endif
            {{-- FIN lacteas --}}
 
@@ -167,7 +167,7 @@
 
             </button>
 
-            
+
 
         @endif --}}
 
@@ -225,7 +225,19 @@
             <div class="md:w-1/2">
                 <p class="font-normal text-sm text-gray-700 dark:text-gray-400"> <span class="font-bold">Fecha de
                         Vencimiento:
-                    </span>{{ $reporte->fecha_vencimiento1 }} - {{ $reporte->fecha_vencimiento2 }}</p>
+                    </span>
+
+                    @if ($reporte->fecha_vencimiento1 )
+
+                    {{ \Carbon\Carbon::parse( $reporte->fecha_vencimiento1 )->isoFormat('DD-MM-YY ', 0, 'es')  }}
+                    @endif
+
+                    @if ($reporte->fecha_vencimiento2 )
+
+                   -  {{ \Carbon\Carbon::parse( $reporte->fecha_vencimiento )->isoFormat('DD-MM-YY ', 0, 'es')  }}
+                    @endif
+
+                    </p>
                 <p class="font-normal text-sm text-gray-700 dark:text-gray-400"> <span class="font-bold">Estado:
                     </span>{{ $reporte->estado }}</p>
                 <p class="font-normal text-sm text-gray-700 dark:text-gray-400"> <span class="font-bold">En Almacen:
@@ -443,7 +455,7 @@
                                 </div>
                             </div>
                             <!--Datos Analisis-->
-    
+
                             <div class="rounded-md border border-gray-400 p-1 max-h-60 overflow-y-auto">
                                 @foreach ($resultados as $resultado)
                                     @if ($resultado->estadoPlanta->etapa->id == 8)
@@ -495,7 +507,7 @@
                                                             {{ $resultado->estadoPlanta->solicitudAnalisisLinea->last()->analisisLinea->olor }}
                                                         </td>
                                                     </tr>
-    
+
                                                     <tr>
                                                         <td class="w-24">Analista:</td>
                                                         <td>
@@ -513,7 +525,7 @@
                                                                         1,
                                                                     ) }}
                                                             @endif
-    
+
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -522,13 +534,13 @@
                                     @endif
                                 @endforeach
                             </div>
-    
-    
-    
+
+
+
                         </div>
                     </li>
                 @endif
-    
+
                 @endforeach
 
 

@@ -94,13 +94,13 @@
                         <th scope="row"
                             class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 
-                            {{ \Carbon\Carbon::parse($estado->tiempo)->isoFormat('HH:mm - D/MM/YYYY') }}
+                            {{ \Carbon\Carbon::parse($estado->tiempo)->isoFormat('DD-MM-YY HH:mm  ') }}
                         </th>
                         <td class="px-6 py-2">
                             @if ($estado->origen)
-                            {{ $estado->origen->alias }}    
+                            {{ $estado->origen->alias }}
                             @endif
-                            
+
                         </td>
                         <td class="px-6 py-2">
                             {{ $estado->proceso }}

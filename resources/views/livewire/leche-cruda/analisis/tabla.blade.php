@@ -10,8 +10,12 @@
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg  overflow-y-auto h-[28rem] overflow-hidden">
 
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 capitalize bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
+                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
+                        wire:click="sortBy('tiempo')" nowrap>
+                        Fecha
+                    </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('tiempo')" nowrap>
                         Hora
@@ -37,7 +41,7 @@
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('temperatura')" nowrap>
-                        Temperatura
+                        Temp. [°C]
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('ph')" nowrap>
@@ -45,23 +49,23 @@
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('acidez')" nowrap>
-                        Acidez
+                        Acidez [%]
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('brix')" nowrap>
-                        Brix
+                        Brix [°Brix]
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('densidad')" nowrap>
-                        Densidad
+                        Dens. [g/ml]
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('prueba_alcohol')" nowrap>
-                        Prueba Alcohol
+                        P. Alcohol
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('contenido_graso')" nowrap>
-                        Contenigo Graso
+                        Cont. Graso [%]
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('tram_inicio')" nowrap>
@@ -77,11 +81,11 @@
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('temperatura_congelacion')" nowrap>
-                        temperatura de congelación
+                        Tk [°C]
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('porcentaje_agua')" nowrap>
-                        Porcentaje de Agua
+                        % Agua [%]
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
                         Observaciones
@@ -166,6 +170,15 @@
                         <th scope="row"
                             class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 
+                            {{ \Carbon\Carbon::parse($registro->recepcion_leche->tiempo)->isoFormat('DD-MM-YY', 0, 'es') }}
+
+
+
+
+                        </th>
+                        <th scope="row"
+                            class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+
                             {{ \Carbon\Carbon::parse($registro->recepcion_leche->tiempo)->isoFormat('HH:mm', 0, 'es') }}
                             -
 
@@ -247,14 +260,27 @@
                             nowrap>
                             {{ $registro->contenido_graso }}
                         </td>
+
                         <td class="px-6 py-2" nowrap>
-                            {{ $registro->tram_inicio }}
+                            @if ($registro->tram_inicio )
+
+                            {{ \Carbon\Carbon::parse($registro->tram_inicio)->isoFormat('HH:mm  ') }}
+                            @endif
+
                         </td>
                         <td class="px-6 py-2" nowrap>
-                            {{ $registro->tram_fin }}
+                            @if ($registro->tram_fin )
+
+                            {{ \Carbon\Carbon::parse($registro->tram_fin)->isoFormat('HH:mm  ') }}
+                            @endif
+
                         </td>
                         <td class="px-6 py-2" nowrap>
-                            {{ $registro->tram_lapso }}
+                            @if ($registro->tram_lapso )
+
+                            {{ \Carbon\Carbon::parse($registro->tram_lapso)->isoFormat('HH:mm  ') }}
+                            @endif
+
                         </td>
                         <td class="px-6 py-2 @if ($parametro && $registro->temperatura_congelacion !== null) {{ $registro->temperatura_congelacion >= $parametro->temperatura_congelada && $registro->temperatura_congelacion_min <= $parametro->temperatura_congelada_max ? 'text-green-500' : 'text-red-500' }} @endif"
                             nowrap>

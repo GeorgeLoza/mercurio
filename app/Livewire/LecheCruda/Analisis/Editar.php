@@ -5,6 +5,7 @@ namespace App\Livewire\LecheCruda\Analisis;
 use App\Models\CalidadLeche;
 use App\Models\RecepcionLeche;
 use Livewire\Component;
+use Carbon\Carbon;
 use LivewireUI\Modal\ModalComponent;
 
 class Editar extends ModalComponent
@@ -71,6 +72,12 @@ class Editar extends ModalComponent
             $analisis->contenido_graso = $this->contenido_graso;
             $analisis->tram_inicio = $this->tram_inicio;
             $analisis->tram_fin = $this->tram_fin;
+            $horaInicio = Carbon::parse($this->tram_inicio);
+            $horaFin = Carbon::parse($this->tram_fin);
+
+            $this->tram_lapso = $horaInicio->diff($horaFin)->format('%H:%I:%S');
+
+
             $analisis->tram_lapso = $this->tram_lapso;
             $analisis->temperatura_congelacion = $this->temperatura_congelacion;
             $analisis->porcentaje_agua = $this->porcentaje_agua;

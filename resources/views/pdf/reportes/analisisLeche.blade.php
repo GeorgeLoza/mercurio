@@ -275,7 +275,7 @@
                         <th>
 
                                 <p>Prueba de Alcohol</p>
-                                <p>[+/-]</p>
+                                <p></p>
 
 
                         <th>
@@ -300,7 +300,7 @@
                     @foreach ($variable as $variables)
                         <tr>
                             <th nowrap>
-                                {{ \Carbon\Carbon::parse($variables->tiempo)->isoFormat('HH:mm DD/MM', 0, 'es')  }}
+                                {{ \Carbon\Carbon::parse($variables->tiempo)->isoFormat('DD-MM-YY HH:mm', 0, 'es')  }}
                             </th>
                             <th nowrap>
                                 {{ $variables->recepcion_leche->subruta_acopio->nombre }}

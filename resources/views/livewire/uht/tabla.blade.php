@@ -169,7 +169,10 @@
                         </th>
 
                         <td class="px-0 overflow-x-auto" nowrap>
-                            {{ $orp->tiempo_elaboracion }}
+                            @if ($orp->tiempo_elaboracion )
+
+                            {{ \Carbon\Carbon::parse($orp->tiempo_elaboracion)->isoFormat('DD-MM-YY HH:mm  ') }}
+                            @endif
                         </td>
 
                         <td class="px-2 " nowrap>
@@ -193,7 +196,12 @@
                         </td>
 
                         <td class="px-2   ">
-                            {{ $orp->fecha_vencimiento1 }}
+
+
+                            @if ($orp->fecha_vencimiento1 )
+
+                            {{ \Carbon\Carbon::parse($orp->fecha_vencimiento1)->isoFormat('DD-MM-YY') }}
+                            @endif
                         </td>
                         <td class="px-2 border-r  " nowrap>
 

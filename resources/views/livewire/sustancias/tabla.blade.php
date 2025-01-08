@@ -84,7 +84,11 @@
 
                         ">
                             {{ $mov->estado }}</td>
-                        <td class="px-4 py-2">{{ $mov->tiempo }}</td>
+                        <td class="px-4 py-2">
+                            {{ \Carbon\Carbon::parse($mov->tiempo)->format('d-m-Y H:m') }}
+
+
+                        </td>
                         <td class="px-4 py-2 flex space-x-2">
                             <!-- Botón para ver/ocultar detalles -->
                             <button wire:click="toggleDetalles({{ $mov->id }})"

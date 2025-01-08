@@ -24,7 +24,7 @@
                         </button>
                         {{ $loop->iteration }}
                     </td>
-                    <td>{{ \Carbon\Carbon::parse($solicitud->tiempo)->isoFormat('hh:mm DD/MM/YYYY') }}</td>
+                    <td>{{ \Carbon\Carbon::parse($solicitud->tiempo)->isoFormat('DD-MM-YY HH:mm') }}</td>
                     <td>{{ $solicitud->codigo }}</td>
                     <td>
                         @if ($solicitud->estado == 'Pendiente')
@@ -193,11 +193,11 @@
                                                     <span
                                                         class="bg-green-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">{{ $detalle->estado }}</span>
                                                 @endif
-    
+
                                             </td>
                                             @if (auth()->user()->rol != 'Ext')
                                                 <td>
-                  
+
 
                                                     <button wire:click="edit({{ $detalle->id }})"
                                                         class="bg-blue-500 text-white px-2 py-1 rounded">Editar</button>

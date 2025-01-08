@@ -81,8 +81,8 @@
                             class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     </th>
 
-           
-                    
+
+
                     <th class="p-1">
                         <svg xmlns="http://www.w3.org/2000/svg" wire:click="limpiarFiltros" viewBox="0 0 576 512"
                             class="h-5 w-5 fill-green-600 dark:fill-green-500">
@@ -97,7 +97,7 @@
                     class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                     <td class="px-2 py-2">
                         @foreach ($solicitud->estadoPlanta->estadoDetalle as $detalles)
-                        <p>{{$detalles->orp->codigo}}</p> 
+                        <p>{{$detalles->orp->codigo}}</p>
                         @endforeach
                     </td>
                     <th >
@@ -108,14 +108,14 @@
                             {{$detalles->orp->producto->nombre}}</div>
                         @endforeach
                     </th>
-                    
+
 
 
 
 
 
                     <td class="px-2 py-2" nowrap>
-                        {{\Carbon\Carbon::parse($solicitud->tiempo)->isoFormat('HH:mm D/M/YYYY', 0, 'es') }}
+                        {{\Carbon\Carbon::parse($solicitud->tiempo)->isoFormat(' DD-MM-YY HH:mm', 0, 'es') }}
                     </td>
                     <td class="px-2 py-2" nowrap>
                         {{$solicitud->user->nombre}} {{$solicitud->user->apellido}}

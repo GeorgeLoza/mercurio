@@ -5,7 +5,7 @@
                 <tr>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('tiempo')">
-                        Hora - Fecha
+                        Fecha - Hora
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('nombre')">
@@ -75,8 +75,8 @@
                 <tr
                     class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                     <th scope="row" class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        
-                        {{\Carbon\Carbon::parse($recepcion->tiempo)->isoFormat('HH:mm - D/MM/YYYY') }}
+
+                        {{\Carbon\Carbon::parse($recepcion->tiempo)->isoFormat('DD-MM-YY HH:mm') }}
                     </th>
                     <td class="px-6 py-2" nowrap>
                         {{$recepcion->subruta_acopio->ruta_acopio->nombre}}
@@ -136,7 +136,7 @@
                         </svg>
                         @endif
                         @endif
-                        
+
                     </td>
                 </tr>
                 @endforeach
