@@ -43,9 +43,9 @@
                         wire:click="sortBy('temperatura')" nowrap>
                         Temp. [°C]
                     </th>
-                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
+                <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700  normal-case"
                         wire:click="sortBy('ph')" nowrap>
-                        ph
+                        pH
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('acidez')" nowrap>
