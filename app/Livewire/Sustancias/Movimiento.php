@@ -75,6 +75,7 @@ class Movimiento extends ModalComponent
                 // Si el movimiento ya existe, actualizamos
                 $this->movimiento->update([
                     'estado' => 'Entregado',
+                    'entregante' => auth()->user()->id,
                     'tipo' => $tipo,
                     'tiempo' => now(),
                 ]);

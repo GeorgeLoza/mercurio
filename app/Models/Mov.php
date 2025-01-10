@@ -17,7 +17,7 @@ class Mov extends Model
         'autorizante',
         'entregante',
         'estado',
-    ];  
+    ];
 
     public function detalleMovs()
     {
@@ -31,10 +31,11 @@ class Mov extends Model
     public function autorizante(){
         return $this->belongsTo(User::class, 'autorizante');
     }
+
     public function entregante(){
         return $this->belongsTo(User::class, 'entregante');
     }
-  
 
-    
+
+
 }

@@ -25,6 +25,13 @@ class CalidadLeche extends Model
         'temperatura_congelacion',
         'porcentaje_agua',
         'observaciones',
+        'usuarioTram',
+        'usuarioSiembra',
+        'usuarioLectura',
+        'recuento',
+        'tiempo_sembrado',
+        'tiempo_lectura',
+
     ];
     public function user()
     {
@@ -34,4 +41,15 @@ class CalidadLeche extends Model
     {
         return $this->belongsTo(RecepcionLeche::class);
     }
+
+    public function utram(){
+        return $this->belongsTo(User::class, 'usuarioTram');
+    }
+    public function usiembra(){
+        return $this->belongsTo(User::class, 'usuarioSiembra');
+    }
+    public function ulectura(){
+        return $this->belongsTo(User::class, 'usuarioLectura');
+    }
+
 }

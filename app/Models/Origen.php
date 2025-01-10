@@ -13,10 +13,14 @@ class Origen extends Model
         'descripcion',
         'codigo_maquina',
     ];
-    
+
     public function estadoPlanta()
     {
         return $this->hasMany(EstadoPlanta::class);
+    }
+    public function estadoTanque()
+    {
+        return $this->hasMany(EstadoTanque::class);
     }
     public function parametroLinea()
     {

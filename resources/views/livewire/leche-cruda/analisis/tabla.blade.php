@@ -12,23 +12,23 @@
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
             <thead class="text-xs text-gray-700 capitalize bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
+                    <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('tiempo')" nowrap>
                         Fecha
                     </th>
-                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
+                    <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('tiempo')" nowrap>
                         Hora
                     </th>
-                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
+                    <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('subruta')" nowrap>
                         Subruta
                     </th>
-                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
+                    <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('estado')" nowrap>
                         Estado
                     </th>
-                    <th scope="col" class=" flex gap-2 px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
+                    <th scope="col" class=" flex gap-2 px-1 py-3 sticky top-0 bg-white dark:bg-gray-700">
                         opciones
                         <button wire:click="show_filtro">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-gray-700 dark:fill-gray-300"
@@ -39,64 +39,78 @@
                         </button>
 
                     </th>
-                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
+                    <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('temperatura')" nowrap>
                         Temp. [°C]
                     </th>
-                <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700  normal-case"
+                <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700 "
                         wire:click="sortBy('ph')" nowrap>
                         pH
                     </th>
-                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
+                    <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('acidez')" nowrap>
                         Acidez [%]
                     </th>
-                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
+                    <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('brix')" nowrap>
                         Brix [°Brix]
                     </th>
-                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
+                    <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('densidad')" nowrap>
                         Dens. [g/ml]
                     </th>
-                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
+                    <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('prueba_alcohol')" nowrap>
                         P. Alcohol
                     </th>
-                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
+                    <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('contenido_graso')" nowrap>
                         Cont. Graso [%]
                     </th>
-                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
-                        wire:click="sortBy('tram_inicio')" nowrap>
-                        TRAM início
-                    </th>
-                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
-                        wire:click="sortBy('tram_fin')" nowrap>
-                        TRAM fin
-                    </th>
-                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
-                        wire:click="sortBy('tram_lapso')" nowrap>
-                        TRAM lapso
-                    </th>
-                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
+
+                    <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('temperatura_congelacion')" nowrap>
                         Tk [°C]
                     </th>
-                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
+                    <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('porcentaje_agua')" nowrap>
                         % Agua [%]
                     </th>
-                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
+                    <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700">
                         Observaciones
                     </th>
-                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
+
+                    <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700"
+                        wire:click="sortBy('tram_inicio')" nowrap>
+                        TRAM início
+                    </th>
+                    <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700"
+                        wire:click="sortBy('tram_fin')" nowrap>
+                        TRAM fin
+                    </th>
+                    <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700"
+                        wire:click="sortBy('tram_lapso')" nowrap>
+                        TRAM lapso
+                    </th>
+                    <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('user')">
                         Solicitante
                     </th>
-                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
+                    <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('user')">
-                        Analista
+                        Analista FQ
+                    </th>
+                    <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700"
+                        wire:click="sortBy('user')">
+                        Siembra MB
+                    </th>
+                    <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700"
+                        wire:click="sortBy('user')">
+                        Lectura MB
+                    </th>
+                    <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700"
+                        wire:click="sortBy('user')">
+                        usuario TRAM
                     </th>
                 </tr>
             </thead>
@@ -168,7 +182,7 @@
                     <tr
                         class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <th scope="row"
-                            class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            class="px-1 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 
                             {{ \Carbon\Carbon::parse($registro->recepcion_leche->tiempo)->isoFormat('DD-MM-YY', 0, 'es') }}
 
@@ -177,7 +191,7 @@
 
                         </th>
                         <th scope="row"
-                            class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            class="px-1 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 
                             {{ \Carbon\Carbon::parse($registro->recepcion_leche->tiempo)->isoFormat('HH:mm', 0, 'es') }}
                             -
@@ -187,10 +201,10 @@
                             @endif
 
                         </th>
-                        <td class="px-6 py-2" nowrap>
+                        <td class="px-1 py-2" nowrap>
                             {{ $registro->recepcion_leche->subruta_acopio->nombre }}
                         </td>
-                        <td class="px-6 py-2" nowrap>
+                        <td class="px-1 py-2" nowrap>
                             @if ($registro->recepcion_leche->estado == 'Pendiente')
                                 <span class="flex items-center text-sm font-medium me-3"><span
                                         class="flex w-2.5 h-2.5 bg-yellow-500 rounded-full me-1.5 flex-shrink-0"></span>{{ $registro->recepcion_leche->estado }}</span>
@@ -212,9 +226,9 @@
                                         class="flex w-2.5 h-2.5 bg-red-600 rounded-full me-1.5 flex-shrink-0"></span>{{ $registro->recepcion_leche->estado }}</span>
                             @endif
                         </td>
-                        <td class="flex items-center px-6 py-2 gap-2">
-                            @if (now()->diffInMinutes($registro->created_at) < 2400)
-                                <svg onclick="Livewire.dispatch('openModal', { component: 'leche-cruda.analisis.editar', arguments: { id: {{ $registro->id }} } })"
+                        <td class="flex items-center px-1 py-2 gap-2">
+                            @if (now()->diffInMinutes($registro->created_at) < 1400 && in_array(auth()->user()->rol, ['Admi', 'FQ']))
+                                <svg onclick="Livewire.dispatch('openModal', { component: 'leche-cruda.analisis.editar', arguments: { id: {{ $registro->id }} , id2: 1 } })"
                                     xmlns="http://www.w3.org/2000/svg"
                                     class="h-4 w-4 fill-blue-600 dark:fill-blue-500" viewBox="0 0 512 512">
                                     <path
@@ -222,87 +236,164 @@
                                 </svg>
                             @endif
                             @if (in_array(auth()->user()->rol, ['Admi']))
-                                @if (now()->diffInMinutes($registro->created_at) < 2400)
-                                    <svg onclick="Livewire.dispatch('openModal', { component: 'leche-cruda.analisis.eliminar', arguments: { id: {{ $registro->id }} } })"
+
+                                    <svg onclick="Livewire.dispatch('openModal', { component: 'leche-cruda.analisis.eliminar', arguments: { id: {{ $registro->id }}} })"
                                         xmlns="http://www.w3.org/2000/svg"
                                         class="h-4 w-4 fill-red-600 dark:fill-red-500" viewBox="0 0 448 512">
                                         <path
                                             d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" />
                                     </svg>
-                                @endif
+
+                            @endif
+                            @if ($registro->tiempo_sembrado == null && now()->diffInMinutes($registro->created_at) < 2800 && in_array(auth()->user()->rol, ['Admi', 'MB']) )
+                            @if (now()->diffInMinutes($registro->created_at)<2800)
+                            <button class=" bg-blue-400 rounded p-1 py-0 text-gray-700 "
+                            wire:click="sembrar({{ $registro->id }})">
+
+                                Sembrar
+                            </button>
+
+
+                            @endif
+                            @endif
+                            @if ($registro->tiempo_sembrado != null && in_array(auth()->user()->rol, ['Admi', 'MB', 'Sup']) )
+
+                            <button class=" bg-blue-400 rounded p-1 py-0 text-gray-700 "
+                            onclick="Livewire.dispatch('openModal', { component: 'leche-cruda.analisis.editar', arguments: { id: {{ $registro->id }} , id2: 2 } })">
+
+                                TRAM
+                            </button>
+
+
+                            @endif
+
+                            @if ($registro->tiempo_sembrado != null && in_array(auth()->user()->rol, ['Admi', 'MB']) )
+                            @if (now()->diffInMinutes($registro->tiempo_sembrado)<4500)
+                            <button class=" bg-blue-400 rounded p-1 py-0 text-gray-700 "
+                            onclick="Livewire.dispatch('openModal', { component: 'leche-cruda.analisis.editar', arguments: { id: {{ $registro->id }} , id2: 3 } })">
+                                Lectura
+
+                            </button>
+                            @endif
+
+
+
                             @endif
 
                         </td>
-                        <td class="px-6 py-2 @if ($parametro && $registro->temperatura !== null) {{ $registro->temperatura <= $parametro->temperatura_max ? 'text-green-500' : 'text-red-500' }} @endif"
+                        <td class="px-1 py-2 @if ($parametro && $registro->temperatura !== null) {{ $registro->temperatura <= $parametro->temperatura_max ? 'text-green-500' : 'text-red-500' }} @endif"
                             nowrap>
                             {{ $registro->temperatura }}
                         </td>
-                        <td class="px-6 py-2 @if ($parametro && $registro->ph !== null) {{ $registro->ph >= $parametro->ph_min && $registro->ph <= $parametro->ph_max ? 'text-green-500' : 'text-red-500' }} @endif"
+                        <td class="px-1 py-2 @if ($parametro && $registro->ph !== null) {{ $registro->ph >= $parametro->ph_min && $registro->ph <= $parametro->ph_max ? 'text-green-500' : 'text-red-500' }} @endif"
                             nowrap>
                             {{ $registro->ph }}
                         </td>
-                        <td class="px-6 py-2 @if ($parametro && $registro->acidez !== null) {{ $registro->acidez >= $parametro->acidez_min && $registro->acidez <= $parametro->acidez_max ? 'text-green-500' : 'text-red-500' }} @endif"
+                        <td class="px-1 py-2 @if ($parametro && $registro->acidez !== null) {{ $registro->acidez >= $parametro->acidez_min && $registro->acidez <= $parametro->acidez_max ? 'text-green-500' : 'text-red-500' }} @endif"
                             nowrap>
                             {{ $registro->acidez }}
                         </td>
-                        <td class="px-6 py-2 @if ($parametro && $registro->brix !== null) {{ $registro->brix >= $parametro->brix_min ? 'text-green-500' : 'text-red-500' }} @endif"
+                        <td class="px-1 py-2 @if ($parametro && $registro->brix !== null) {{ $registro->brix >= $parametro->brix_min ? 'text-green-500' : 'text-red-500' }} @endif"
                             nowrap>
                             {{ $registro->brix }}
                         </td>
-                        <td class="px-6 py-2  @if ($parametro && $registro->densidad !== null) {{ $registro->densidad >= $parametro->densidad_min && $registro->densidad <= $parametro->densidad_max ? 'text-green-500' : 'text-red-500' }} @endif"
+                        <td class="px-1 py-2  @if ($parametro && $registro->densidad !== null) {{ $registro->densidad >= $parametro->densidad_min && $registro->densidad <= $parametro->densidad_max ? 'text-green-500' : 'text-red-500' }} @endif"
                             nowrap>
                             {{ $registro->densidad }}
                         </td>
-                        <td class="px-6 py-2" nowrap>
+                        <td class="px-1 py-2" nowrap>
                             {{ $registro->prueba_alcohol }}
                         </td>
-                        <td class="px-6 py-2 @if ($parametro && $registro->contenido_graso !== null) {{ $registro->contenido_graso >= $parametro->contenido_graso_min ? 'text-green-500' : 'text-red-500' }} @endif"
+                        <td class="px-1 py-2 @if ($parametro && $registro->contenido_graso !== null) {{ $registro->contenido_graso >= $parametro->contenido_graso_min ? 'text-green-500' : 'text-red-500' }} @endif"
                             nowrap>
                             {{ $registro->contenido_graso }}
                         </td>
 
-                        <td class="px-6 py-2" nowrap>
+
+                        <td class="px-1 py-2 @if ($parametro && $registro->temperatura_congelacion !== null) {{ $registro->temperatura_congelacion >= $parametro->temperatura_congelada && $registro->temperatura_congelacion_min <= $parametro->temperatura_congelada_max ? 'text-green-500' : 'text-red-500' }} @endif"
+                            nowrap>
+                            {{ $registro->temperatura_congelacion }}
+                        </td>
+                        <td class="px-1 py-2" nowrap>
+                            {{ $registro->porcentaje_agua }}
+                        </td>
+                        <td class="px-1 py-2" nowrap>
+                            {{ $registro->observaciones }}
+                        </td>
+
+                        <td class="px-1 py-2" nowrap>
                             @if ($registro->tram_inicio )
 
                             {{ \Carbon\Carbon::parse($registro->tram_inicio)->isoFormat('HH:mm  ') }}
                             @endif
 
                         </td>
-                        <td class="px-6 py-2" nowrap>
+                        <td class="px-1 py-2" nowrap>
                             @if ($registro->tram_fin )
 
                             {{ \Carbon\Carbon::parse($registro->tram_fin)->isoFormat('HH:mm  ') }}
                             @endif
 
                         </td>
-                        <td class="px-6 py-2" nowrap>
-                            @if ($registro->tram_lapso )
-
-                            {{ \Carbon\Carbon::parse($registro->tram_lapso)->isoFormat('HH:mm  ') }}
+                        <td class="px-1 py-2 @if ($registro->tram_lapso && \Carbon\Carbon::parse('1970-01-01 ' . $registro->tram_lapso)->diffInMinutes(\Carbon\Carbon::parse('1970-01-01 00:00')) < 60) text-red-500 @endif" nowrap>
+                            @if ($registro->tram_lapso)
+                                {{ \Carbon\Carbon::parse('1970-01-01 ' . $registro->tram_lapso)->isoFormat('HH:mm') }}
                             @endif
+                        </td>
 
-                        </td>
-                        <td class="px-6 py-2 @if ($parametro && $registro->temperatura_congelacion !== null) {{ $registro->temperatura_congelacion >= $parametro->temperatura_congelada && $registro->temperatura_congelacion_min <= $parametro->temperatura_congelada_max ? 'text-green-500' : 'text-red-500' }} @endif"
-                            nowrap>
-                            {{ $registro->temperatura_congelacion }}
-                        </td>
-                        <td class="px-6 py-2" nowrap>
-                            {{ $registro->porcentaje_agua }}
-                        </td>
-                        <td class="px-6 py-2" nowrap>
-                            {{ $registro->observaciones }}
-                        </td>
-                        <td class="px-6 py-2" nowrap>
+
+
+
+                        <td class="px-1 py-2" nowrap>
                             @if ($registro->recepcion_leche->user)
-                                {{ $registro->recepcion_leche->user->nombre }}
-                                {{ $registro->recepcion_leche->user->apellido }}
+                            {{ substr($registro->recepcion_leche->user->nombre, 0, 1) .
+                                substr(explode(' ', $registro->recepcion_leche->user->nombre)[1] ?? '', 0, 1) .
+                                substr($registro->recepcion_leche->user->apellido, 0, 1) .
+                                substr(explode(' ', $registro->recepcion_leche->user->apellido)[1] ?? '', 0, 1) }}
+
+
                             @endif
                         </td>
-                        <td class="px-6 py-2" nowrap>
+                        {{-- analista fq --}}
+                        <td class="px-1 py-2" nowrap>
                             @if ($registro->user)
-                                {{ $registro->user->nombre }} {{ $registro->user->apellido }}
+                            {{ substr($registro->user->nombre, 0, 1) .
+                                substr(explode(' ', $registro->user->nombre)[1] ?? '', 0, 1) .
+                                substr($registro->user->apellido, 0, 1) .
+                                substr(explode(' ', $registro->user->apellido)[1] ?? '', 0, 1) }}
+
                             @endif
                         </td>
+                        {{-- siembra mb --}}
+                        <td class="px-1 py-2" nowrap>
+
+                            @if ($registro->usiembra)
+                            {{ substr($registro->usiembra->nombre, 0, 1) .
+                                substr(explode(' ', $registro->usiembra->nombre)[1] ?? '', 0, 1) .
+                                substr($registro->usiembra->apellido, 0, 1) .
+                                substr(explode(' ', $registro->usiembra->apellido)[1] ?? '', 0, 1) }}
+
+                            @endif
+                        </td>
+                        <td class="px-1 py-2" nowrap>
+                            @if ($registro->ulectura)
+                            {{ substr($registro->ulectura->nombre, 0, 1) .
+                                substr(explode(' ', $registro->ulectura->nombre)[1] ?? '', 0, 1) .
+                                substr($registro->ulectura->apellido, 0, 1) .
+                                substr(explode(' ', $registro->ulectura->apellido)[1] ?? '', 0, 1) }}
+
+                            @endif
+                        </td>
+                        <td class="px-1 py-2" nowrap>
+                            @if ($registro->utram)
+                            {{ substr($registro->utram->nombre, 0, 1) .
+                                substr(explode(' ', $registro->utram->nombre)[1] ?? '', 0, 1) .
+                                substr($registro->utram->apellido, 0, 1) .
+                                substr(explode(' ', $registro->utram->apellido)[1] ?? '', 0, 1) }}
+
+                            @endif
+                        </td>
+
 
                     </tr>
                 @endforeach

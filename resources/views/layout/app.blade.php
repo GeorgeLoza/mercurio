@@ -429,7 +429,7 @@
                     </li>
                 @endif
 
-                @if (in_array(auth()->user()->rol, ['Admi', 'Jef', 'Con', 'Sup', 'HTST', 'UHT', 'FQ']))
+
                     <!--recepcion de leche-->
                     <li>
                         <button type="button"
@@ -457,14 +457,16 @@
                                     class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                                     Recepción de Leche</a>
                             </li>
+                            @if (in_array(auth()->user()->rol, ['Admi', 'Jef', 'Sup', 'MB', 'FQ']))
                             <li>
                                 <a href="{{ route('leche_analisis.index') }}"
                                     class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                                     Análisis de Leche</a>
                             </li>
+                            @endif
                         </ul>
                     </li>
-                @endif
+
 
                 <!-- Externos -->
                 @if (in_array(auth()->user()->rol, ['Admi', 'Ext', 'Jef', 'FQ', 'MB']) ||

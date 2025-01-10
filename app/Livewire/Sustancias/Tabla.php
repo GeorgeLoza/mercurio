@@ -63,7 +63,11 @@ public $fechaFin;
 
         if ($mov) {
             $mov->estado = 'Autorizado';
+
+            $mov->autorizante = auth()->user()->id;
+            // dd($mov->user_id);
             $mov->save();
+
         }
 
         // Refresca la lista de movimientos
@@ -76,6 +80,7 @@ public $fechaFin;
 
         if ($mov) {
             $mov->estado = 'Denegado';
+            $mov->autorizante = auth()->user()->id;
             $mov->save();
         }
 
@@ -89,6 +94,8 @@ public $fechaFin;
 
         if ($mov) {
             $mov->estado = 'Entregado';
+            $mov->entregante = auth()->user()->id;
+            dd($mov->entregante);
             $mov->save();
         }
 

@@ -92,7 +92,7 @@ Route::middleware(['auth'])->group(function () {
         /*leche */
         Route::get('/leche/recepcion', [LecheController::class, 'recepcion'])->name('leche_recepcion.index');
     });
-    Route::middleware(['roles:Admi,Jef,Sup,FQ'])->group(function () {
+    Route::middleware(['roles:Admi,Jef,Sup,FQ,MB'])->group(function () {
         /*ruta para  analisis en linea */
         Route::get('/leche/analisis', [LecheController::class, 'analisis'])->name('leche_analisis.index');
     });
@@ -147,7 +147,7 @@ Route::middleware(['auth'])->group(function () {
         /*ruta para reporte de daatos */
         Route::get('/datos', [DatosController::class, 'index'])->name('datos.index');
     });
-    
+
 });
 
 

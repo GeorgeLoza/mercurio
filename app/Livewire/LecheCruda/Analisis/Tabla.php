@@ -252,4 +252,21 @@ class Tabla extends Component
             "{$this->fechaInicio}_a_{$this->fechaFin}.pdf"
         );
     }
+
+    public function sembrar($id){
+
+        try{
+
+            $analisis = CalidadLeche::find($id);
+            $analisis->tiempo_sembrado = now();
+            $analisis->usuarioSiembra = auth()->user()->id;
+            $analisis->save();
+
+        }
+        catch (\Throwable $th) {
+
+            $this->dispatch('error_mensaje', mensaje: 'problema' . $th->getMessage());
+        }
+
+    }
 }
