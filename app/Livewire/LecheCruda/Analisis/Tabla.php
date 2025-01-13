@@ -218,20 +218,31 @@ class Tabla extends Component
 
 
 
-                $analistasid = $query->get()->pluck('user_id')
+                $analistasidfq = $query->get()->pluck('user_id')
                     ->unique();
+
+                    $analistasidlec = $query->get()->pluck('usuarioTram')
+                    ->unique();
+                    $analistasidsi = $query->get()->pluck('usuarioSiembra')
+                    ->unique();
+                    $analistasidtr = $query->get()->pluck('usuarioLectura')
+                    ->unique();
+
                 $solicitantesid = $query2->get()->pluck('user_id')
                     ->unique();
 
-                $allUserIds = $analistasid
+                $allUserIds = $analistasidfq
                     ->merge($solicitantesid)
+                    ->merge($analistasidlec)
+                    ->merge($analistasidsi)
+                    ->merge($analistasidtr)
                     ->unique();
 
 
                 $this->usuariosInvolucrados = User::whereIn('id', $allUserIds)->get();
 
 
-                $this->analistasInvolucrados = User::whereIn('id', $analistasid)->get();
+                $this->analistasInvolucrados = User::whereIn('id', $analistasidfq)->get();
                 $this->solicitantesInvolucrados = User::whereIn('id', $solicitantesid)->get();
 
 
@@ -248,6 +259,9 @@ class Tabla extends Component
                 $pdf = Pdf::loadView('pdf.reportes.analisisLeche', compact(['variable', 'usuariosInvolucrados', 'fechaInicio', 'fechaFin', 'analistasInvolucrados', 'solicitantesInvolucrados']));
                 $pdf->setPaper('letter', 'landscape');
                 echo $pdf->stream();
+
+
+
             },
             "{$this->fechaInicio}_a_{$this->fechaFin}.pdf"
         );

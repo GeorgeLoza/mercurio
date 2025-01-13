@@ -34,13 +34,21 @@ public function collection(): Collection
             'Brix' => $orp->brix,
             'Densidad' => $orp->densidad,
             'Alcohol' => $orp->prueba_alcohol,
-            'Inicio' => $orp->tram_inicio,
-            'Fin' => $orp->tram_fin,
-            'Lapso' => $orp->tram_lapso,
+            'Contenido graso' => $orp->contenido_graso,
             'Tempertatura Congelacion' => $orp->temperatura_congelacion,
             'porcentaje de agua' => $orp->porcentaje_agua,
             'Observaciones  ' => $orp->observaciones,
-            'analista' =>  optional($orp->user)->codigo,
+            'RAM  ' => $orp->recuento,
+
+            'Inicio' => $orp->tram_inicio,
+            'Fin' => $orp->tram_fin,
+            'Lapso' => $orp->tram_lapso,
+
+            'solicitante' =>  optional($orp->recepcion_leche->user)->codigo,
+            'Usuario FQ' =>  optional($orp->user)->codigo,
+            'Usuario Siembra' =>  optional($orp->uSiembra)->codigo,
+            'Usuario Lectura' =>  optional($orp->uLectura)->codigo,
+            'Usuario TRAM' =>  optional($orp->uTram)->codigo,
 
 
 
@@ -61,13 +69,20 @@ public function headings(): array
             'Brix' ,
             'Densidad' ,
             'Alcohol' ,
-            'Inicio' ,
-            'Fin' ,
-            'Lapso' ,
+            'Contenido Graso' ,
             'Tempertatura Congelacion' ,
             'porcentaje de agua' ,
             'Observaciones  ' ,
-            'usuario  ' ,
+            'RAM  ' ,
+
+            'Inicio' ,
+            'Fin' ,
+            'Lapso' ,
+            'Solicitante  ' ,
+            'Analista FQ  ' ,
+            'Analista Siembra  ' ,
+            'Usuario lectura  ' ,
+            'Usuario TRAM  ' ,
          ];
      }
 

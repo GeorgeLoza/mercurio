@@ -274,25 +274,33 @@
                              </th>
                         <th>
 
-                                <p>Prueba de Alcohol</p>
-                                <p></p>
+                                <p>Prueba </p>
+                                <p> Alcohol</p>
 
 
                         <th>
-                            <p>Contenido Graso</p>
-                            <p>[%]</p> </th>
+                            <p>Contenido </p>
+                            <p>Graso [%]</p> </th>
 
 
                         <th>
-                            <p>Temperatura de Congelacion</p>
+                            <p>Tk</p>
                             <p>[°C]</p></th>
                         <th>
-                            <p>Agua Añadida</p>
+                            <p>% Agua </p>
                             <p> [%]</p></th>
 
-                        <th>Observaciones</th>
+                            <th>Observaciones</th>
+                            <th><p>RAM</p><p>[UFC/ml]</p></th>
+                            <th><p>TRAM </p><p>inicio</p></th>
+                            <th><p>TRAM </p><p>fin</p></th>
+                            <th><p>TRAM </p><p>lapso</p></th>
+
                         <th>Solicitante</th>
-                        <th>Analista</th>
+                        <th><p>Usuario</p>FQ </th>
+                        <th><p>Usuario</p>Siembra </th>
+                        <th><p>Usuario</p>Lectura </th>
+                        <th><p>Usuario</p>Tram </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -356,6 +364,31 @@
                             @else
                                 <th>-</th>
                             @endif
+                            @if ($variables->recuento)
+
+                                <th>{{ $variables->recuento }}</th>
+                            @else
+                                <th>-</th>
+                            @endif
+                            @if ($variables->tram_inicio)
+
+                                <th>{{ \Carbon\Carbon::parse($variables->tram_inicio)->isoFormat('HH:mm  ') }}</th>
+                            @else
+                                <th>-</th>
+                            @endif
+                            @if ($variables->tram_fin)
+
+                                <th>{{ \Carbon\Carbon::parse($variables->tram_fin)->isoFormat('HH:mm  ') }}</th>
+                            @else
+                                <th>-</th>
+                            @endif
+                            @if ($variables->tram_lapso)
+
+                                <th>{{ \Carbon\Carbon::parse($variables->tram_lapso)->isoFormat('HH:mm  ') }}</th>
+                            @else
+                                <th>-</th>
+                            @endif
+
                             @if ($variables->recepcion_leche)
                                 <th>{{ $variables->recepcion_leche->user->codigo }}</th>
                             @else
@@ -363,6 +396,21 @@
                             @endif
                             @if ($variables->user)
                                 <th>{{ $variables->user->codigo}}</th>
+                            @else
+                                <th>-</th>
+                            @endif
+                            @if ($variables->usiembra)
+                                <th>{{ $variables->usiembra->codigo}}</th>
+                            @else
+                                <th>-</th>
+                            @endif
+                            @if ($variables->ulectura)
+                                <th>{{ $variables->ulectura->codigo}}</th>
+                            @else
+                                <th>-</th>
+                            @endif
+                            @if ($variables->utram)
+                                <th>{{ $variables->utram->codigo}}</th>
                             @else
                                 <th>-</th>
                             @endif
@@ -382,10 +430,10 @@
 
 
             <br>
-            <div class="justify-end">
+            {{-- <div class="justify-end">
                 <p align="right">C.&nbsp;&nbsp;&nbsp;: Conforme &nbsp;&nbsp;&nbsp; &nbsp; </p>
                 <p align="right">N.C.: No Conforme</p>
-            </div>
+            </div> --}}
 
 
 

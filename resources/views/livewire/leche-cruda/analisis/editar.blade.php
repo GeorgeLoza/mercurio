@@ -243,22 +243,39 @@
                 </div>
             </div>
 
+{{-- recuento --}}
+<div class="px-3 mb-5 w-full @if ($id2 != 3) hidden @endif">
+    <div class="relative z-0 w-full mb-5 group flex items-center gap-2">
+        <input type="number" wire:model.live="recuento" id="recuento" name="recuento"
+            class="block py-2.5 px-0 w-auto text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            placeholder=" " required />
 
-            <div class=" px-3 mb-5 w-1/3 @if ($id2 != 3 )
-                    hidden
-                @endif">
-                    <div class="relative z-0 w-full mb-5 group">
-                        <input type="number" wire:model="lectura" id="lectura"
-                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder=" " required />
-                        <label for="lectura"
-                            class="peer-focus:font-medium absolute text-sm text-gray-500  dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Lectura
-                        </label>
-                        @error('lectura')
-                        <p class="text-red-500 text-xs">* {{$message}}</p>
-                        @enderror
-                    </div>
-                </div>
+        <span class="text-sm text-gray-700 dark:text-white flex items-center">
+            @if ($recuento >= 1000000)
+                MNPC
+            @elseif ($recuento < 1000000 && $recuento >= 1)
+                {{ $recuento < 1
+                    ? $recuento * 10 ** (strlen(floor($recuento)) - 1)
+                    : $recuento / 10 ** (strlen(floor($recuento)) - 1) }}
+                x 10
+                <sup>{{ strlen(floor($recuento)) - 1 }}</sup>
+            @elseif ($recuento === 0)
+                < 1 x 10<sup>1</sup>
+                @elseif (is_null($recuento))
+                    -
+            @endif
+        </span>
+
+        <label for="recuento"
+            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+            recuento
+        </label>
+        @error('recuento')
+        <p class="text-red-500 text-xs">* {{$message}}</p>
+        @enderror
+    </div>
+</div>
+
 
             <div class="flex">
                 <div class="w-full px-3 mb-5">

@@ -79,7 +79,9 @@
                     <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700">
                         Observaciones
                     </th>
-
+                    <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700">
+                        RAM [UFC/ml]
+                    </th>
                     <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('tram_inicio')" nowrap>
                         TRAM início
@@ -227,7 +229,7 @@
                             @endif
                         </td>
                         <td class="flex items-center px-1 py-2 gap-2">
-                            @if (now()->diffInMinutes($registro->created_at) < 1400 && in_array(auth()->user()->rol, ['Admi', 'FQ']))
+                            @if (now()->diffInMinutes($registro->created_at) < 1400 && in_array(auth()->user()->rol, ['Admi', 'FQ', 'Sup']))
                                 <svg onclick="Livewire.dispatch('openModal', { component: 'leche-cruda.analisis.editar', arguments: { id: {{ $registro->id }} , id2: 1 } })"
                                     xmlns="http://www.w3.org/2000/svg"
                                     class="h-4 w-4 fill-blue-600 dark:fill-blue-500" viewBox="0 0 512 512">
@@ -314,16 +316,42 @@
                             nowrap>
                             {{ $registro->temperatura_congelacion }}
                         </td>
-                        <td class="px-1 py-2" nowrap>
+                        <td class="px-1 py-2 @if ($registro->porcentaje_agua<2.5) text-green-500 @else text-red-500
+
+                        @endif" nowrap>
                             {{ $registro->porcentaje_agua }}
                         </td>
                         <td class="px-1 py-2" nowrap>
                             {{ $registro->observaciones }}
                         </td>
+                        <td class="px-1 py-2 @if ($registro->recuento<= 4000000) text-green-500 @else text-red-500
+
+                        @endif " nowrap>
+
+
+
+
+                            @if ($registro->recuento )
+                            @if ($registro->recuento >= 1000000)
+                            MNPC
+                        @elseif ($registro->recuento < 1000000 && $registro->recuento >= 1)
+                            {{ $registro->recuento < 1
+                                ? $registro->recuento * 10 ** (strlen(floor($registro->recuento)) - 1)
+                                : $registro->recuento / 10 ** (strlen(floor($registro->recuento)) - 1) }}
+                            x 10<sup>{{ strlen(floor($registro->recuento)) - 1 }}</sup>
+                        @elseif ($registro->recuento === 0)
+                            < 1 x 10<sup>1</sup>
+                            @elseif (is_null($registro->recuento))
+                                --
+                        @endif
+
+
+                            @endif
+
+                        </td>
 
                         <td class="px-1 py-2" nowrap>
                             @if ($registro->tram_inicio )
-
                             {{ \Carbon\Carbon::parse($registro->tram_inicio)->isoFormat('HH:mm  ') }}
                             @endif
 
@@ -335,7 +363,7 @@
                             @endif
 
                         </td>
-                        <td class="px-1 py-2 @if ($registro->tram_lapso && \Carbon\Carbon::parse('1970-01-01 ' . $registro->tram_lapso)->diffInMinutes(\Carbon\Carbon::parse('1970-01-01 00:00')) < 60) text-red-500 @endif" nowrap>
+                        <td class="px-1 py-2 @if ($registro->tram_lapso && \Carbon\Carbon::parse('1970-01-01 ' . $registro->tram_lapso)->diffInMinutes(\Carbon\Carbon::parse('1970-01-01 00:00')) < 60) text-red-500 @else text-green-500 @endif" nowrap>
                             @if ($registro->tram_lapso)
                                 {{ \Carbon\Carbon::parse('1970-01-01 ' . $registro->tram_lapso)->isoFormat('HH:mm') }}
                             @endif
@@ -424,7 +452,7 @@
             </svg>
         </button>
         <button class="bg-red-600 p-2 text-center rounded-md  gap-2" wire:click="generatePDF6"
-            wire:loading.attr="disabled">
+            wire:loading.attr="disabled" >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="h-5 w-5 fill-white">
                 <path
                     d="M0 64C0 28.7 28.7 0 64 0L224 0l0 128c0 17.7 14.3 32 32 32l128 0 0 144-208 0c-35.3 0-64 28.7-64 64l0 144-48 0c-35.3 0-64-28.7-64-64L0 64zm384 64l-128 0L256 0 384 128zM176 352l32 0c30.9 0 56 25.1 56 56s-25.1 56-56 56l-16 0 0 32c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-48 0-80c0-8.8 7.2-16 16-16zm32 80c13.3 0 24-10.7 24-24s-10.7-24-24-24l-16 0 0 48 16 0zm96-80l32 0c26.5 0 48 21.5 48 48l0 64c0 26.5-21.5 48-48 48l-32 0c-8.8 0-16-7.2-16-16l0-128c0-8.8 7.2-16 16-16zm32 128c8.8 0 16-7.2 16-16l0-64c0-8.8-7.2-16-16-16l-16 0 0 96 16 0zm80-112c0-8.8 7.2-16 16-16l48 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0 0 32 32 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0 0 48c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-64 0-64z" />

@@ -10,21 +10,23 @@ use Livewire\Component;
 class Tabla extends Component
 {
     public $fecha_sembrado;
-    
+
 
 
     #[On('actualizar_tabla_microexterno')]
     public function render()
     {
-        $microbiologia = MicrobiologiaExterno::orderBy('created_at', 'desc')->get();
+        $microbiologia = MicrobiologiaExterno::orderBy('created_at', 'desc')->paginate(50);
         return view('livewire.externo.microbiologia.tabla', compact(['microbiologia']));
     }
+
+
 
     public function sembrar($id)
     {
         $this->validate([
             'fecha_sembrado' => 'required',
-            
+
         ]);
         $microbiologia = MicrobiologiaExterno::find($id);
 

@@ -10,6 +10,7 @@ use LivewireUI\Modal\ModalComponent;
 
 class Editar extends ModalComponent
 {
+    public $recuento2;
     public $id;
     public $id2;
 
@@ -23,7 +24,7 @@ class Editar extends ModalComponent
     public $tram_inicio;
     public $tram_fin;
     public $tram_lapso;
-    public $lectura;
+    public $recuento;
 
 
 
@@ -50,10 +51,9 @@ class Editar extends ModalComponent
         $this->temperatura_congelacion = $datos->temperatura_congelacion;
         $this->porcentaje_agua = $datos->porcentaje_agua;
         $this->observaciones = $datos->observaciones;
-        $this->lectura = $datos->lectura;
+        $this->recuento = $datos->recuento;
 
-        $id2=$this->id2;
-
+        $id2 = $this->id2;
     }
 
     public function render()
@@ -89,26 +89,26 @@ class Editar extends ModalComponent
 
             $analisis->tiempo = now();
 
-if($this->id2==1){
-    $analisis->user_id = auth()->user()->id;
-}
-if($this->id2==2){
-    $analisis->tram_inicio = $this->tram_inicio;
-            $analisis->tram_fin = $this->tram_fin;
-    $analisis->usuarioTram = auth()->user()->id;
-    $horaInicio = Carbon::parse($this->tram_inicio);
-            $horaFin = Carbon::parse($this->tram_fin);
+            if ($this->id2 == 1) {
+                $analisis->user_id = auth()->user()->id;
+            }
+            if ($this->id2 == 2) {
+                $analisis->tram_inicio = $this->tram_inicio;
+                $analisis->tram_fin = $this->tram_fin;
+                $analisis->usuarioTram = auth()->user()->id;
+                $horaInicio = Carbon::parse($this->tram_inicio);
+                $horaFin = Carbon::parse($this->tram_fin);
 
-            $this->tram_lapso = $horaInicio->diff($horaFin)->format('%H:%I:%S');
+                $this->tram_lapso = $horaInicio->diff($horaFin)->format('%H:%I:%S');
 
 
-            $analisis->tram_lapso = $this->tram_lapso;
-}
-if($this->id2==3){
-    $analisis->recuento = $this->lectura;
-    $analisis->tiempo_lectura = now();
-    $analisis->usuarioLectura = auth()->user()->id;
-}
+                $analisis->tram_lapso = $this->tram_lapso;
+            }
+            if ($this->id2 == 3) {
+                $analisis->recuento = $this->recuento;
+                $analisis->tiempo_lectura = now();
+                $analisis->usuarioLectura = auth()->user()->id;
+            }
 
             $analisis->save();
 
@@ -124,5 +124,4 @@ if($this->id2==3){
             $this->dispatch('error_mensaje', mensaje: 'problema' . $th->getMessage());
         }
     }
-
 }
