@@ -28,7 +28,7 @@
                         wire:click="sortBy('estado')" nowrap>
                         Estado
                     </th>
-                    <th scope="col" class=" flex gap-2 px-1 py-3 sticky top-0 bg-white dark:bg-gray-700">
+                    <th scope="col" class=" flex gap-1 px-1 py-3 sticky top-0 bg-white dark:bg-gray-700">
                         opciones
                         <button wire:click="show_filtro">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-gray-700 dark:fill-gray-300"
