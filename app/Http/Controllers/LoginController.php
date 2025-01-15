@@ -25,7 +25,17 @@ class LoginController extends Controller
             return back()->with('mensaje', 'credenciales incorrectas');
         }
 
-        if (auth()->user()->rol != 'Ext') {
+        if (auth()->user()->rol == 'Ext') {
+
+            return redirect()->route('solicitudPlanta.index');
+
+        } else {
+
+            if (auth()->user()->rol == 'Acp') {
+
+                return redirect()->route('leche_analisis.index');
+
+            }
             // Obtener el ID del usuario autenticado
             $userId = Auth::id();
 
@@ -36,8 +46,8 @@ class LoginController extends Controller
                 session(['available_user_ids' => $availableUserIds]);
             }
             return redirect('/');
-        } else {
-            return redirect()->route('solicitudPlanta.index');
+
         }
+
     }
 }

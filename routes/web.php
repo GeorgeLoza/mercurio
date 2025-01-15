@@ -34,6 +34,7 @@ use App\Http\Controllers\UsuarioController;
 */
 
 Route::middleware(['auth'])->group(function () {
+
     Route::get('/', function () {
         return view('welcome');
     })->name('inicio');
@@ -43,6 +44,7 @@ Route::middleware(['auth'])->group(function () {
         /*ruta para generalidades */
         Route::get('/general', [GeneralController::class, 'index'])->name('general.index');
     });
+
     Route::middleware(['roles:Admi,Jef'])->group(function () {
         /*User Crud*/
         Route::get('/usuario', [UsuarioController::class, 'index'])->name('usuario.index');
@@ -92,7 +94,7 @@ Route::middleware(['auth'])->group(function () {
         /*leche */
         Route::get('/leche/recepcion', [LecheController::class, 'recepcion'])->name('leche_recepcion.index');
     });
-    Route::middleware(['roles:Admi,Jef,Sup,FQ,MB'])->group(function () {
+    Route::middleware(['roles:Admi,Jef,Sup,FQ,MB,Acp'])->group(function () {
         /*ruta para  analisis en linea */
         Route::get('/leche/analisis', [LecheController::class, 'analisis'])->name('leche_analisis.index');
     });

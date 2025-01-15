@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
      <link rel="stylesheet" href="{{ asset('build/assets/app-da32ce76.css') }}">
-     <link rel="stylesheet" href="{{ asset('build/assets/app-6ddaa298.css') }}">
+     <link rel="stylesheet" href="{{ asset('build/assets/app-ef2d9f6a.css') }}">
 
     <script src="{{ asset('build/assets/app-56df689c.js') }}" defer></script>
     <script src="{{ asset('js/app.js') }}"></script>
@@ -36,7 +36,7 @@
                         </svg>
                     </button>
 
-                    <a @if (!in_array(auth()->user()->rol, ['Ext'])) href="{{ route('inicio') }}" @endif class="flex ms-2 md:me-24">
+                    <a @if (!in_array(auth()->user()->rol, ['Ext', 'Acp'])) href="{{ route('inicio') }}" @endif class="flex ms-2 md:me-24">
                         <span
                             class="flex self-center text-base font-semibold sm:text-base whitespace-nowrap dark:text-white">SOALPRO
                             <span class="hidden md:flex ml-1">- PLANTA LÁCTEOS</span></span>
@@ -49,6 +49,8 @@
                         @livewire('screenSaver')
                     </div>
                     {{ auth()->user()->nombre }} - @livewire('date-time-display') </div>
+                    <div>@livewire('calculadora-juliano')</div>
+
                 <div class="flex gap-2">
 
 
@@ -156,7 +158,7 @@
 
                 <!--dashboard-->
 
-                @if (auth()->user()->rol != 'Ext')
+                @if (auth()->user()->rol != 'Ext' && auth()->user()->rol != 'Acp')
                     <li>
                         <a href="{{ route('dashboard.index') }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -457,7 +459,7 @@
                                     class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                                     Recepción de Leche</a>
                             </li>
-                            @if (in_array(auth()->user()->rol, ['Admi', 'Jef', 'Sup', 'MB', 'FQ']))
+                            @if (in_array(auth()->user()->rol, ['Admi', 'Jef', 'Sup', 'MB', 'FQ', 'Acp']))
                             <li>
                                 <a href="{{ route('leche_analisis.index') }}"
                                     class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
