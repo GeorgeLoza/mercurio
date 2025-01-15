@@ -10,6 +10,7 @@ use LivewireUI\Modal\ModalComponent;
 class Edit extends ModalComponent
 {
     public $id;
+    public $id2;
 
 
 
@@ -32,6 +33,8 @@ class Edit extends ModalComponent
         $this->aer_mes2 = $microbiologia->aer_mes2;
         $this->col_tot2 = $microbiologia->col_tot2;
         $this->moh_lev2 = $microbiologia->moh_lev2;
+
+
     }
     public function render()
     {
@@ -59,7 +62,12 @@ class Edit extends ModalComponent
                 $detalle->estado = "Revision";
                 $detalle->save();
             } else {
-                $microbiologia->estado = "2 Dias";
+                if($this->id2 == 3){
+                }
+                else{
+
+                    $microbiologia->estado = "2 Dias";
+                }
             }
 
             if (is_null($microbiologia->fecha_dia2)) {
