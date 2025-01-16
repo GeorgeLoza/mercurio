@@ -258,7 +258,7 @@
 
                             @endif
                             @endif
-                            @if ($registro->tiempo_sembrado != null && in_array(auth()->user()->rol, ['Admi', 'MB', 'Sup']) )
+                            @if ($registro->tiempo_sembrado != null && in_array(auth()->user()->rol, ['Admi', 'MB', 'Sup', 'FQ']) )
 
                             <button class=" bg-blue-400 rounded p-1 py-0 text-gray-700 "
                             onclick="Livewire.dispatch('openModal', { component: 'leche-cruda.analisis.editar', arguments: { id: {{ $registro->id }} , id2: 2 } })">
