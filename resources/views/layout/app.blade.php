@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-     <link rel="stylesheet" href="{{ asset('build/assets/app-da32ce76.css') }}">
-     <link rel="stylesheet" href="{{ asset('build/assets/app-ef2d9f6a.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-da32ce76.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-ef2d9f6a.css') }}">
 
     <script src="{{ asset('build/assets/app-56df689c.js') }}" defer></script>
     <script src="{{ asset('js/app.js') }}"></script>
@@ -27,7 +27,7 @@
                     <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar"
                         aria-controls="logo-sidebar" type="button"
                         class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg 2xl:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-                        <span class="sr-only">  </span>
+                        <span class="sr-only"> </span>
                         <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
                             <path clip-rule="evenodd" fill-rule="evenodd"
@@ -36,7 +36,7 @@
                         </svg>
                     </button>
 
-                    <a @if (!in_array(auth()->user()->rol, ['Ext', 'Acp'])) href="{{ route('inicio') }}" @endif class="flex ms-2 md:me-24">
+                    <a @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 2)->isNotEmpty()) href="{{ route('inicio') }}" @endif class="flex ms-2 md:me-24">
                         <span
                             class="flex self-center text-base font-semibold sm:text-base whitespace-nowrap dark:text-white">SOALPRO
                             <span class="hidden md:flex ml-1">- PLANTA LÁCTEOS</span></span>
@@ -48,8 +48,9 @@
                     <div x-data="{ isLoaded: false }" x-init="window.addEventListener('DOMContentLoaded', () => { isLoaded = true })" x-show="isLoaded" wire:ignore>
                         @livewire('screenSaver')
                     </div>
-                    {{ auth()->user()->nombre }} - @livewire('date-time-display') </div>
-                    <div>@livewire('calculadora-juliano')</div>
+                    {{ auth()->user()->nombre }} - @livewire('date-time-display')
+                </div>
+                <div>@livewire('calculadora-juliano')</div>
 
                 <div class="flex gap-2">
 
@@ -157,21 +158,24 @@
             <ul class="space-y-2 font-medium text-xs">
 
                 <!--dashboard-->
-
-                @if (auth()->user()->rol != 'Ext' && auth()->user()->rol != 'Acp')
+                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 2)->where('permiso_id', 2)->isNotEmpty())
                     <li>
                         <a href="{{ route('dashboard.index') }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
 
 
-                            <svg class="w-4 h-4 fill-gray-500 transition duration-75 dark:fill-gray-400 group-hover:fill-gray-900 dark:group-hover:fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M575.8 255.5c0 18-15 32.1-32 32.1l-32 0 .7 160.2c0 2.7-.2 5.4-.5 8.1l0 16.2c0 22.1-17.9 40-40 40l-16 0c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1L416 512l-24 0c-22.1 0-40-17.9-40-40l0-24 0-64c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32 14.3-32 32l0 64 0 24c0 22.1-17.9 40-40 40l-24 0-31.9 0c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2l-16 0c-22.1 0-40-17.9-40-40l0-112c0-.9 0-1.9 .1-2.8l0-69.7-32 0c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/></svg>
+                            <svg class="w-4 h-4 fill-gray-500 transition duration-75 dark:fill-gray-400 group-hover:fill-gray-900 dark:group-hover:fill-white"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                <path
+                                    d="M575.8 255.5c0 18-15 32.1-32 32.1l-32 0 .7 160.2c0 2.7-.2 5.4-.5 8.1l0 16.2c0 22.1-17.9 40-40 40l-16 0c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1L416 512l-24 0c-22.1 0-40-17.9-40-40l0-24 0-64c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32 14.3-32 32l0 64 0 24c0 22.1-17.9 40-40 40l-24 0-31.9 0c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2l-16 0c-22.1 0-40-17.9-40-40l0-112c0-.9 0-1.9 .1-2.8l0-69.7-32 0c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z" />
+                            </svg>
 
                             <span class="ms-3">DASHBOARD </span>
                         </a>
                     </li>
-                    @endif
+                @endif
                 <!--ESTADO-->
-                @if (in_array(auth()->user()->rol, ['Admi', 'Jef', 'Sup', 'HTST', 'UHT']))
+                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 3)->where('permiso_id', 2)->isNotEmpty())
                     <li>
                         <a href="{{ route('estado.index') }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -185,8 +189,8 @@
                         </a>
                     </li>
                 @endif
-                @if (in_array(auth()->user()->rol, ['Admi', 'Jef']))
-                    <!--usuarios-->
+                <!--usuarios-->
+                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 4)->where('permiso_id', 2)->isNotEmpty())
                     <li>
                         <a href="{{ route('usuario.index') }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -200,9 +204,8 @@
                         </a>
                     </li>
                 @endif
-
-                @if (in_array(auth()->user()->rol, ['Admi']))
-                    <!--configuracion-->
+                <!--configuracion-->
+                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 5)->where('permiso_id', 2)->isNotEmpty())
                     <li>
                         <a href="{{ route('general.index') }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -218,8 +221,8 @@
                         </a>
                     </li>
                 @endif
-                @if (in_array(auth()->user()->rol, ['Admi']))
-                    <!--Origen o punto de control   -->
+                <!--Origen o punto de control   -->
+                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 6)->where('permiso_id', 2)->isNotEmpty())
                     <li>
                         <a href="{{ route('origen.index') }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -233,8 +236,8 @@
                         </a>
                     </li>
                 @endif
-                @if (in_array(auth()->user()->rol, ['Admi', 'Jef']))
-                    <!--producto-->
+                <!--producto-->
+                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 7)->where('permiso_id', 2)->isNotEmpty())
                     <li>
                         <a href="{{ route('producto.index') }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -248,9 +251,8 @@
                         </a>
                     </li>
                 @endif
-
                 <!--parametros-->
-                @if (in_array(auth()->user()->rol, ['Admi', 'Jef']))
+                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 8)->where('permiso_id', 2)->isNotEmpty())
                     <li>
                         <button type="button"
                             class="flex items-center w-full p-2 text-xs text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
@@ -271,26 +273,30 @@
                         </button>
 
                         <ul id="dropdown-example" class="hidden py-2 space-y-2">
-                            <li>
-                                <a href="{{ route('parametroLinea.index') }}"
-                                    class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">En
-                                    Línea</a>
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 9)->where('permiso_id', 2)->isNotEmpty())
+                                <li>
+                                    <a href="{{ route('parametroLinea.index') }}"
+                                        class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">En
+                                        Línea</a>
 
-                            </li>
-                            <li>
-                                <a href="{{ route('parametroLeche.indexLeche') }}"
-                                    class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Leche</a>
-                            </li>
-                            <li>
+                                </li>
+                            @endif
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 10)->where('permiso_id', 2)->isNotEmpty())
+                                <li>
+                                    <a href="{{ route('parametroLeche.indexLeche') }}"
+                                        class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Leche</a>
+                                </li>
+                            @endif
+
+                            <li class="hidden">
                                 <a href="#"
                                     class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Seguimientos</a>
                             </li>
                         </ul>
                     </li>
                 @endif
-
                 <!--orp-->
-                @if (in_array(auth()->user()->rol, ['Admi', 'Jef', 'Sup', 'HTST', 'UHT', 'FQ']))
+                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 11)->where('permiso_id', 2)->isNotEmpty())
                     <li>
                         <a href="{{ route('orp.index') }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -304,34 +310,38 @@
                         </a>
                     </li>
                 @endif
-
                 <!--UHT-->
-                @if (in_array(auth()->user()->rol, ['Admi', 'Jef', 'Sup', 'HTST', 'UHT']))
+                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 12)->where('permiso_id', 2)->isNotEmpty())
                     <li>
                         <a href="{{ route('uht.index') }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
 
-                            <svg class="w-4 h-4 fill-gray-500 transition duration-75 dark:fill-gray-400 group-hover:fill-gray-900 dark:group-hover:fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M32 32c17.7 0 32 14.3 32 32l0 224c0 70.7 57.3 128 128 128s128-57.3 128-128l0-224c0-17.7 14.3-32 32-32s32 14.3 32 32l0 224c0 106-86 192-192 192S0 394 0 288L0 64C0 46.3 14.3 32 32 32z"/></svg>
+                            <svg class="w-4 h-4 fill-gray-500 transition duration-75 dark:fill-gray-400 group-hover:fill-gray-900 dark:group-hover:fill-white"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                                <path
+                                    d="M32 32c17.7 0 32 14.3 32 32l0 224c0 70.7 57.3 128 128 128s128-57.3 128-128l0-224c0-17.7 14.3-32 32-32s32 14.3 32 32l0 224c0 106-86 192-192 192S0 394 0 288L0 64C0 46.3 14.3 32 32 32z" />
+                            </svg>
                             <span class="ms-3">UHT</span>
                         </a>
                     </li>
                 @endif
-
-
                 <!--HTST-->
-                @if (in_array(auth()->user()->rol, ['Admi', 'Jef', 'Sup', 'HTST', 'UHT']))
+                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 13)->where('permiso_id', 2)->isNotEmpty())
                     <li>
                         <a href="{{ route('htst.index') }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
 
-                            <svg class="w-4 h-4 fill-gray-500 transition duration-75 dark:fill-gray-400 group-hover:fill-gray-900 dark:group-hover:fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M320 256l0 192c0 17.7 14.3 32 32 32s32-14.3 32-32l0-224 0-160c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 128L64 192 64 64c0-17.7-14.3-32-32-32S0 46.3 0 64L0 448c0 17.7 14.3 32 32 32s32-14.3 32-32l0-192 256 0z"/></svg>
+                            <svg class="w-4 h-4 fill-gray-500 transition duration-75 dark:fill-gray-400 group-hover:fill-gray-900 dark:group-hover:fill-white"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                                <path
+                                    d="M320 256l0 192c0 17.7 14.3 32 32 32s32-14.3 32-32l0-224 0-160c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 128L64 192 64 64c0-17.7-14.3-32-32-32S0 46.3 0 64L0 448c0 17.7 14.3 32 32 32s32-14.3 32-32l0-192 256 0z" />
+                            </svg>
                             <span class="ms-3">HTST</span>
                         </a>
                     </li>
                 @endif
-
-                @if (in_array(auth()->user()->rol, ['Admi', 'Sup', 'Jef', 'HTST', 'UHT']))
-                    <!--solicitud de analisis en linea-->
+                <!--solicitud de analisis en linea-->
+                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 14)->where('permiso_id', 2)->isNotEmpty())
                     <li>
                         <a href="{{ route('solicitudLinea.index') }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -345,8 +355,8 @@
                         </a>
                     </li>
                 @endif
-                @if (in_array(auth()->user()->rol, ['Admi', 'Sup', 'Jef', 'FQ', 'HTST', 'UHT']))
-                    <!--analisis en linea-->
+                <!--analisis en linea-->
+                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 15)->where('permiso_id', 2)->isNotEmpty())
                     <li>
                         <a href="{{ route('analisisLinea.index') }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -360,8 +370,8 @@
                         </a>
                     </li>
                 @endif
-                @if (in_array(auth()->user()->rol, ['Admi', 'Jef', 'Con']))
-                    <!--contador-->
+                <!--contador-->
+                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 16)->where('permiso_id', 2)->isNotEmpty())
                     <li>
                         <button type="button"
                             class="flex items-center w-full p-2 text-xs text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
@@ -394,9 +404,8 @@
                         </ul>
                     </li>
                 @endif
-
-                @if (in_array(auth()->user()->rol, ['Admi']))
-                    <!--Almacen-->
+                <!--Almacen-->
+                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 17)->where('permiso_id', 2)->isNotEmpty())
                     <li>
                         <button type="button"
                             class="flex items-center w-full p-2 text-xs text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
@@ -430,9 +439,9 @@
                         </ul>
                     </li>
                 @endif
+                <!--recepcion de leche-->
+                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 18)->where('permiso_id', 2)->isNotEmpty())
 
-
-                    <!--recepcion de leche-->
                     <li>
                         <button type="button"
                             class="flex items-center w-full p-2 text-xs text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
@@ -453,26 +462,28 @@
                                     stroke-width="2" d="m1 1 4 4 4-4" />
                             </svg>
                         </button>
+
                         <ul id="dropdown-leche" class="hidden py-2 space-y-2">
-                            <li>
-                                <a href="{{ route('leche_recepcion.index') }}"
-                                    class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                                    Recepción de Leche</a>
-                            </li>
-                            @if (in_array(auth()->user()->rol, ['Admi', 'Jef', 'Sup', 'MB', 'FQ', 'Acp']))
-                            <li>
-                                <a href="{{ route('leche_analisis.index') }}"
-                                    class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                                    Análisis de Leche</a>
-                            </li>
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 19)->where('permiso_id', 2)->isNotEmpty())
+                                <li>
+                                    <a href="{{ route('leche_recepcion.index') }}"
+                                        class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                                        Recepción de Leche</a>
+                                </li>
+                            @endif
+
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 20)->where('permiso_id', 2)->isNotEmpty())
+                                <li>
+                                    <a href="{{ route('leche_analisis.index') }}"
+                                        class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                                        Análisis de Leche</a>
+                                </li>
                             @endif
                         </ul>
                     </li>
-
-
+                @endif
                 <!-- Externos -->
-                @if (in_array(auth()->user()->rol, ['Admi', 'Ext', 'Jef', 'FQ', 'MB']) ||
-                        (auth()->user()->rol === 'Jef' && auth()->user()->division->nombre === 'Calidad'))
+                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 21)->where('permiso_id', 2)->isNotEmpty())
 
                     <li>
                         <button type="button"
@@ -494,37 +505,43 @@
                             </svg>
                         </button>
                         <ul id="dropdown-externo" class="hidden py-2 space-y-2">
-                            @if (in_array(auth()->user()->rol, ['Admi', 'Jef', 'Ext']))
+
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 22)->where('permiso_id', 2)->isNotEmpty())
                                 <li>
                                     <a href="{{ route('solicitudPlanta.index') }}"
                                         class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                                         Solicitud Planta</a>
                                 </li>
+                            @endif
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 23)->where('permiso_id', 2)->isNotEmpty())
                                 <li>
                                     <a href="{{ route('productosPlanta.index') }}"
                                         class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                                         Productos Planta</a>
                                 </li>
+                            @endif
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 2)->isNotEmpty())
                                 <li>
                                     <a href="{{ route('certificado.index') }}"
                                         class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                                         Certificados</a>
                                 </li>
                             @endif
-                            @if (in_array(auth()->user()->rol, ['Admi', 'Jef']))
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 25)->where('permiso_id', 2)->isNotEmpty())
                                 <li>
                                     <a href="{{ route('informacion.index') }}"
                                         class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                                         Información Usuario</a>
                                 </li>
-
+                            @endif
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 26)->where('permiso_id', 2)->isNotEmpty())
                                 <li>
                                     <a href="{{ route('tipoMuestra.index') }}"
                                         class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                                         Tipo Muestra</a>
                                 </li>
                             @endif
-                            @if (in_array(auth()->user()->rol, ['Admi', 'Jef', 'FQ']))
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 27)->where('permiso_id', 2)->isNotEmpty())
                                 <!--<li>
                                     <a href="{{ route('verificacionEquipo.index') }}"
                                         class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
@@ -536,7 +553,7 @@
                                         Actividad de Agua</a>
                                 </li>
                             @endif
-                            @if (in_array(auth()->user()->rol, ['Admi', 'Jef', 'MB']))
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 28)->where('permiso_id', 2)->isNotEmpty())
                                 <li>
                                     <a href="{{ route('microbiologia.index') }}"
                                         class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
@@ -549,22 +566,22 @@
                 @endif
 
 
-                 <!-- DATOS -->
-                @if (in_array(auth()->user()->rol, ['Admi', 'Jef']))
-                 <li>
-                     <a href="{{ route('datos.index') }}"
-                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                         <svg xmlns="http://www.w3.org/2000/svg"
-                             class="w-4 h-4 fill-gra    y-500 transition duration-75 dark:fill-gray-400 group-hover:fill-gray-900 dark:group-hover:fill-white"
-                             viewBox="0 0 512 512">
-                             <path
-                                 d="M152.1 38.2c9.9 8.9 10.7 24 1.8 33.9l-72 80c-4.4 4.9-10.6 7.8-17.2 7.9s-12.9-2.4-17.6-7L7 113C-2.3 103.6-2.3 88.4 7 79s24.6-9.4 33.9 0l22.1 22.1 55.1-61.2c8.9-9.9 24-10.7 33.9-1.8zm0 160c9.9 8.9 10.7 24 1.8 33.9l-72 80c-4.4 4.9-10.6 7.8-17.2 7.9s-12.9-2.4-17.6-7L7 273c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l22.1 22.1 55.1-61.2c8.9-9.9 24-10.7 33.9-1.8zM224 96c0-17.7 14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H256c-17.7 0-32-14.3-32-32zm0 160c0-17.7 14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H256c-17.7 0-32-14.3-32-32zM160 416c0-17.7 14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H192c-17.7 0-32-14.3-32-32zM48 368a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
-                         </svg>
-                         <span class="ms-3">DATOS</span>
-                     </a>
-                 </li>
+                <!-- DATOS -->
+                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 29)->where('permiso_id', 2)->isNotEmpty())
+                    <li>
+                        <a href="{{ route('datos.index') }}"
+                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="w-4 h-4 fill-gra    y-500 transition duration-75 dark:fill-gray-400 group-hover:fill-gray-900 dark:group-hover:fill-white"
+                                viewBox="0 0 512 512">
+                                <path
+                                    d="M152.1 38.2c9.9 8.9 10.7 24 1.8 33.9l-72 80c-4.4 4.9-10.6 7.8-17.2 7.9s-12.9-2.4-17.6-7L7 113C-2.3 103.6-2.3 88.4 7 79s24.6-9.4 33.9 0l22.1 22.1 55.1-61.2c8.9-9.9 24-10.7 33.9-1.8zm0 160c9.9 8.9 10.7 24 1.8 33.9l-72 80c-4.4 4.9-10.6 7.8-17.2 7.9s-12.9-2.4-17.6-7L7 273c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l22.1 22.1 55.1-61.2c8.9-9.9 24-10.7 33.9-1.8zM224 96c0-17.7 14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H256c-17.7 0-32-14.3-32-32zm0 160c0-17.7 14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H256c-17.7 0-32-14.3-32-32zM160 416c0-17.7 14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H192c-17.7 0-32-14.3-32-32zM48 368a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+                            </svg>
+                            <span class="ms-3">DATOS</span>
+                        </a>
+                    </li>
                 @endif
-                @if (auth()->user()->division->id ==2)
+                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 30)->where('permiso_id', 2)->isNotEmpty())
                     <!--sustancia controladas-->
                     <li>
                         <a href="{{ route('sustanciasControladas.index') }}"
@@ -573,7 +590,7 @@
                                 class="w-4 h-4 fill-gray-500 transition duration-75 dark:fill-gray-400 group-hover:fill-gray-900 dark:group-hover:fill-white"
                                 viewBox="0 0 640 512">
                                 <path
-                                d="M288 0L160 0 128 0C110.3 0 96 14.3 96 32s14.3 32 32 32l0 132.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512l309.2 0c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5L320 64c17.7 0 32-14.3 32-32s-14.3-32-32-32L288 0zM192 196.8L192 64l64 0 0 132.8c0 23.7 6.6 46.9 19 67.1L309.5 320l-171 0L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
+                                    d="M288 0L160 0 128 0C110.3 0 96 14.3 96 32s14.3 32 32 32l0 132.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512l309.2 0c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5L320 64c17.7 0 32-14.3 32-32s-14.3-32-32-32L288 0zM192 196.8L192 64l64 0 0 132.8c0 23.7 6.6 46.9 19 67.1L309.5 320l-171 0L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
                             </svg>
 
 

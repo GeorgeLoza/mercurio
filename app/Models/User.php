@@ -27,6 +27,7 @@ class User extends Authenticatable
         'planta_id',
         'division_id',
         'password',
+        'rol_id', //
     ];
     public function planta()
     {
@@ -56,10 +57,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(RecepcionLeche::class);
     }
-    public function hasRole($role)
-    {
-        return $this->rol === $role;
-    }
+
+
 
     public function informacionUsuario()
     {
@@ -101,6 +100,16 @@ class User extends Authenticatable
     public function usuarioLecturas(){
         return $this->hasMany(CalidadLeche::class , 'usuarioLectura');
     }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'rol_id');
+    }
+
+
+    /**
+     * Verifica si el usuario tiene un rol específico.
+     */
 
 
     /**
