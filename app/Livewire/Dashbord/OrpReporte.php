@@ -89,7 +89,7 @@ class OrpReporte extends Component
             ->get()
             ->pluck('analisisLinea.user_id')
             ->unique();
-dd($userIdsFromSolicitudAnalisis);
+        dd($userIdsFromSolicitudAnalisis);
         // Combinar todos los IDs recolectados y eliminar duplicados
 
         // $allUserIds = $userIdsFromEstadoDetalle
