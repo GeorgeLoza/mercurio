@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal('lote',7,4)->nullable();
             $table->string('estado');
             $table->dateTime('tiempo_elaboracion')->nullable();
-            $table->datesx('fecha_vencimiento1')->nullable();
+            $table->date('fecha_vencimiento1')->nullable();
             $table->date('fecha_vencimiento2')->nullable();
             $table->timestamps();
         });

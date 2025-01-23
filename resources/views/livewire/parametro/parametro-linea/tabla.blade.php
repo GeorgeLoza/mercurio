@@ -3,15 +3,15 @@
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    
+
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700" wire:click="sortBy('producto_codigo')">
                         Código
                     </th>
-  
+
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700" wire:click="sortBy('producto_nombre')">
                         Nombre
-                    </th>                  
-  
+                    </th>
+
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700" wire:click="sortBy('etapa_nombre')">
                         etapa_nombre
                     </th>
@@ -36,7 +36,7 @@
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700" wire:click="sortBy('brix_min')">
                         brix_min
                     </th>
-            
+
                 <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700" wire:click="sortBy('brix_max')">
                     brix_max
                 </th>
@@ -64,21 +64,21 @@
             <tbody class="">
                 <!-- fila de filtros -->
                 <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                    
+
                     <th class="p-1">
                         <input type="text"  wire:model.live='f_producto_codigo' placeholder="Filtrar por código"
                             class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    </th> 
+                    </th>
                     <th class="p-1">
                         <input type="text"  wire:model.live='f_producto_nombre' placeholder="Filtrar por nombre"
                             class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    </th> 
+                    </th>
                     <th class="p-1">
                         <input type="text"  wire:model.live='f_etapa_nombre' placeholder="Filtrar por etapa"
                             class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     </th>
 
-                   
+
                     <th class="p-1">
                         <input type="text"  wire:model.live='f_temperatura_min' placeholder="Filtrar por temperatura minima"
                             class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -152,7 +152,7 @@
                     <td class="px-6 py-2" nowrap>
                         {{$parametro_linea->etapa->nombre}}
                     </td>
-                  
+
                     <td class="px-6 py-2">
                         {{$parametro_linea->temperatura_min}} °C
                     </td>
@@ -191,14 +191,14 @@
                     </td>
 
                     <td class="flex items-center px-6 py-2 gap-2">
-                        @if(in_array(auth()->user()->rol, ['Admi','Jef']))
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 9)->where('permiso_id', 3)->isNotEmpty())
                         <svg onclick="Livewire.dispatch('openModal', { component: 'parametro.parametro-linea.editar', arguments: { id: {{ $parametro_linea->id}} } })" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-blue-600 dark:fill-blue-500"
                             viewBox="0 0 512 512">
                             <path
                                 d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z" />
                         </svg>
                         @endif
-                        @if(in_array(auth()->user()->rol, ['Admi','Jef']))
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 9)->where('permiso_id', 4)->isNotEmpty())
                         @if(now()->diffInMinutes($parametro_linea->created_at)<120)
                         <svg onclick="Livewire.dispatch('openModal', { component: 'parametro.parametro-linea.eliminar', arguments: { id: {{ $parametro_linea->id}} } })" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-red-600 dark:fill-red-500"
                             viewBox="0 0 448 512">

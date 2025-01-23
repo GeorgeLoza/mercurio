@@ -9,21 +9,22 @@
             <option value="En proceso"> En proceso</option>
             <option value="Completado"> Completado</option>
         </select>
-
-        <!--Boton importar -->
-        <button class="p-2 bg-blue-500 rounded-lg"
-            onclick="Livewire.dispatch('openModal', { component: 'orp.importar' })">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-white" viewBox="0 0 512 512">
-                <path
-                    d="M288 109.3V352c0 17.7-14.3 32-32 32s-32-14.3-32-32V109.3l-73.4 73.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L288 109.3zM64 352H192c0 35.3 28.7 64 64 64s64-28.7 64-64H448c35.3 0 64 28.7 64 64v32c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V416c0-35.3 28.7-64 64-64zM432 456a24 24 0 1 0 0-48 24 24 0 1 0 0 48z" />
-            </svg></button>
-        <!--Boton Crear -->
-        <button class="p-2 bg-green-500 rounded-lg"
-            onclick="Livewire.dispatch('openModal', { component: 'orp.crear' })">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-white" viewBox="0 0 448 512">
-                <path
-                    d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
-            </svg></button>
+        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 11)->where('permiso_id', 1)->isNotEmpty())
+            <!--Boton importar -->
+            <button class="p-2 bg-blue-500 rounded-lg"
+                onclick="Livewire.dispatch('openModal', { component: 'orp.importar' })">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-white" viewBox="0 0 512 512">
+                    <path
+                        d="M288 109.3V352c0 17.7-14.3 32-32 32s-32-14.3-32-32V109.3l-73.4 73.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L288 109.3zM64 352H192c0 35.3 28.7 64 64 64s64-28.7 64-64H448c35.3 0 64 28.7 64 64v32c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V416c0-35.3 28.7-64 64-64zM432 456a24 24 0 1 0 0-48 24 24 0 1 0 0 48z" />
+                </svg></button>
+            <!--Boton Crear -->
+            <button class="p-2 bg-green-500 rounded-lg"
+                onclick="Livewire.dispatch('openModal', { component: 'orp.crear' })">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-white" viewBox="0 0 448 512">
+                    <path
+                        d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+                </svg></button>
+        @endif
     </div>
 
 
@@ -189,7 +190,8 @@
                         <th scope="row"
                             class="sticky flex py-1  bg-white  p-1 left-0 z-10 px-1  font-medium text-gray-900 whitespace-nowrap dark:text-white dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50  dark:hover:bg-gray-600 rounded-lg">
                             <!--boton reporte ORP-->
-                            <a target="_blank" href="{{ route('orp.report', ['id' => $orp->id]) }}" class="rounded-md mr-4">
+                            <a target="_blank" href="{{ route('orp.report', ['id' => $orp->id]) }}"
+                                class="rounded-md mr-4">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-5 w-5"
                                     viewBox="0 0 512 512">
                                     <path
@@ -201,9 +203,8 @@
 
                         <td class="px-0 overflow-x-auto" nowrap>
 
-                            @if ($orp->tiempo_elaboracion )
-
-                            {{ \Carbon\Carbon::parse($orp->tiempo_elaboracion)->isoFormat('DD-MM-YY HH:mm  ') }}
+                            @if ($orp->tiempo_elaboracion)
+                                {{ \Carbon\Carbon::parse($orp->tiempo_elaboracion)->isoFormat('DD-MM-YY HH:mm  ') }}
                             @endif
 
                         </td>
@@ -236,16 +237,16 @@
 
                         </td>
                         <td class="px-2   ">
-                            @if ($orp->fecha_vencimiento1 )
-
-                            {{ \Carbon\Carbon::parse($orp->fecha_vencimiento1)->isoFormat('DD-MM-YY') }}
+                            @if ($orp->fecha_vencimiento1)
+                                {{ \Carbon\Carbon::parse($orp->fecha_vencimiento1)->isoFormat('DD-MM-YY') }}
                             @endif
 
                         </td>
                         <td class="px-2 border-r  " nowrap>
 
                             @if ($orp->estado == 'Pendiente')
-                                <span class="flex items-center text-sm font-medium me-3 text-yellow-500 uppercase"><span
+                                <span
+                                    class="flex items-center text-sm font-medium me-3 text-yellow-500 uppercase"><span
                                         class="flex w-2.5 h-2.5 bg-yellow-500  rounded-full me-1.5 flex-shrink-0 text-2xs"></span>{{ $orp->estado }}</span>
                             @endif
 
@@ -255,7 +256,8 @@
                             @endif
 
                             @if ($orp->estado == 'Completado')
-                                <span class="flex items-center text-sm font-medium me-3 text-green-500 uppercase "><span
+                                <span
+                                    class="flex items-center text-sm font-medium me-3 text-green-500 uppercase "><span
                                         class="flex w-2.5 h-2.5 bg-green-500 rounded-full me-1.5 flex-shrink-0"></span>{{ $orp->estado }}</span>
                             @endif
 
@@ -269,7 +271,8 @@
                                         class="flex w-2.5 h-2.5 bg-red-600 rounded-full me-1.5 flex-shrink-0"></span>{{ $orp->estado }}</span>
                             @endif
                             @if ($orp->estado == 'Programado')
-                                <span class="flex items-center text-sm font-medium me-3 text-purple-500 uppercase"><span
+                                <span
+                                    class="flex items-center text-sm font-medium me-3 text-purple-500 uppercase"><span
                                         class="flex w-2.5 h-2.5 bg-purple-600  rounded-full me-1.5 flex-shrink-0"></span>{{ $orp->estado }}</span>
                             @endif
                         </td>
@@ -284,7 +287,7 @@
                         <td class="flex items-center px-2  gap-1 ">
                             <!--boton para programar-->
                             @if ($orp->estado == 'Pendiente')
-                                @if (in_array(auth()->user()->rol, ['Admi', 'Jef', 'Sup', 'HTST']) && auth()->user()->division->nombre == 'Produccion')
+                                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 11)->where('permiso_id', 1)->isNotEmpty())
                                     <button class="p-2 rounded-md " wire:click="programar({{ $orp->id }})">
                                         <span
                                             class=" text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-purple-300 border">Programar</span>
@@ -292,25 +295,29 @@
                                 @endif
                             @endif
                             <!--boton para cancelar-->
-                            @if (in_array(auth()->user()->rol, ['Admi', 'Jef']))
+                            @if ($orp->estado != 'Cancelado')
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 11)->where('permiso_id', 1)->isNotEmpty())
                                 <button class="p-2 rounded-md whitespace-nowrap"
                                     wire:click="cancelar({{ $orp->id }})">
                                     <span
                                         class=" text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-red-400 border-collapse border border-red-500  ">Cancelar</span>
                                 </button>
                             @endif
+                            @endif
                             <!--boton para pendiente-->
-                            @if (in_array(auth()->user()->rol, ['Admi', 'Jef', 'Sup']))
-                                <button class="p-2 rounded-md whitespace-nowrap"
-                                    wire:click="pendiente({{ $orp->id }})">
-                                    <span
-                                        class=" text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-yellow-300 border">Pendiente</span>
-                                </button>
+                            @if ($orp->estado != 'Pendiente')
+                                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 11)->where('permiso_id', 1)->isNotEmpty())
+                                    <button class="p-2 rounded-md whitespace-nowrap"
+                                        wire:click="pendiente({{ $orp->id }})">
+                                        <span
+                                            class=" text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-yellow-300 border">Pendiente</span>
+                                    </button>
+                                @endif
                             @endif
 
                             <!--boton para cambiar estado en proceso-->
                             @if ($orp->estado == 'Programado')
-                                @if (in_array(auth()->user()->rol, ['Admi', 'Sup']) && auth()->user()->division->nombre == 'Produccion')
+                                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 11)->where('permiso_id', 1)->isNotEmpty())
                                     <button class="p-2 rounded-md whitespace-nowrap"
                                         wire:click="iniciar({{ $orp->id }})">
                                         <span
@@ -322,7 +329,7 @@
 
                             <!--boton para cambiar estado en completado-->
                             @if ($orp->estado == 'En proceso')
-                                @if (in_array(auth()->user()->rol, ['Admi', 'Sup']) && auth()->user()->division->nombre == 'Produccion')
+                                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 11)->where('permiso_id', 1)->isNotEmpty())
                                     <button class="p-2 rounded-md whitespace-nowrap"
                                         wire:click="completar({{ $orp->id }})">
                                         <span
@@ -337,7 +344,11 @@
 
 
 
-                            @if (in_array(auth()->user()->rol, ['Admi', 'Jef']))
+
+                        </td>
+                        <td></td>
+                        <td class="flex" >
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 11)->where('permiso_id', 3)->isNotEmpty())
                                 <svg onclick="Livewire.dispatch('openModal', { component: 'orp.editar', arguments: { id: {{ $orp->id }} } })"
                                     xmlns="http://www.w3.org/2000/svg"
                                     class="h-4 w-10 fill-blue-600 dark:fill-blue-500" viewBox="0 0 512 512">
@@ -345,7 +356,7 @@
                                         d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z" />
                                 </svg>
                             @endif
-                            @if (in_array(auth()->user()->rol, ['Admi', 'Jef']))
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 11)->where('permiso_id', 4)->isNotEmpty())
                                 <svg onclick="Livewire.dispatch('openModal', { component: 'orp.eliminar', arguments: { id: {{ $orp->id }} } })"
                                     xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-red-600 dark:fill-red-500"
                                     viewBox="0 0 448 512">
@@ -377,36 +388,35 @@
 
         <!-- Botón para exportar -->
 
-        <p class="mb-1" >
-        Descargar Reporte
+        <p class="mb-1">
+            Descargar Reporte
         </p>
         <button class="bg-green-500 p-2 text-center rounded-md" wire:click="exportarExcel">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="h-5 w-5 fill-white">
                 <path
                     d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM155.7 250.2L192 302.1l36.3-51.9c7.6-10.9 22.6-13.5 33.4-5.9s13.5 22.6 5.9 33.4L221.3 344l46.4 66.2c7.6 10.9 5 25.8-5.9 33.4s-25.8 5-33.4-5.9L192 385.8l-36.3 51.9c-7.6 10.9-22.6 13.5-33.4 5.9s-13.5-22.6-5.9-33.4L162.7 344l-46.4-66.2c-7.6-10.9-5-25.8 5.9-33.4s25.8-5 33.4 5.9z" />
-                </svg>
+            </svg>
         </button>
 
         <!-- Campo de selección de fecha completa -->
         <label>Fecha:</label>
-        <input
-            type="date"
-            class="rounded p-1 text-black"
-            wire:model.defer="fecha">
+        <input type="date" class="rounded p-1 text-black" wire:model.defer="fecha">
         @error('fecha')
             <span class="text-red-500 text-base">{{ $message }}</span>
         @enderror
 
 
 
-        <label >Mes:</label>
-    <select class="rounded p-1 mx-2 bg-white text-black" wire:model.defer="cat" >
-        <option value="">UHT/HTST</option>
-        <option value="UHT">UHT</option>
-        <option value="HTST">HTST</option>
+        <label>Mes:</label>
+        <select class="rounded p-1 mx-2 bg-white text-black" wire:model.defer="cat">
+            <option value="">UHT/HTST</option>
+            <option value="UHT">UHT</option>
+            <option value="HTST">HTST</option>
 
-    </select>
-     @error('cat') <span class="text-red-500 text-base">{{ $message }}</span> @enderror
+        </select>
+        @error('cat')
+            <span class="text-red-500 text-base">{{ $message }}</span>
+        @enderror
 
 
     </div>

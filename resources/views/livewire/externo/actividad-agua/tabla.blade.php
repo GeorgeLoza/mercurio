@@ -40,9 +40,12 @@
                     <th scope="col" class="px-2 py-1">
                         Analista
                     </th>
+                    @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 27)->where('permiso_id', 3)->isNotEmpty())
+
                     <th scope="col" class="px-2 py-1">
                         Opciones
                     </th>
+                    @endif
                 </tr>
 
             </thead>
@@ -65,7 +68,7 @@
                                 {{ $actividad->detalleSolicitudPlanta->otro }}
                             @endif
                         </td>
-                        <td class="px-3 py-2">
+                        <td class="px-3 py-2" nowrap>
                             {{ $actividad->detalleSolicitudPlanta->user->planta->nombre }}
                         </td>
                         <td class="px-3 py-2" nowrap>
@@ -108,15 +111,20 @@
                                 {{ $actividad->user->nombre }}
                             @endif
                         </td>
+
                         <td class="px-3 py-2 flex justify-center">
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 27)->where('permiso_id', 3)->isNotEmpty())
+
                             <svg onclick="Livewire.dispatch('openModal', { component: 'externo.actividadAgua.edit', arguments: { id: {{ $actividad->id }} } })"
                                 xmlns="http://www.w3.org/2000/svg" class="h-4 w-20 fill-blue-600 dark:fill-blue-500"
                                 viewBox="0 0 512 512">
                                 <path
                                     d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z" />
                             </svg>
+                            @endif
 
-                            @if (in_array(auth()->user()->rol, ['Admi', 'Jef']))
+
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 27)->where('permiso_id', 4)->isNotEmpty())
                                 <button wire:click="eliminar({{ $actividad->id }})"
                                     wire:confirm="Esta seguro de eliminar el elemento?">
 
@@ -137,4 +145,8 @@
 
         </table>
     </div>
+    <div>
+        {{ $actividadAgua->links('pagination::tailwind') }}
+    </div>
+
 </div>

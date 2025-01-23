@@ -157,7 +157,7 @@
                                     {{ $micro->aer_mes < 1
                                         ? $micro->aer_mes * 10 ** (strlen(floor($micro->aer_mes)) - 1)
                                         : $micro->aer_mes / 10 ** (strlen(floor($micro->aer_mes)) - 1) }}
-                                    x 10<sup>{{ strlen(floor    ($micro->aer_mes)) - 1 }}</sup>
+                                    x 10<sup>{{ strlen(floor($micro->aer_mes)) - 1 }}</sup>
                                 @elseif ($micro->aer_mes === 0)
                                     < 1 x 10<sup>1</sup>
                                     @elseif (is_null($micro->aer_mes))
@@ -165,24 +165,23 @@
                                 @endif
 
                             </p>
-                            @if ($micro->aer_mes2=== null )
+                            @if ($micro->aer_mes2 === null)
                             @else
+                                <p class="p-0">
 
-                            <p class="p-0">
-
-                                @if ($micro->aer_mes2 >= 1000000)
-                                    MNPC
-                                @elseif ($micro->aer_mes2 < 1000000 && $micro->aer_mes2 >= 1)
-                                    {{ $micro->aer_mes2 < 1
-                                        ? $micro->aer_mes2 * 10 ** (strlen(floor($micro->aer_mes2)) - 1)
-                                        : $micro->aer_mes2 / 10 ** (strlen(floor($micro->aer_mes2)) - 1) }}
-                                    x 10<sup>{{ strlen(floor($micro->aer_mes2)) - 1 }}</sup>
-                                @elseif ($micro->aer_mes2 === 0)
-                                    < 1 x 10<sup>1</sup>
-                                    @elseif (is_null($micro->aer_mes2))
-                                        --
-                                @endif
-                            </p>
+                                    @if ($micro->aer_mes2 >= 1000000)
+                                        MNPC
+                                    @elseif ($micro->aer_mes2 < 1000000 && $micro->aer_mes2 >= 1)
+                                        {{ $micro->aer_mes2 < 1
+                                            ? $micro->aer_mes2 * 10 ** (strlen(floor($micro->aer_mes2)) - 1)
+                                            : $micro->aer_mes2 / 10 ** (strlen(floor($micro->aer_mes2)) - 1) }}
+                                        x 10<sup>{{ strlen(floor($micro->aer_mes2)) - 1 }}</sup>
+                                    @elseif ($micro->aer_mes2 === 0)
+                                        < 1 x 10<sup>1</sup>
+                                        @elseif (is_null($micro->aer_mes2))
+                                            --
+                                    @endif
+                                </p>
                             @endif
 
 
@@ -207,45 +206,44 @@
                                     @endif
 
                                 </p>
-                                @if ($micro->col_tot2=== null)
+                                @if ($micro->col_tot2 === null)
                                 @else
-                                <p class="p-0">
-                                    @if ($micro->col_tot2 >= 1000000)
-                                        MNPC
-                                    @elseif ($micro->col_tot2 < 1000000 && $micro->col_tot2 >= 1)
-                                        {{ $micro->col_tot2 < 1
-                                            ? $micro->col_tot2 * 10 ** (strlen(floor($micro->col_tot2)) - 1)
-                                            : $micro->col_tot2 / 10 ** (strlen(floor($micro->col_tot2)) - 1) }}
-                                        x 10<sup>{{ strlen(floor($micro->col_tot2)) - 1 }}</sup>
-                                    @elseif ($micro->col_tot2 === 0)
-                                        < 1 x 10<sup>1</sup>
-                                        @elseif (is_null($micro->col_tot2))
-                                            --
-                                    @endif
+                                    <p class="p-0">
+                                        @if ($micro->col_tot2 >= 1000000)
+                                            MNPC
+                                        @elseif ($micro->col_tot2 < 1000000 && $micro->col_tot2 >= 1)
+                                            {{ $micro->col_tot2 < 1
+                                                ? $micro->col_tot2 * 10 ** (strlen(floor($micro->col_tot2)) - 1)
+                                                : $micro->col_tot2 / 10 ** (strlen(floor($micro->col_tot2)) - 1) }}
+                                            x 10<sup>{{ strlen(floor($micro->col_tot2)) - 1 }}</sup>
+                                        @elseif ($micro->col_tot2 === 0)
+                                            < 1 x 10<sup>1</sup>
+                                            @elseif (is_null($micro->col_tot2))
+                                                --
+                                        @endif
 
-                                </p>
+                                    </p>
                                 @endif
 
                             </div>
-                            @if ( now()->diffInDays($micro->fecha_sembrado) < 8 )
-                            <div class="flex h-full items-center justify-center ml-3">
-                                <svg wire:click="dia2({{ $micro->id }})"
-                                 class="h-5 mr-1 fill-green-500" xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 448 512">
-                                    <path
-                                        d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
-                                </svg>
-
-
-                                <button>
-                                    <svg onclick="Livewire.dispatch('openModal', { component: 'externo.microbiologia.edit', arguments: { id: {{ $micro->id }}, id2:1 } })"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="h-4 w-10 fill-blue-600 dark:fill-blue-500" viewBox="0 0 512 512">
+                            @if ((now()->diffInDays($micro->fecha_sembrado) < 8 && auth()->user()->role->rolModuloPermisos->where('modulo_id', 28)->where('permiso_id', 1)->isNotEmpty()) || auth()->user()->role->id == 1 )
+                                <div class="flex h-full items-center justify-center ml-3">
+                                    <svg wire:click="dia2({{ $micro->id }})" class="h-5 mr-1 fill-green-500"
+                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                                         <path
-                                            d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z" />
+                                            d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
                                     </svg>
-                                </button>
-                            </div>
+
+
+                                    <button>
+                                        <svg onclick="Livewire.dispatch('openModal', { component: 'externo.microbiologia.edit', arguments: { id: {{ $micro->id }}, id2:1 } })"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            class="h-4 w-10 fill-blue-600 dark:fill-blue-500" viewBox="0 0 512 512">
+                                            <path
+                                                d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z" />
+                                        </svg>
+                                    </button>
+                                </div>
                             @endif
 
                         </td>
@@ -266,71 +264,71 @@
 
                         <td class="px-3 py-0" nowrap>
 
-<div class="flex items-center">
-    <div>
-        <p class="p-0">
+                            <div class="flex items-center">
+                                <div>
+                                    <p class="p-0">
 
-            @if ($micro->moh_lev >= 1000000)
-                MNPC
-            @elseif ($micro->moh_lev < 1000000 && $micro->moh_lev >= 1)
-                {{ $micro->moh_lev < 1
-                    ? $micro->moh_lev * 10 ** (strlen(floor($micro->moh_lev)) - 1)
-                    : $micro->moh_lev / 10 ** (strlen(floor($micro->moh_lev)) - 1) }}
-                x 10<sup>{{ strlen(floor($micro->moh_lev)) - 1 }}</sup>
-            @elseif ($micro->moh_lev === 0)
-                < 1 x 10<sup>1</sup>
-                @elseif (is_null($micro->moh_lev))
-                    --
-            @endif
-        </p>
-        @if ($micro->moh_lev2 === null)
-        @else
+                                        @if ($micro->moh_lev >= 1000000)
+                                            MNPC
+                                        @elseif ($micro->moh_lev < 1000000 && $micro->moh_lev >= 1)
+                                            {{ $micro->moh_lev < 1
+                                                ? $micro->moh_lev * 10 ** (strlen(floor($micro->moh_lev)) - 1)
+                                                : $micro->moh_lev / 10 ** (strlen(floor($micro->moh_lev)) - 1) }}
+                                            x 10<sup>{{ strlen(floor($micro->moh_lev)) - 1 }}</sup>
+                                        @elseif ($micro->moh_lev === 0)
+                                            < 1 x 10<sup>1</sup>
+                                            @elseif (is_null($micro->moh_lev))
+                                                --
+                                        @endif
+                                    </p>
+                                    @if ($micro->moh_lev2 === null)
+                                    @else
+                                        <p class="p-0">
 
-        <p class="p-0">
-
-            @if ($micro->moh_lev2 >= 1000000)
-                MNPC
-            @elseif ($micro->moh_lev2 < 1000000 && $micro->moh_lev2 >= 1)
-                {{ $micro->moh_lev2 < 1
-                    ? $micro->moh_lev2 * 10 ** (strlen(floor($micro->moh_lev2)) - 1)
-                    : $micro->moh_lev2 / 10 ** (strlen(floor($micro->moh_lev2)) - 1) }}
-                x 10<sup>{{ strlen(floor($micro->moh_lev2)) - 1 }}</sup>
-            @elseif ($micro->moh_lev2 === 0)
-                < 1 x 10<sup>1</sup>
-                @elseif (is_null($micro->moh_lev2))
-                    --
-            @endif
-        </p>
-        @endif
-    </div>
-    @if ( now()->diffInDays($micro->fecha_sembrado) < 8 )
-    <div class="flex h-full items-center justify-center ml-3 ">
-        <svg wire:click="dia5({{ $micro->id }})"
-        class="h-5 mr-1 fill-green-500" xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 448 512">
-            <path
-                d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
-        </svg>
+                                            @if ($micro->moh_lev2 >= 1000000)
+                                                MNPC
+                                            @elseif ($micro->moh_lev2 < 1000000 && $micro->moh_lev2 >= 1)
+                                                {{ $micro->moh_lev2 < 1
+                                                    ? $micro->moh_lev2 * 10 ** (strlen(floor($micro->moh_lev2)) - 1)
+                                                    : $micro->moh_lev2 / 10 ** (strlen(floor($micro->moh_lev2)) - 1) }}
+                                                x 10<sup>{{ strlen(floor($micro->moh_lev2)) - 1 }}</sup>
+                                            @elseif ($micro->moh_lev2 === 0)
+                                                < 1 x 10<sup>1</sup>
+                                                @elseif (is_null($micro->moh_lev2))
+                                                    --
+                                            @endif
+                                        </p>
+                                    @endif
+                                </div>
+                                @if ((now()->diffInDays($micro->fecha_sembrado) < 8 && auth()->user()->role->rolModuloPermisos->where('modulo_id', 28)->where('permiso_id', 1)->isNotEmpty()) || auth()->user()->role->id == 1 )
+                                    <div class="flex h-full items-center justify-center ml-3 ">
+                                        <svg wire:click="dia5({{ $micro->id }})" class="h-5 mr-1 fill-green-500"
+                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                            <path
+                                                d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
+                                        </svg>
 
 
-        <button>
-            <svg onclick="Livewire.dispatch('openModal', { component: 'externo.microbiologia.edit', arguments: { id: {{ $micro->id }} , id2:2} })"
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-4 w-10 fill-blue-600 dark:fill-blue-500" viewBox="0 0 512 512">
-                <path
-                    d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z" />
-            </svg>
-        </button>
-    </div>
-    @endif
+                                        <button>
+                                            <svg onclick="Livewire.dispatch('openModal', { component: 'externo.microbiologia.edit', arguments: { id: {{ $micro->id }} , id2:2} })"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                class="h-4 w-10 fill-blue-600 dark:fill-blue-500"
+                                                viewBox="0 0 512 512">
+                                                <path
+                                                    d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                @endif
 
 
-                        </div>
+                            </div>
 
 
                         </td>
 
                         <td class="px-3 py-0 flex justify-center ">
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 28)->where('permiso_id', 1)->isNotEmpty())
                             <form novalidate wire:submit="sembrar({{ $micro->id }})" class="flex">
 
                                 <div>
@@ -350,10 +348,11 @@
                                     </button>
                                 </div>
                             </form>
+                            @endif
 
 
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 28)->where('permiso_id', 3)->isNotEmpty())
 
-                            @if (in_array(auth()->user()->rol, ['Admi', 'Jef']))
                                 <button>
                                     <svg onclick="Livewire.dispatch('openModal', { component: 'externo.microbiologia.edit', arguments: { id: {{ $micro->id }}, id2:3 } })"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -363,7 +362,7 @@
                                     </svg>
                                 </button>
                             @endif
-                            @if (in_array(auth()->user()->rol, ['Admi', 'Jef']))
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 28)->where('permiso_id', 4)->isNotEmpty())
                                 <button wire:click="eliminar({{ $micro->id }})"
                                     wire:confirm="Esta seguro de eliminar el elemento?">
 

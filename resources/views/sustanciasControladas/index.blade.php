@@ -12,7 +12,7 @@ Sustancias Quimicas
 {{-- @livewire('') --}}
 
 {{-- ingresos --}}
-@if (in_array(auth()->user()->rol, ['Admi', 'Jef' ]) && in_array(auth()->user()->division_id, [2 ]) )
+@if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 30)->where('permiso_id', 1)->isNotEmpty() || auth()->user()->role->id == 7 )
 
 <button onclick="Livewire.dispatch('openModal', { component: 'sustancias.movimiento', arguments: { est: 1 } })"
 class="rounded bg-green-500 text-white p-2">
@@ -20,16 +20,10 @@ class="rounded bg-green-500 text-white p-2">
 </button>
 @endif
 
-@if (in_array(auth()->user()->id, [15 ]) )
 
-<button onclick="Livewire.dispatch('openModal', { component: 'sustancias.movimiento', arguments: { est: 1 } })"
-class="rounded bg-green-500 text-white p-2">
-    Ingreso de sustancia
-</button>
-@endif
 
 {{-- egresos --}}
-@if (in_array(auth()->user()->division_id, [2 ]) )
+@if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 30)->where('permiso_id', 3)->isNotEmpty())
 
 <button onclick="Livewire.dispatch('openModal', { component: 'sustancias.movimiento', arguments: { est: 0 } })"
 class="rounded bg-green-500 text-white p-2">

@@ -31,7 +31,9 @@
                             <button wire:click="update" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Guardar</button>
                             <button wire:click="$set('editingOrpId', null)" class="font-medium text-red-600 dark:text-red-500 hover:underline">Cancelar</button>
                         @else
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 13)->where('permiso_id', 3)->isNotEmpty())
                             <button wire:click="edit({{ $orp->id }}, '{{ $orp->producto->tiempo_elaboracion }}', '{{ $orp->producto->fecha_vencimiento1 }}')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</button>
+                        @endif
                         @endif
                     </td>
                 </tr>

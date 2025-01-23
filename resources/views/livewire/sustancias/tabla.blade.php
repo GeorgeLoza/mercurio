@@ -1,4 +1,4 @@
-<div wire:poll.10s>
+<div wire:poll.7s>
     <div>
         <h3 class="text-xl font-bold mb-4">Cantidad Actual por Ítems:</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -6,15 +6,17 @@
                 <div
                     class="border rounded-lg shadow p-4 transition-colors
                            bg-white dark:bg-gray-800
-                           text-gray-900 dark:text-white " >
+                           text-gray-900 dark:text-white ">
                     <h4 class="text-lg font-semibold">{{ $datos['codigo'] }} - {{ $datos['nombre'] }}</h4>
                     <p class="text-gray-600 dark:text-gray-400">
-                        Cantidad Actual: <span class="font-bold">{{ $datos['cantidad_actual'] }} [{{ $datos['unidad'] }}]</span>
+                        Cantidad Actual: <span class="font-bold">{{ $datos['cantidad_actual'] }}
+                            [{{ $datos['unidad'] }}]</span>
                     </p>
                     @if ($datos['ultimo_egreso'])
                         <p class="text-gray-600 dark:text-gray-400 text-xs">
                             Último Egreso:
-                            <span class="font-bold">{{ $datos['ultimo_egreso']['cantidad'] / 1 }} [{{ $datos['unidad'] }}]</span>
+                            <span class="font-bold">{{ $datos['ultimo_egreso']['cantidad'] / 1 }}
+                                [{{ $datos['unidad'] }}]</span>
                             ({{ \Carbon\Carbon::parse($datos['ultimo_egreso']['fecha'])->format('d-m-Y') }})
                         </p>
                     @else
@@ -101,9 +103,8 @@
                             @if ($mov->tipo == 0)
 
 
-                                @if (in_array(auth()->user()->id, [2, 5]))
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 30)->where('permiso_id', 1)->isNotEmpty())
                                     @if ($mov->estado != 'Entregado')
-
                                         @if ($mov->estado != 'Autorizado' && now()->diffInMinutes($mov->created_at) < 1440)
                                             <!-- Botón para autorizado -->
                                             <button wire:click="cambiarEstado1({{ $mov->id }})"
@@ -124,7 +125,8 @@
 
 
                                 @if ($mov->estado == 'Autorizado')
-                                    @if (in_array(auth()->user()->id, [15]))
+                                @if (auth()->user()->role->id == 7 || auth()->user()->role->id == 1)
+
                                         <!-- Botón para entregado -->
                                         <button
                                             onclick="Livewire.dispatch('openModal', { component: 'sustancias.movimiento', arguments: { id: {{ $mov->id }} } })"
@@ -158,7 +160,8 @@
                                                 <td class="px-4 py-2">
                                                     {{ $detalle->item->codigo }} - {{ $detalle->item->nombre }}
                                                 </td>
-                                                <td class="px-4 py-2">{{ $detalle->cantidad /1 }} [{{ $detalle->item->unidad }}]</td>
+                                                <td class="px-4 py-2">{{ $detalle->cantidad / 1 }}
+                                                    [{{ $detalle->item->unidad }}]</td>
                                             </tr>
                                         @endforeach
                                     </tbody>

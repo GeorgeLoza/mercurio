@@ -3,7 +3,7 @@
         <label class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
             <input type="radio" wire:model.live="selectedOption" value="fisico"
                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-            Fisoquímico
+            Fisicoquímico
         </label>
 
         <label class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -35,7 +35,8 @@
                             <th scope="col" class="px-2 py-1">
                                 Tipo
                             </th>
-                            @if (auth()->user()->rol == 'Admi' || auth()->user()->rol == 'Jef')
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
+
                                 <th scope="col" class="px-2 py-1">
                                     Planta
                                 </th>
@@ -73,10 +74,11 @@
                             </th>
                             <th scope="col" class="">
                                 <input type="text" id="" wire:model.live='f_lote'
-                                    class="bg-gray-50 border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    class="w-16 bg-gray-50 border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="">
                             </th>
-                            @if (auth()->user()->rol == 'Admi')
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
+
                                 <th scope="col" class="px-2 py-1">
 
                                 </th>
@@ -95,7 +97,7 @@
                             </th>
                             <th scope="col" class="px-2 py-1">
                                 <input type="text" id="" wire:model.live='f_estado'
-                                    class="bg-gray-50 border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    class="w-24 bg-gray-50 border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="">
                             </th>
                             <th scope="col" class="px-2 py-1">
@@ -108,24 +110,25 @@
                         @foreach ($fisicos as $index => $fis)
                             <tr
                                 class="b-500 border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <td class="  px-3 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <td class="  px-3 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {{ $index + 1 }}
                                 </td>
                                 <td scope="row"
                                     class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                                     nowrap>{{ $fis->detalleSolicitudPlanta->subcodigo }}</td>
-                                <td class="px-3 py-2">{{ $fis->detalleSolicitudPlanta->productosPlanta->nombre }}</td>
-                                <td class="px-3 py-2">{{ $fis->detalleSolicitudPlanta->lote }}</td>
-                                <td class="px-3 py-2" nowrap>{{ $fis->detalleSolicitudPlanta->tipoMuestra->nombre }}
+                                <td class="px-3 py-1" nowrap >{{ $fis->detalleSolicitudPlanta->productosPlanta->nombre }}</td>
+                                <td class="px-3 py-1">{{ $fis->detalleSolicitudPlanta->lote }}</td>
+                                <td class="px-3 py-1" nowrap>{{ $fis->detalleSolicitudPlanta->tipoMuestra->nombre }}
                                 </td>
-                                @if (auth()->user()->rol == 'Admi' || auth()->user()->rol == 'Jef')
-                                    <td class="px-3 py-2" nowrap>
+                                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
+
+                                    <td class="px-3 py-1" nowrap>
                                         {{ $fis->detalleSolicitudPlanta->user->planta->nombre }}</td>
-                                    <td class="px-3 py-2" nowrap>{{ $fis->temperatura }}</td>
-                                    <td class="px-3 py-2" nowrap>{{ $fis->por_hum_rel }}</td>
-                                    <td class="px-3 py-2" nowrap>{{ $fis->act_agua }}</td>
+                                    <td class="px-3 py-1" nowrap>{{ $fis->temperatura }}</td>
+                                    <td class="px-3 py-1" nowrap>{{ $fis->por_hum_rel }}</td>
+                                    <td class="px-3 py-1" nowrap>{{ $fis->act_agua }}</td>
                                 @endif
-                                <td class="px-3 py-2" nowrap>
+                                <td class="px-3 py-1" nowrap>
                                     <div class="flex items-center">
                                         @if ($fis->detalleSolicitudPlanta->estado == 'Cancelado')
                                             <div class="h-2.5 w-2.5 rounded-full bg-red-500 mr-1"></div>
@@ -145,8 +148,9 @@
                                         {{ $fis->detalleSolicitudPlanta->estado }}
                                     </div>
                                 </td>
-                                <td class="px-3 py-2" nowrap>
-                                    @if (auth()->user()->rol == 'Admi' || auth()->user()->rol == 'Jef')
+                                <td class="px-3 py-1" nowrap>
+                                    @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
+
                                         <!--boton para cancelar-->
                                         <button class="p-2 rounded-md "
                                             wire:click="cancelar({{ $fis->detalleSolicitudPlanta->id }})">
@@ -216,7 +220,8 @@
                             <th scope="col" class="px-2 py-1">
                                 Tipo
                             </th>
-                            @if (auth()->user()->rol == 'Admi' || auth()->user()->rol == 'Jef')
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
+
                                 <th scope="col" class="px-2 py-1">
                                     Planta
                                 </th>
@@ -248,18 +253,19 @@
                             </th>
                             <th scope="col" class="px-2 py-1">
                                 <input type="text" id="" wire:model.live='f_producto'
-                                    class="bg-gray-50 w-32 border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    class="bg-gray-50  border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="">
                             </th>
                             <th scope="col" class="">
                                 <input type="text" id="" wire:model.live='f_lote'
-                                    class="bg-gray-50 w-32 border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    class="w-16 bg-gray-50  border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="">
                             </th>
                             <th scope="col" class="px-2 py-1">
 
                             </th>
-                            @if (auth()->user()->rol == 'Admi' || auth()->user()->rol == 'Jef')
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
+
                                 <th scope="col" class="px-2 py-1">
 
                                 </th>
@@ -275,7 +281,7 @@
                             @endif
                             <th scope="col" class="px-2 py-1">
                                 <input type="text" id="" wire:model.live='f_estado'
-                                    class="bg-gray-50 border w-32 border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    class="bg-gray-50 border w-24 border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="">
                             </th>
                             <th scope="col" class="px-2 py-1">
@@ -289,14 +295,14 @@
                         @foreach ($micros as $index => $micro)
                             <tr
                                 class=" border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <td class="  px-3 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <td class="  px-3 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {{ $index + 1 }}
                                 </td>
                                 <td scope="row"
-                                    class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                    class="px-2 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                                     nowrap>{{ $micro->detalleSolicitudPlanta->subcodigo }}</td>
 
-                                <td class="px-2 py-2">
+                                <td class="px-2 py-1" nowrap>
                                     @if ($micro->detalleSolicitudPlanta->productosPlanta)
                                         {{ $micro->detalleSolicitudPlanta->productosPlanta->nombre }}
                                     @else
@@ -304,29 +310,36 @@
                                     @endif
 
                                 </td>
-                                <td class="px-2 py-2">{{ $micro->detalleSolicitudPlanta->lote }}</td>
-                                <td class="px-2 py-2" nowrap>{{ $micro->detalleSolicitudPlanta->tipoMuestra->nombre }}
+                                <td class="px-2 py-1">{{ $micro->detalleSolicitudPlanta->lote }}</td>
+                                <td class="px-2 py-1" nowrap>{{ $micro->detalleSolicitudPlanta->tipoMuestra->nombre }}
                                 </td>
-                                @if (auth()->user()->rol == 'Admi' || auth()->user()->rol == 'Jef')
-                                    <td class="px-3 py-2" nowrap>
+                                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
+
+                                    <td class="px-3 py-1" nowrap>
                                         {{ $micro->detalleSolicitudPlanta->user->planta->nombre }}
                                     </td>
-                                    <td class="px-2 py-2">
+                                    <td class="px-2 py-1">
                                         @if ($micro->aer_mes >= 1000000)
                                             MNPC
                                         @endif
                                         @if ($micro->aer_mes < 1000000 && $micro->aer_mes >= 1)
-                                            {{ $micro->aer_mes < 1
-                                                ? $micro->aer_mes * 10 ** (strlen(floor($micro->aer_mes)) - 1)
-                                                : $micro->aer_mes / 10 ** (strlen(floor($micro->aer_mes)) - 1) }}
-                                            x 10<sup>{{ strlen(floor($micro->aer_mes)) - 1 }}</sup>
+                                          <p>
+                                              {{ $micro->aer_mes < 1
+                                                 ? $micro->aer_mes * 10 ** (strlen(floor($micro->aer_mes)) - 1)
+                                                 : $micro->aer_mes / 10 ** (strlen(floor($micro->aer_mes)) - 1) }}
+                                             x 10<sup>{{ strlen(floor($micro->aer_mes)) - 1 }}</sup>
+                                            </p>
                                         @endif
 
                                         @if ($micro->aer_mes == null && $micro->aer_mes != 0)
-                                            --
+                                           <p>
+                                               --
+                                            </p>
                                         @endif
                                         @if ($micro->aer_mes == 0)
-                                            < 1 x 10<sup>1</sup>
+                                        <p>
+                                        < 1 x 10<sup>1</sup>
+                                    </p>
                                         @endif
 
                                         @if ($micro->aer_mes2 !== null)
@@ -334,37 +347,51 @@
                                                 MNPC
                                             @endif
                                             @if ($micro->aer_mes2 < 1000000 && $micro->aer_mes2 >= 1)
-                                                {{ $micro->aer_mes2 < 1
-                                                    ? $micro->aer_mes2 * 10 ** (strlen(floor($micro->aer_mes2)) - 1)
-                                                    : $micro->aer_mes2 / 10 ** (strlen(floor($micro->aer_mes2)) - 1) }}
-                                                x 10<sup>{{ strlen(floor($micro->aer_mes)) - 1 }}</sup>
+                                                <p>
+
+                                                    {{ $micro->aer_mes2 < 1
+                                                        ? $micro->aer_mes2 * 10 ** (strlen(floor($micro->aer_mes2)) - 1)
+                                                        : $micro->aer_mes2 / 10 ** (strlen(floor($micro->aer_mes2)) - 1) }}
+                                                    x 10<sup>{{ strlen(floor($micro->aer_mes)) - 1 }}</sup>
+                                                </p>
                                             @endif
 
                                             @if ($micro->aer_mes2 == null && $micro->aer_mes2 != 0)
-                                                --
+                                               <p>
+                                                   --
+                                                </p>
                                             @endif
                                             @if ($micro->aer_mes2 == 0)
-                                                < 1 x 10<sup>1</sup>
+                                                <p>
+                                                    < 1 x 10<sup>1</sup>
+                                                    </p>
                                             @endif
                                         @endif
 
                                     </td>
-                                    <td class="px-2 py-2 ">
+                                    <td class="px-2 py-1 ">
                                         @if ($micro->col_tot >= 1000000)
                                             MNPC
                                         @endif
                                         @if ($micro->col_tot < 1000000 && $micro->col_tot >= 1)
-                                            {{ $micro->col_tot < 1
-                                                ? $micro->col_tot * 10 ** (strlen(floor($micro->col_tot)) - 1)
-                                                : $micro->col_tot / 10 ** (strlen(floor($micro->col_tot)) - 1) }}
-                                            x 10<sup>{{ strlen(floor($micro->col_tot)) - 1 }}</sup>
+                                           <p>
+                                               {{ $micro->col_tot < 1
+                                                   ? $micro->col_tot * 10 ** (strlen(floor($micro->col_tot)) - 1)
+                                                   : $micro->col_tot / 10 ** (strlen(floor($micro->col_tot)) - 1) }}
+                                               x 10<sup>{{ strlen(floor($micro->col_tot)) - 1 }}</sup>
+                                            </p>
                                         @endif
 
                                         @if ($micro->col_tot === null)
+                                        <p>
                                             --
+                                        </p>
                                         @endif
                                         @if ($micro->col_tot === 0)
+                                        <p>
+
                                             < 1 x 10<sup>1</sup>
+                                        </p>
                                         @endif
 
                                         @if ($micro->col_tot2 !== null)
@@ -387,22 +414,29 @@
                                         @endif
 
                                     </td>
-                                    <td class="px-2 py-2 ">
+                                    <td class="px-2 py-1 ">
                                         @if ($micro->moh_lev >= 1000000)
                                             MNPC
                                         @endif
                                         @if ($micro->moh_lev < 1000000 && $micro->moh_lev >= 1)
+                                        <p>
+
                                             {{ $micro->moh_lev < 1
                                                 ? $micro->moh_lev * 10 ** (strlen(floor($micro->moh_lev)) - 1)
                                                 : $micro->moh_lev / 10 ** (strlen(floor($micro->moh_lev)) - 1) }}
                                             x 10<sup>{{ strlen(floor($micro->moh_lev)) - 1 }}</sup>
+                                        </p>
                                         @endif
 
                                         @if ($micro->moh_lev == null && $micro->moh_lev != 0)
-                                            --
+                                            <p>
+                                                --
+                                                </p>
                                         @endif
                                         @if ($micro->moh_lev == 0)
-                                            < 1 x 10<sup>1</sup>
+                                            <p>
+                                                < 1 x 10<sup>1</sup>
+                                                </p>
                                         @endif
 
                                         @if ($micro->moh_lev2 !== null)
@@ -425,7 +459,7 @@
                                         @endif
                                     </td>
                                 @endif
-                                <td class="px-2 py-2" nowrap>
+                                <td class="px-2 py-1" nowrap>
                                     <div class="flex items-center">
                                         @if ($micro->detalleSolicitudPlanta->estado == 'Cancelado')
                                             <div class="h-2.5 w-2.5 rounded-full bg-red-500 mr-1"></div>
@@ -448,8 +482,9 @@
                                         {{ $micro->detalleSolicitudPlanta->estado }}
                                     </div>
                                 </td>
-                                <td class="px-2 py-2" nowrap>
-                                    @if (auth()->user()->rol == 'Admi' || auth()->user()->rol == 'Jef')
+                                <td class="px-2 py-1" nowrap>
+                                    @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
+
                                         <!--boton para cancelar-->
                                         <button class="p-2 rounded-md "
                                             wire:click="cancelar({{ $micro->detalleSolicitudPlanta->id }})">

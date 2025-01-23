@@ -1,4 +1,7 @@
 <div wire:poll.10s>
+    @if ( auth()->user()->role->rolModuloPermisos->where('modulo_id', 15)->where('permiso_id', 2)->isNotEmpty())
+
+
     <div class="flex mb-2 gap-2">
         <a href="{{ route('analisisLinea.index') }}" class="px-2 bg-green-600 text-white rounded-md">
             Analisis en Linea
@@ -7,6 +10,7 @@
             <p class="bg-red-500 text-white p-1 rounded-md"> Tienes análisis de recepción de leche pendiente</p>
         @endif
     </div>
+    @endif
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg  overflow-y-auto h-[28rem] overflow-hidden">
 
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
@@ -229,7 +233,7 @@
                             @endif
                         </td>
                         <td class="flex items-center px-1 py-2 gap-2">
-                            @if (now()->diffInMinutes($registro->created_at) < 1400 && in_array(auth()->user()->rol, ['Admi', 'FQ', 'Sup']))
+                            @if ((now()->diffInMinutes($registro->created_at) < 1400 && auth()->user()->role->rolModuloPermisos->where('modulo_id', 20)->where('permiso_id', 3)->isNotEmpty()) || auth()->user()->role->id == 1)
                                 <svg onclick="Livewire.dispatch('openModal', { component: 'leche-cruda.analisis.editar', arguments: { id: {{ $registro->id }} , id2: 1 } })"
                                     xmlns="http://www.w3.org/2000/svg"
                                     class="h-4 w-4 fill-blue-600 dark:fill-blue-500" viewBox="0 0 512 512">
@@ -237,7 +241,7 @@
                                         d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z" />
                                 </svg>
                             @endif
-                            @if (in_array(auth()->user()->rol, ['Admi']))
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 20)->where('permiso_id', 4)->isNotEmpty())
 
                                     <svg onclick="Livewire.dispatch('openModal', { component: 'leche-cruda.analisis.eliminar', arguments: { id: {{ $registro->id }}} })"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -247,8 +251,8 @@
                                     </svg>
 
                             @endif
-                            @if ($registro->tiempo_sembrado == null && now()->diffInMinutes($registro->created_at) < 2800 && in_array(auth()->user()->rol, ['Admi', 'MB']) )
-                            @if (now()->diffInMinutes($registro->created_at)<2800)
+                            @if (($registro->tiempo_sembrado == null && now()->diffInMinutes($registro->created_at) < 2800 && auth()->user()->role->rolModuloPermisos->where('modulo_id', 20)->where('permiso_id', 1)->isNotEmpty()) || auth()->user()->role->id == 1)
+
                             <button class=" bg-blue-400 rounded p-1 py-0 text-gray-700 "
                             wire:click="sembrar({{ $registro->id }})">
 
@@ -256,9 +260,9 @@
                             </button>
 
 
+
                             @endif
-                            @endif
-                            @if ($registro->tiempo_sembrado != null && in_array(auth()->user()->rol, ['Admi', 'MB', 'Sup', 'FQ']) )
+                            @if ($registro->tiempo_sembrado != null && (auth()->user()->role->rolModuloPermisos->where('modulo_id', 20)->where('permiso_id', 3)->isNotEmpty()|| auth()->user()->role->rolModuloPermisos->where('modulo_id', 20)->where('permiso_id', 1)->isNotEmpty() ))
 
                             <button class=" bg-blue-400 rounded p-1 py-0 text-gray-700 "
                             onclick="Livewire.dispatch('openModal', { component: 'leche-cruda.analisis.editar', arguments: { id: {{ $registro->id }} , id2: 2 } })">
@@ -269,7 +273,7 @@
 
                             @endif
 
-                            @if ($registro->tiempo_sembrado != null && in_array(auth()->user()->rol, ['Admi', 'MB']) )
+                            @if ($registro->tiempo_sembrado != null && auth()->user()->role->rolModuloPermisos->where('modulo_id', 20)->where('permiso_id', 1)->isNotEmpty() )
                             @if (now()->diffInMinutes($registro->tiempo_sembrado)<4500)
                             <button class=" bg-blue-400 rounded p-1 py-0 text-gray-700 "
                             onclick="Livewire.dispatch('openModal', { component: 'leche-cruda.analisis.editar', arguments: { id: {{ $registro->id }} , id2: 3 } })">

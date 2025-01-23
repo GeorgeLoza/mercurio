@@ -130,7 +130,9 @@
                             @endif
                         </div>
 
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
                         <div class="flex gap-2 px-3 py-2">
+
                             <!--boton de solicitar-->
                             @if ($TKMIX1->proceso == 'Produccion' || $TKMIX1->proceso == 'Almacen')
                                 <button type="button" wire:loading.attr="disabled"
@@ -202,6 +204,7 @@
                             </button>
 
                         </div>
+                        @endif
 
                     </div>
                 @endif
@@ -316,7 +319,7 @@
                         </div>
 
 
-
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
                         <div class="flex gap-2 px-3 py-2">
                             <!--boton de solicitar-->
                             @if ($TKMIX2->proceso == 'Produccion' || $TKMIX2->proceso == 'Almacen')
@@ -387,6 +390,7 @@
                             </button>
 
                         </div>
+                        @endif
                     </div>
                 @endif
             </div>
@@ -492,7 +496,7 @@
                                 </p>
                             @endif
                         </div>
-
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
                         <div class="flex gap-2 px-3 py-2">
                             <!--boton de solicitar-->
                             @if ($TKMIX3->proceso == 'Produccion' || $TKMIX3->proceso == 'Almacen')
@@ -562,6 +566,8 @@
                                 </svg>
                             </button>
                         </div>
+                        @endif
+
                     </div>
                 @endif
             </div>
@@ -670,6 +676,7 @@
                                 </p>
                             @endif
                         </div>
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
                         <div class="flex gap-2 px-3 py-2">
                             <!--boton de solicitar-->
                             @if ($TKMIX4->proceso == 'Produccion' || $TKMIX4->proceso == 'Almacen')
@@ -740,6 +747,7 @@
                                 </svg>
                             </button>
                         </div>
+                        @endif
                     </div>
                 @endif
             </div>
@@ -849,6 +857,7 @@
                                 </p>
                             @endif
                         </div>
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
                         <div class="flex gap-2 px-3 py-2">
                             <!--boton de solicitar-->
                             @if ($TK41->proceso == 'Produccion' || $TK41->proceso == 'Almacen')
@@ -917,6 +926,7 @@
                              </svg>
                          </button>
                         </div>
+                        @endif
                     </div>
                 @endif
             </div>
@@ -1030,6 +1040,7 @@
                                 </p>
                             @endif
                         </div>
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
                         <div class="flex gap-2 px-3 py-2">
                             <!--boton de solicitar-->
                             @if ($TK42->proceso == 'Produccion' || $TK42->proceso == 'Almacen')
@@ -1098,6 +1109,7 @@
                              </svg>
                          </button>
                         </div>
+                        @endif
                     </div>
                 @endif
             </div>
@@ -1208,6 +1220,7 @@
                                 </p>
                             @endif
                         </div>
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
                         <div class="flex gap-2 px-3 py-2">
                             <!--boton de solicitar-->
                             @if ($TK10->proceso == 'Produccion' || $TK10->proceso == 'Almacen')
@@ -1265,6 +1278,7 @@
                                 </svg>
                             </button>
                         </div>
+                        @endif
                     </div>
                 @endif
             </div>
@@ -1372,6 +1386,7 @@
                                 </p>
                             @endif
                         </div>
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
                         <div class="flex gap-2 px-3 py-2">
                             <!--boton de solicitar-->
                             @if ($TK5->proceso == 'Produccion' || $TK5->proceso == 'Almacen')
@@ -1429,6 +1444,7 @@
                                 </svg>
                             </button>
                         </div>
+                        @endif
                     </div>
                 @endif
             </div>
@@ -1536,6 +1552,7 @@
                                 </p>
                             @endif
                         </div>
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
                         <div class="flex gap-2 px-3 py-2">
                             <!--boton de solicitar-->
                             @if ($TKFP->proceso == 'Produccion' || $TKFP->proceso == 'Almacen')
@@ -1593,6 +1610,7 @@
                                 </svg>
                             </button>
                         </div>
+                        @endif
                     </div>
                 @endif
             </div>
@@ -1698,6 +1716,7 @@
                                 </p>
                             @endif
                         </div>
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
                         <div class="flex gap-2 px-3 py-2">
                             <!--boton de solicitar-->
                             @if ($TKMP->proceso == 'Produccion' || $TKMP->proceso == 'Almacen')
@@ -1755,6 +1774,7 @@
                                 </svg>
                             </button>
                         </div>
+                        @endif
                     </div>
                 @endif
             </div>
@@ -1861,6 +1881,7 @@
                                 </p>
                             @endif
                         </div>
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
                         <div class="flex gap-2 px-3 py-2">
                             <!--boton de solicitar-->
                             @if ($TKFG->proceso == 'Produccion' || $TKFG->proceso == 'Almacen')
@@ -1918,6 +1939,7 @@
                                 </svg>
                             </button>
                         </div>
+                        @endif
                     </div>
                 @endif
             </div>
@@ -2022,6 +2044,7 @@
                                 </p>
                             @endif
                         </div>
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
                         <div class="flex gap-2 px-3 py-2">
                             <!--boton de solicitar-->
                             @if ($TKMG->proceso == 'Produccion' || $TKMG->proceso == 'Almacen')
@@ -2079,6 +2102,7 @@
                                 </svg>
                             </button>
                         </div>
+                        @endif
                     </div>
                 @endif
             </div>
@@ -2195,6 +2219,7 @@
                                 </p>
                             @endif
                         </div>
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
                         <div class="flex gap-2 px-3 py-2">
                             <!--boton de solicitar-->
                             @if ($TKCC->proceso == 'Produccion' || $TKCC->proceso == 'Almacen')
@@ -2252,6 +2277,7 @@
                                 </svg>
                             </button>
                         </div>
+                        @endif
                     </div>
                 @endif
             </div>
@@ -2359,6 +2385,7 @@
                                 </p>
                             @endif
                         </div>
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
                         <div class="flex gap-2 px-3 py-2">
                             <!--boton de solicitar-->
                             @if ($TKSC->proceso == 'Produccion' || $TKSC->proceso == 'Almacen')
@@ -2416,6 +2443,7 @@
                                 </svg>
                             </button>
                         </div>
+                        @endif
                     </div>
                 @endif
             </div>
@@ -2524,6 +2552,7 @@
                                 </p>
                             @endif
                         </div>
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
                         <div class="flex gap-2 px-3 py-2">
                             <!--boton de solicitar-->
                             @if ($TKAUX1->proceso == 'Produccion' || $TKAUX1->proceso == 'Almacen')
@@ -2581,6 +2610,7 @@
                                 </svg>
                             </button>
                         </div>
+                        @endif
                     </div>
                 @endif
             </div>
@@ -2689,6 +2719,7 @@
                                 </p>
                             @endif
                         </div>
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
                         <div class="flex gap-2 px-3 py-2">
                             <!--boton de solicitar-->
                             @if ($TKAUX2->proceso == 'Produccion' || $TKAUX2->proceso == 'Almacen')
@@ -2746,6 +2777,7 @@
                                 </svg>
                             </button>
                         </div>
+                        @endif
                     </div>
                 @endif
             </div>
@@ -2847,6 +2879,7 @@
                                 <p><Span>Sólidos</Span>: {{ $ultimo_R1->analisisLinea->brix / 1 }} [°Bx]</p>
                             @endif
                         </div>
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
                         <div class="flex gap-2 px-3 py-2">
                             <!--boton de solicitar-->
                             @if ($R1->proceso == 'Produccion' || $R1->proceso == 'Almacen')
@@ -2916,6 +2949,7 @@
                                 </svg>
                             </button>
                         </div>
+                        @endif
                     </div>
                 @endif
             </div>
@@ -3012,6 +3046,7 @@
                                 <p><Span>Sólidos</Span>: {{ $ultimo_R2->analisisLinea->brix / 1 }}[°Bx] </p>
                             @endif
                         </div>
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
                         <div class="flex gap-2 px-3 py-2">
                             <!--boton de solicitar-->
                             @if ($R2->proceso == 'Produccion' || $R2->proceso == 'Almacen')
@@ -3081,6 +3116,7 @@
                                 </svg>
                             </button>
                         </div>
+                        @endif
                     </div>
                 @endif
             </div>
@@ -3176,6 +3212,7 @@
                                 <p><Span>Sólidos</Span>: {{ $ultimo_R3->analisisLinea->brix / 1 }}[°Bx]</p>
                             @endif
                         </div>
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
                         <div class="flex gap-2 px-3 py-2">
                             <!--boton de solicitar-->
                             @if ($R3->proceso == 'Produccion' || $R3->proceso == 'Almacen')
@@ -3245,6 +3282,7 @@
                                 </svg>
                             </button>
                         </div>
+                        @endif
                     </div>
                 @endif
             </div>
@@ -3359,7 +3397,7 @@
                             </p>
                         @endif
                     </div>
-
+                    @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
                     <div class="flex gap-2 px-3 py-2">
                         <!--boton de solicitar-->
                         @if ($TKSY->proceso == 'Produccion' || $TKSY->proceso == 'Almacen')
@@ -3417,7 +3455,7 @@
                             </svg>
                         </button>
                     </div>
-
+                    @endif
                 </div>
             @endif
         </div>
@@ -3536,6 +3574,7 @@
 
                             </h3>
                         </div>
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
                         <div class="flex gap-2 px-3 py-2">
 
                             <!--boton matenimiento-->
@@ -3572,6 +3611,7 @@
 
 
                         </div>
+                        @endif
                     </div>
                 @endif
             </div>
@@ -3688,6 +3728,7 @@
 
                             </h3>
                         </div>
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
                         <div class="flex gap-2 px-3 py-2">
 
                             <!--boton matenimiento-->
@@ -3724,6 +3765,7 @@
 
 
                         </div>
+                        @endif
                     </div>
                 @endif
             </div>
@@ -3838,6 +3880,7 @@
 
                             </h3>
                         </div>
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
                         <div class="flex gap-2 px-3 py-2">
 
                             <!--boton matenimiento-->
@@ -3874,6 +3917,7 @@
 
 
                         </div>
+                        @endif
                     </div>
                 @endif
             </div>
@@ -3960,6 +4004,7 @@
              </p>
          @endif
      </div>
+     @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
      <div class="flex px-3 py-2">
          <!--boton de solicitar-->
          @if ($l1->proceso == 'Produccion')
@@ -4010,6 +4055,8 @@
              </button>
          </div>
      </div>
+     @endif
+
      <div data-popper-arrow></div>
 
     @endif
@@ -4049,6 +4096,7 @@
              </p>
          @endif
      </div>
+     @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
      <div class="flex px-3 py-2">
          <!--boton de solicitar-->
          @if ($l2->proceso == 'Produccion')
@@ -4099,6 +4147,7 @@
              </button>
          </div>
      </div>
+     @endif
      <div data-popper-arrow></div>
 
     @endif
@@ -4138,6 +4187,7 @@
              </p>
          @endif
      </div>
+     @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
      <div class="flex px-3 py-2">
          <!--boton de solicitar-->
          @if ($l3->proceso == 'Produccion')
@@ -4188,6 +4238,7 @@
              </button>
          </div>
      </div>
+     @endif
      <div data-popper-arrow></div>
 
     @endif
@@ -4228,6 +4279,7 @@
                     </p>
                 @endif
             </div>
+            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
             <div class="flex px-3 py-2">
                 <!--boton de solicitar-->
                 @if ($HTST_1A->proceso == 'Produccion')
@@ -4278,6 +4330,7 @@
                     </button>
                 </div>
             </div>
+            @endif
             <div data-popper-arrow></div>
 
         @endif
@@ -4316,6 +4369,7 @@
                     </p>
                 @endif
             </div>
+            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
             <div class="flex px-3 py-2">
                 <!--boton de solicitar-->
                 @if ($HTST_1B->proceso == 'Produccion')
@@ -4366,6 +4420,7 @@
                     </button>
                 </div>
             </div>
+            @endif
             <div data-popper-arrow></div>
         @endif
     </div>
@@ -4402,6 +4457,7 @@
                     </p>
                 @endif
             </div>
+            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
             <div class="flex px-3 py-2">
                 <!--boton de solicitar-->
                 @if ($HTST_1C->proceso == 'Produccion')
@@ -4452,6 +4508,7 @@
                     </button>
                 </div>
             </div>
+            @endif
             <div data-popper-arrow></div>
         @endif
     </div>
@@ -4488,6 +4545,7 @@
                     </p>
                 @endif
             </div>
+            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
             <div class="flex px-3 py-2">
                 <!--boton de solicitar-->
                 @if ($HTST_2A->proceso == 'Produccion')
@@ -4538,6 +4596,7 @@
                     </button>
                 </div>
             </div>
+            @endif
             <div data-popper-arrow></div>
         @endif
     </div>
@@ -4574,6 +4633,7 @@
                     </p>
                 @endif
             </div>
+            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
             <div class="flex px-3 py-2">
                 <!--boton de solicitar-->
                 @if ($HTST_2B->proceso == 'Produccion')
@@ -4624,6 +4684,7 @@
                     </button>
                 </div>
             </div>
+            @endif
             <div data-popper-arrow></div>
         @endif
     </div>
@@ -4664,6 +4725,7 @@
                     </p>
                 @endif
             </div>
+            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
             <div class="flex px-3 py-2">
                 <!--boton de solicitar-->
                 @if ($HTST_2C->proceso == 'Produccion')
@@ -4714,6 +4776,7 @@
                     </button>
                 </div>
             </div>
+            @endif
             <div data-popper-arrow></div>
         @endif
     </div>
@@ -4750,6 +4813,8 @@
                     </p>
                 @endif
             </div>
+            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
+
             <div class="flex px-3 py-2">
                 <!--boton de solicitar-->
                 @if ($HTST_3A->proceso == 'Produccion')
@@ -4800,6 +4865,7 @@
                     </button>
                 </div>
             </div>
+            @endif
             <div data-popper-arrow></div>
         @endif
     </div>
@@ -4836,6 +4902,8 @@
                     </p>
                 @endif
             </div>
+            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
+
             <div class="flex px-3 py-2">
                 <!--boton de solicitar-->
                 @if ($HTST_3B->proceso == 'Produccion')
@@ -4886,6 +4954,7 @@
                     </button>
                 </div>
             </div>
+            @endif
             <div data-popper-arrow></div>
         @endif
     </div>
@@ -4922,6 +4991,8 @@
                     </p>
                 @endif
             </div>
+            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
+
             <div class="flex px-3 py-2">
                 <!--boton de solicitar-->
                 @if ($HTST_3C->proceso == 'Produccion')
@@ -4972,6 +5043,7 @@
                     </button>
                 </div>
             </div>
+            @endif
             <div data-popper-arrow></div>
         @endif
     </div>
@@ -5008,6 +5080,8 @@
                     </p>
                 @endif
             </div>
+            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
+
             <div class="flex px-3 py-2">
                 <!--boton de solicitar-->
                 @if ($HTST_4A->proceso == 'Produccion')
@@ -5058,6 +5132,7 @@
                     </button>
                 </div>
             </div>
+            @endif
             <div data-popper-arrow></div>
         @endif
     </div>
@@ -5094,6 +5169,8 @@
                     </p>
                 @endif
             </div>
+            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
+
             <div class="flex px-3 py-2">
                 <!--boton de solicitar-->
                 @if ($HTST_4B->proceso == 'Produccion')
@@ -5144,6 +5221,7 @@
                     </button>
                 </div>
             </div>
+            @endif
             <div data-popper-arrow></div>
         @endif
     </div>
@@ -5180,6 +5258,7 @@
                     </p>
                 @endif
             </div>
+            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
             <div class="flex px-3 py-2">
                 <!--boton de solicitar-->
                 @if ($HTST_4C->proceso == 'Produccion')
@@ -5230,6 +5309,7 @@
                     </button>
                 </div>
             </div>
+            @endif
             <div data-popper-arrow></div>
         @endif
     </div>
@@ -5266,6 +5346,7 @@
                     </p>
                 @endif
             </div>
+            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
             <div class="flex px-3 py-2">
                 <!--boton de solicitar-->
                 @if ($HTST_5A->proceso == 'Produccion')
@@ -5317,6 +5398,7 @@
                 </div>
                 </divA <div data-popper-arrow>
             </div>
+            @endif
         @endif
     </div>
 
@@ -5352,6 +5434,7 @@
                     </p>
                 @endif
             </div>
+            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
             <div class="flex px-3 py-2">
                 <!--boton de solicitar-->
                 @if ($HTST_5B->proceso == 'Produccion')
@@ -5402,6 +5485,7 @@
                     </button>
                 </div>
             </div>
+            @endif
             <div data-popper-arrow></div>
         @endif
     </div>
@@ -5438,6 +5522,7 @@
                     </p>
                 @endif
             </div>
+            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
             <div class="flex px-3 py-2">
                 <!--boton de solicitar-->
                 @if ($HTST_5C->proceso == 'Produccion')
@@ -5488,6 +5573,7 @@
                     </button>
                 </div>
             </div>
+            @endif
             <div data-popper-arrow></div>
         @endif
     </div>
@@ -5524,6 +5610,7 @@
                     </p>
                 @endif
             </div>
+            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
             <div class="flex px-3 py-2">
                 <!--boton de solicitar-->
                 @if ($UHT_1A->proceso == 'Produccion')
@@ -5574,6 +5661,7 @@
                     </button>
                 </div>
             </div>
+            @endif
             <div data-popper-arrow></div>
         @endif
     </div>
@@ -5609,6 +5697,7 @@
                     </p>
                 @endif
             </div>
+            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
             <div class="flex px-3 py-2">
                 <!--boton de solicitar-->
                 @if ($UHT_1B->proceso == 'Produccion')
@@ -5659,6 +5748,7 @@
                     </button>
                 </div>
             </div>
+            @endif
             <div data-popper-arrow></div>
         @endif
     </div>
@@ -5694,6 +5784,7 @@
                     </p>
                 @endif
             </div>
+            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
             <div class="flex px-3 py-2">
                 <!--boton de solicitar-->
                 @if ($UHT_1C->proceso == 'Produccion')
@@ -5744,6 +5835,7 @@
                     </button>
                 </div>
             </div>
+            @endif
             <div data-popper-arrow></div>
         @endif
     </div>
@@ -5779,6 +5871,7 @@
                     </p>
                 @endif
             </div>
+            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
             <div class="flex px-3 py-2">
                 <!--boton de solicitar-->
                 @if ($UHT_2A->proceso == 'Produccion')
@@ -5829,6 +5922,7 @@
                     </button>
                 </div>
             </div>
+            @endif
             <div data-popper-arrow></div>
         @endif
     </div>
@@ -5864,6 +5958,7 @@
                     </p>
                 @endif
             </div>
+            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
             <div class="flex px-3 py-2">
                 <!--boton de solicitar-->
                 @if ($UHT_2B->proceso == 'Produccion')
@@ -5914,6 +6009,7 @@
                     </button>
                 </div>
             </div>
+            @endif
             <div data-popper-arrow></div>
         @endif
     </div>
@@ -5949,6 +6045,7 @@
                     </p>
                 @endif
             </div>
+            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
             <div class="flex px-3 py-2">
                 <!--boton de solicitar-->
                 @if ($UHT_3A->proceso == 'Produccion')
@@ -5999,6 +6096,7 @@
                     </button>
                 </div>
             </div>
+            @endif
             <div data-popper-arrow></div>
         @endif
     </div>
@@ -6034,6 +6132,7 @@
                     </p>
                 @endif
             </div>
+            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
             <div class="flex px-3 py-2">
                 <!--boton de solicitar-->
                 @if ($UHT_3B->proceso == 'Produccion')
@@ -6084,6 +6183,7 @@
                     </button>
                 </div>
             </div>
+            @endif
             <div data-popper-arrow></div>
         @endif
     </div>
@@ -6119,6 +6219,7 @@
                     </p>
                 @endif
             </div>
+            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
             <div class="flex px-3 py-2">
                 <!--boton de solicitar-->
                 @if ($V1->proceso == 'Produccion')
@@ -6169,6 +6270,7 @@
                     </button>
                 </div>
             </div>
+            @endif
             <div data-popper-arrow></div>
         @endif
     </div>
@@ -6203,6 +6305,7 @@
                     </p>
                 @endif
             </div>
+            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
             <div class="flex px-3 py-2">
                 <!--boton de solicitar-->
                 @if ($V2->proceso == 'Produccion')
@@ -6253,6 +6356,7 @@
                     </button>
                 </div>
             </div>
+            @endif
             <div data-popper-arrow></div>
         @endif
     </div>
@@ -6287,6 +6391,7 @@
                     </p>
                 @endif
             </div>
+            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
             <div class="flex px-3 py-2">
                 <!--boton de solicitar-->
                 @if ($V3->proceso == 'Produccion')
@@ -6337,6 +6442,7 @@
                     </button>
                 </div>
             </div>
+            @endif
             <div data-popper-arrow></div>
         @endif
     </div>
@@ -6371,6 +6477,7 @@
                     </p>
                 </div>
             @endif
+            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 1)->isNotEmpty())
             <div class="flex px-3 py-2">
                 <!--boton de solicitar-->
                 @if ($araña->proceso == 'Produccion')
@@ -6421,6 +6528,7 @@
                     </button>
                 </div>
             </div>
+            @endif
             <div data-popper-arrow></div>
         @endif
     </div>

@@ -1,6 +1,7 @@
 <div @if (auth()->user()->rol=="FQ")
     wire:poll.10s
 @endif >
+@if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 20)->where('permiso_id', 2)->isNotEmpty())
     <div class="flex mb-2 gap-2">
         <a href="{{ route('leche_analisis.index') }}" class="px-2 bg-green-600 text-white rounded-md">
             Analisis de Leche
@@ -9,9 +10,12 @@
         <p class="bg-red-500 text-white p-1 rounded-md"> Tienes análisis de recepción de leche pendiente</p>
         @endif
     </div>
+    @endif
+
+
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg  overflow-y-auto h-[28rem] overflow-hidden">
         <table  class=" w-full text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
-            
+
             <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-1 py-1 sticky top-0 bg-white dark:bg-gray-700"
@@ -164,7 +168,7 @@
                             -
                             @if ($analisis->tiempo)
                             {{\Carbon\Carbon::parse($analisis->tiempo)->isoFormat('HH:mm', 0, 'es') }}
-                                
+
                             @endif
 
                         </td>
@@ -220,8 +224,9 @@
                         </td>
 
                         <td class="flex items-center justify-center px-1 py-2 gap-1 " nowrap>
-                            @if ($analisis->solicitudAnalisisLinea->estadoPlanta->etapa == 'Envasado' ||$analisis->solicitudAnalisisLinea->estadoPlanta->etapa == 'Pasteurizado' || $analisis->solicitudAnalisisLinea->estadoPlanta->etapa == 'Inoculación'  || auth()->user()->division->nombre == 'Calidad' ||auth()->user()->division->nombre == 'Calidad')
-                                @if (now()->diffInMinutes($analisis->created_at) < 2400)
+                            {{-- @if ($analisis->solicitudAnalisisLinea->estadoPlanta->etapa == 'Envasado' ||$analisis->solicitudAnalisisLinea->estadoPlanta->etapa == 'Pasteurizado' || $analisis->solicitudAnalisisLinea->estadoPlanta->etapa == 'Inoculación'  || auth()->user()->division->nombre == 'Calidad' ||auth()->user()->division->nombre == 'Calidad') --}}
+
+                            @if (now()->diffInMinutes($analisis->created_at) < 2400 || auth()->user()->role->rolModuloPermisos->where('modulo_id', 15)->where('permiso_id', 3)->isNotEmpty())
                                     <svg onclick="Livewire.dispatch('openModal', { component: 'analisis-linea.analisis.editar', arguments: { id: {{ $analisis->id }} } })"
                                         xmlns="http://www.w3.org/2000/svg"
                                         class="h-4 w-20 fill-blue-600 dark:fill-blue-500" viewBox="0 0 512 512">
@@ -229,10 +234,10 @@
                                             d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z" />
                                     </svg>
                                 @endif
-                            @endif
+                            {{-- @endif --}}
 
-                            @if (in_array(auth()->user()->rol, ['Admi']))
-                                @if (now()->diffInMinutes($analisis->created_at) < 2400)
+
+                                @if ( auth()->user()->role->rolModuloPermisos->where('modulo_id', 15)->where('permiso_id', 4)->isNotEmpty())
                                     <svg onclick="Livewire.dispatch('openModal', { component: 'analisis-linea.analisis.eliminar', arguments: { id: {{ $analisis->id }} } })"
                                         xmlns="http://www.w3.org/2000/svg"
                                         class="h-4 w-4 fill-red-600 dark:fill-red-500" viewBox="0 0 448 512">
@@ -240,7 +245,7 @@
                                             d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" />
                                     </svg>
                                 @endif
-                            @endif
+
                         </td>
 
                         <td class="px-1 py-2 @if ($parametroLinea && $analisis->temperatura !== null) {{ $analisis->temperatura >= $parametroLinea->temperatura_min && $analisis->temperatura <= $parametroLinea->temperatura_max ? 'text-green-500' : 'text-red-500' }} @endif"
@@ -331,7 +336,7 @@
         <div>
             {{ $calidades->links('pagination::tailwind') }}
         </div>
-        
+
         @endif
         @endif
 
