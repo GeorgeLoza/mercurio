@@ -1,4 +1,4 @@
-<form wire:submit="save" novalidate>
+{{-- <form wire:submit="save" novalidate>
     @csrf
 
     {{$id}}
@@ -63,4 +63,4 @@
             </div>
         </div>
     </div>
-</form>
+</form> --}}

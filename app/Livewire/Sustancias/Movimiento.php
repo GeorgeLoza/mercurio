@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Sustancias;
 
+use App\Models\DetalleMov;
 use App\Models\Item;
 use App\Models\Mov;
 use Livewire\Component;
@@ -65,51 +66,89 @@ class Movimiento extends ModalComponent
      * @param int $tipo Movimiento entrante (1) o solicitud (0).
      */
     public function save(int $tipo)
-    {
-        $this->validate();
+{
+    $this->validate();
 
-        try {
-            $estado = $tipo === 1 ? 'Entregado' : 'Solicitado'; // Definir estado según tipo de movimiento
+    try {
+        $estado = $tipo === 1 ? 'Entregado' : 'Solicitado'; // Definir estado según tipo de movimiento
 
-            if ($this->movimiento) {
-                // Si el movimiento ya existe, actualizamos
-                $this->movimiento->update([
-                    'estado' => 'Entregado',
-                    'entregante' => auth()->user()->id,
-                    'tipo' => $tipo,
-                    'tiempo' => now(),
-                ]);
+        if ($this->movimiento) {
+            // Actualizar movimiento existente
+            $this->movimiento->update([
+                'estado' => 'Entregado',
+                'entregante' => auth()->user()->id,
+                'tipo' => $tipo,
+                'tiempo' => now(),
+            ]);
 
-                // Eliminar detalles previos y agregar los nuevos
-                $this->movimiento->detalleMovs()->delete();
-                $this->movimiento->detalleMovs()->createMany($this->detalles);
+            // Eliminar detalles previos
+            $this->movimiento->detalleMovs()->delete();
 
-                session()->flash('success', 'Movimiento actualizado exitosamente.');
-                $this->dispatch('actualizar_movimiento_sustancia');
-            } else {
-                // Crear un nuevo movimiento
-                $movimiento = Mov::create([
-                    'user_id' => auth()->user()->id,
-                    'tiempo' => now(),
-                    'tipo' => $tipo,
-                    'estado' => $estado,
-                ]);
+            // Calcular y agregar los detalles con saldo
+            $detallesConSaldo = collect($this->detalles)->map(function ($detalle) use ($tipo) {
+                $ultimoSaldo = DetalleMov::whereHas('mov', function ($query) {
+                        $query->where('estado',  'Entregado'); // Excluir movimientos denegados
+                    })
 
-                // Crear los detalles del movimiento
-                $movimiento->detalleMovs()->createMany($this->detalles);
+                    ->where('item_id', $detalle['item_id'])
+                    ->latest('id') // Obtener el saldo más reciente para el item
+                    ->value('saldo') ?? 0;
 
-                session()->flash('success', 'Movimiento creado exitosamente.');
-            }
+                $nuevoSaldo = $ultimoSaldo + ($detalle['cantidad'] * ($tipo === 1 ? 1 : -1));
 
-            $this->closeModal();
+                return [
+                    'item_id' => $detalle['item_id'],
+                    'cantidad' => $detalle['cantidad'],
+                    'saldo' => $nuevoSaldo,
+                ];
+            });
 
-            if ($tipo === 1) {
-                $this->dispatch('actualizar_movimiento_sustancia');
-            }
+            // Guardar los detalles
+            $this->movimiento->detalleMovs()->createMany($detallesConSaldo);
 
-        } catch (\Throwable $th) {
-            session()->flash('error', 'Ocurrió un error al guardar el movimiento.');
-            // Log::error($th);
+            session()->flash('success', 'Movimiento actualizado exitosamente.');
+        } else {
+            // Crear un nuevo movimiento
+            $this->movimiento = Mov::create([
+                'user_id' => auth()->user()->id,
+                'tiempo' => now(),
+                'tipo' => $tipo,
+                'estado' => $estado,
+            ]);
+
+            // Calcular y agregar los detalles con saldo
+            $detallesConSaldo = collect($this->detalles)->map(function ($detalle) use ($tipo) {
+                $ultimoSaldo = DetalleMov::whereHas('mov', function ($query) {
+                        $query->where('estado',  'Entregado'); // Excluir movimientos denegados
+                    })
+                    ->where('item_id', $detalle['item_id'])
+                    ->latest('id') // Obtener el saldo más reciente para el item
+                    ->value('saldo') ?? 0;
+
+                $nuevoSaldo = $ultimoSaldo + ($detalle['cantidad'] * ($tipo === 1 ? 1 : -1));
+
+                return [
+                    'item_id' => $detalle['item_id'],
+                    'cantidad' => $detalle['cantidad'],
+                    'saldo' => $nuevoSaldo,
+                ];
+            });
+
+            // Guardar los detalles
+            $this->movimiento->detalleMovs()->createMany($detallesConSaldo);
+
+            session()->flash('success', 'Movimiento creado exitosamente.');
         }
+
+        $this->closeModal();
+
+        if ($tipo === 1) {
+            $this->dispatch('actualizar_movimiento_sustancia');
+        }
+    } catch (\Throwable $th) {
+        session()->flash('error', 'Ocurrió un error al guardar el movimiento.');
+        // \Log::error($th->getMessage());
     }
+}
+
 }

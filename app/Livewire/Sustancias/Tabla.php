@@ -11,6 +11,9 @@ use App\Models\Mov;
 use Carbon\Carbon;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
+
+use Illuminate\Support\Facades\App;
 
 class Tabla extends Component
 {
@@ -20,9 +23,9 @@ class Tabla extends Component
     public $rutas;
     public $ruta;
     public $fechaInicio;
-public $fechaFin;
+    public $fechaFin;
 
-   // Lista de movimientos
+    // Lista de movimientos
     public $detallesAbiertos = []; // Almacena qué movimientos tienen sus detalles abiertos
 
 
@@ -47,7 +50,7 @@ public $fechaFin;
     }
     public function render()
     {
-         $movimientos = Mov::with('detalleMovs.item')
+        $movimientos = Mov::with('detalleMovs.item')
             ->orderBy('tiempo', 'desc') // Ordenar por fecha de creación descendente
             ->paginate(10);
         return view('livewire.sustancias.tabla', [
@@ -67,7 +70,6 @@ public $fechaFin;
             $mov->autorizante = auth()->user()->id;
             // dd($mov->user_id);
             $mov->save();
-
         }
 
         // Refresca la lista de movimientos
@@ -105,88 +107,133 @@ public $fechaFin;
 
 
     public function calcularCantidadActualPorItem()
-{
-    // Obtén todos los ítems
-    $items = Item::all();
+    {
+        // Obtén todos los ítems
+        $items = Item::all();
 
-    // Calcula ingresos, egresos, y encuentra el último egreso
-    $movimientos = Mov::where('estado', 'Entregado')
-        ->with('detalleMovs.item')
-        ->get()
-        ->flatMap->detalleMovs
-        ->groupBy('item_id')
-        ->map(function ($detalles) {
-            $ingresos = $detalles->where('mov.tipo', 1)->sum('cantidad');
-            $egresos = $detalles->where('mov.tipo', 0)->sum('cantidad');
-            $ultimoEgreso = $detalles->where('mov.tipo', 0)->sortByDesc('mov.tiempo')->first();
+        // Calcula ingresos, egresos, y encuentra el último egreso
+        $movimientos = Mov::where('estado', 'Entregado')
+            ->with('detalleMovs.item')
+            ->get()
+            ->flatMap->detalleMovs
+            ->groupBy('item_id')
+            ->map(function ($detalles) {
+                $ingresos = $detalles->where('mov.tipo', 1)->sum('cantidad');
+                $egresos = $detalles->where('mov.tipo', 0)->sum('cantidad');
+                $ultimoEgreso = $detalles->where('mov.tipo', 0)->sortByDesc('mov.tiempo')->first();
+
+                return [
+                    'ingresos' => $ingresos,
+                    'egresos' => $egresos,
+                    'cantidad_actual' => $ingresos - $egresos,
+                    'ultimo_egreso' => $ultimoEgreso ? [
+                        'cantidad' => $ultimoEgreso->cantidad,
+                        'fecha' => $ultimoEgreso->mov->tiempo,
+                    ] : null,
+                ];
+            });
+
+        // Asocia los resultados a todos los ítems y completa con ceros si faltan
+        $this->totalesPorItem = $items->map(function ($item) use ($movimientos) {
+            $movimiento = $movimientos->get($item->id, [
+                'ingresos' => 0,
+                'egresos' => 0,
+                'cantidad_actual' => 0,
+                'ultimo_egreso' => null,
+            ]);
 
             return [
-                'ingresos' => $ingresos,
-                'egresos' => $egresos,
-                'cantidad_actual' => $ingresos - $egresos,
-                'ultimo_egreso' => $ultimoEgreso ? [
-                    'cantidad' => $ultimoEgreso->cantidad,
-                    'fecha' => $ultimoEgreso->mov->tiempo,
-                ] : null,
-            ];
-        });
+                'nombre' => $item->nombre,
+                'codigo' => $item->codigo,
+                'unidad' => $item->unidad ?? ' ',
 
-    // Asocia los resultados a todos los ítems y completa con ceros si faltan
-    $this->totalesPorItem = $items->map(function ($item) use ($movimientos) {
-        $movimiento = $movimientos->get($item->id, [
-            'ingresos' => 0,
-            'egresos' => 0,
-            'cantidad_actual' => 0,
-            'ultimo_egreso' => null,
+                'cantidad_actual' => $movimiento['cantidad_actual'],
+                'ultimo_egreso' => $movimiento['ultimo_egreso'],
+
+            ];
+        })->toArray();
+    }
+
+
+    public function exportarExcel()
+    {
+        // Validar que las fechas sean correctas
+        $this->validate([
+            'fechaInicio' => 'required|date',
+            'fechaFin' => 'required|date|after_or_equal:fechaInicio',
         ]);
 
-        return [
-            'nombre' => $item->nombre,
-            'codigo' => $item->codigo,
-            'unidad' => $item->unidad ?? ' ',
+        // Convertir las fechas a formato adecuado
+        $fechaInicio = Carbon::parse($this->fechaInicio)->startOfDay();
+        $fechaFin = Carbon::parse($this->fechaFin)->endOfDay();
 
-            'cantidad_actual' => $movimiento['cantidad_actual'],
-            'ultimo_egreso' => $movimiento['ultimo_egreso'],
-
-        ];
-    })->toArray();
-}
-
-
-public function exportarExcel()
-{
-    // Validar que las fechas sean correctas
-    $this->validate([
-        'fechaInicio' => 'required|date',
-        'fechaFin' => 'required|date|after_or_equal:fechaInicio',
-    ]);
-
-    // Convertir las fechas a formato adecuado
-    $fechaInicio = Carbon::parse($this->fechaInicio)->startOfDay();
-    $fechaFin = Carbon::parse($this->fechaFin)->endOfDay();
-
-    // Consultar registros basados en el rango de fechas y la ruta seleccionada
-    $query = DetalleMov::query()
-        ->whereBetween('updated_at', [$fechaInicio, $fechaFin]);
+        // Consultar registros basados en el rango de fechas y la ruta seleccionada
+        $query = DetalleMov::query()
+            ->whereBetween('updated_at', [$fechaInicio, $fechaFin]);
         $query->whereHas('mov', function ($subQuery) {
             $subQuery->where('estado', 'Entregado');
         });
         $query->whereHas('mov', function ($subQuery) {
             $subQuery->where('tipo', 0);
         });
-    if ($this->ruta) {
-        $query->whereHas('item', function ($subQuery) {
-            $subQuery->where('nombre', $this->ruta);
-        });
+        if ($this->ruta) {
+            $query->whereHas('item', function ($subQuery) {
+                $subQuery->where('nombre', $this->ruta);
+            });
+        }
+
+        $orp = $query->get();
+
+        // Crear nombre del archivo con las fechas seleccionadas
+        $nombreArchivo = "Reporte_{$this->fechaInicio}_a_{$this->fechaFin}.xlsx";
+
+        // Exportar datos
+        return Excel::download(new SustaciasExports($orp), $nombreArchivo);
     }
 
-    $orp = $query->get();
 
-    // Crear nombre del archivo con las fechas seleccionadas
-    $nombreArchivo = "Reporte_{$this->fechaInicio}_a_{$this->fechaFin}.xlsx";
 
-    // Exportar datos
-    return Excel::download(new SustaciasExports($orp), $nombreArchivo);
-}
 
+
+    public function PDFSustancias()
+    {
+
+        $this->validate([
+            'fechaInicio' => 'required|date',
+            'fechaFin' => 'required|date|after_or_equal:fechaInicio',
+        ]);
+
+
+        return response()->streamDownload(
+            function () {
+
+                $fechaInicio = Carbon::parse($this->fechaInicio)->startOfDay();
+                $fechaFin = Carbon::parse($this->fechaFin)->endOfDay();
+
+                $query = DetalleMov::query()
+                    ->whereBetween('updated_at', [$fechaInicio, $fechaFin]);
+                $query->whereHas('mov', function ($subQuery) {
+                    $subQuery->where('estado', 'Entregado');
+                });
+
+                if ($this->ruta) {
+                    $query->whereHas('item', function ($subQuery) {
+                        $subQuery->where('nombre', $this->ruta);
+                    });
+                }
+
+
+
+
+
+
+                $variable = $query->get();
+                $pdf = App::make('dompdf.wrapper');
+                $pdf = Pdf::loadView('pdf.reportes.sustanciasReporte', compact(['variable', 'fechaInicio', 'fechaFin']));
+                $pdf->setPaper('letter', 'portrait');
+                echo $pdf->stream();
+            },
+            "{$this->fechaInicio}_a_{$this->fechaFin}.pdf"
+        );
+    }
 }

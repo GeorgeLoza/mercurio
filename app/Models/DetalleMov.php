@@ -13,7 +13,8 @@ class DetalleMov extends Model
         'item_id',
         'mov_id',
         'cantidad',
-        
+        'saldo',
+
 
     ];
 

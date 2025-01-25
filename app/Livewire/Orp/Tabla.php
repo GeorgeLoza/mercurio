@@ -29,9 +29,9 @@ class Tabla extends Component
     public $f_fechaVencimiento2 = null;
     public $f_producto = null;
     public $f_productoCodigo = null;
-    //categoria 
+    //categoria
     public $f_grupo = null;
-    
+
 
     public $aplicandoFiltros = false;
 
@@ -43,10 +43,10 @@ class Tabla extends Component
 
 
     public $anio;  // Año, por ejemplo: 2024
-    public $mes; 
-    public $dia; 
-    public $fecha; 
-    public $cat; 
+    public $mes;
+    public $dia;
+    public $fecha;
+    public $cat;
 
     public function show_filtro()
     {
@@ -87,7 +87,7 @@ class Tabla extends Component
         foreach ($admins as $admin) {
             $admin->notify(new orpNotification($registro));
         }
-        
+
     }
 
     public function cancelar($id)
@@ -182,9 +182,10 @@ class Tabla extends Component
             ->when($this->f_tiempoElaboracion, function ($query) {
                 return $query->where('tiempo_elaboracion', 'like', '%' . $this->f_tiempoElaboracion . '%');
             })
-            ->when($this->f_fechaVencimiento1, function ($query) {
-                return $query->where('fecha_vencimiento1', 'like', '%' . $this->f_fechaVencimiento1 . '%');
-            })
+                ->when($this->f_fechaVencimiento1, function ($query) {
+
+                    return $query->where('fecha_vencimiento1', 'like', '%' . $this->f_fechaVencimiento1 . '%');
+                })
             ->when($this->f_fechaVencimiento2, function ($query) {
                 return $query->where('fecha_vencimiento2', 'like', '%' . $this->f_fechaVencimiento2 . '%');
             })
@@ -233,7 +234,7 @@ class Tabla extends Component
     $mes = Carbon::parse($this->fecha)->month;
     $dia = Carbon::parse($this->fecha)->day;
      $cat= $this->cat ;
-    
+
     // Consultar registros basados en la fecha completa
     $orp = Orp::whereNotIn('codigo', [0, 1, 2, 10073794]) // Filtra por códigos específicos
         ->when($anio, function ($query) use ($anio) {
@@ -255,7 +256,7 @@ class Tabla extends Component
         ->orderBy('tiempo_elaboracion', 'asc') // Ordena por fecha
         ->get();
 
-    
+
 
     // Crear nombre del archivo con la fecha seleccionada
     $nombreMes = Carbon::createFromFormat('m', $mes)->translatedFormat('F'); // Obtener el nombre del mes
