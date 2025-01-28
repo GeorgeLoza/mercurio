@@ -187,11 +187,11 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-    Route::middleware(['role.permission:30,2'])->group(function () {
-        Route::middleware(['roles:Admi,Jef'])->group(function () {
+    Route::middleware(['role.permission:29,2'])->group(function () {
+
             /*ruta para reporte de daatos */
             Route::get('/datos', [DatosController::class, 'index'])->name('datos.index');
-        });
+
     });
 });
 

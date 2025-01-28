@@ -7,14 +7,11 @@
     <!--Tabla -->
     {{-- @livewire('dashboard.paseTurnoReporte') --}}
 
-    @if (auth()->user()->rol == 'Acp'  || auth()->user()->rol == 'Ext')
 
-
-    @else
 
     @livewire('paseTurno.reporte')
         @livewire('dashbord.planta')
-    @endif
+
 
 
     @if (auth()->user()->division->nombre == 'ERROR' || auth()->user()->division->nombre == 'Admi')

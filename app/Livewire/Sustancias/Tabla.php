@@ -200,7 +200,9 @@ class Tabla extends Component
 
         $this->validate([
             'fechaInicio' => 'required|date',
+            'ruta' => 'required',
             'fechaFin' => 'required|date|after_or_equal:fechaInicio',
+
         ]);
 
 
@@ -216,11 +218,51 @@ class Tabla extends Component
                     $subQuery->where('estado', 'Entregado');
                 });
 
+
+
                 if ($this->ruta) {
                     $query->whereHas('item', function ($subQuery) {
                         $subQuery->where('nombre', $this->ruta);
                     });
                 }
+
+
+                $ruta = Item::query()
+                ->where('nombre', $this->ruta)
+                ->get();
+
+
+
+
+
+                // Obtener los detalles de los movimientos
+                $detalleMovs = $query->with(['mov.user', 'mov.usuarioAutorizante', 'mov.usuarioEntregante'])->get();
+
+                // Inicializamos un array para almacenar los usuarios
+                $usuariosInvolucrados = collect();
+
+                // Recorremos los detalles de movimiento y agregamos los usuarios involucrados
+                foreach ($detalleMovs as $detalle) {
+                    // Agregar usuario que está relacionado con el movimiento
+                    if ($detalle->mov->user) {
+                        $usuariosInvolucrados->push($detalle->mov->user);
+                    }
+
+                    // Agregar autorizante si existe
+                    if ($detalle->mov->usuarioAutorizante) {
+                        $usuariosInvolucrados->push($detalle->mov->usuarioAutorizante);
+                    }
+
+                    // Agregar entregante si existe
+                    if ($detalle->mov->usuarioEntregante) {
+                        $usuariosInvolucrados->push($detalle->mov->usuarioEntregante);
+                    }
+                }
+
+                // Eliminar usuarios duplicados usando el campo 'id' como clave única
+                $usuariosUnicos = $usuariosInvolucrados->unique('id');
+
+                // Ahora $usuariosUnicos tiene la lista de usuarios únicos involucrados
 
 
 
@@ -229,7 +271,7 @@ class Tabla extends Component
 
                 $variable = $query->get();
                 $pdf = App::make('dompdf.wrapper');
-                $pdf = Pdf::loadView('pdf.reportes.sustanciasReporte', compact(['variable', 'fechaInicio', 'fechaFin']));
+                $pdf = Pdf::loadView('pdf.reportes.sustanciasReporte', compact(['variable', 'fechaInicio', 'fechaFin', 'usuariosUnicos','ruta']));
                 $pdf->setPaper('letter', 'portrait');
                 echo $pdf->stream();
             },

@@ -25,13 +25,13 @@ class LoginController extends Controller
             return back()->with('mensaje', 'credenciales incorrectas');
         }
 
-        if (auth()->user()->rol == 'Ext') {
+        if (auth()->user()->role->id==23) {
 
             return redirect()->route('solicitudPlanta.index');
 
         } else {
 
-            if (auth()->user()->rol == 'Acp') {
+            if (auth()->user()->role->id==26) {
 
                 return redirect()->route('leche_analisis.index');
 

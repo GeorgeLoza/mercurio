@@ -91,6 +91,7 @@ class User extends Authenticatable
     public function entregantes(){
         return $this->hasMany(Mov::class , 'entregante');
     }
+
     public function usuarioTrams(){
         return $this->hasMany(CalidadLeche::class , 'usuarioTram');
     }

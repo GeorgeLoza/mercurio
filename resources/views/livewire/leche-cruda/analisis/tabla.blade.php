@@ -233,7 +233,7 @@
                             @endif
                         </td>
                         <td class="flex items-center px-1 py-2 gap-2">
-                            @if ((now()->diffInMinutes($registro->created_at) < 1400 && auth()->user()->role->rolModuloPermisos->where('modulo_id', 20)->where('permiso_id', 3)->isNotEmpty()) || auth()->user()->role->id == 1)
+                            @if ((now()->diffInMinutes($registro->created_at) < 4200 && auth()->user()->role->rolModuloPermisos->where('modulo_id', 20)->where('permiso_id', 3)->isNotEmpty()) || auth()->user()->role->id == 1)
                                 <svg onclick="Livewire.dispatch('openModal', { component: 'leche-cruda.analisis.editar', arguments: { id: {{ $registro->id }} , id2: 1 } })"
                                     xmlns="http://www.w3.org/2000/svg"
                                     class="h-4 w-4 fill-blue-600 dark:fill-blue-500" viewBox="0 0 512 512">

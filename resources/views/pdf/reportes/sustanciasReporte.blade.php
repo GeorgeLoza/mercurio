@@ -169,7 +169,7 @@
             margin: 5px;
             /* Margen entre las firmas */
             text-align: center;
-            border-top: 1px solid #000;
+
             /* Borde alrededor de cada firma */
             font-size: 0.6rem;
             margin-bottom: 40px;
@@ -222,7 +222,7 @@
                 <tr>
                     <th class="cel-img" style="width: 25%;"><img src="img/logo/logocompleto.png" alt=""></th>
                     <th style="width: 50%;">REGISTRO</th>
-                    <th style="width: 25%; font-size: 0.8rem">PLL-REG-118 <br> Versión 001 <br> Página 1 de 1 </th>
+                    <th style="width: 25%; font-size: 0.8rem">PLL-REG-118 <br> Versión 002 <br> Página 1 de 1 </th>
                 </tr>
                 <tr>
                     <td colspan="3" style="text-align: center; padding: 0.6rem;  font-weight:bold;">KARDEX DE
@@ -231,53 +231,73 @@
                 </tr>
             </table>
         </head>
-        {{-- <footer>
-            SOALPRO SRL - Planta Lácteos - Reporte generado el {{ date('DD/MM/YYYY') }}
+        <footer>
+            SOALPRO SRL - Planta Lácteos - Reporte generado el {{ date('d/m/y') }}
             <div class="page-number"></div>
-        </footer> --}}
+        </footer>
 
-        {{-- <fieldset>
+        <fieldset>
             <legend style="font-weight:bold;"></legend>
             <div class="cont_div">
-                <table class="general">
+                <table class="general first-line:">
                     <tr>
-                        <th>FECHA: Del {{\Carbon\Carbon::parse($fechaInicio)->isoFormat('DD [de] MMMM [del] YYYY', 0, 'es') }}  Al {{ \Carbon\Carbon::parse($fechaFin)->isoFormat('DD [de] MMMM [del] YYYY', 0, 'es')  }}</th>
+                        <th class="justify-between">
+                        <td>
+                            PRODUCTO:
+                                {{ $ruta[0]->nombre }}
 
+                        </td>
+                        <td>
 
+                                CODIGO: {{ $ruta[0]->codigo }}
+
+                        </td>
+                        </th>
                     </tr>
 
                 </table>
             </div>
-        </fieldset> --}}
+        </fieldset>
 
 
 
-        <main>
+        <main style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100px;"  >
             <table class="table-container  " style="  font-wheight:0">
                 <thead>
 
                     <tr>
                         <th>Fecha</th>
-                        <th>Ingresos</th>
-                        <th>
-                            <p>Saldo </p>
-                            <p>Anterior</p>
+                        <th>Ingresos
+
+                                <p>[{{ $ruta[0]->unidad }}]</p>
+
                         </th>
-                        < <th>
+
+                        <th>
                             Consumo
-                            <th>Saldo
-                            </th>
-                            <th>
-                                Responsable
-                            </th>
-                            <th>
+                            <p>
 
-                                Firma
-                            </th>
+                                    [{{ $ruta[0]->unidad }}]
+
+                            </p>
+                        <th>Saldo
+                            <p>
+
+                                    [{{ $ruta[0]->unidad }}]
+
+                            </p>
+                        </th>
+                        <th>
+                            Solicitante
+                        </th>
 
 
-                            <th>
-                                Observaciones </th>
+                        <th>
+                            Observaciones </th>
+                        <th>
+                            Autorizado </th>
+                        <th>
+                            Entregado </th>
 
 
 
@@ -292,39 +312,46 @@
                             </th>
                             <th nowrap>
                                 @if ($variables->mov->tipo == 1)
-
-                                    {{ $variables->cantidad }}
+                                    {{ $variables->cantidad / 1 }}
                                 @endif
                             </th>
 
 
-                            <th>Abel no olvides calcular esto</th>
 
 
 
 
-                    <th>
-                        @if ($variables->mov->tipo == 0)
-
-                            {{ $variables->cantidad }}
-                        @endif
-                    </th>
-
-
-                    <th>{{ $variables->saldo }}</th>
+                            <th>
+                                @if ($variables->mov->tipo == 0)
+                                    {{ $variables->cantidad / 1 }}
+                                @endif
+                            </th>
 
 
-                    <th>{{ $variables->mov->user->name }}</th>
+                            <th>{{ $variables->saldo / 1 }}</th>
 
 
-
-                    <th></th>
+                            <th>{{ $variables->mov->user->codigo }} </th>
 
 
 
+                            <th></th>
+                            <th>
+                                @if ($variables->mov->usuarioAutorizante)
+                                {{ $variables->mov->usuarioAutorizante->codigo }}
+                                @endif
+                            </th>
+                            <th>
+                                @if ($variables->mov->usuarioEntregante)
+                                {{ $variables->mov->usuarioEntregante->codigo }}
+                                @endif
+                            </th>
 
 
-                    </tr>
+
+
+
+                        </tr>
                     @endforeach
                 </tbody>
 
@@ -336,38 +363,36 @@
 
 
             <br>
-            {{-- <div class="justify-end">
-                <p align="right">C.&nbsp;&nbsp;&nbsp;: Conforme &nbsp;&nbsp;&nbsp; &nbsp; </p>
-                <p align="right">N.C.: No Conforme</p>
-            </div> --}}
 
+            <div class="signatures" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100px; ">
+                <div class="signature" style="display: flex; justify-content: center; align-items: center; width: 100%; ">
+                    <p ><strong style=" border-top: 1px solid #000; padding-top: 7px; ">Firma Jefe de Calidad</strong></p>
+                </div>
+            </div>
 
+            <div>
+
+                <table class="table-container">
+
+                    <thead>
+                        <tr><th>Codigo</th><th>Nombre</th></tr>
+
+                    </thead>
+
+                    <tbody>
+                        @foreach ($usuariosUnicos as $usuariosUnicoss)
+
+                        <tr><th >{{$usuariosUnicoss->codigo}}</th><th class="capitalize">{{$usuariosUnicoss->nombre}} {{$usuariosUnicoss->apellido}}</th></tr>
+                        @endforeach
+                    </tbody>
+
+                </table>
+            </div>
 
         </main>
     </div>
 
-    {{-- <div>
-        @if ($usuariosInvolucrados->isEmpty())
-            <p>No se encontraron usuarios involucrados.</p>
-        @else
-            <div class="signatures">
-                @foreach ($usuariosInvolucrados as $index => $user)
-                    @if ($index % 5 === 0)
-                        <!-- Comienza una nueva fila cada 5 firmas -->
-                        <div class="signature-row">
-                    @endif
-                    <div class="signature">
-                        <p>{{ $user->codigo }}</p>
-                        <p>{{ $user->nombre }} {{ $user->apellido }}</p>
-                    </div>
-                    @if (($index + 1) % 5 === 0 || $index === count($usuariosInvolucrados) - 1)
-                        <!-- Cierra la fila después de 5 firmas o al final de la lista -->
-            </div>
-        @endif
-        @endforeach
-    </div>
-    @endif
-    </div> --}}
+
 
 </body>
 

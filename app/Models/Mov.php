@@ -28,11 +28,11 @@ class Mov extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function autorizante(){
+    public function usuarioAutorizante(){
         return $this->belongsTo(User::class, 'autorizante');
     }
 
-    public function entregante(){
+    public function usuarioEntregante(){
         return $this->belongsTo(User::class, 'entregante');
     }
 
