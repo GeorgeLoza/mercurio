@@ -156,7 +156,7 @@
 @endif
 
 
-        @if ($data->detalleSolicitudPlanta->tipoMuestra->id != 9)
+
         @if ($id2   ==2|| $id2==3)
 
         <div class="">
@@ -239,7 +239,7 @@
         </div>
         @endif
 
-    @endif
+
 
 
     </div>

@@ -61,11 +61,13 @@ class Tabla extends Component
         try {
             $microbiologia = MicrobiologiaExterno::find($id);
             // Verificación para todas las variables antes de asignarlas al modelo
+
             $microbiologia->aer_mes = 0;
             $microbiologia->col_tot = 0;
 
 
             if ($microbiologia->detalleSolicitudPlanta->tipoMuestra->id == 9) {
+                $microbiologia->aer_mes = null;
                 $microbiologia->estado = "Analizado";
 
                 $detalle = DetalleSolicitudPlanta::where("id", $microbiologia->detalle_solicitud_planta_id)->first();

@@ -308,7 +308,12 @@
                             {{ $registro->densidad }}
                         </td>
                         <td class="px-1 py-2" nowrap>
-                            {{ $registro->prueba_alcohol }}
+                            @if ($registro->prueba_alcohol ==1)
+                                +
+                                @else
+                                -
+                            @endif
+
                         </td>
                         <td class="px-1 py-2 @if ($parametro && $registro->contenido_graso !== null) {{ $registro->contenido_graso >= $parametro->contenido_graso_min ? 'text-green-500' : 'text-red-500' }} @endif"
                             nowrap>
@@ -336,9 +341,9 @@
 
 
                             @if ($registro->recuento )
-                            @if ($registro->recuento >= 1000000)
+                            @if ($registro->recuento >= 5000000)
                             MNPC
-                        @elseif ($registro->recuento < 1000000 && $registro->recuento >= 1)
+                        @elseif ($registro->recuento < 5000000 && $registro->recuento >= 1)
                             {{ $registro->recuento < 1
                                 ? $registro->recuento * 10 ** (strlen(floor($registro->recuento)) - 1)
                                 : $registro->recuento / 10 ** (strlen(floor($registro->recuento)) - 1) }}

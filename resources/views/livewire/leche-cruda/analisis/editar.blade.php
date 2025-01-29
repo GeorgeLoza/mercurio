@@ -251,9 +251,9 @@
             placeholder=" " required />
 
         <span class="text-sm text-gray-700 dark:text-white flex items-center">
-            @if ($recuento >= 1000000)
+            @if ($recuento >= 5000000)
                 MNPC
-            @elseif ($recuento < 1000000 && $recuento >= 1)
+            @elseif ($recuento < 5000000 && $recuento >= 1)
                 {{ $recuento < 1
                     ? $recuento * 10 ** (strlen(floor($recuento)) - 1)
                     : $recuento / 10 ** (strlen(floor($recuento)) - 1) }}
