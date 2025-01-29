@@ -5,6 +5,7 @@ namespace App\Livewire\Orp;
 use App\Exports\MuestrasExport;
 use App\Models\Orp;
 use App\Models\Color;
+use App\Models\EstadoDetalle;
 use App\Models\User;
 use App\Notifications\CierreOrp;
 use App\Notifications\orpNotification;
@@ -235,26 +236,35 @@ class Tabla extends Component
     $dia = Carbon::parse($this->fecha)->day;
      $cat= $this->cat ;
 
+
+     $estadoDetalles = EstadoDetalle::select('orp_id', 'preparacion')
+    ->distinct() // Asegura que no se repitan las combinaciones de orp_id y preparacion
+
+
+    ->when($anio, function ($query) use ($anio) {
+        $query->whereHas('orp', function ($q) use ($anio) {
+            $q->whereYear('tiempo_elaboracion', $anio);
+        });
+    })
+    ->when($mes, function ($query) use ($mes) {
+        $query->whereHas('orp', function ($q) use ($mes) {
+            $q->whereMonth('tiempo_elaboracion', $mes);
+        });
+    })
+    ->when($dia, function ($query) use ($dia) {
+        $query->whereHas('orp', function ($q) use ($dia) {
+            $q->whereDay('tiempo_elaboracion', $dia);
+        });
+    })
+    ->when($cat, function ($query) use ($cat) {
+                $query->whereHas('orp.producto.categoriaProducto', function ($q) use ($cat) {
+                    $q->where('grupo', $cat);
+                 });
+             })
+    ->get();
+
+
     // Consultar registros basados en la fecha completa
-    $orp = Orp::whereNotIn('codigo', [0, 1, 2, 10073794]) // Filtra por códigos específicos
-        ->when($anio, function ($query) use ($anio) {
-            return $query->whereYear('tiempo_elaboracion', $anio);
-        })
-        ->when($mes, function ($query) use ($mes) {
-            return $query->whereMonth('tiempo_elaboracion', $mes);
-        })
-        ->when($dia, function ($query) use ($dia) {
-            return $query->whereDay('tiempo_elaboracion', $dia);
-        })
-        ->when($cat, function ($query) use ($cat) {
-            $query->whereHas('producto.categoriaProducto', function ($q) use ($cat) {
-                $q->where('grupo', $cat);
-            });
-        })
-
-
-        ->orderBy('tiempo_elaboracion', 'asc') // Ordena por fecha
-        ->get();
 
 
 
@@ -263,7 +273,7 @@ class Tabla extends Component
     $nombreArchivo = "{$dia}-{$nombreMes}-{$anio}.csv";
 
     // Exportar datos usando el paquete maatwebsite/excel
-    return Excel::download(new MuestrasExport($orp), $nombreArchivo, \Maatwebsite\Excel\Excel::CSV);
+    return Excel::download(new MuestrasExport($estadoDetalles), $nombreArchivo, \Maatwebsite\Excel\Excel::CSV);
 }
 
 
