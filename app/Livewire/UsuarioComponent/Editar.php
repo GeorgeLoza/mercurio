@@ -5,6 +5,7 @@ namespace App\Livewire\UsuarioComponent;
 use App\Models\Division;
 use App\Models\Planta;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
@@ -20,15 +21,19 @@ class Editar extends ModalComponent
     public $correo;
     public $rol;
     public $division_id;
+    public $role_id;
     public $password;
     public $password_confirmation;
-    
+
     //valores para cargar selects
     public $divisiones;
+    public $roles;
 
     public function mount()
     {
         $this->divisiones = Division::all();
+
+        $this->roles = Role::all();
 
         $usuario = User::where('id', $this->id)->first();
         $this->codigo = $usuario->codigo;
@@ -37,6 +42,7 @@ class Editar extends ModalComponent
         $this->telefono = $usuario->telefono;
         $this->correo = $usuario->correo;
         $this->rol = $usuario->rol;
+        $this->role_id = $usuario->rol_id;
         $this->division_id = $usuario->division_id;
     }
 
@@ -54,7 +60,7 @@ class Editar extends ModalComponent
             'apellido' => 'required',
             'telefono' => 'required',
             'correo' => 'required|email',
-            'rol' => 'required',
+
             'division_id' => 'required',
 
         ]);
@@ -73,6 +79,9 @@ class Editar extends ModalComponent
             $usuario->telefono = $this->telefono;
             $usuario->correo = $this->correo;
             $usuario->rol = $this->rol;
+
+            $usuario->rol_id = $this->role_id;
+
             $usuario->division_id = $this->division_id;
             if ($this->password != null) {
                 $usuario->password = Hash::make($this->password);

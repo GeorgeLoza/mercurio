@@ -265,7 +265,7 @@
             </table>
             <table style="margin: 0.3rem 0; border:0; text-align:center; font-size:0.8rem;">
                 <tr>
-                    <th colspan="7" style="border: 1px solid black">RESULTADO DE ENSAYO</th>
+                    <th colspan="6" style="border: 1px solid black">RESULTADO DE ENSAYO</th>
                 </tr>
                 <tr style="border-left: 1px solid black; border-right: 1px solid black; ">
 
@@ -414,7 +414,7 @@
                     </div>
                     <div class="signer">
                         <img style="width: 60%" src="img/firma/rubenC.jpeg" alt="">
-                        <div class="line">Jefe de Ccontrol de Calidad</div>
+                        <div class="line">Jefe de control de Calidad</div>
                     </div>
                 </div>
             </div>

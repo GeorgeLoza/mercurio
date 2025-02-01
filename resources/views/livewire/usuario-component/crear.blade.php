@@ -76,28 +76,31 @@
             </div>
 
             <div class="md:flex ">
-                <div class="md:w-1/2 px-3 mb-5">
-                    <div class="relative z-0 w-full mb-5 group">
-                        <label for="rol"
-                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Rol</label>
-                        <select id="rol" wire:model="rol"
-                            class="block py-2.5 px-0 w-full text-sm text-gray-600 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                            <option selected class="bg-gray-100 dark:bg-gray-800">Escoge una opción</option>
-                            <option value="Admi" class="bg-gray-100 dark:bg-gray-800">Administrador</option>
-                            <option value="Jef" class="bg-gray-100 dark:bg-gray-800">Jefe de Area</option>
-                            <option value="Sup" class="bg-gray-100 dark:bg-gray-800">Supervisor</option>
-                            <option value="HTST" class="bg-gray-100 dark:bg-gray-800">HTST</option>
-                            <option value="UHT" class="bg-gray-100 dark:bg-gray-800">UHT</option>
-                            <option value="FQ" class="bg-gray-100 dark:bg-gray-800">Analista Fisicoquimico</option>
-                            <option value="MB" class="bg-gray-100 dark:bg-gray-800">Analista Microbiologico</option>
-                            <option value="Con" class="bg-gray-100 dark:bg-gray-800">Contador</option>
-                            <option value="Ext" class="bg-gray-100 dark:bg-gray-800">Externo</option>
-                        </select>
-                        @error('rol')
-                        <p class="text-red-500 text-xs">* {{$message}}</p>
-                        @enderror
-                    </div>
-                </div>
+
+ {{-- prueba roles --}}
+ <div class="md:w-1/2 px-3 mb-5">
+    <div class="relative z-0 w-full mb-5 group">
+        <label for="rol_id"
+            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Roles</label>
+        <select id="rol_id" wire:model="rol_id"
+            class="block py-2.5 px-0 w-full text-sm text-gray-600 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+            <option selected class="bg-gray-100 dark:bg-gray-800 ">Escoge una opción</option>
+            @foreach ($roles as $role)
+                <option value="{{ $role->id }}" class="bg-gray-100 dark:bg-gray-800 ">
+                    {{ $role->name }}
+                </option>
+            @endforeach
+
+        </select>
+        @error('rol_id')
+            <p class="text-red-500 text-xs">* {{ $message }}</p>
+        @enderror
+    </div>
+</div>
+
+
+
+
                 <div class="md:w-1/2 px-3 mb-5">
                     <div class="relative z-0 w-full mb-5 group">
                         <label for="planta_id"

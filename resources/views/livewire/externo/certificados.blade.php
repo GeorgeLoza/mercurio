@@ -116,7 +116,13 @@
                                 <td scope="row"
                                     class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                                     nowrap>{{ $fis->detalleSolicitudPlanta->subcodigo }}</td>
-                                <td class="px-3 py-1" nowrap >{{ $fis->detalleSolicitudPlanta->productosPlanta->nombre }}</td>
+                                <td class="px-3 py-1" nowrap >
+                                    @if ($fis->detalleSolicitudPlanta->productosPlanta)
+
+                                    {{ $fis->detalleSolicitudPlanta->productosPlanta->nombre }}
+                                    @endif
+
+                                </td>
                                 <td class="px-3 py-1">{{ $fis->detalleSolicitudPlanta->lote }}</td>
                                 <td class="px-3 py-1" nowrap>{{ $fis->detalleSolicitudPlanta->tipoMuestra->nombre }}
                                 </td>

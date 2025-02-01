@@ -270,7 +270,7 @@
                     <th colspan="7" style="border: 1px solid black">RESULTADO DE ENSAYO</th>
                 </tr>
                 <tr style="border-left: 1px solid black; border-right: 1px solid black; ">
-                    
+
                     <th>PARÁMETROS</th>
                     <th>UNIDADES</th>
                     <th>MÉTODO DE ENSAYOS</th>
@@ -281,7 +281,7 @@
                 </tr>
                 @if ($resultados->aer_mes !== null)
                 <tr style="border-left: 1px solid black; border-right: 1px solid black; ">
-                    
+
                     <td>Mesófilos, Aeróbios Totales</td>
                     <td>{{ $normas->unidad }}</td>
                     <td>NB 32003</td>
@@ -317,11 +317,11 @@
                     <td>{{ $normas->max_mes }} <sup>{{ $normas->max_mes_e }}</sup>
 
                     </td>
-                </tr>    
+                </tr>
                 @endif
                 @if ($resultados->col_tot !== null)
                 <tr style="border-left: 1px solid black; border-right: 1px solid black; ">
-                    
+
                     <td>Coliformes Totales</td>
                     <td>{{ $normas->unidad }}</td>
                     <td>NB 32005</td>
@@ -356,11 +356,11 @@
                     <td>{{ $normas->max_colTot }} <sup>{{ $normas->max_colTot_e }}</sup>
 
                     </td>
-                </tr>    
+                </tr>
                 @endif
                 @if ($resultados->moh_lev !== null)
                 <tr style="border-left: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black">
-                    
+
                     <td>Mohos y Levaduras</td>
                     <td>{{ $normas->unidad }}</td>
                     <td>NB 32006</td>
@@ -396,9 +396,9 @@
                     </td>
                     <td class="nowrap">{{ $normas->max_mohLev }} <sup>{{ $normas->max_mohLev_e }}</sup>
                     </td>
-                </tr>    
+                </tr>
                 @endif
-                
+
             </table>
             <br>
             <table>Notas:</table>

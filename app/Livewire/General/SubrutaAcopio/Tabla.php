@@ -27,6 +27,7 @@ class Tabla extends Component
         $this->sortField = $field;
     }
     #[On('actualizar_tabla_subruta_acopio')]
+
     public function render()
     {
         $subrutas = SubrutaAcopio::query()

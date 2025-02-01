@@ -15,6 +15,8 @@ use Livewire\Attributes\On;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\App;
 
 class Tabla extends Component
 {
@@ -144,6 +146,9 @@ class Tabla extends Component
     {
         $this->sortField = 'created_at';
         $this->sortAsc = false;
+
+
+
     }
 
 
@@ -276,6 +281,62 @@ class Tabla extends Component
     return Excel::download(new MuestrasExport($estadoDetalles), $nombreArchivo, \Maatwebsite\Excel\Excel::CSV);
 }
 
+
+public function generatePDFsegimiento()
+{
+    // Definir las variables antes de la descarga
+    $anio = Carbon::parse($this->fecha)->year;
+    $mes = Carbon::parse($this->fecha)->month;
+    $dia = Carbon::parse($this->fecha)->day;
+    $cat = $this->cat;
+
+    // Obtener el nombre completo del mes
+    $nombreMes = Carbon::createFromDate($anio, $mes, $dia)->format('F'); // Nombre completo del mes
+
+    // Construir el nombre del archivo
+    $nombreArchivo = "{$dia} {$nombreMes} {$anio}.pdf";  // Nombre del archivo PDF
+
+    return response()->streamDownload(
+        function () use ($anio, $mes, $dia, $cat) { // Pasamos las variables necesarias
+            $estadoDetalles = EstadoDetalle::select('orp_id', 'preparacion')
+                ->with('orp.producto.destinoProducto')
+                ->distinct() // Asegura que no se repitan las combinaciones de orp_id y preparacion
+                ->when($anio, function ($query) use ($anio) {
+                    $query->whereHas('orp', function ($q) use ($anio) {
+                        $q->whereYear('updated_at', $anio);
+                    });
+                })
+                ->when($mes, function ($query) use ($mes) {
+                    $query->whereHas('orp', function ($q) use ($mes) {
+                        $q->whereMonth('updated_at', $mes);
+                    });
+                })
+                ->when($dia, function ($query) use ($dia) {
+                    $query->whereHas('orp', function ($q) use ($dia) {
+                        $q->whereDay('updated_at', $dia);
+                    });
+                })
+                ->when($cat, function ($query) use ($cat) {
+                    $query->whereHas('orp.producto.categoriaProducto', function ($q) use ($cat) {
+                        $q->where('grupo', $cat);
+                    });
+                })
+                ->when($cat, function ($query) use ($cat) {
+                    $query->whereHas('orp', function ($q) use ($cat) {
+                        $q->where('estado', 'Completado');
+                    });
+                })
+
+                ->get();
+
+            $pdf = App::make('dompdf.wrapper');
+            $pdf = Pdf::loadView('pdf.reportes.seguimientoProductoTerminado', compact(['estadoDetalles']));
+            $pdf->setPaper('legal', 'portrait');
+            echo $pdf->stream();
+        },
+        $nombreArchivo // Ahora pasamos la variable correctamente
+    );
+}
 
 
 

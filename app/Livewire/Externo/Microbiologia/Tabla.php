@@ -45,7 +45,8 @@ class Tabla extends Component
         $this->fecha_sembrado = null;
     }
 
-    public function eliminar($id){
+    public function eliminar($id)
+    {
         $microbiologia = MicrobiologiaExterno::findOrFail($id);
         $microbiologia->delete();
     }
@@ -64,9 +65,11 @@ class Tabla extends Component
 
             $microbiologia->aer_mes = 0;
             $microbiologia->col_tot = 0;
+            if ($microbiologia->detalleSolicitudPlanta->tipoMuestra->id == 2) {
+                $microbiologia->col_tot = null;
+            }
 
-
-            if ($microbiologia->detalleSolicitudPlanta->tipoMuestra->id == 9) {
+            if ($microbiologia->detalleSolicitudPlanta->tipoMuestra->id == 9 || $microbiologia->detalleSolicitudPlanta->tipoMuestra->id == 5) {
                 $microbiologia->aer_mes = null;
                 $microbiologia->estado = "Analizado";
 
@@ -125,6 +128,4 @@ class Tabla extends Component
             $this->dispatch('error_mensaje', mensaje: 'problema' . $th->getMessage());
         }
     }
-
-
 }

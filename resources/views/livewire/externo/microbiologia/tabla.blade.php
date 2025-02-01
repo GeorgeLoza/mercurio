@@ -17,6 +17,9 @@
                         Planta
                     </th>
                     <th scope="col" class="px-1 py-0" rowspan="2">
+                        Tipo
+                    </th>
+                    <th scope="col" class="px-1 py-0" rowspan="2">
                         Estado
                     </th>
                     <th scope="col" class="px-1 py-0" rowspan="2">
@@ -90,6 +93,10 @@
                         <td class="px-3 py-0" nowrap>
 
                             {{ $micro->detalleSolicitudPlanta->user->planta->nombre }}
+                        </td>
+                        <td class="px-3 py-0" nowrap>
+
+                            {{ $micro->detalleSolicitudPlanta->tipoMuestra->nombre }}
                         </td>
                         <td class="px-3 py-0">
                             <div class="flex items-center">
