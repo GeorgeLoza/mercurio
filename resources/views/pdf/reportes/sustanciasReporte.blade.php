@@ -244,12 +244,12 @@
                         <th class="justify-between">
                         <td>
                             PRODUCTO:
-                                {{ $ruta[0]->nombre }}
+                            {{ $ruta[0]->nombre }}
 
                         </td>
                         <td>
 
-                                CODIGO: {{ $ruta[0]->codigo }}
+                            CODIGO: {{ $ruta[0]->codigo }}
 
                         </td>
                         </th>
@@ -261,7 +261,7 @@
 
 
 
-        <main style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100px;"  >
+        <main style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100px;">
             <table class="table-container  " style="  font-wheight:0">
                 <thead>
 
@@ -269,7 +269,7 @@
                         <th>Fecha</th>
                         <th>Ingresos
 
-                                <p>[{{ $ruta[0]->unidad }}]</p>
+                            <p>[{{ $ruta[0]->unidad }}]</p>
 
                         </th>
 
@@ -277,13 +277,13 @@
                             Consumo
                             <p>
 
-                                    [{{ $ruta[0]->unidad }}]
+                                [{{ $ruta[0]->unidad }}]
 
                             </p>
                         <th>Saldo
                             <p>
 
-                                    [{{ $ruta[0]->unidad }}]
+                                [{{ $ruta[0]->unidad }}]
 
                             </p>
                         </th>
@@ -338,12 +338,12 @@
                             <th></th>
                             <th>
                                 @if ($variables->mov->usuarioAutorizante)
-                                {{ $variables->mov->usuarioAutorizante->codigo }}
+                                    {{ $variables->mov->usuarioAutorizante->codigo }}
                                 @endif
                             </th>
                             <th>
                                 @if ($variables->mov->usuarioEntregante)
-                                {{ $variables->mov->usuarioEntregante->codigo }}
+                                    {{ $variables->mov->usuarioEntregante->codigo }}
                                 @endif
                             </th>
 
@@ -361,33 +361,76 @@
 
 
 
+<br>
+            <br>
+            <div>
+
+                <style>
+                    .capitalize {
+                        text-transform: capitalize;
+                    }
+
+                    /* Estilo para la tabla con la clase "mi-tabla" */
+                    table.mi-tabla {
+                        width: 40%;
+                        border-collapse: collapse;
+                        /* Colapsa los bordes de las celdas */
+                        border: 1px solid #000;
+                        /* Borde externo de la tabla */
+                    }
+
+                    /* Estilo para las cabeceras de la tabla con la clase "mi-tabla" */
+                    table.mi-tabla th {
+                        padding: 8px;
+                        text-align: left;
+                        background-color: #f2f2f2;
+                        /* Color de fondo para las cabeceras */
+                    }
+
+                    /* Estilo para las celdas del cuerpo de la tabla con la clase "mi-tabla" */
+                    table.mi-tabla td {
+                        padding: 4px;
+                        text-align: left;
+                    }
+
+                    /* Estilo para las celdas de cabecera en la primera fila de la tabla con la clase "mi-tabla" */
+                    table.mi-tabla thead th {
+                        border-bottom: 2px solid #000;
+                        /* Borde inferior más grueso para las cabeceras */
+                    }
+                </style>
+
+                <!-- Aplica la clase "mi-tabla" solo a la tabla que deseas estilizar -->
+                <table class="mi-tabla">
+                    <thead>
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Nombre</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($usuariosUnicos as $usuariosUnicoss)
+                            <tr>
+                                <td>{{ $usuariosUnicoss->codigo }}</td>
+                                <td class="capitalize">
+                                    {{ ucwords(strtolower($usuariosUnicoss->nombre . ' ' . $usuariosUnicoss->apellido)) }}
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
 
             <br>
-
-            <div class="signatures" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100px; ">
-                <div class="signature" style="display: flex; justify-content: center; align-items: center; width: 100%; ">
-                    <p ><strong style=" border-top: 1px solid #000; padding-top: 7px; ">Firma Jefe de Calidad</strong></p>
+            <div class="signatures"
+                style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100px; ">
+                <div class="signature"
+                    style="display: flex; justify-content: center; align-items: center; width: 100%; ">
+                    <p><strong style=" border-top: 1px solid #000; padding-top: 7px; ">Firma Jefe de Calidad</strong>
+                    </p>
                 </div>
             </div>
 
-            <div>
-
-                <table class="table-container">
-
-                    <thead>
-                        <tr><th>Codigo</th><th>Nombre</th></tr>
-
-                    </thead>
-
-                    <tbody>
-                        @foreach ($usuariosUnicos as $usuariosUnicoss)
-
-                        <tr><th >{{$usuariosUnicoss->codigo}}</th><th class="capitalize">{{$usuariosUnicoss->nombre}} {{$usuariosUnicoss->apellido}}</th></tr>
-                        @endforeach
-                    </tbody>
-
-                </table>
-            </div>
 
         </main>
     </div>

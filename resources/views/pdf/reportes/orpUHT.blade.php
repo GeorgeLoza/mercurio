@@ -15,6 +15,10 @@
             margin-right: 1cm;
         }
 
+
+      z-index: 1000;
+        }
+
         body {
 
             margin-left: 0cm;
@@ -168,7 +172,7 @@
             margin: 5px;
             /* Margen entre las firmas */
             text-align: center;
-            border-top: 1px solid #000;
+
             /* Borde alrededor de cada firma */
             font-size: 0.6rem;
             margin-bottom: 40px;
@@ -223,24 +227,26 @@
                     <th style="width: 25%; font-size: 0.8rem">PLL-REG-052 <br> Versión 002 <br> Página 1 de 1 </th>
                 </tr>
                 <tr>
-                    <td colspan="3" style="text-align: center; padding: 0.6rem;  font-weight:bold;">Control de
+                    <td colspan="3"
+                        style="text-align: center; padding: 0.6rem;  font-weight:bold; text-transform: uppercase">
+                        Control de
                         calidad en proceso - Linea Ulta Pasteurizado UHT</td>
                 </tr>
             </table>
         </head>
         <footer>
-            SOALPRO SRL - Planta Lácteos - Reporte generado el {{ date('DD/MM/YYYY') }}
+            SOALPRO SRL - Planta Lácteos - Reporte generado el {{ date('d/m/Y') }}
             <div class="page-number"></div>
         </footer>
 
         <fieldset>
-            <legend style="font-weight:bold;">Información General</legend>
+            <legend style="font-weight:bold; text-transform: uppercase">Información General</legend>
             <div class="cont_div">
                 <table class="general">
                     <tr>
                         <td>
                             <p>Fecha de Producción:
-                                {{ \Carbon\Carbon::parse($informacion->tiempo_elaboracion)->isoFormat('DD/MM/YYYY', 0, 'es') }}
+                                {{ \Carbon\Carbon::parse($informacion->tiempo_elaboracion)->isoFormat('DD MMM YYYY', 0, 'es') }}
                             </p>
                             <p>ORP: <span>{{ $informacion->codigo }}</span></p>
                             <p>Producto: {{ $informacion->producto->nombre }}</p>
@@ -249,12 +255,12 @@
 
                             <p>Fecha(s) de Vencimiento:
                                 @if ($informacion->fecha_vencimiento1)
-                                    {{ \Carbon\Carbon::parse($informacion->fecha_vencimiento1)->isoFormat('DD/MM/YYYY', 0, 'es') }}
+                                    {{ \Carbon\Carbon::parse($informacion->fecha_vencimiento1)->isoFormat('DD MMM YYYY', 0, 'es') }}
                                 @endif
 
                                 @if ($informacion->fecha_vencimiento2)
                                     -
-                                    {{ \Carbon\Carbon::parse($informacion->fecha_vencimiento2)->isoFormat('DD/MM/YYYY', 0, 'es') }}
+                                    {{ \Carbon\Carbon::parse($informacion->fecha_vencimiento2)->isoFormat('DD MMM YYYY', 0, 'es') }}
                                 @endif
 
                             </p>
@@ -297,14 +303,14 @@
             <table class="table-container " style="  font-wheight:0">
                 <thead>
                     <tr>
-                        <th colspan="17" style="font-weight:bold;">
+                        <th colspan="14" style="font-weight:bold;">
                             Control de Calidad en Proceso - Línea Ultra Pasteurizado UHT
                         </th>
                     </tr>
                     <tr>
                         <th>Datos de Proceso </th>
                         <th>Tanque</th>
-                        <th>Juliano</th>
+                        {{-- <th>Juliano</th> --}}
                         <th>Hora S. </th>
                         <th>Hora R. </th>
                         <th>Temp [°C]</th>
@@ -315,10 +321,9 @@
                         <th>Color</th>
                         <th>Olor</th>
                         <th>Sabor</th>
-                        <th>Volumen</th>
+                        {{-- <th>Volumen</th> --}}
                         <th>Prep.</th>
-                        <th>Solicitante</th>
-                        <th>Analista</th>
+                        <th>Sol - Ana</th>
 
                     </tr>
                 </thead>
@@ -339,7 +344,7 @@
                                 $fecha = new DateTime($dato->solicitudAnalisisLinea->tiempo);
                                 $diaDelAno = $fecha->format('z') + 1;
                             @endphp
-                            <th>{{$diaDelAno}}</th>
+                            {{-- <th>{{ $diaDelAno }}</th> --}}
 
                             <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
                             </th>
@@ -408,7 +413,7 @@
                                     @endif
                                 @endif
                                 {{-- volumen --}}
-                                <th>-</th>
+                                {{-- <th>-</th> --}}
                                 <th>
                                     @foreach ($dato->solicitudAnalisisLinea->estadoPlanta->estadoDetalle as $estado)
                                         @if ($estado->orp_id == $orpId)
@@ -416,22 +421,19 @@
                                         @endif
                                     @endforeach
                                 </th>
-
-                                @if ($dato->solicitudAnalisisLinea->user != null)
-                                    <th>
+                                <th>
+                                    @if ($dato->solicitudAnalisisLinea->user != null)
                                         {{ $dato->solicitudAnalisisLinea->user->codigo }}
-                                    </th>
-                                @else
-                                    <th>-</th>
-                                @endif
+                                    @else
+                                        -
+                                    @endif
 
-                                @if ($dato->solicitudAnalisisLinea->analisisLinea->user != null)
-                                    <th>
-                                        {{ $dato->solicitudAnalisisLinea->analisisLinea->user->codigo }}
-                                    </th>
-                                @else
-                                    <th>-</th>
-                                @endif
+                                    @if ($dato->solicitudAnalisisLinea->analisisLinea->user != null)
+                                        - {{ $dato->solicitudAnalisisLinea->analisisLinea->user->codigo }}
+                                    @else
+                                        -
+                                    @endif
+                                </th>
                             @endif
 
 
@@ -457,7 +459,7 @@
                 <tbody>
                     <tr>
                         <th>Cabezal </th>
-                        <th>Juliano</th>
+                        <th>Lote</th>
                         <th>Hora S.</th>
                         <th>Hora R.</th>
                         <th>Temp UHT [°C]</th>
@@ -472,7 +474,7 @@
                         <th>Peso [g]</th>
 
 
-                        <th>Encargados</th>
+                        <th>Sol - Ana</th>
 
                     </tr>
                     @foreach ($envasados as $dato)
@@ -487,7 +489,7 @@
                                 $fecha = new DateTime($dato->solicitudAnalisisLinea->tiempo);
                                 $diaDelAno = $fecha->format('z') + 1;
                             @endphp
-                            <th>{{$diaDelAno}}</th>
+                            <th>{{ $diaDelAno }}</th>
 
                             <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
                             </th>
@@ -500,7 +502,13 @@
                             @endif
 
 
-                            <th>-</th>
+                            <th>
+                                @if ($dato->solicitudAnalisisLinea->analisisLinea->tempUHT)
+                                    {{ $dato->solicitudAnalisisLinea->analisisLinea->tempUHT }}
+                                @else
+                                    -
+                                @endif
+                            </th>
 
                             @if ($dato->solicitudAnalisisLinea)
                                 @php
@@ -639,7 +647,7 @@
 
             <br>
             <div class="justify-end">
-                <p align="right">C.&nbsp;&nbsp;&nbsp;:     Conforme &nbsp;&nbsp;&nbsp;  &nbsp; </p>
+                <p align="right">C.&nbsp;&nbsp;&nbsp;: Conforme &nbsp;&nbsp;&nbsp; &nbsp; </p>
                 <p align="right">N.C.: No Conforme</p>
             </div>
 
@@ -647,28 +655,82 @@
 
         </main>
     </div>
-    <div>
-        @if ($usuariosInvolucrados->isEmpty())
-            <p>No se encontraron usuarios involucrados.</p>
-        @else
-            <div class="signatures">
-                @foreach ($usuariosInvolucrados as $index => $user)
-                    @if ($index % 5 === 0)
-                        <!-- Comienza una nueva fila cada 5 firmas -->
-                        <div class="signature-row">
-                    @endif
-                    <div class="signature">
-                        <p>{{ $user->codigo }}</p>
-                        <p>{{ $user->nombre }} {{ $user->apellido }}</p>
-                    </div>
-                    @if (($index + 1) % 5 === 0 || $index === count($usuariosInvolucrados) - 1)
-                        <!-- Cierra la fila después de 5 firmas o al final de la lista -->
-            </div>
-        @endif
-        @endforeach
+
+
+    <div class="display: flex; border: 1px solid #000;">
+        <div  style=" display: flex; justify-content: flex-end; align-items: center;">
+
+            <style>
+                .capitalize {
+                    text-transform: capitalize;
+                }
+
+                /* Estilo para la tabla con la clase "mi-tabla" */
+                table.mi-tabla {
+                    page-break-inside: avoid;
+                    width: 40%;
+                    border-collapse: collapse;
+                    /* Colapsa los bordes de las celdas */
+                    border: 1px solid #000;
+                    /* Borde externo de la tabla */
+                }
+
+                /* Estilo para las cabeceras de la tabla con la clase "mi-tabla" */
+                table.mi-tabla th {
+                    padding: 8px;
+                    text-align: left;
+                    background-color: #f2f2f2;
+                    /* Color de fondo para las cabeceras */
+                }
+
+                /* Estilo para las celdas del cuerpo de la tabla con la clase "mi-tabla" */
+                table.mi-tabla td {
+                    padding: 4px;
+                    text-align: left;
+                }
+
+                /* Estilo para las celdas de cabecera en la primera fila de la tabla con la clase "mi-tabla" */
+                table.mi-tabla thead th {
+                    border-bottom: 2px solid #000;
+                    /* Borde inferior más grueso para las cabeceras */
+                }
+            </style>
+
+            <!-- Aplica la clase "mi-tabla" solo a la tabla que deseas estilizar -->
+            <table class="mi-tabla ">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($usuariosInvolucrados as $usuariosUnicoss)
+                        <tr>
+                            <td>{{ $usuariosUnicoss->codigo }}</td>
+                            <td class="capitalize">
+                                {{ ucwords(strtolower($usuariosUnicoss->nombre . ' ' . $usuariosUnicoss->apellido)) }}
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+
+                <div class="signature" style="margin-left: 150px; justify-content: center; align-items: center; width: 100%; ">
+                    <p><strong
+                            style=" border-top: 1px solid #000; padding-top: 7px; padding-right: 25px; padding-left: 25px;">
+                            REVISADO </strong>
+                    </p>
+                </div>
+
+        </div>
+
+
     </div>
-    @endif
-    </div>
+
+
+
 
 </body>
 

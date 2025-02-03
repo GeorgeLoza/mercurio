@@ -8,8 +8,6 @@
 
     <title>Control HTST</title>
     <style>
-
-
         @page {
             margin-top: 1cm;
             margin-bottom: 0cm;
@@ -170,7 +168,7 @@
             margin: 5px;
             /* Margen entre las firmas */
             text-align: center;
-            border-top: 1px solid #000;
+            /* border-top: 1px solid #000; */
             /* Borde alrededor de cada firma */
             font-size: 0.6rem;
             margin-bottom: 40px;
@@ -185,10 +183,10 @@
             width: 100%;
             font-weight: normal;
 
-        table-layout: fixed;
-        border-collapse: collapse;
-        border: 1px solid #ddd;
-        font-size: 12px;
+            table-layout: fixed;
+            border-collapse: collapse;
+            border: 1px solid #ddd;
+            font-size: 12px;
 
         }
 
@@ -218,16 +216,20 @@
 
 
         .table-container {
-        width: 100%;
-        table-layout: fixed; /* Para que las columnas tengan el mismo ancho */
-        border-collapse: collapse;
-    }
-    .table-container th, .table-container td {
-        text-align: center; /* Opcional, para centrar el contenido */
-        padding: 3px; /* Opcional, mejora legibilidad al imprimir */
-        white-space: nowrap;
-    }
+            width: 100%;
+            table-layout: fixed;
+            /* Para que las columnas tengan el mismo ancho */
+            border-collapse: collapse;
+        }
 
+        .table-container th,
+        .table-container td {
+            text-align: center;
+            /* Opcional, para centrar el contenido */
+            padding: 3px;
+            /* Opcional, mejora legibilidad al imprimir */
+            white-space: nowrap;
+        }
     </style>
 
 </head>
@@ -243,24 +245,26 @@
                     <th style="width: 25%; font-size: 0.8rem">PLL-REG-035 <br> Versión 002 <br> Página 1 de 1 </th>
                 </tr>
                 <tr>
-                    <td colspan="3" style="text-align: center; padding: 0.6rem;  font-weight:bold;">Control de
+                    <td colspan="3"
+                        style="text-align: center; padding: 0.6rem;  font-weight:bold; text-transform: uppercase">
+                        Control de
                         calidad en proceso - Linea HTST</td>
                 </tr>
             </table>
         </head>
         <footer>
-            SOALPRO SRL - Planta Lácteos - Reporte generado el {{ date('DD/MM/YYYY') }}
+            SOALPRO SRL - Planta Lácteos - Reporte generado el {{ date('d/m/Y') }}
             <div class="page-number"></div>
         </footer>
 
         <fieldset>
-            <legend style="font-weight:bold;">Información General</legend>
+            <legend style="font-weight:bold; text-transform: uppercase">Información General</legend>
             <div class="cont_div">
                 <table class="general">
                     <tr>
                         <td>
                             <p>Fecha de Producción:
-                                {{ \Carbon\Carbon::parse($informacion->tiempo_elaboracion)->isoFormat('DD/MM/YYYY', 0, 'es') }}
+                                {{ \Carbon\Carbon::parse($informacion->tiempo_elaboracion)->isoFormat('DD MMM YYYY', 0, 'es') }}
                             </p>
                             <p>ORP: <span>{{ $informacion->codigo }}</span></p>
                             <p>Producto: {{ $informacion->producto->nombre }}</p>
@@ -269,12 +273,12 @@
 
                             <p>Fecha(s) de Vencimiento:
                                 @if ($informacion->fecha_vencimiento1)
-                                    {{ \Carbon\Carbon::parse($informacion->fecha_vencimiento1)->isoFormat('DD/MM/YYYY', 0, 'es') }}
+                                    {{ \Carbon\Carbon::parse($informacion->fecha_vencimiento1)->isoFormat('DD MMM YYYY', 0, 'es') }}
                                 @endif
 
                                 @if ($informacion->fecha_vencimiento2)
                                     -
-                                    {{ \Carbon\Carbon::parse($informacion->fecha_vencimiento2)->isoFormat('DD/MM/YYYY', 0, 'es') }}
+                                    {{ \Carbon\Carbon::parse($informacion->fecha_vencimiento2)->isoFormat('DD MMM YYYY', 0, 'es') }}
                                 @endif
 
                             </p>
@@ -318,13 +322,12 @@
                 <thead>
                     <tr>
                         <th colspan="
-                        @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
-                            11
+                        @if (str_contains($informacion->producto->nombre, 'PREMEZCLA')) 11
                         @else
-                        15
-                        @endif
+                        15 @endif
 
-                        " style="font-weight:bold;">
+                        "
+                            style="font-weight:bold;">
                             MEZCLA
                         </th>
                     </tr>
@@ -340,18 +343,17 @@
                         <th>Acidez [%]</th>
                         <th>°Brix</th>
                         @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
-
                         @else
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                         @endif
 
 
 
-                        <th>Solicitante</th>
-                        <th>Analista</th>
+                        <th>Sol</th>
+                        <th>Ana</th>
 
                     </tr>
                 </thead>
@@ -361,7 +363,6 @@
                         $contador = 1;
                     @endphp
                     @foreach ($mezclas as $dato)
-
                         <tr>
                             <th>
                                 @foreach ($dato->solicitudAnalisisLinea->estadoPlanta->estadoDetalle as $estado)
@@ -375,7 +376,7 @@
                                 $contador = $contador + 1;
                             @endphp
                             <th>{{ $dato->solicitudAnalisisLinea->estadoPlanta->origen->alias }}</th>
-                            <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('DD/MM/YY', 0, 'es') }}
+                            <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('DD-MM', 0, 'es') }}
                             </th>
 
 
@@ -419,13 +420,12 @@
                                 @endif
 
                                 @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
-
-                        @else
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        @endif
+                                @else
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                @endif
 
 
 
@@ -459,11 +459,10 @@
             <table class="table-container " style="  font-wheight:0">
                 <thead>
                     <tr>
-                        <th colspan="@if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
-                            11
+                        <th colspan="@if (str_contains($informacion->producto->nombre, 'PREMEZCLA')) 11
                         @else
-                        15
-                        @endif" style="font-weight:bold;">
+                        15 @endif"
+                            style="font-weight:bold;">
                             INOCULACION
                         </th>
                     </tr>
@@ -480,19 +479,18 @@
                         <th>°Brix</th>
 
                         @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
-
                         @else
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                         @endif
 
 
 
 
-                        <th>Solicitante</th>
-                        <th>Analista</th>
+                        <th>Sol</th>
+                        <th>Ana</th>
 
                     </tr>
                 </thead>
@@ -502,7 +500,6 @@
                         $contador = 1;
                     @endphp
                     @foreach ($inoculaciones as $dato)
-
                         <tr>
                             <th>
                                 @foreach ($dato->solicitudAnalisisLinea->estadoPlanta->estadoDetalle as $estado)
@@ -517,7 +514,7 @@
                             @endphp
                             <th>{{ $dato->solicitudAnalisisLinea->estadoPlanta->origen->alias }}</th>
 
-                            <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('DD/MM/YY', 0, 'es') }}
+                            <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('DD-MM', 0, 'es') }}
                             </th>
 
                             <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
@@ -559,13 +556,12 @@
                                     <th>-</th>
                                 @endif
                                 @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
-
-                        @else
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        @endif
+                                @else
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                @endif
 
 
 
@@ -600,11 +596,10 @@
             <table class="table-container " style="  font-wheight:0">
                 <thead>
                     <tr>
-                        <th colspan="@if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
-                            11
+                        <th colspan="@if (str_contains($informacion->producto->nombre, 'PREMEZCLA')) 11
                         @else
-                        15
-                        @endif" style="font-weight:bold;">
+                        15 @endif"
+                            style="font-weight:bold;">
                             ANTES DE CORTE
                         </th>
                     </tr>
@@ -621,18 +616,16 @@
                         <th>°Brix</th>
                         @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
                         @else
-                        <th>µ [s]</th>
+                            <th>µ [s]</th>
                         @endif
                         @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
-
                         @else
-                        <th></th>
-                        <th></th>
-                        <th></th>
-
+                            <th></th>
+                            <th></th>
+                            <th></th>
                         @endif
-                        <th>Solicitante</th>
-                        <th>Analista</th>
+                        <th>Sol</th>
+                        <th>Ana</th>
 
                     </tr>
                 </thead>
@@ -657,7 +650,7 @@
                             @endphp
                             <th>{{ $dato->solicitudAnalisisLinea->estadoPlanta->origen->alias }}</th>
 
-                            <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('DD/MM/YY', 0, 'es') }}
+                            <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('DD-MM', 0, 'es') }}
                             </th>
 
                             <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
@@ -700,23 +693,19 @@
                                 @endif
 
                                 @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
-
-
-                        @else
-                        @if ($analisis->viscosidad)
-                        <th>{{ $analisis->viscosidad }}</th>
-                    @else
-                        <th>-</th>
-                    @endif
-                        @endif
-                        @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
-
-                        @else
-                        <th></th>
-                        <th></th>
-                        <th></th>
-
-                        @endif
+                                @else
+                                    @if ($analisis->viscosidad)
+                                        <th>{{ $analisis->viscosidad }}</th>
+                                    @else
+                                        <th>-</th>
+                                    @endif
+                                @endif
+                                @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
+                                @else
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                @endif
 
 
 
@@ -753,12 +742,11 @@
                 <thead>
                     <tr>
                         <th colspan="
-                        @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
-                            11
+                        @if (str_contains($informacion->producto->nombre, 'PREMEZCLA')) 11
                         @else
-                        15
-                        @endif
-                        " style="font-weight:bold;">
+                        15 @endif
+                        "
+                            style="font-weight:bold;">
                             DESPUES DE CORTE
                         </th>
                     </tr>
@@ -776,16 +764,15 @@
 
 
                         @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
-
                         @else
-                        <th>µ [s]</th>
-                        <th>Color</th>
-                        <th>Olor</th>
-                        <th>Sabor</th>
+                            <th>µ [s]</th>
+                            <th>Color</th>
+                            <th>Olor</th>
+                            <th>Sabor</th>
                         @endif
 
-                        <th>Solicitante</th>
-                        <th>Analista</th>
+                        <th>Sol</th>
+                        <th>Ana</th>
 
                     </tr>
                 </thead>
@@ -809,7 +796,7 @@
                                 $contador = $contador + 1;
                             @endphp
                             <th>{{ $dato->solicitudAnalisisLinea->estadoPlanta->origen->alias }}</th>
-                            <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('DD/MM/YY', 0, 'es') }}
+                            <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('DD-MM', 0, 'es') }}
                             </th>
 
 
@@ -859,30 +846,28 @@
 
 
                                 @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
-
                                 @else
-                                @if ($analisis->color)
-                                @if ($analisis->color == true)
-                                    <th>C.</th>
-                                @else
-                                    <th>N.C.</th>
-                                @endif
-                            @endif
-                            @if ($analisis->olor)
-                                @if ($analisis->olor == true)
-                                    <th>C.</th>
-                                @else
-                                    <th>N.C.</th>
-                                @endif
-                            @endif
-                            @if ($analisis->sabor)
-                                @if ($analisis->sabor == true)
-                                    <th>C.</th>
-                                @else
-                                    <th>N.C.</th>
-                                @endif
-                            @endif
-
+                                    @if ($analisis->color)
+                                        @if ($analisis->color == true)
+                                            <th>C.</th>
+                                        @else
+                                            <th>N.C.</th>
+                                        @endif
+                                    @endif
+                                    @if ($analisis->olor)
+                                        @if ($analisis->olor == true)
+                                            <th>C.</th>
+                                        @else
+                                            <th>N.C.</th>
+                                        @endif
+                                    @endif
+                                    @if ($analisis->sabor)
+                                        @if ($analisis->sabor == true)
+                                            <th>C.</th>
+                                        @else
+                                            <th>N.C.</th>
+                                        @endif
+                                    @endif
                                 @endif
 
 
@@ -922,162 +907,165 @@
 
             @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
             @else
-            <table class="table-container">
+                <table class="table-container">
 
-                <thead>
-                    <tr>
-                        <th colspan="15" style="font-weight:bold;">
-                            ENVASADO
-                        </th>
-                    </tr>
-
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>Cabezal </th>
-                        <th>Lote</th>
-                        <th>Hora S.</th>
-                        <th>Hora R.</th>
-
-                        <th>Temp [°C]</th>
-                        <th>pH</th>
-                        <th>Acidez [%]</th>
-                        <th>°Brix</th>
-                        <th>µ [s]</th>
-                        <th>Color</th>
-                        <th>Olor</th>
-                        <th>Sabor</th>
-                        <th>Peso [g]</th>
-
-
-
-                        <th>Sol.</th>
-                        <th>Ana.</th>
-
-                    </tr>
-                    @foreach ($envasados as $dato)
-
+                    <thead>
                         <tr>
-
-                            @php
-                                $contador = $contador + 1;
-                            @endphp
-
-
-@if ($dato->solicitudAnalisisLinea->estadoPlanta->origen->alias == 'EMBOTELLADORA')
-
-<th>EMB</th>
-@else
-<th>{{ $dato->solicitudAnalisisLinea->estadoPlanta->origen->alias }}</th>
-@endif
-                            @php
-
-
-
-                                $fecha = new DateTime($dato->solicitudAnalisisLinea->tiempo);
-                                $diaDelAno = $fecha->format('z') + 1;
-                            @endphp
-                            <th>{{$diaDelAno}}</th>
-
-                            <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
+                            <th colspan="15" style="font-weight:bold;">
+                                ENVASADO
                             </th>
+                        </tr>
 
-                            @if ($dato->solicitudAnalisisLinea->analisisLinea->tiempo)
-                                <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->analisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
-                                </th>
-                            @else
-                                <th>-</th>
-                            @endif
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Cabezal </th>
+                            <th>Peso [g]</th>
+                            <th>Lote</th>
+                            <th>Hora S.</th>
+                            <th>Hora R.</th>
+
+                            <th>Temp [°C]</th>
+                            <th>pH</th>
+                            <th>Acidez [%]</th>
+                            <th>°Brix</th>
+                            <th>µ [s]</th>
+                            <th>Color</th>
+                            <th>Olor</th>
+                            <th>Sabor</th>
 
 
 
 
-                            @if ($dato->solicitudAnalisisLinea)
+                            <th>Sol</th>
+                            <th>Ana</th>
+
+                        </tr>
+                        @foreach ($envasados as $dato)
+                            <tr>
+
+                                @php
+                                    $contador = $contador + 1;
+                                @endphp
+
+
+                                @if ($dato->solicitudAnalisisLinea->estadoPlanta->origen->alias == 'EMBOTELLADORA')
+                                    <th>EMB</th>
+                                @else
+                                    <th>{{ $dato->solicitudAnalisisLinea->estadoPlanta->origen->alias }}</th>
+                                @endif
+
+                                @if ($dato->solicitudAnalisisLinea)
                                 @php
                                     $analisis = $dato->solicitudAnalisisLinea->analisisLinea;
                                 @endphp
-                                @if ($analisis->temperatura)
-                                    <th>{{ $analisis->temperatura }}</th>
-                                @else
-                                    <th>-</th>
-                                @endif
-
-                                @if ($analisis->ph)
-                                    <th>{{ $analisis->ph }}</th>
-                                @else
-                                    <th>-</th>
-                                @endif
-
-                                @if ($analisis->acidez)
-                                    <th>{{ $analisis->acidez }}</th>
-                                @else
-                                    <th>-</th>
-                                @endif
-
-                                @if ($analisis->brix)
-                                    <th>{{ $analisis->brix }}</th>
-                                @else
-                                    <th>-</th>
-                                @endif
-
-                                @if ($analisis->viscosidad)
-                                    <th>{{ $analisis->viscosidad }}</th>
-                                @else
-                                    <th>-</th>
-                                @endif
-
-                                @if ($analisis->color)
-                                    @if ($analisis->color == true)
-                                        <th>C.</th>
-                                    @else
-                                        <th>N.C.</th>
-                                    @endif
-                                @endif
-                                @if ($analisis->olor)
-                                    @if ($analisis->olor == true)
-                                        <th>C.</th>
-                                    @else
-                                        <th>N.C.</th>
-                                    @endif
-                                @endif
-                                @if ($analisis->sabor)
-                                    @if ($analisis->sabor == true)
-                                        <th>C.</th>
-                                    @else
-                                        <th>N.C.</th>
-                                    @endif
                                 @endif
                                 {{-- peso --}}
                                 @if ($analisis->peso)
-                                    <th>{{ $analisis->peso }}</th>
+                                <th>{{ $analisis->peso /1}}</th>
+                            @else
+                                <th>-</th>
+                            @endif
+                                @php
+
+                                    $fecha = new DateTime($dato->solicitudAnalisisLinea->tiempo);
+                                    $diaDelAno = $fecha->format('z') + 1;
+                                @endphp
+                                <th>{{ $diaDelAno }}</th>
+
+                                <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
+                                </th>
+
+                                @if ($dato->solicitudAnalisisLinea->analisisLinea->tiempo)
+                                    <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->analisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
+                                    </th>
                                 @else
                                     <th>-</th>
                                 @endif
+
+
+
+
+                                @if ($dato->solicitudAnalisisLinea)
+                                    @php
+                                        $analisis = $dato->solicitudAnalisisLinea->analisisLinea;
+                                    @endphp
+                                    @if ($analisis->temperatura)
+                                        <th>{{ $analisis->temperatura }}</th>
+                                    @else
+                                        <th>-</th>
+                                    @endif
+
+                                    @if ($analisis->ph)
+                                        <th>{{ $analisis->ph }}</th>
+                                    @else
+                                        <th>-</th>
+                                    @endif
+
+                                    @if ($analisis->acidez)
+                                        <th>{{ $analisis->acidez }}</th>
+                                    @else
+                                        <th>-</th>
+                                    @endif
+
+                                    @if ($analisis->brix)
+                                        <th>{{ $analisis->brix }}</th>
+                                    @else
+                                        <th>-</th>
+                                    @endif
+
+                                    @if ($analisis->viscosidad)
+                                        <th>{{ $analisis->viscosidad }}</th>
+                                    @else
+                                        <th>-</th>
+                                    @endif
+
+                                    @if ($analisis->color)
+                                        @if ($analisis->color == true)
+                                            <th>C.</th>
+                                        @else
+                                            <th>N.C.</th>
+                                        @endif
+                                    @endif
+                                    @if ($analisis->olor)
+                                        @if ($analisis->olor == true)
+                                            <th>C.</th>
+                                        @else
+                                            <th>N.C.</th>
+                                        @endif
+                                    @endif
+                                    @if ($analisis->sabor)
+                                        @if ($analisis->sabor == true)
+                                            <th>C.</th>
+                                        @else
+                                            <th>N.C.</th>
+                                        @endif
+                                    @endif
+
 
 
 
 
                                     @if ($dato->solicitudAnalisisLinea->user != null)
-                                    <th>{{ $dato->solicitudAnalisisLinea->user->codigo }}</th>
+                                        <th>{{ $dato->solicitudAnalisisLinea->user->codigo }}</th>
                                     @endif
 
 
 
 
                                     @if ($dato->solicitudAnalisisLinea->analisisLinea->user != null)
-                                <th>  {{ $dato->solicitudAnalisisLinea->analisisLinea->user->codigo }}</th>
+                                        <th> {{ $dato->solicitudAnalisisLinea->analisisLinea->user->codigo }}</th>
                                     @endif
-
-                            @endif
-
+                                @endif
 
 
-                        </tr>
-                    @endforeach
 
-                </tbody>
+                            </tr>
+                        @endforeach
 
-            </table>
+                    </tbody>
+
+                </table>
 
 
 
@@ -1141,7 +1129,7 @@
 
             <br>
             <div class="justify-end">
-                <p align="right">C.&nbsp;&nbsp;&nbsp;:     Conforme &nbsp;&nbsp;&nbsp;  &nbsp; </p>
+                <p align="right">C.&nbsp;&nbsp;&nbsp;: Conforme &nbsp;&nbsp;&nbsp; &nbsp; </p>
                 <p align="right">N.C.: No Conforme</p>
             </div>
 
@@ -1149,27 +1137,77 @@
 
         </main>
     </div>
-    <div>
-        @if ($usuariosInvolucrados->isEmpty())
-            <p>No se encontraron usuarios involucrados.</p>
-        @else
-            <div class="signatures">
-                @foreach ($usuariosInvolucrados as $index => $user)
-                    @if ($index % 5 === 0)
-                        <!-- Comienza una nueva fila cada 5 firmas -->
-                        <div class="signature-row">
-                    @endif
-                    <div class="signature">
-                        <p>{{ $user->codigo }}</p>
-                        <p>{{ $user->nombre }} {{ $user->apellido }}</p>
-                    </div>
-                    @if (($index + 1) % 5 === 0 || $index === count($usuariosInvolucrados) - 1)
-                        <!-- Cierra la fila después de 5 firmas o al final de la lista -->
-            </div>
-        @endif
-        @endforeach
-    </div>
-    @endif
+
+    <div class="display: flex; border: 1px solid #000;">
+        <div  style=" display: flex; justify-content: flex-end; align-items: center;">
+
+            <style>
+                .capitalize {
+                    text-transform: capitalize;
+                }
+
+                /* Estilo para la tabla con la clase "mi-tabla" */
+                table.mi-tabla {
+                    page-break-inside: avoid;
+                    width: 40%;
+                    border-collapse: collapse;
+                    /* Colapsa los bordes de las celdas */
+                    border: 1px solid #000;
+                    /* Borde externo de la tabla */
+                }
+
+                /* Estilo para las cabeceras de la tabla con la clase "mi-tabla" */
+                table.mi-tabla th {
+                    padding: 8px;
+                    text-align: left;
+                    background-color: #f2f2f2;
+                    /* Color de fondo para las cabeceras */
+                }
+
+                /* Estilo para las celdas del cuerpo de la tabla con la clase "mi-tabla" */
+                table.mi-tabla td {
+                    padding: 4px;
+                    text-align: left;
+                }
+
+                /* Estilo para las celdas de cabecera en la primera fila de la tabla con la clase "mi-tabla" */
+                table.mi-tabla thead th {
+                    border-bottom: 2px solid #000;
+                    /* Borde inferior más grueso para las cabeceras */
+                }
+            </style>
+
+            <!-- Aplica la clase "mi-tabla" solo a la tabla que deseas estilizar -->
+            <table class="mi-tabla ">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($usuariosInvolucrados as $usuariosUnicoss)
+                        <tr>
+                            <td>{{ $usuariosUnicoss->codigo }}</td>
+                            <td class="capitalize">
+                                {{ ucwords(strtolower($usuariosUnicoss->nombre . ' ' . $usuariosUnicoss->apellido)) }}
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+
+                <div class="signature" style="margin-left: 150px; justify-content: center; align-items: center; width: 100%; ">
+                    <p><strong
+                            style=" border-top: 1px solid #000; padding-top: 7px; padding-right: 25px; padding-left: 25px;">
+                            REVISADO </strong>
+                    </p>
+                </div>
+
+        </div>
+
+
     </div>
 
 </body>

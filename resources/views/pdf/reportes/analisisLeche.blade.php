@@ -169,7 +169,7 @@
             margin: 5px;
             /* Margen entre las firmas */
             text-align: center;
-            border-top: 1px solid #000;
+
             /* Borde alrededor de cada firma */
             font-size: 0.6rem;
             margin-bottom: 40px;
@@ -225,7 +225,7 @@
                     <th style="width: 25%; font-size: 0.8rem">PLL-REG-044 <br> Versión 004 <br> Página 1 de 1 </th>
                 </tr>
                 <tr>
-                    <td colspan="3" style="text-align: center; padding: 0.6rem;  font-weight:bold;">RECEPCIÓN DE
+                    <td colspan="3" style="text-align: center; padding: 0.6rem;  font-weight:bold;">ANÁLISIS DE
                         LECHES</td>
                 </tr>
             </table>
@@ -257,11 +257,11 @@
 
                     <tr>
                         <th>Hora</th>
-                        <th>Subruta</th>
+                        <th>Ruta</th>
                         <th>
                             <p>Temperatura</p>
                             <p>[°C]</p> </th>
-                        <th>pH</th>
+                        <th style="padding: 10px">pH</th>
                         <th>
                             <p>Acidez</p>
                             <p>[%]</p> </th>
@@ -284,17 +284,16 @@
 
 
                         <th>
-                            <p>Tk</p>
+                            <p>Tc</p>
                             <p>[°C]</p></th>
                         <th>
-                            <p>% Agua </p>
+                            <p>Por. Agua </p>
                             <p> [%]</p></th>
 
+                            <th><p>TRAM </p><p>lapso</p></th>
                             <th>Observaciones</th>
                             <th><p>RAM</p><p>[UFC/ml]</p></th>
-                            <th><p>TRAM </p><p>inicio</p></th>
-                            <th><p>TRAM </p><p>fin</p></th>
-                            <th><p>TRAM </p><p>lapso</p></th>
+
 
                         <th>Solicitante</th>
                         <th><p>Usuario</p>FQ </th>
@@ -364,30 +363,21 @@
                             @else
                                 <th>-</th>
                             @endif
-                            @if ($variables->recuento)
 
-                                <th>{{ $variables->recuento }}</th>
-                            @else
-                                <th>-</th>
-                            @endif
-                            @if ($variables->tram_inicio)
 
-                                <th>{{ \Carbon\Carbon::parse($variables->tram_inicio)->isoFormat('HH:mm  ') }}</th>
-                            @else
-                                <th>-</th>
-                            @endif
-                            @if ($variables->tram_fin)
-
-                                <th>{{ \Carbon\Carbon::parse($variables->tram_fin)->isoFormat('HH:mm  ') }}</th>
-                            @else
-                                <th>-</th>
-                            @endif
                             @if ($variables->tram_lapso)
 
                                 <th>{{ \Carbon\Carbon::parse($variables->tram_lapso)->isoFormat('HH:mm  ') }}</th>
                             @else
                                 <th>-</th>
                             @endif
+                            @if ($variables->recuento)
+
+                                <th>{{ $variables->recuento }}</th>
+                            @else
+                                <th>-</th>
+                            @endif
+
 
                             @if ($variables->recepcion_leche)
                                 <th>{{ $variables->recepcion_leche->user->codigo }}</th>
@@ -439,27 +429,76 @@
 
         </main>
     </div>
-    <div>
-        @if ($usuariosInvolucrados->isEmpty())
-            <p>No se encontraron usuarios involucrados.</p>
-        @else
-            <div class="signatures">
-                @foreach ($usuariosInvolucrados as $index => $user)
-                    @if ($index % 5 === 0)
-                        <!-- Comienza una nueva fila cada 5 firmas -->
-                        <div class="signature-row">
-                    @endif
-                    <div class="signature">
-                        <p>{{ $user->codigo }}</p>
-                        <p>{{ $user->nombre }} {{ $user->apellido }}</p>
-                    </div>
-                    @if (($index + 1) % 5 === 0 || $index === count($usuariosInvolucrados) - 1)
-                        <!-- Cierra la fila después de 5 firmas o al final de la lista -->
-            </div>
-        @endif
-        @endforeach
-    </div>
-    @endif
+    <div class="display: flex; border: 1px solid #000;">
+        <div  style=" display: flex; justify-content: flex-end; align-items: center;">
+
+            <style>
+                .capitalize {
+                    text-transform: capitalize;
+                }
+
+                /* Estilo para la tabla con la clase "mi-tabla" */
+                table.mi-tabla {
+                    page-break-inside: avoid;
+                    width: 40%;
+                    border-collapse: collapse;
+                    /* Colapsa los bordes de las celdas */
+                    border: 1px solid #000;
+                    /* Borde externo de la tabla */
+                }
+
+                /* Estilo para las cabeceras de la tabla con la clase "mi-tabla" */
+                table.mi-tabla th {
+                    padding: 8px;
+                    text-align: left;
+                    background-color: #f2f2f2;
+                    /* Color de fondo para las cabeceras */
+                }
+
+                /* Estilo para las celdas del cuerpo de la tabla con la clase "mi-tabla" */
+                table.mi-tabla td {
+                    padding: 4px;
+                    text-align: left;
+                }
+
+                /* Estilo para las celdas de cabecera en la primera fila de la tabla con la clase "mi-tabla" */
+                table.mi-tabla thead th {
+                    border-bottom: 2px solid #000;
+                    /* Borde inferior más grueso para las cabeceras */
+                }
+            </style>
+
+            <!-- Aplica la clase "mi-tabla" solo a la tabla que deseas estilizar -->
+            <table class="mi-tabla ">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($usuariosInvolucrados as $usuariosUnicoss)
+                        <tr>
+                            <td>{{ $usuariosUnicoss->codigo }}</td>
+                            <td class="capitalize">
+                                {{ ucwords(strtolower($usuariosUnicoss->nombre . ' ' . $usuariosUnicoss->apellido)) }}
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+
+                <div class="signature" style="margin-left: 150px; justify-content: center; align-items: center; width: 100%; ">
+                    <p><strong
+                            style=" border-top: 1px solid #000; padding-top: 7px; padding-right: 25px; padding-left: 25px;">
+                            REVISADO </strong>
+                    </p>
+                </div>
+
+        </div>
+
+
     </div>
 
 </body>
