@@ -4,6 +4,8 @@
             <tr class="text-center">
                 <th scope="col" class="px-2 py-1 sticky top-0 bg-white dark:bg-gray-700">#</th>
                 <th scope="col" class="px-2 py-1 sticky top-0 bg-white dark:bg-gray-700">Fecha</th>
+                <th scope="col" class="px-2 py-1 sticky top-0 bg-white dark:bg-gray-700">Planta</th>
+
                 <th scope="col" class="px-2 py-1 sticky top-0 bg-white dark:bg-gray-700">Código</th>
                 <th scope="col" class="px-2 py-1 sticky top-0 bg-white dark:bg-gray-700">Estado</th>
                 <th scope="col" class="px-2 py-1 sticky top-0 bg-white dark:bg-gray-700">Acciones</th>
@@ -25,6 +27,7 @@
                         {{ $loop->iteration }}
                     </td>
                     <td>{{ \Carbon\Carbon::parse($solicitud->tiempo)->isoFormat('DD-MM-YY HH:mm') }}</td>
+                    <td>{{ $solicitud->user->planta->nombre}}</td>
                     <td>{{ $solicitud->codigo }}</td>
                     <td>
                         @if ($solicitud->estado == 'Pendiente')

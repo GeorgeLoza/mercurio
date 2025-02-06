@@ -31,7 +31,7 @@ class DetalleSolicitudPlanta extends Component
     public function mount()
     {
         $this->productos = ProductosPlantas::where('planta_id', auth()->user()->planta->id)->get(); // Asthis->egúrate de cargar los productos disponibles
-       
+
     }
     public function render()
     {
@@ -198,8 +198,8 @@ class DetalleSolicitudPlanta extends Component
                     'estado' => "Pendiente"
                 ]);
             }
-            
-            
+
+
         } catch (\Throwable $th) {
             dd($th);
         }
@@ -217,7 +217,7 @@ class DetalleSolicitudPlanta extends Component
                 ->get();
         } else {
             // Si no hay texto, mostramos todos los productos
-            $this->productos = ProductosPlantas::all();
+            $this->productos = ProductosPlantas::where('planta_id', auth()->user()->planta->id)->get();
         }
     }
 }
