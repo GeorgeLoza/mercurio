@@ -308,7 +308,7 @@
                                     class="px-2 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                                     nowrap>{{ $micro->detalleSolicitudPlanta->subcodigo }}</td>
 
-                                <td class="px-2 py-1" nowrap>
+                                <td class="px-2 py-1 " >
                                     @if ($micro->detalleSolicitudPlanta->productosPlanta)
                                         {{ $micro->detalleSolicitudPlanta->productosPlanta->nombre }}
                                     @else
@@ -325,55 +325,39 @@
                                         {{ $micro->detalleSolicitudPlanta->user->planta->nombre }}
                                     </td>
                                     <td class="px-2 py-1">
-                                        @if ($micro->aer_mes >= 1000000)
-                                            MNPC
-                                        @endif
-                                        @if ($micro->aer_mes < 1000000 && $micro->aer_mes >= 1)
-                                          <p>
-                                              {{ $micro->aer_mes < 1
-                                                 ? $micro->aer_mes * 10 ** (strlen(floor($micro->aer_mes)) - 1)
-                                                 : $micro->aer_mes / 10 ** (strlen(floor($micro->aer_mes)) - 1) }}
-                                             x 10<sup>{{ strlen(floor($micro->aer_mes)) - 1 }}</sup>
-                                            </p>
-                                        @endif
-
-                                        @if ($micro->aer_mes == null && $micro->aer_mes != 0)
-                                           <p>
-                                               --
-                                            </p>
-                                        @endif
-                                        @if ($micro->aer_mes == 0)
-                                        <p>
-                                        < 1 x 10<sup>1</sup>
-                                    </p>
-                                        @endif
-
-                                        @if ($micro->aer_mes2 !== null)
-                                            @if ($micro->aer_mes2 >= 1000000)
+                                        <p class="p-0">
+                                            @if ($micro->aer_mes >= 1000000)
                                                 MNPC
+                                            @elseif ($micro->aer_mes < 1000000 && $micro->aer_mes >= 1)
+                                                {{ $micro->aer_mes < 1
+                                                    ? $micro->aer_mes * 10 ** (strlen(floor($micro->aer_mes)) - 1)
+                                                    : $micro->aer_mes / 10 ** (strlen(floor($micro->aer_mes)) - 1) }}
+                                                x 10<sup>{{ strlen(floor($micro->aer_mes)) - 1 }}</sup>
+                                            @elseif ($micro->aer_mes === 0)
+                                                < 1 x 10<sup>1</sup>
+                                                @elseif (is_null($micro->aer_mes))
+                                                    --
                                             @endif
-                                            @if ($micro->aer_mes2 < 1000000 && $micro->aer_mes2 >= 1)
-                                                <p>
 
+                                        </p>
+                                        @if ($micro->aer_mes2 === null)
+                                        @else
+                                            <p class="p-0">
+
+                                                @if ($micro->aer_mes2 >= 1000000)
+                                                    MNPC
+                                                @elseif ($micro->aer_mes2 < 1000000 && $micro->aer_mes2 >= 1)
                                                     {{ $micro->aer_mes2 < 1
                                                         ? $micro->aer_mes2 * 10 ** (strlen(floor($micro->aer_mes2)) - 1)
                                                         : $micro->aer_mes2 / 10 ** (strlen(floor($micro->aer_mes2)) - 1) }}
-                                                    x 10<sup>{{ strlen(floor($micro->aer_mes)) - 1 }}</sup>
-                                                </p>
-                                            @endif
-
-                                            @if ($micro->aer_mes2 == null && $micro->aer_mes2 != 0)
-                                               <p>
-                                                   --
-                                                </p>
-                                            @endif
-                                            @if ($micro->aer_mes2 == 0)
-                                                <p>
+                                                    x 10<sup>{{ strlen(floor($micro->aer_mes2)) - 1 }}</sup>
+                                                @elseif ($micro->aer_mes2 === 0)
                                                     < 1 x 10<sup>1</sup>
-                                                    </p>
-                                            @endif
+                                                    @elseif (is_null($micro->aer_mes2))
+                                                        --
+                                                @endif
+                                            </p>
                                         @endif
-
                                     </td>
                                     <td class="px-2 py-1 ">
                                         @if ($micro->col_tot >= 1000000)
@@ -421,48 +405,38 @@
 
                                     </td>
                                     <td class="px-2 py-1 ">
+
                                         @if ($micro->moh_lev >= 1000000)
                                             MNPC
-                                        @endif
-                                        @if ($micro->moh_lev < 1000000 && $micro->moh_lev >= 1)
-                                        <p>
-
+                                        @elseif ($micro->moh_lev < 1000000 && $micro->moh_lev >= 1)
                                             {{ $micro->moh_lev < 1
                                                 ? $micro->moh_lev * 10 ** (strlen(floor($micro->moh_lev)) - 1)
                                                 : $micro->moh_lev / 10 ** (strlen(floor($micro->moh_lev)) - 1) }}
                                             x 10<sup>{{ strlen(floor($micro->moh_lev)) - 1 }}</sup>
-                                        </p>
-                                        @endif
-
-                                        @if ($micro->moh_lev == null && $micro->moh_lev != 0)
-                                            <p>
+                                        @elseif ($micro->moh_lev === 0)
+                                            < 1 x 10<sup>1</sup>
+                                            @elseif (is_null($micro->moh_lev))
                                                 --
-                                                </p>
                                         @endif
-                                        @if ($micro->moh_lev == 0)
-                                            <p>
-                                                < 1 x 10<sup>1</sup>
-                                                </p>
-                                        @endif
+                                    </p>
+                                    @if ($micro->moh_lev2 === null)
+                                    @else
+                                        <p class="p-0">
 
-                                        @if ($micro->moh_lev2 !== null)
                                             @if ($micro->moh_lev2 >= 1000000)
                                                 MNPC
-                                            @endif
-                                            @if ($micro->moh_lev2 < 1000000 && $micro->moh_lev2 >= 1)
+                                            @elseif ($micro->moh_lev2 < 1000000 && $micro->moh_lev2 >= 1)
                                                 {{ $micro->moh_lev2 < 1
                                                     ? $micro->moh_lev2 * 10 ** (strlen(floor($micro->moh_lev2)) - 1)
                                                     : $micro->moh_lev2 / 10 ** (strlen(floor($micro->moh_lev2)) - 1) }}
-                                                x 10<sup>{{ strlen(floor($micro->moh_lev)) - 1 }}</sup>
-                                            @endif
-
-                                            @if ($micro->moh_lev2 == null && $micro->moh_lev2 != 0)
-                                                --
-                                            @endif
-                                            @if ($micro->moh_lev2 == 0)
+                                                x 10<sup>{{ strlen(floor($micro->moh_lev2)) - 1 }}</sup>
+                                            @elseif ($micro->moh_lev2 === 0)
                                                 < 1 x 10<sup>1</sup>
+                                                @elseif (is_null($micro->moh_lev2))
+                                                    --
                                             @endif
-                                        @endif
+                                        </p>
+                                    @endif
                                     </td>
                                 @endif
                                 <td class="px-2 py-1" nowrap>

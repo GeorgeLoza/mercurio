@@ -16,10 +16,10 @@
         }
 
         body {
-
+            margin-top: 105px;
             margin-left: 0cm;
             margin-right: 0cm;
-            margin-bottom: 1cm;
+            margin-bottom: 50px;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             font-size: 9px;
             color: #353535;
@@ -220,29 +220,63 @@
         white-space: nowrap;
     }
     </style>
+<style>
+    .capitalize {
+        text-transform: capitalize;
+    }
 
+    /* Estilo para la tabla con la clase "mi-tabla" */
+    table.mi-tabla {
+        page-break-inside: avoid;
+        width: 40%;
+        border-collapse: collapse;
+        /* Colapsa los bordes de las celdas */
+        border: 1px solid #000;
+        /* Borde externo de la tabla */
+    }
+
+    /* Estilo para las cabeceras de la tabla con la clase "mi-tabla" */
+    table.mi-tabla th {
+        padding: 8px;
+        text-align: left;
+        background-color: #f2f2f2;
+        /* Color de fondo para las cabeceras */
+    }
+
+    /* Estilo para las celdas del cuerpo de la tabla con la clase "mi-tabla" */
+    table.mi-tabla td {
+        padding: 4px;
+        text-align: left;
+    }
+
+    /* Estilo para las celdas de cabecera en la primera fila de la tabla con la clase "mi-tabla" */
+    table.mi-tabla thead th {
+        border-bottom: 2px solid #000;
+        /* Borde inferior más grueso para las cabeceras */
+    }
+</style>
 </head>
 
+<header>
+    <table class="head" style="border: 1px solid black;font-size: 0.8rem; margin-bottom: 0.6rem">
+        <tr>
+            <th class="cel-img" style="width: 25%;"><img src="img/logo/logocompleto.png" alt=""></th>
+            <th style="width: 50%;">REGISTRO</th>
+            <th style="width: 25%; font-size: 0.8rem">PLL-REG-035 <br> Versión 002 <br> <div class="page-number"></div> </th>
+        </tr>
+        <tr>
+            <td colspan="3" style="text-align: center; padding: 0.6rem;  font-weight:bold; text-transform: uppercase">Control de
+                calidad en proceso - Linea HTST</td>
+        </tr>
+    </table>
+</header>
+<footer>
+    SOALPRO SRL - Planta Lácteos - Reporte generado el {{ date('d/m/Y') }}
+    <div class="page-number"></div>
+</footer>
 <body>
     <div class="page">
 
-        <head>
-            <table class="head" style="border: 1px solid black;font-size: 0.8rem; margin-bottom: 0.6rem">
-                <tr>
-                    <th class="cel-img" style="width: 25%;"><img src="img/logo/logocompleto.png" alt=""></th>
-                    <th style="width: 50%;">REGISTRO</th>
-                    <th style="width: 25%; font-size: 0.8rem">PLL-REG-035 <br> Versión 002 <br> Página 1 de 1 </th>
-                </tr>
-                <tr>
-                    <td colspan="3" style="text-align: center; padding: 0.6rem;  font-weight:bold; text-transform: uppercase">Control de
-                        calidad en proceso - Linea HTST</td>
-                </tr>
-            </table>
-        </head>
-        <footer>
-            SOALPRO SRL - Planta Lácteos - Reporte generado el {{ date('d/m/Y') }}
-            <div class="page-number"></div>
-        </footer>
 
         <fieldset>
             <legend style="font-weight:bold; text-transform: uppercase">Información General</legend>
@@ -812,44 +846,10 @@
         </main>
     </div>
 
-    <div class="display: flex; border: 1px solid #000;">
-        <div  style=" display: flex; justify-content: flex-end; align-items: center;">
+    <div >
+        <div style=" display: flex; justify-content: flex-end;  page-break-inside: avoid; ">
 
-            <style>
-                .capitalize {
-                    text-transform: capitalize;
-                }
 
-                /* Estilo para la tabla con la clase "mi-tabla" */
-                table.mi-tabla {
-                    page-break-inside: avoid;
-                    width: 40%;
-                    border-collapse: collapse;
-                    /* Colapsa los bordes de las celdas */
-                    border: 1px solid #000;
-                    /* Borde externo de la tabla */
-                }
-
-                /* Estilo para las cabeceras de la tabla con la clase "mi-tabla" */
-                table.mi-tabla th {
-                    padding: 8px;
-                    text-align: left;
-                    background-color: #f2f2f2;
-                    /* Color de fondo para las cabeceras */
-                }
-
-                /* Estilo para las celdas del cuerpo de la tabla con la clase "mi-tabla" */
-                table.mi-tabla td {
-                    padding: 4px;
-                    text-align: left;
-                }
-
-                /* Estilo para las celdas de cabecera en la primera fila de la tabla con la clase "mi-tabla" */
-                table.mi-tabla thead th {
-                    border-bottom: 2px solid #000;
-                    /* Borde inferior más grueso para las cabeceras */
-                }
-            </style>
 
             <!-- Aplica la clase "mi-tabla" solo a la tabla que deseas estilizar -->
             <table class="mi-tabla ">
@@ -872,12 +872,13 @@
             </table>
 
 
-                <div class="signature" style="margin-left: 150px; justify-content: center; align-items: center; width: 100%; ">
-                    <p><strong
-                            style=" border-top: 1px solid #000; padding-top: 7px; padding-right: 25px; padding-left: 25px;">
-                            REVISADO </strong>
-                    </p>
+
+            <div style="padding-left: 500px; ">
+                <strong
+                        style=" border-top: 1px solid #000; padding-top: 7px; padding-right: 25px; padding-left: 25px; ">
+                        REVISADO </strong>
                 </div>
+
 
         </div>
 

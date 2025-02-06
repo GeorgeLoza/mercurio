@@ -14,7 +14,7 @@
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg  overflow-y-auto h-[28rem] overflow-hidden">
 
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
-            <thead class="text-xs text-gray-700 capitalize bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 capitalize bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-center">
                 <tr>
                     <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('tiempo')" nowrap>
@@ -86,6 +86,9 @@
                     <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700">
                         RAM [UFC/ml]
                     </th>
+                    <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700">
+                        Antibioticos [+/-]
+                    </th>
                     <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('tram_inicio')" nowrap>
                         TRAM início
@@ -120,7 +123,7 @@
                     </th>
                 </tr>
             </thead>
-            <tbody class="">
+            <tbody class="text-center">
                 @if ($filtro == true)
                     <!-- fila de filtros -->
                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
@@ -358,21 +361,29 @@
                             @endif
 
                         </td>
+                        <td class="px-1 py-2 text-center" nowrap>
+                            @if ($registro->antibioticos ==1)
+                                +
+                                @else
+                                -
+                            @endif
 
-                        <td class="px-1 py-2" nowrap>
+                        </td>
+
+                        <td class="px-1 py-2 text-center" nowrap>
                             @if ($registro->tram_inicio )
                             {{ \Carbon\Carbon::parse($registro->tram_inicio)->isoFormat('HH:mm  ') }}
                             @endif
 
                         </td>
-                        <td class="px-1 py-2" nowrap>
+                        <td class="px-1 py-2 text-center" nowrap>
                             @if ($registro->tram_fin )
 
                             {{ \Carbon\Carbon::parse($registro->tram_fin)->isoFormat('HH:mm  ') }}
                             @endif
 
                         </td>
-                        <td class="px-1 py-2 @if ($registro->tram_lapso && \Carbon\Carbon::parse('1970-01-01 ' . $registro->tram_lapso)->diffInMinutes(\Carbon\Carbon::parse('1970-01-01 00:00')) < 60) text-red-500 @else text-green-500 @endif" nowrap>
+                        <td class="px-1 py-2 text-center @if ($registro->tram_lapso && \Carbon\Carbon::parse('1970-01-01 ' . $registro->tram_lapso)->diffInMinutes(\Carbon\Carbon::parse('1970-01-01 00:00')) < 60) text-red-500 @else text-green-500 @endif" nowrap>
                             @if ($registro->tram_lapso)
                                 {{ \Carbon\Carbon::parse('1970-01-01 ' . $registro->tram_lapso)->isoFormat('HH:mm') }}
                             @endif

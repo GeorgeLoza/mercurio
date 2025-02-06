@@ -31,6 +31,7 @@ class CalidadLeche extends Model
         'recuento',
         'tiempo_sembrado',
         'tiempo_lectura',
+        'antibioricos',
 
     ];
     public function user()

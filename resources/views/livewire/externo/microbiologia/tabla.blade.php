@@ -83,7 +83,7 @@
                         <td class="px-3 py-0 sticky left-8 z-10 bg-white dark:bg-gray-800" nowrap>
                             {{ $micro->detalleSolicitudPlanta->subcodigo }}
                         </td>
-                        <td class="px-3 py-0 sticky left-28 z-10 bg-white dark:bg-gray-800 text-xs" nowrap>
+                        <td class="px-3 py-0 sticky left-28 z-10 bg-white dark:bg-gray-800 text-xs " nowrap>
                             @if ($micro->detalleSolicitudPlanta->productosPlanta)
                                 {{ $micro->detalleSolicitudPlanta->productosPlanta->nombre }}
                             @else

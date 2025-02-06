@@ -258,6 +258,7 @@ class Tabla extends Component
                 $pdf = App::make('dompdf.wrapper');
                 $pdf = Pdf::loadView('pdf.reportes.analisisLeche', compact(['variable', 'usuariosInvolucrados', 'fechaInicio', 'fechaFin', 'analistasInvolucrados', 'solicitantesInvolucrados']));
                 $pdf->setPaper('letter', 'landscape');
+
                 echo $pdf->stream();
 
 
@@ -265,7 +266,9 @@ class Tabla extends Component
             },
             "{$this->fechaInicio}_a_{$this->fechaFin}.pdf"
         );
+
     }
+
 
     public function sembrar($id){
 

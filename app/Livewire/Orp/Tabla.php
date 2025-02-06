@@ -25,6 +25,8 @@ class Tabla extends Component
     public $f_codigo = null;
     public $f_codigoProducto = null;
     public $f_nombreProducto = null;
+
+    public $f_destino = null;
     public $f_lote = null;
     public $f_estado = null;
     public $f_tiempoElaboracion = null;
@@ -34,6 +36,7 @@ class Tabla extends Component
     public $f_productoCodigo = null;
     //categoria
     public $f_grupo = null;
+    public $f_updated_at = null;
 
 
     public $aplicandoFiltros = false;
@@ -85,11 +88,11 @@ class Tabla extends Component
 
 
         // Notificar a los usuarios admin
-        $admins = User::where('rol', 'Admi')->orWhere('rol', 'Jef')->orWhere('rol', 'Sup')->get();
+        // $admins = User::where('rol', 'Admi')->orWhere('rol', 'Jef')->orWhere('rol', 'Sup')->get();
 
-        foreach ($admins as $admin) {
-            $admin->notify(new orpNotification($registro));
-        }
+        // foreach ($admins as $admin) {
+        //     $admin->notify(new orpNotification($registro));
+        // }
 
     }
 
@@ -135,11 +138,11 @@ class Tabla extends Component
         //     ->update(['orp_id' => null]);
 
         // Notificar a los usuarios admin
-        $admins = User::where('rol', 'Admi')->orWhere('rol', 'Jef')->orWhere('rol', 'Sup')->get();
+        // $admins = User::where('rol', 'Admi')->orWhere('rol', 'Jef')->orWhere('rol', 'Sup')->get();
 
-        foreach ($admins as $admin) {
-            $admin->notify(new CierreOrp($registro));
-        }
+        // foreach ($admins as $admin) {
+        //     $admin->notify(new CierreOrp($registro));
+        // }
     }
 
     public function mount()
@@ -179,8 +182,16 @@ class Tabla extends Component
                     $query->where('nombre', 'like', '%' . $this->f_nombreProducto . '%');
                 });
             })
+            ->when($this->f_destino, function ($query) {
+                return $query->whereHas('producto.destinoProducto', function ($query) {
+                    $query->where('nombre', 'like', '%' . $this->f_destino . '%');
+                });
+            })
             ->when($this->f_lote, function ($query) {
                 return $query->where('lote', 'like', '%' . $this->f_lote . '%');
+            })
+            ->when($this->f_updated_at , function ($query) {
+                return $query->where('updated_at', 'like', '%' . $this->f_updated_at . '%');
             })
             ->when($this->f_estado, function ($query) {
                 return $query->where('estado', 'like', '%' . $this->f_estado . '%');
@@ -288,7 +299,7 @@ public function generatePDFsegimiento()
     $anio = Carbon::parse($this->fecha)->year;
     $mes = Carbon::parse($this->fecha)->month;
     $dia = Carbon::parse($this->fecha)->day;
-    $cat = $this->cat;
+    $cat = 'HTST';
 
     // Obtener el nombre completo del mes
     $nombreMes = Carbon::createFromDate($anio, $mes, $dia)->format('F'); // Nombre completo del mes
@@ -318,7 +329,7 @@ public function generatePDFsegimiento()
                 })
                 ->when($cat, function ($query) use ($cat) {
                     $query->whereHas('orp.producto.categoriaProducto', function ($q) use ($cat) {
-                        $q->where('grupo', $cat);
+                        $q->where('grupo', 'HTST');
                     });
                 })
                 ->when($cat, function ($query) use ($cat) {
@@ -331,7 +342,7 @@ public function generatePDFsegimiento()
 
             $pdf = App::make('dompdf.wrapper');
             $pdf = Pdf::loadView('pdf.reportes.seguimientoProductoTerminado', compact(['estadoDetalles']));
-            $pdf->setPaper('legal', 'portrait');
+            $pdf->setPaper('letter', 'portrait');
             echo $pdf->stream();
         },
         $nombreArchivo // Ahora pasamos la variable correctamente

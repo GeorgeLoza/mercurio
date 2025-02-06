@@ -118,25 +118,26 @@ class Editar extends ModalComponent
             $solicitud = SolicitudAnalisisLinea::find($analisis->solicitud_analisis_linea_id);
             $solicitud->estado = 'Completado';
             $solicitud->save();
-            // Notificar a los usuarios
-            $admins = User::where('rol', 'Admi')->orWhere('rol', 'Jef')->orWhere('rol', 'Sup')->get();
 
-            if ($this->extra->solicitudAnalisisLinea->estadoPlanta->etapa) {
-                //obtener etapa y producto para sacar sus parametros
-                $productoParametro = $this->extra->solicitudAnalisisLinea->estadoPlanta->estadoDetalle[0]->orp->producto->id;
-                $etapaParametro = $this->extra->solicitudAnalisisLinea->estadoPlanta->etapa->id;
-                $parametros = ParametroLinea::where('producto_id', $productoParametro)->where('etapa_id', $etapaParametro)->first();
-                if ($parametros) {
-                    if ($parametros->temperatura_min > $this->temperatura || $this->temperatura > $parametros->temperatura_max) {
-                        foreach ($admins as $admin) {
-                            $admin->notify(new ParametrosOrp($registro));
-                        }
-                    }
-                }
-            }
+            // // Notificar a los usuarios
+            // $admins = User::where('rol', 'Admi')->orWhere('rol', 'Jef')->orWhere('rol', 'Sup')->get();
 
-            
-            
+            // if ($this->extra->solicitudAnalisisLinea->estadoPlanta->etapa) {
+            //     //obtener etapa y producto para sacar sus parametros
+            //     $productoParametro = $this->extra->solicitudAnalisisLinea->estadoPlanta->estadoDetalle[0]->orp->producto->id;
+            //     $etapaParametro = $this->extra->solicitudAnalisisLinea->estadoPlanta->etapa->id;
+            //     $parametros = ParametroLinea::where('producto_id', $productoParametro)->where('etapa_id', $etapaParametro)->first();
+            //     if ($parametros) {
+            //         if ($parametros->temperatura_min > $this->temperatura || $this->temperatura > $parametros->temperatura_max) {
+            //             foreach ($admins as $admin) {
+            //                 $admin->notify(new ParametrosOrp($registro));
+            //             }
+            //         }
+            //     }
+            // }
+
+
+
 
 
 

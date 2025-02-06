@@ -24,6 +24,8 @@ class Tabla extends Component
     public $f_codigo = null;
     public $f_codigoProducto = null;
     public $f_nombreProducto = null;
+
+    public $f_destino = null;
     public $f_lote = null;
     public $f_estado = null;
     public $f_tiempoElaboracion = null;
@@ -34,7 +36,7 @@ class Tabla extends Component
     //categoria
     public $f_grupo = null;
 
-
+    public $f_updated_at = null;
     public $aplicandoFiltros = false;
 
     //filtros-ordenamiento
@@ -104,8 +106,16 @@ class Tabla extends Component
                     $query->where('nombre', 'like', '%' . $this->f_nombreProducto . '%');
                 });
             })
+            ->when($this->f_destino, function ($query) {
+                return $query->whereHas('producto.destinoProducto', function ($query) {
+                    $query->where('nombre', 'like', '%' . $this->f_destino . '%');
+                });
+            })
             ->when($this->f_lote, function ($query) {
                 return $query->where('lote', 'like', '%' . $this->f_lote . '%');
+            })
+            ->when($this->f_updated_at , function ($query) {
+                return $query->where('updated_at', 'like', '%' . $this->f_updated_at . '%');
             })
             ->when($this->f_estado, function ($query) {
                 return $query->where('estado', 'like', '%' . $this->f_estado . '%');

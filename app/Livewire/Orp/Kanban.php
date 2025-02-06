@@ -77,11 +77,11 @@ class Kanban extends Component
 
             if ($estado == 'En proceso') {
                 // Notificar a los usuarios admin
-                $admins = User::where('rol', 'Admi')->orWhere('rol', 'Jef')->orWhere('rol', 'Sup')->get();
+                // $admins = User::where('rol', 'Admi')->orWhere('rol', 'Jef')->orWhere('rol', 'Sup')->get();
 
-                foreach ($admins as $admin) {
-                    $admin->notify(new orpNotification($orp));
-                }
+                // foreach ($admins as $admin) {
+                //     $admin->notify(new orpNotification($orp));
+                // }
             }
 
 

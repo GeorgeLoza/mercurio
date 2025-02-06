@@ -25,6 +25,7 @@ class Editar extends ModalComponent
     public $tram_fin;
     public $tram_lapso;
     public $recuento;
+    public $antibioticos;
 
 
 
@@ -52,6 +53,7 @@ class Editar extends ModalComponent
         $this->porcentaje_agua = $datos->porcentaje_agua;
         $this->observaciones = $datos->observaciones;
         $this->recuento = $datos->recuento;
+        $this->antibioticos = $datos->antibioticos;
 
         $id2 = $this->id2;
     }
@@ -105,6 +107,8 @@ class Editar extends ModalComponent
                 $analisis->tram_lapso = $this->tram_lapso;
             }
             if ($this->id2 == 3) {
+
+                $analisis->antibioticos = $this->antibioticos;
                 $analisis->recuento = $this->recuento;
                 $analisis->tiempo_lectura = now();
                 $analisis->usuarioLectura = auth()->user()->id;

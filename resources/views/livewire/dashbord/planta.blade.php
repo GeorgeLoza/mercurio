@@ -100,7 +100,22 @@
                             <h3 class="font-semibold text-gray-900 dark:text-white">
                                 @if ($TKMIX1->proceso == 'Produccion' || $TKMIX1->proceso == 'Almacen')
                                     @foreach ($TKMIX1->estadoDetalle as $item)
-                                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                                        <p class=" text-xs flex mb-2">
+
+
+                                            @if ($item->orp->codigo != 0 && $item->orp->codigo != 1 && $item->orp->codigo != 2 )
+
+                                            <a target="" href="{{ route('orp.report', ['id' => $item->orp->id]) }}"
+                                                class="rounded-md  mr-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-4 w-4"
+                                                    viewBox="0 0 512 512">
+                                                    <path
+                                                        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                                </svg>
+                                            </a>
+                                            @endif
+
+                                            {{ substr($item->orp->codigo, -5) }} -
                                             {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
                                     @endforeach
                                 @endif
@@ -288,7 +303,20 @@
                             <h3 class="font-semibold text-gray-900 dark:text-white">
                                 @if ($TKMIX2->proceso == 'Produccion' || $TKMIX2->proceso == 'Almacen')
                                     @foreach ($TKMIX2->estadoDetalle as $item)
-                                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                                        <p class=" text-xs mb-2 flex">
+
+                                            @if ($item->orp->codigo != 0 && $item->orp->codigo != 1 && $item->orp->codigo != 2 )
+
+                                            <a target="" href="{{ route('orp.report', ['id' => $item->orp->id]) }}"
+                                                class="rounded-md  mr-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-4 w-4"
+                                                    viewBox="0 0 512 512">
+                                                    <path
+                                                        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                                </svg>
+                                            </a>
+                                            @endif
+                                            {{ substr($item->orp->codigo, -5) }} -
                                             {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
                                     @endforeach
                                 @endif
@@ -471,7 +499,19 @@
                             <h3 class="font-semibold text-gray-900 dark:text-white">
                                 @if ($TKMIX3->proceso == 'Produccion' || $TKMIX3->proceso == 'Almacen')
                                     @foreach ($TKMIX3->estadoDetalle as $item)
-                                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                                        <p class=" text-xs flex mb-2">
+                                            @if ($item->orp->codigo != 0 && $item->orp->codigo != 1 && $item->orp->codigo != 2 )
+
+                                            <a target="" href="{{ route('orp.report', ['id' => $item->orp->id]) }}"
+                                                class="rounded-md  mr-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-4 w-4"
+                                                    viewBox="0 0 512 512">
+                                                    <path
+                                                        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                                </svg>
+                                            </a>
+                                            @endif
+                                            {{ substr($item->orp->codigo, -5) }} -
                                             {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
                                     @endforeach
                                 @endif
@@ -650,7 +690,19 @@
                             <h3 class="font-semibold text-gray-900 dark:text-white">
                                 @if ($TKMIX4->proceso == 'Produccion' || $TKMIX4->proceso == 'Almacen')
                                     @foreach ($TKMIX4->estadoDetalle as $item)
-                                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                                        <p class=" text-xs flex mb-2">
+                                            @if ($item->orp->codigo != 0 && $item->orp->codigo != 1 && $item->orp->codigo != 2 )
+
+                                            <a target="" href="{{ route('orp.report', ['id' => $item->orp->id]) }}"
+                                                class="rounded-md  mr-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-4 w-4"
+                                                    viewBox="0 0 512 512">
+                                                    <path
+                                                        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                                </svg>
+                                            </a>
+                                            @endif
+                                            {{ substr($item->orp->codigo, -5) }} -
                                             {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
                                     @endforeach
                                 @endif
@@ -830,7 +882,19 @@
                             <h3 class="font-semibold text-gray-900 dark:text-white">
                                 @if ($TK41->proceso == 'Produccion' || $TK41->proceso == 'Almacen')
                                     @foreach ($TK41->estadoDetalle as $item)
-                                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                                        <p class=" text-xs flex mb-2">
+                                            @if ($item->orp->codigo != 0 && $item->orp->codigo != 1 && $item->orp->codigo != 2 )
+
+                                            <a target="" href="{{ route('orp.report', ['id' => $item->orp->id]) }}"
+                                                class="rounded-md  mr-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-4 w-4"
+                                                    viewBox="0 0 512 512">
+                                                    <path
+                                                        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                                </svg>
+                                            </a>
+                                            @endif
+                                            {{ substr($item->orp->codigo, -5) }} -
                                             {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
                                     @endforeach
                                 @endif
@@ -1013,7 +1077,19 @@
                             <h3 class="font-semibold text-gray-900 dark:text-white">
                                 @if ($TK42->proceso == 'Produccion' || $TK42->proceso == 'Almacen')
                                     @foreach ($TK42->estadoDetalle as $item)
-                                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                                        <p class=" text-xs flex mb-2">
+                                            @if ($item->orp->codigo != 0 && $item->orp->codigo != 1 && $item->orp->codigo != 2 )
+
+                                            <a target="" href="{{ route('orp.report', ['id' => $item->orp->id]) }}"
+                                                class="rounded-md  mr-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-4 w-4"
+                                                    viewBox="0 0 512 512">
+                                                    <path
+                                                        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                                </svg>
+                                            </a>
+                                            @endif
+                                            {{ substr($item->orp->codigo, -5) }} -
                                             {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
                                     @endforeach
                                 @endif
@@ -1194,7 +1270,19 @@
                             <h3 class="font-semibold text-gray-900 dark:text-white">
                                 @if ($TK10->proceso == 'Produccion' || $TK10->proceso == 'Almacen')
                                     @foreach ($TK10->estadoDetalle as $item)
-                                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                                        <p class=" text-xs flex mb-2">
+                                            @if ($item->orp->codigo != 0 && $item->orp->codigo != 1 && $item->orp->codigo != 2 )
+
+                                            <a target="" href="{{ route('orp.report', ['id' => $item->orp->id]) }}"
+                                                class="rounded-md  mr-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-4 w-4"
+                                                    viewBox="0 0 512 512">
+                                                    <path
+                                                        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                                </svg>
+                                            </a>
+                                            @endif
+                                            {{ substr($item->orp->codigo, -5) }} -
                                             {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
                                     @endforeach
                                 @endif
@@ -1360,7 +1448,19 @@
                             <h3 class="font-semibold text-gray-900 dark:text-white">
                                 @if ($TK5->proceso == 'Produccion' || $TK5->proceso == 'Almacen')
                                     @foreach ($TK5->estadoDetalle as $item)
-                                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                                        <p class=" text-xs flex mb-2">
+                                            @if ($item->orp->codigo != 0 && $item->orp->codigo != 1 && $item->orp->codigo != 2 )
+
+                                            <a target="" href="{{ route('orp.report', ['id' => $item->orp->id]) }}"
+                                                class="rounded-md  mr-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-4 w-4"
+                                                    viewBox="0 0 512 512">
+                                                    <path
+                                                        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                                </svg>
+                                            </a>
+                                            @endif
+                                            {{ substr($item->orp->codigo, -5) }} -
                                             {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
                                     @endforeach
                                 @endif
@@ -1526,7 +1626,19 @@
                             <h3 class="font-semibold text-gray-900 dark:text-white">
                                 @if ($TKFP->proceso == 'Produccion' || $TKFP->proceso == 'Almacen')
                                     @foreach ($TKFP->estadoDetalle as $item)
-                                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                                        <p class=" text-xs flex mb-2">
+                                            @if ($item->orp->codigo != 0 && $item->orp->codigo != 1 && $item->orp->codigo != 2 )
+
+                                            <a target="" href="{{ route('orp.report', ['id' => $item->orp->id]) }}"
+                                                class="rounded-md  mr-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-4 w-4"
+                                                    viewBox="0 0 512 512">
+                                                    <path
+                                                        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                                </svg>
+                                            </a>
+                                            @endif
+                                            {{ substr($item->orp->codigo, -5) }} -
                                             {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
                                     @endforeach
                                 @endif
@@ -1690,7 +1802,19 @@
                             <h3 class="font-semibold text-gray-900 dark:text-white">
                                 @if ($TKMP->proceso == 'Produccion' || $TKMP->proceso == 'Almacen')
                                     @foreach ($TKMP->estadoDetalle as $item)
-                                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                                        <p class=" text-xs flex mb-2">
+                                            @if ($item->orp->codigo != 0 && $item->orp->codigo != 1 && $item->orp->codigo != 2 )
+
+                                            <a target="" href="{{ route('orp.report', ['id' => $item->orp->id]) }}"
+                                                class="rounded-md  mr-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-4 w-4"
+                                                    viewBox="0 0 512 512">
+                                                    <path
+                                                        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                                </svg>
+                                            </a>
+                                            @endif
+                                            {{ substr($item->orp->codigo, -5) }} -
                                             {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
                                     @endforeach
                                 @endif
@@ -1855,7 +1979,19 @@
                             <h3 class="font-semibold text-gray-900 dark:text-white">
                                 @if ($TKFG->proceso == 'Produccion' || $TKFG->proceso == 'Almacen')
                                     @foreach ($TKFG->estadoDetalle as $item)
-                                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                                        <p class=" text-xs flex mb-2">
+                                            @if ($item->orp->codigo != 0 && $item->orp->codigo != 1 && $item->orp->codigo != 2 )
+
+                                            <a target="" href="{{ route('orp.report', ['id' => $item->orp->id]) }}"
+                                                class="rounded-md  mr-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-4 w-4"
+                                                    viewBox="0 0 512 512">
+                                                    <path
+                                                        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                                </svg>
+                                            </a>
+                                            @endif
+                                            {{ substr($item->orp->codigo, -5) }} -
                                             {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
                                     @endforeach
                                 @endif
@@ -2018,7 +2154,19 @@
                             <h3 class="font-semibold text-gray-900 dark:text-white">
                                 @if ($TKMG->proceso == 'Produccion' || $TKMG->proceso == 'Almacen')
                                     @foreach ($TKMG->estadoDetalle as $item)
-                                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                                        <p class=" text-xs flex mb-2">
+                                            @if ($item->orp->codigo != 0 && $item->orp->codigo != 1 && $item->orp->codigo != 2 )
+
+                                            <a target="" href="{{ route('orp.report', ['id' => $item->orp->id]) }}"
+                                                class="rounded-md  mr-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-4 w-4"
+                                                    viewBox="0 0 512 512">
+                                                    <path
+                                                        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                                </svg>
+                                            </a>
+                                            @endif
+                                            {{ substr($item->orp->codigo, -5) }} -
                                             {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
                                     @endforeach
                                 @endif
@@ -2193,7 +2341,19 @@
                             <h3 class="font-semibold text-gray-900 dark:text-white">
                                 @if ($TKCC->proceso == 'Produccion' || $TKCC->proceso == 'Almacen')
                                     @foreach ($TKCC->estadoDetalle as $item)
-                                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                                        <p class=" text-xs flex mb-2">
+                                            @if ($item->orp->codigo != 0 && $item->orp->codigo != 1 && $item->orp->codigo != 2 )
+
+                                            <a target="" href="{{ route('orp.report', ['id' => $item->orp->id]) }}"
+                                                class="rounded-md  mr-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-4 w-4"
+                                                    viewBox="0 0 512 512">
+                                                    <path
+                                                        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                                </svg>
+                                            </a>
+                                            @endif
+                                            {{ substr($item->orp->codigo, -5) }} -
                                             {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
                                     @endforeach
                                 @endif
@@ -2358,7 +2518,19 @@
                             <h3 class="font-semibold text-gray-900 dark:text-white">
                                 @if ($TKSC->proceso == 'Produccion' || $TKSC->proceso == 'Almacen')
                                     @foreach ($TKSC->estadoDetalle as $item)
-                                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                                        <p class=" text-xs flex mb-2">
+                                            @if ($item->orp->codigo != 0 && $item->orp->codigo != 1 && $item->orp->codigo != 2 )
+
+                                            <a target="" href="{{ route('orp.report', ['id' => $item->orp->id]) }}"
+                                                class="rounded-md  mr-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-4 w-4"
+                                                    viewBox="0 0 512 512">
+                                                    <path
+                                                        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                                </svg>
+                                            </a>
+                                            @endif
+                                            {{ substr($item->orp->codigo, -5) }} -
                                             {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
                                     @endforeach
                                 @endif
@@ -2525,7 +2697,19 @@
                             <h3 class="font-semibold text-gray-900 dark:text-white">
                                 @if ($TKAUX1->proceso == 'Produccion' || $TKAUX1->proceso == 'Almacen')
                                     @foreach ($TKAUX1->estadoDetalle as $item)
-                                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                                        <p class=" text-xs flex mb-2">
+                                            @if ($item->orp->codigo != 0 && $item->orp->codigo != 1 && $item->orp->codigo != 2 )
+
+                                            <a target="" href="{{ route('orp.report', ['id' => $item->orp->id]) }}"
+                                                class="rounded-md  mr-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-4 w-4"
+                                                    viewBox="0 0 512 512">
+                                                    <path
+                                                        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                                </svg>
+                                            </a>
+                                            @endif
+                                            {{ substr($item->orp->codigo, -5) }} -
                                             {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
                                     @endforeach
                                 @endif
@@ -2692,7 +2876,19 @@
                             <h3 class="font-semibold text-gray-900 dark:text-white">
                                 @if ($TKAUX2->proceso == 'Produccion' || $TKAUX2->proceso == 'Almacen')
                                     @foreach ($TKAUX2->estadoDetalle as $item)
-                                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                                        <p class=" text-xs flex mb-2">
+                                            @if ($item->orp->codigo != 0 && $item->orp->codigo != 1 && $item->orp->codigo != 2 )
+
+                                            <a target="" href="{{ route('orp.report', ['id' => $item->orp->id]) }}"
+                                                class="rounded-md  mr-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-4 w-4"
+                                                    viewBox="0 0 512 512">
+                                                    <path
+                                                        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                                </svg>
+                                            </a>
+                                            @endif
+                                            {{ substr($item->orp->codigo, -5) }} -
                                             {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
                                     @endforeach
                                 @endif
@@ -2861,7 +3057,19 @@
                             <h3 class="font-semibold text-gray-900 dark:text-white">
                                 @if ($R1->proceso == 'Produccion' || $R1->proceso == 'Almacen')
                                     @foreach ($R1->estadoDetalle as $item)
-                                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                                        <p class=" text-xs flex mb-2">
+                                            @if ($item->orp->codigo != 0 && $item->orp->codigo != 1 && $item->orp->codigo != 2 )
+
+                                            <a target="" href="{{ route('orp.report', ['id' => $item->orp->id]) }}"
+                                                class="rounded-md  mr-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-4 w-4"
+                                                    viewBox="0 0 512 512">
+                                                    <path
+                                                        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                                </svg>
+                                            </a>
+                                            @endif
+                                            {{ substr($item->orp->codigo, -5) }} -
                                             {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
                                     @endforeach
                                 @endif
@@ -3028,7 +3236,19 @@
                             <h3 class="font-semibold text-gray-900 dark:text-white">
                                 @if ($R2->proceso == 'Produccion' || $R2->proceso == 'Almacen')
                                     @foreach ($R2->estadoDetalle as $item)
-                                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                                        <p class=" text-xs flex mb-2">
+                                            @if ($item->orp->codigo != 0 && $item->orp->codigo != 1 && $item->orp->codigo != 2 )
+
+                                            <a target="" href="{{ route('orp.report', ['id' => $item->orp->id]) }}"
+                                                class="rounded-md  mr-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-4 w-4"
+                                                    viewBox="0 0 512 512">
+                                                    <path
+                                                        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                                </svg>
+                                            </a>
+                                            @endif
+                                            {{ substr($item->orp->codigo, -5) }} -
                                             {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
                                     @endforeach
                                 @endif
@@ -3194,7 +3414,19 @@
                             <h3 class="font-semibold text-gray-900 dark:text-white">
                                 @if ($R3->proceso == 'Produccion' || $R3->proceso == 'Almacen')
                                     @foreach ($R3->estadoDetalle as $item)
-                                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                                        <p class=" text-xs flex mb-2">
+                                            @if ($item->orp->codigo != 0 && $item->orp->codigo != 1 && $item->orp->codigo != 2 )
+
+                                            <a target="" href="{{ route('orp.report', ['id' => $item->orp->id]) }}"
+                                                class="rounded-md  mr-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-4 w-4"
+                                                    viewBox="0 0 512 512">
+                                                    <path
+                                                        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                                </svg>
+                                            </a>
+                                            @endif
+                                            {{ substr($item->orp->codigo, -5) }} -
                                             {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
                                     @endforeach
                                 @endif
@@ -3368,7 +3600,16 @@
                         <h3 class="font-semibold text-gray-900 dark:text-white">
                             @if ($TKSY->proceso == 'Produccion' || $TKSY->proceso == 'Almacen')
                                 @foreach ($TKSY->estadoDetalle as $item)
-                                    <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                                    <p class=" text-xs flex mb-2">
+                                        <a target="" href="{{ route('orp.report', ['id' => $item->orp->id]) }}"
+                                            class="rounded-md  mr-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-4 w-4"
+                                                viewBox="0 0 512 512">
+                                                <path
+                                                    d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                            </svg>
+                                        </a>
+                                        {{ substr($item->orp->codigo, -5) }} -
                                         {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
                                 @endforeach
                             @endif
@@ -3567,7 +3808,20 @@
                             <h3 class="font-semibold text-gray-900 dark:text-white">
                                 @if ($maguer->proceso == 'Produccion' || $maguer->proceso == 'Almacen')
                                     @foreach ($maguer->estadoDetalle as $item)
-                                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                                        <p class=" text-xs flex mb-2">
+                                            @if ($item->orp->codigo != 0 && $item->orp->codigo != 1 && $item->orp->codigo != 2 )
+
+                                            <a target="" href="{{ route('orp.report', ['id' => $item->orp->id]) }}"
+                                                class="rounded-md  mr-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-4 w-4"
+                                                    viewBox="0 0 512 512">
+                                                    <path
+                                                        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                                </svg>
+                                            </a>
+                                            @endif
+                                            {{ substr($item->orp->codigo, -5) }} -
+
                                             {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
                                     @endforeach
                                 @endif
@@ -3721,7 +3975,19 @@
                             <h3 class="font-semibold text-gray-900 dark:text-white">
                                 @if ($ultra->proceso == 'Produccion' || $ultra->proceso == 'Almacen')
                                     @foreach ($ultra->estadoDetalle as $item)
-                                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                                        <p class=" text-xs flex mb-2">
+                                            @if ($item->orp->codigo != 0 && $item->orp->codigo != 1 && $item->orp->codigo != 2 )
+
+                                            <a target="" href="{{ route('orp.report', ['id' => $item->orp->id]) }}"
+                                                class="rounded-md  mr-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-4 w-4"
+                                                    viewBox="0 0 512 512">
+                                                    <path
+                                                        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                                </svg>
+                                            </a>
+                                            @endif
+                                            {{ substr($item->orp->codigo, -5) }} -
                                             {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
                                     @endforeach
                                 @endif
@@ -3873,7 +4139,22 @@
                             <h3 class="font-semibold text-gray-900 dark:text-white">
                                 @if ($tetra->proceso == 'Produccion' || $tetra->proceso == 'Almacen')
                                     @foreach ($tetra->estadoDetalle as $item)
-                                        <p class=" text-xs">{{ substr($item->orp->codigo, -5) }} -
+                                        <p class=" text-xs flex mb-2">
+                                            @if ($item->orp->codigo != 0 && $item->orp->codigo != 1 && $item->orp->codigo != 2 )
+
+
+
+                                            <a target="" href="{{ route('orp.report', ['id' => $item->orp->id]) }}"
+                                                class="rounded-md  mr-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-4 w-4"
+                                                    viewBox="0 0 512 512">
+                                                    <path
+                                                        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                                </svg>
+                                            </a>
+                                            @endif
+
+                                            {{ substr($item->orp->codigo, -5) }} -
                                             {{ $item->orp->producto->nombre }} {{ $item->preparacion }}</p>
                                     @endforeach
                                 @endif

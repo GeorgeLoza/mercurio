@@ -30,7 +30,7 @@
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg  overflow-y-auto h-[28rem] overflow-hidden">
         <table class="w-full text-2xs text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
-            <thead class="text-2xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <thead class="text-2xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
                 <tr>
 
                     <th scope="col" class="px-1 py-0 sticky top-0 left-0 z-30 bg-white dark:bg-gray-700"
@@ -70,6 +70,10 @@
                     <th scope="col" class="px-2 py-1 sticky top-0 bg-white dark:bg-gray-700 "
                         wire:click="sortBy('estado')">
                         estado
+                    </th>
+                    <th scope="col" class="px-2 py-1 sticky top-0 bg-white dark:bg-gray-700 "
+                        wire:click="sortBy('updated_at')">
+                        Actualizado
                     </th>
 
                     <th scope="col" class=" hidden px-2 py-1 sticky top-0 bg-white dark:bg-gray-700"
@@ -122,8 +126,11 @@
                                 class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         </th>
                         <th class="p-1">
+                            <input type="text" wire:model.live='f_destino' placeholder="Filtrar por Destino"
+                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
                         </th>
+
                         <th class="p-1">
                             <input type="text" wire:model.live='f_lote' placeholder="Filtrar por Lote"
                                 class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -159,7 +166,10 @@
                                 <option value="Completado"> Completado</option>
                             </select>
                         </th>
-
+                        <th class="p-1">
+                            <input type="text" wire:model.live='f_updated_at' placeholder="Filtrar por Actualizacion"
+                                class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        </th>
                         <th class="p-1">
                             <input type="text" wire:model.live='f_tiempoElaboracion'
                                 placeholder="Filtrar por Elaboración"
@@ -171,6 +181,7 @@
                                 placeholder="Filtrar por Vencimiento"
                                 class=" hidden block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         </th>
+
 
 
 
@@ -242,7 +253,7 @@
                             @endif
 
                         </td>
-                        <td class="px-2 border-r  " nowrap>
+                        <td class="px-2  " nowrap>
 
                             @if ($orp->estado == 'Pendiente')
                                 <span
@@ -274,6 +285,14 @@
                                 <span
                                     class="flex items-center text-sm font-medium me-3 text-purple-500 uppercase"><span
                                         class="flex w-2.5 h-2.5 bg-purple-600  rounded-full me-1.5 flex-shrink-0"></span>{{ $orp->estado }}</span>
+                            @endif
+                        </td>
+                        <td class="px-2  border-r  ">
+                            @if ($orp->updated_at)
+
+                            {{ $orp->updated_at->isoFormat('DD-MM-YY') }}
+                            @else
+                            -
                             @endif
                         </td>
                         <td class="px-2  hidden ">
@@ -438,7 +457,7 @@
 
 
 
-        <label>Mes:</label>
+        {{-- <label>Mes:</label>
         <select class="rounded p-1 mx-2 bg-white text-black" wire:model.defer="cat">
             <option value="">UHT/HTST</option>
             <option value="UHT">UHT</option>
@@ -447,7 +466,7 @@
         </select>
         @error('cat')
             <span class="text-red-500 text-base">{{ $message }}</span>
-        @enderror
+        @enderror --}}
 
 
     </div>

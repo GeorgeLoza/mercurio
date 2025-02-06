@@ -13,7 +13,7 @@ use App\Notifications\orpNotification;
 
 class EstadoOrp extends ModalComponent
 {
-    //input 
+    //input
     public $estado;
 
     public function render()
@@ -32,19 +32,19 @@ class EstadoOrp extends ModalComponent
     {
         try {
             DB::beginTransaction();
-    
+
             $registro = Orp::findOrFail($id);
             $registro->estado = 'Completado';
             $registro->save();
-    
+
             $this->closeModal();
             $this->dispatch('success', mensaje: 'Se completó la producción del producto exitosamente');
-    
-            $admins = User::where('rol', 'Admi')->get();
-            foreach ($admins as $admin) {
-                $admin->notify(new CierreOrp($registro));
-            }
-    
+
+            // $admins = User::where('rol', 'Admi')->get();
+            // foreach ($admins as $admin) {
+            //     $admin->notify(new CierreOrp($registro));
+            // }
+
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();

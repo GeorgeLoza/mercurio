@@ -47,7 +47,10 @@
                         wire:click="sortBy('estado')">
                         estado
                     </th>
-
+                    <th scope="col" class="px-2 py-1 sticky top-0 bg-white dark:bg-gray-700 "
+                    wire:click="sortBy('updated_at')">
+                    Actualizado
+                </th>
                     <th scope="col" class=" hidden px-2 py-1 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('tiempo_elaboracion')">
                         Programación
@@ -98,6 +101,9 @@
                                 class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         </th>
                         <th class="p-1">
+                            <input type="text" wire:model.live='f_destino' placeholder="Filtrar por Destino"
+                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
 
                         </th>
                         <th class="p-1">
@@ -127,7 +133,10 @@
                                 <option value="Completado"> Completado</option>
                             </select>
                         </th>
-
+                        <th class="p-1">
+                            <input type="text" wire:model.live='f_updated_at' placeholder="Filtrar por Actualizacion"
+                                class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        </th>
                         <th class="p-1">
                             <input type="text" wire:model.live='f_tiempoElaboracion'
                                 placeholder="Filtrar por Elaboración"
@@ -201,7 +210,7 @@
                             {{ \Carbon\Carbon::parse($orp->fecha_vencimiento1)->isoFormat('DD-MM-YY') }}
                             @endif
                         </td>
-                        <td class="px-2 border-r  " nowrap>
+                        <td class="px-2  " nowrap>
 
                             @if ($orp->estado == 'Pendiente')
                                 <span class="flex items-center text-sm font-medium me-3 text-yellow-500 uppercase"><span
@@ -230,6 +239,14 @@
                             @if ($orp->estado == 'Programado')
                                 <span class="flex items-center text-sm font-medium me-3 text-purple-500 uppercase"><span
                                         class="flex w-2.5 h-2.5 bg-purple-600  rounded-full me-1.5 flex-shrink-0"></span>{{ $orp->estado }}</span>
+                            @endif
+                        </td>
+                        <td class="px-2  border-r  ">
+                            @if ($orp->updated_at)
+
+                            {{ $orp->updated_at->isoFormat('DD-MM-YY') }}
+                            @else
+                            -
                             @endif
                         </td>
                         <td class="px-2  hidden ">

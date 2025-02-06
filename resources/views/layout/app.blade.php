@@ -88,7 +88,7 @@
                         </div>
 
                         <div class="flex items-center ms-3 gap-3">
-                            @livewire('notifications-dropdown')
+                            {{-- @livewire('notifications-dropdown') --}}
                             <div class="flex justify-center content-center gap-3 ">
                                 <button type="button" class="flex text-sm" aria-expanded="false"
                                     data-dropdown-toggle="dropdown-user">
