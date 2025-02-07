@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Control UHT</title>
+    <title>Analisi de Leche</title>
     <style>
         @page {
             margin-top: 1cm;
@@ -212,41 +212,41 @@
 
         .columna_secundaria {}
     </style>
-        <style>
-            .capitalize {
-                text-transform: capitalize;
-            }
+    <style>
+        .capitalize {
+            text-transform: capitalize;
+        }
 
-            /* Estilo para la tabla con la clase "mi-tabla" */
-            table.mi-tabla {
-                page-break-inside: avoid;
-                width: 40%;
-                border-collapse: collapse;
-                /* Colapsa los bordes de las celdas */
-                border: 1px solid #000;
-                /* Borde externo de la tabla */
-            }
+        /* Estilo para la tabla con la clase "mi-tabla" */
+        table.mi-tabla {
+            page-break-inside: avoid;
+            width: 40%;
+            border-collapse: collapse;
+            /* Colapsa los bordes de las celdas */
+            border: 1px solid #000;
+            /* Borde externo de la tabla */
+        }
 
-            /* Estilo para las cabeceras de la tabla con la clase "mi-tabla" */
-            table.mi-tabla th {
-                padding: 8px;
-                text-align: left;
-                background-color: #f2f2f2;
-                /* Color de fondo para las cabeceras */
-            }
+        /* Estilo para las cabeceras de la tabla con la clase "mi-tabla" */
+        table.mi-tabla th {
+            padding: 8px;
+            text-align: left;
+            background-color: #f2f2f2;
+            /* Color de fondo para las cabeceras */
+        }
 
-            /* Estilo para las celdas del cuerpo de la tabla con la clase "mi-tabla" */
-            table.mi-tabla td {
-                padding: 4px;
-                text-align: left;
-            }
+        /* Estilo para las celdas del cuerpo de la tabla con la clase "mi-tabla" */
+        table.mi-tabla td {
+            padding: 4px;
+            text-align: left;
+        }
 
-            /* Estilo para las celdas de cabecera en la primera fila de la tabla con la clase "mi-tabla" */
-            table.mi-tabla thead th {
-                border-bottom: 2px solid #000;
-                /* Borde inferior más grueso para las cabeceras */
-            }
-        </style>
+        /* Estilo para las celdas de cabecera en la primera fila de la tabla con la clase "mi-tabla" */
+        table.mi-tabla thead th {
+            border-bottom: 2px solid #000;
+            /* Borde inferior más grueso para las cabeceras */
+        }
+    </style>
 
 </head>
 
@@ -255,7 +255,9 @@
         <tr>
             <th class="cel-img" style="width: 25%;"><img src="img/logo/logocompleto.png" alt=""></th>
             <th style="width: 50%;">REGISTRO</th>
-            <th style="width: 25%; font-size: 0.8rem">PLL-REG-052 <br> Versión 002 <br>  <div class="page-number"></div></th>
+            <th style="width: 25%; font-size: 0.8rem">PLL-REG-052 <br> Versión 002 <br>
+                <div class="page-number"></div>
+            </th>
         </tr>
         <tr>
             <td colspan="3"
@@ -269,6 +271,7 @@
     SOALPRO SRL - Planta Lácteos - Reporte generado el {{ date('d/m/Y') }}
     <div class="page-number"></div>
 </footer>
+
 <body>
     <div class="page">
 
@@ -538,7 +541,7 @@
 
                             <th>
                                 @if ($dato->solicitudAnalisisLinea->analisisLinea->tempUHT)
-                                    {{ $dato->solicitudAnalisisLinea->analisisLinea->tempUHT }}
+                                    {{-- {{ $dato->solicitudAnalisisLinea->analisisLinea->tempUHT }} --}}-
                                 @else
                                     -
                                 @endif
@@ -659,14 +662,43 @@
                         <th colspan="14">
                             {{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->analisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
                             {{ $dato->solicitudAnalisisLinea->analisisLinea->user->nombre }}:
-                            {{ $dato->solicitudAnalisisLinea->analisisLinea->observaciones }}</th>
+                            {{ $dato->solicitudAnalisisLinea->analisisLinea->observaciones }}
+                        </th>
 
                     </tr>
                     @endif
                     @endforeach
+                    <tr>
+                        <th colspan="14">
+                            Temperaturas de UHT:
+                            @foreach ($envasados as $dato)
+                                {{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
+                                -
+                                @if ($dato->solicitudAnalisisLinea->analisisLinea->tempUHT != null)
+                                    {{ $dato->solicitudAnalisisLinea->analisisLinea->tempUHT / 1 }}
+                                @else
+                                    Sin Dato
+                                @endif
+                            @endforeach
+                        </th>
+                    </tr>
+
                     @endif
                     @if ($buscador == 0)
                         Sin Observaciones
+                        <br>
+
+                        Temperaturas de UHT:
+                        @foreach ($envasados as $dato)
+                            {{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
+                            -
+                            @if ($dato->solicitudAnalisisLinea->analisisLinea->tempUHT != null)
+                                {{ $dato->solicitudAnalisisLinea->analisisLinea->tempUHT / 1 }}
+                            @else
+                                Sin Dato
+                            @endif
+                        @endforeach
+
                     @endif
 
 
@@ -691,7 +723,7 @@
     </div>
 
 
-    <div >
+    <div>
         <div style=" display: flex; justify-content: flex-end;  page-break-inside: avoid; ">
 
 
@@ -720,9 +752,9 @@
 
             <div style="padding-left: 500px; ">
                 <strong
-                        style=" border-top: 1px solid #000; padding-top: 7px; padding-right: 25px; padding-left: 25px; ">
-                        REVISADO </strong>
-                </div>
+                    style=" border-top: 1px solid #000; padding-top: 7px; padding-right: 25px; padding-left: 25px; ">
+                    REVISADO </strong>
+            </div>
 
 
         </div>

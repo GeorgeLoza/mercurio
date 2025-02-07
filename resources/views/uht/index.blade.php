@@ -6,7 +6,7 @@
 
 @section('contenido')
     <div class="md:flex gap-2 h-[calc(50vh)]">
-        <div class="md:w-1/2 flex flex-col ">
+        <div class="md:w-1/3 flex flex-col ">
             <div class="md:w-full flex justify-center mb-2 font-bold">
                 <h2>PESOS</h2>
             </div>
@@ -16,8 +16,17 @@
 
 
         </div>
+        <div class="md:w-1/3 flex flex-col ">
+            <div class="md:w-full flex justify-center mb-2 font-bold">
+                <h2>Temp UHT</h2>
+            </div>
+            <div>
+                @livewire('uht.temperatura')
+            </div>
 
-        <div class="md:w-1/2 flex flex-col ">
+
+        </div>
+        <div class="md:w-1/3 flex flex-col ">
             <div class="md:w-full flex justify-center mb-2 font-bold ">
                 <h2>FECHAS DE VENCIMIENTO</h2>
             </div>
