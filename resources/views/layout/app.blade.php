@@ -48,9 +48,17 @@
                     <div x-data="{ isLoaded: false }" x-init="window.addEventListener('DOMContentLoaded', () => { isLoaded = true })" x-show="isLoaded" wire:ignore>
                         @livewire('screenSaver')
                     </div>
-                    {{ auth()->user()->nombre }} - @livewire('date-time-display')
+
+                    <div class=" md:hidden " >{{ substr(auth()->user()->nombre, 0, 1) .
+                        substr(explode(' ', auth()->user()->nombre)[1] ?? '', 0, 1) .
+                        substr(auth()->user()->apellido, 0, 1) .
+                        substr(explode(' ', auth()->user()->apellido)[1] ?? '', 0, 1) }} </div>
+
+                   <div class="hidden md:block" >{{ auth()->user()->nombre }} </div>
+
+                     @livewire('date-time-display')
                 </div>
-                <div>@livewire('calculadora-juliano')</div>
+                <div class="hidden md:block"  >@livewire('calculadora-juliano')</div>
 
                 <div class="flex gap-2">
 

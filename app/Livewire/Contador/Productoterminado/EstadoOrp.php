@@ -19,7 +19,7 @@ class EstadoOrp extends ModalComponent
     public function render()
     {
         $orps = Contador::select('contadors.orp_id', DB::raw('SUM(cantidad) as cantidad_total'))
-        ->where('tipo', 'Total')
+        ->where('tipo', 'Parcial')
         ->groupBy('contadors.orp_id')
         ->join('orps', 'contadors.orp_id', '=', 'orps.id')
         ->where('orps.estado', 'En proceso') // Condición agregada para el estado de la ORP

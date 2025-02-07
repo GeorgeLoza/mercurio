@@ -318,9 +318,11 @@
 
                             </p>
                             <p>Preparacion: {{ $informacion->lote / 1 }} </p>
-
-                            <p>Destino: {{ $informacion->producto->destinoProducto->nombre }}</p>
-
+                            @if ($informacion->producto->destinoProducto)
+                            <p>Destino:
+                                {{ $informacion->producto->destinoProducto->nombre }}
+                            </p>
+                            @endif
                         </td>
                     </tr>
 
