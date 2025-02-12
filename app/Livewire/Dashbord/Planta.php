@@ -210,7 +210,7 @@ class Planta extends Component
 
         //ARAñA
         $this->araña = EstadoPlanta::where('origen_id', '53')->latest('created_at')->first();
-        
+
         return view('livewire.dashbord.planta');
 
         //SOYA
@@ -337,13 +337,11 @@ class Planta extends Component
             dd($th);
         }
     }
-    
- 
+
+
 
 public function completar($id)
 {
-
-
     try {
         $userId = auth()->id();
 
@@ -359,7 +357,7 @@ public function completar($id)
             // Manejo de error: puedes registrar el error si es necesario
             // Log::error('Error al actualizar colors: ' . $th->getMessage());
         }
-        
+
     $registros = EstadoPlanta::select('*')
     ->where('proceso', 'Produccion')
     ->where('etapa_id', 8)

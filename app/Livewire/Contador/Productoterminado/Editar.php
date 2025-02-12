@@ -42,7 +42,7 @@ class Editar extends ModalComponent
         $this->validate([
             'orp_id' => 'required',
             'tipo' => 'required',
-            'almacen_id' => 'required',
+         //   'almacen_id' => 'required',
             'cantidad' => 'required',
         ]);
         try {
@@ -52,7 +52,7 @@ class Editar extends ModalComponent
             $contador->cantidad =  $this->cantidad;
             $contador->tipo =  $this->tipo;
             $contador->observaciones =  $this->observaciones;
-            $contador->almacen_producto_terminado_id =  $this->almacen_id;
+            $contador->almacen_producto_terminado_id =  1;
             $contador->orp_id =  $this->orp_id;
             $contador->user_id =  auth()->user()->id;
             $contador->save();

@@ -36,8 +36,8 @@ class Crear extends ModalComponent
     {
         $this->validate([
             'orp_id' => 'required',
-            // 'tipo' => 'required',
-            'almacen_id' => 'required',
+             'tipo' => 'required',
+          //  'almacen_id' => 'required',
             'cantidad' => 'required',
         ]);
         try {
@@ -45,9 +45,9 @@ class Crear extends ModalComponent
             Contador::create([
                 'tiempo' => now(),
                 'cantidad' => $this->cantidad,
-                'tipo' => 'Parcial',
+                'tipo' => $this->tipo,
                 'observaciones' => $this->observaciones,
-                'almacen_producto_terminado_id' => $this->almacen_id,
+                'almacen_producto_terminado_id' => 1,
                 'orp_id' => $this->orp_id,
                 'user_id' => auth()->user()->id
 

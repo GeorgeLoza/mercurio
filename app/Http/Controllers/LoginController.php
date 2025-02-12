@@ -35,6 +35,15 @@ class LoginController extends Controller
 
                 return redirect()->route('leche_analisis.index');
 
+
+            }
+            else{
+                 if (auth()->user()->role->id==28) {
+
+                    return redirect()->route('contadorProductoTerminado.index');
+
+
+                }
             }
             // Obtener el ID del usuario autenticado
             $userId = Auth::id();

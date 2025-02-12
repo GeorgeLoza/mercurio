@@ -160,11 +160,13 @@
                             <p class="p-0">
                                 @if ($micro->aer_mes >= 1000000)
                                     MNPC
-                                @elseif ($micro->aer_mes < 1000000 && $micro->aer_mes >= 1)
+                                @elseif ($micro->aer_mes < 1000000 && $micro->aer_mes >= 10)
                                     {{ $micro->aer_mes < 1
                                         ? $micro->aer_mes * 10 ** (strlen(floor($micro->aer_mes)) - 1)
                                         : $micro->aer_mes / 10 ** (strlen(floor($micro->aer_mes)) - 1) }}
                                     x 10<sup>{{ strlen(floor($micro->aer_mes)) - 1 }}</sup>
+                                    @elseif ($micro->aer_mes > 0)
+                                            {{ $micro->aer_mes }}
                                 @elseif ($micro->aer_mes === 0)
                                     < 1 x 10<sup>1</sup>
                                     @elseif (is_null($micro->aer_mes))
@@ -178,11 +180,13 @@
 
                                     @if ($micro->aer_mes2 >= 1000000)
                                         MNPC
-                                    @elseif ($micro->aer_mes2 < 1000000 && $micro->aer_mes2 >= 1)
+                                    @elseif ($micro->aer_mes2 < 1000000 && $micro->aer_mes2 >= 10)
                                         {{ $micro->aer_mes2 < 1
                                             ? $micro->aer_mes2 * 10 ** (strlen(floor($micro->aer_mes2)) - 1)
                                             : $micro->aer_mes2 / 10 ** (strlen(floor($micro->aer_mes2)) - 1) }}
                                         x 10<sup>{{ strlen(floor($micro->aer_mes2)) - 1 }}</sup>
+                                        @elseif ($micro->aer_mes2 > 0)
+                                            {{ $micro->aer_mes2 }}
                                     @elseif ($micro->aer_mes2 === 0)
                                         < 1 x 10<sup>1</sup>
                                         @elseif (is_null($micro->aer_mes2))
@@ -201,11 +205,13 @@
                                 <p class="p-0">
                                     @if ($micro->col_tot >= 1000000)
                                         MNPC
-                                    @elseif ($micro->col_tot < 1000000 && $micro->col_tot >= 1)
+                                    @elseif ($micro->col_tot < 1000000 && $micro->col_tot >= 10)
                                         {{ $micro->col_tot < 1
                                             ? $micro->col_tot * 10 ** (strlen(floor($micro->col_tot)) - 1)
                                             : $micro->col_tot / 10 ** (strlen(floor($micro->col_tot)) - 1) }}
                                         x 10<sup>{{ strlen(floor($micro->col_tot)) - 1 }}</sup>
+                                        @elseif ($micro->col_tot > 0)
+                                            {{ $micro->col_tot }}
                                     @elseif ($micro->col_tot === 0)
                                         < 1 x 10<sup>1</sup>
                                         @elseif (is_null($micro->col_tot))
@@ -218,11 +224,13 @@
                                     <p class="p-0">
                                         @if ($micro->col_tot2 >= 1000000)
                                             MNPC
-                                        @elseif ($micro->col_tot2 < 1000000 && $micro->col_tot2 >= 1)
+                                        @elseif ($micro->col_tot2 < 1000000 && $micro->col_tot2 >= 10)
                                             {{ $micro->col_tot2 < 1
                                                 ? $micro->col_tot2 * 10 ** (strlen(floor($micro->col_tot2)) - 1)
                                                 : $micro->col_tot2 / 10 ** (strlen(floor($micro->col_tot2)) - 1) }}
                                             x 10<sup>{{ strlen(floor($micro->col_tot2)) - 1 }}</sup>
+                                            @elseif ($micro->col_tot2 > 0)
+                                            {{ $micro->col_tot2 }}
                                         @elseif ($micro->col_tot2 === 0)
                                             < 1 x 10<sup>1</sup>
                                             @elseif (is_null($micro->col_tot2))
@@ -233,7 +241,8 @@
                                 @endif
 
                             </div>
-                            @if ((now()->diffInDays($micro->fecha_sembrado) < 8 && auth()->user()->role->rolModuloPermisos->where('modulo_id', 28)->where('permiso_id', 1)->isNotEmpty()) || auth()->user()->role->id == 1 )
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 28)->where('permiso_id', 1)->isNotEmpty() ||
+                                    auth()->user()->role->id == 1)
                                 <div class="flex h-full items-center justify-center ml-3">
                                     <svg wire:click="dia2({{ $micro->id }})" class="h-5 mr-1 fill-green-500"
                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
@@ -277,11 +286,13 @@
 
                                         @if ($micro->moh_lev >= 1000000)
                                             MNPC
-                                        @elseif ($micro->moh_lev < 1000000 && $micro->moh_lev >= 1)
+                                        @elseif ($micro->moh_lev < 1000000 && $micro->moh_lev >= 10)
                                             {{ $micro->moh_lev < 1
                                                 ? $micro->moh_lev * 10 ** (strlen(floor($micro->moh_lev)) - 1)
                                                 : $micro->moh_lev / 10 ** (strlen(floor($micro->moh_lev)) - 1) }}
                                             x 10<sup>{{ strlen(floor($micro->moh_lev)) - 1 }}</sup>
+                                        @elseif ($micro->moh_lev > 0)
+                                            {{ $micro->moh_lev }}
                                         @elseif ($micro->moh_lev === 0)
                                             < 1 x 10<sup>1</sup>
                                             @elseif (is_null($micro->moh_lev))
@@ -294,11 +305,14 @@
 
                                             @if ($micro->moh_lev2 >= 1000000)
                                                 MNPC
-                                            @elseif ($micro->moh_lev2 < 1000000 && $micro->moh_lev2 >= 1)
+                                            @elseif ($micro->moh_lev2 < 1000000 && $micro->moh_lev2 >= 10)
                                                 {{ $micro->moh_lev2 < 1
                                                     ? $micro->moh_lev2 * 10 ** (strlen(floor($micro->moh_lev2)) - 1)
                                                     : $micro->moh_lev2 / 10 ** (strlen(floor($micro->moh_lev2)) - 1) }}
                                                 x 10<sup>{{ strlen(floor($micro->moh_lev2)) - 1 }}</sup>
+
+                                                @elseif ($micro->moh_lev2 > 0)
+                                            {{ $micro->moh_lev2 }}
                                             @elseif ($micro->moh_lev2 === 0)
                                                 < 1 x 10<sup>1</sup>
                                                 @elseif (is_null($micro->moh_lev2))
@@ -307,7 +321,12 @@
                                         </p>
                                     @endif
                                 </div>
-                                @if ((now()->diffInDays($micro->fecha_sembrado) < 8 && auth()->user()->role->rolModuloPermisos->where('modulo_id', 28)->where('permiso_id', 1)->isNotEmpty()) || auth()->user()->role->id == 1 )
+                                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 28)->where('permiso_id', 1)->isNotEmpty() ||
+                                        auth()->user()->role->id == 1)
+
+                                       @if ($micro->detalleSolicitudPlanta->tipoMuestra->id !=9)
+
+
                                     <div class="flex h-full items-center justify-center ml-3 ">
                                         <svg wire:click="dia5({{ $micro->id }})" class="h-5 mr-1 fill-green-500"
                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
@@ -326,6 +345,7 @@
                                             </svg>
                                         </button>
                                     </div>
+                                    @endif
                                 @endif
 
 
@@ -336,30 +356,30 @@
 
                         <td class="px-3 py-0 flex justify-center ">
                             @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 28)->where('permiso_id', 1)->isNotEmpty())
-                            <form novalidate wire:submit="sembrar({{ $micro->id }})" class="flex">
+                                <form novalidate wire:submit="sembrar({{ $micro->id }})" class="flex">
 
-                                <div>
-                                    <input type="date" wire:model="fecha_sembrado" class="border rounded p-1 " />
-                                    @error('fecha_sembrado')
-                                        <p class="text-red-500">Debe colocar una fecha</p>
-                                    @enderror
-                                </div>
-                                <div class="p-1">
+                                    <div>
+                                        <input type="date" wire:model="fecha_sembrado"
+                                            class="border rounded p-1 " />
+                                        @error('fecha_sembrado')
+                                            <p class="text-red-500">Debe colocar una fecha</p>
+                                        @enderror
+                                    </div>
+                                    <div class="p-1">
 
-                                    <button class="bg-green-600 fill-white p-1 rounded-md" type="submit">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
-                                            class="h-4 w-4">
-                                            <path
-                                                d="M512 32c0 113.6-84.6 207.5-194.2 222c-7.1-53.4-30.6-101.6-65.3-139.3C290.8 46.3 364 0 448 0h32c17.7 0 32 14.3 32 32zM0 96C0 78.3 14.3 64 32 64H64c123.7 0 224 100.3 224 224v32V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V320C100.3 320 0 219.7 0 96z" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </form>
+                                        <button class="bg-green-600 fill-white p-1 rounded-md" type="submit">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                                class="h-4 w-4">
+                                                <path
+                                                    d="M512 32c0 113.6-84.6 207.5-194.2 222c-7.1-53.4-30.6-101.6-65.3-139.3C290.8 46.3 364 0 448 0h32c17.7 0 32 14.3 32 32zM0 96C0 78.3 14.3 64 32 64H64c123.7 0 224 100.3 224 224v32V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V320C100.3 320 0 219.7 0 96z" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </form>
                             @endif
 
 
                             @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 28)->where('permiso_id', 3)->isNotEmpty())
-
                                 <button>
                                     <svg onclick="Livewire.dispatch('openModal', { component: 'externo.microbiologia.edit', arguments: { id: {{ $micro->id }}, id2:3 } })"
                                         xmlns="http://www.w3.org/2000/svg"

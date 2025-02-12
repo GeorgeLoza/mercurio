@@ -311,10 +311,21 @@
                             {{ $registro->densidad }}
                         </td>
                         <td class="px-1 py-2" nowrap>
-                            @if ($registro->prueba_alcohol ==1)
-                                +
+
+
+
+                            @if ($registro->prueba_alcohol === null)
                                 @else
-                                -
+
+
+                                    @if ($registro->prueba_alcohol>0 )
+
+                                    +
+                                    @elseif ($registro->prueba_alcohol === 0)
+
+                                    -
+                                    @endif
+
                             @endif
 
                         </td>
@@ -362,11 +373,23 @@
 
                         </td>
                         <td class="px-1 py-2 text-center" nowrap>
-                            @if ($registro->antibioticos ==1)
-                                +
+
+
+                            @if ($registro->antibioticos === null)
                                 @else
-                                -
+
+
+                                    @if ($registro->antibioticos>0 )
+
+                                    +
+                                    @elseif ($registro->antibioticos === 0)
+
+                                            -
+                                    @endif
+
                             @endif
+
+
 
                         </td>
 

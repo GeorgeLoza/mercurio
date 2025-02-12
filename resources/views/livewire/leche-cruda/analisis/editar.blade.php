@@ -86,16 +86,35 @@
 
 
                 <!--checkboxes prueba de alcohol-->
-                <div class="flex gap-1 justify-around mb-3 w-1/3">
+                <div class="flex  justify-around mb-3 w-1/3 flex-col  @if ($id2 != 1) hidden @endif">
 
-                    <div class="flex items-center @if ($id2 != 1) hidden @endif">
-                        <input checked id="checked-checkbox" wire:model="prueba_alcohol" type="checkbox"
+                    <div class="flex items-center">
+                        <input {{$prueba_alcohol ? 'checked' : ' ' }} id="checked-checkbox" wire:model="prueba_alcohol" type="checkbox"
                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                         <label for="checked-checkbox"
                             class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Prueba Alcohol</label>
+
                     </div>
+                    <p class="text-xs flex  text-yellow-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                        class="fill-yellow-500  w-3 pr-1 ">
+                        <path
+                            d="M64 80c-8.8 0-16 7.2-16 16l0 320c0 8.8 7.2 16 16 16l320 0c8.8 0 16-7.2 16-16l0-320c0-8.8-7.2-16-16-16L64 80zM0 96C0 60.7 28.7 32 64 32l320 0c35.3 0 64 28.7 64 64l0 320c0 35.3-28.7 64-64 64L64 480c-35.3 0-64-28.7-64-64L0 96zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" />
+
+                        </svg>
+                    No es estable
+                </p>
+                <p class="text-xs flex  text-yellow-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                        class="fill-yellow-500  w-3 pr-1">
+
+                        <path
+                            d="M384 80c8.8 0 16 7.2 16 16l0 320c0 8.8-7.2 16-16 16L64 432c-8.8 0-16-7.2-16-16L48 96c0-8.8 7.2-16 16-16l320 0zM64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32z" />
+
+                         </svg>
+                    Si es estable
+                </p>
 
                 </div>
+
                 <!--fin checkboxes prueba de alcohol-->
 
             </div>
@@ -220,7 +239,7 @@
             </div>
 
             {{-- recuento --}}
-            <div class="flex px-3 mb-5 w-full @if ($id2 != 3) hidden @endif ">
+            <div class="md:flex px-3 mb-5 w-full @if ($id2 != 3)hidden md:hidden @endif ">
                 <div class="relative z-0 w-full mb-5 group flex items-center gap-2 ">
                     <input type="number" wire:model.live="recuento" id="recuento" name="recuento"
                         class="block py-2.5 px-0 w-auto text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
@@ -254,18 +273,38 @@
 
 
 
-                 <!--checkboxes prueba de antibioticos-->
-            <div class="flex gap-1 justify-around mb-3 w-full ">
+                <!--checkboxes prueba de antibioticos-->
+                <div class="flex gap-1 justify-around mb-3 w-full ">
 
-                <div class="flex items-center">
-                    <input checked id="checked-checkbox" wire:model="antibioticos" type="checkbox"
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="checked-checkbox"
-                        class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Antibioticos</label>
+                    <div class="flex  flex-col justify-start">
+                        <p><input {{$antibioticos ? 'checked' : ' ' }} id="checked-checkbox" wire:model="antibioticos" type="checkbox"
+                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="checked-checkbox"
+                                class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Antibioticos</label>
+                        </p>
+
+                        <p class="text-xs flex gap-1  text-yellow-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                                class="fill-yellow-500  w-3">
+                                <path
+                                    d="M64 80c-8.8 0-16 7.2-16 16l0 320c0 8.8 7.2 16 16 16l320 0c8.8 0 16-7.2 16-16l0-320c0-8.8-7.2-16-16-16L64 80zM0 96C0 60.7 28.7 32 64 32l320 0c35.3 0 64 28.7 64 64l0 320c0 35.3-28.7 64-64 64L64 480c-35.3 0-64-28.7-64-64L0 96zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" />
+
+                                </svg>
+                            Si hay presencia de antibioticos
+                        </p>
+                        <p class="text-xs flex gap-1 text-yellow-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                                class="fill-yellow-500  w-3">
+
+                                <path
+                                    d="M384 80c8.8 0 16 7.2 16 16l0 320c0 8.8-7.2 16-16 16L64 432c-8.8 0-16-7.2-16-16L48 96c0-8.8 7.2-16 16-16l320 0zM64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32z" />
+
+                                 </svg>
+                            No hay presencia de antibioticos
+                        </p>
+
+                    </div>
+
                 </div>
-
-            </div>
-            <!--fin checkboxes prueba de antibioticos-->
+                <!--fin checkboxes prueba de antibioticos-->
             </div>
 
 

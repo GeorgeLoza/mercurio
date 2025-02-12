@@ -17,7 +17,7 @@ class SolicitudPlanta extends Component
 
     public function render()
     {
-        if (auth()->user()->rol == 'Ext') {
+        if (auth()->user()->role->id == 23) {
             $solicitudes = ModelsSolicitudPlanta::where('user_id', auth()->user()->id)
                 ->orderBy('created_at', 'desc')
                 ->get();

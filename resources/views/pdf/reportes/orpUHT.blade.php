@@ -670,14 +670,16 @@
                     @endforeach
                     <tr>
                         <th colspan="14">
+                            @if ($dato->solicitudAnalisisLinea->analisisLinea->tempUHT != null)
                             Temperaturas de UHT:
+                            @endif
                             @foreach ($envasados as $dato)
+                            @if ($dato->solicitudAnalisisLinea->analisisLinea->tempUHT != null)
                                 {{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
                                 -
-                                @if ($dato->solicitudAnalisisLinea->analisisLinea->tempUHT != null)
                                     {{ $dato->solicitudAnalisisLinea->analisisLinea->tempUHT / 1 }}
                                 @else
-                                    Sin Dato
+
                                 @endif
                             @endforeach
                         </th>
@@ -688,14 +690,16 @@
                         Sin Observaciones
                         <br>
 
+                        @if ($dato->solicitudAnalisisLinea->analisisLinea->tempUHT != null)
                         Temperaturas de UHT:
+                        @endif
                         @foreach ($envasados as $dato)
+                        @if ($dato->solicitudAnalisisLinea->analisisLinea->tempUHT != null)
                             {{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
                             -
-                            @if ($dato->solicitudAnalisisLinea->analisisLinea->tempUHT != null)
                                 {{ $dato->solicitudAnalisisLinea->analisisLinea->tempUHT / 1 }}
                             @else
-                                Sin Dato
+
                             @endif
                         @endforeach
 

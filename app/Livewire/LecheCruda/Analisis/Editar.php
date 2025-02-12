@@ -66,11 +66,12 @@ class Editar extends ModalComponent
     public function update()
     {
 
-        if ($this->prueba_alcohol) {
+        if ($this->prueba_alcohol ==1) {
             $this->prueba_alcohol = 1;
         } else {
             $this->prueba_alcohol = 0;
         }
+
         try {
 
             $analisis = CalidadLeche::find($this->id);
@@ -105,8 +106,14 @@ class Editar extends ModalComponent
 
 
                 $analisis->tram_lapso = $this->tram_lapso;
+
             }
             if ($this->id2 == 3) {
+                if ($this->antibioticos) {
+                    $this->antibioticos = 1;
+                } else {
+                    $this->antibioticos = 0;
+                }
 
                 $analisis->antibioticos = $this->antibioticos;
                 $analisis->recuento = $this->recuento;

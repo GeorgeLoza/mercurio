@@ -288,11 +288,14 @@
                     <td>
                         @if ($resultados->aer_mes >= 1000000)
                             MNPC
+                            @elseif ($resultados->aer_mes > 0 && $resultados->aer_mes<=10)
+                                            {{ $resultados->aer_mes }}
                         @elseif ($resultados->aer_mes != 0)
                             {{ $resultados->aer_mes < 1
                                 ? $resultados->aer_mes * 10 ** (strlen(floor($resultados->aer_mes)) - 1)
                                 : $resultados->aer_mes / 10 ** (strlen(floor($resultados->aer_mes)) - 1) }}
                             x 10<sup>{{ strlen(floor($resultados->aer_mes)) - 1 }}</sup>
+
                         @else
                             &lt; 1 x 10<sup>1</sup>
                         @endif
@@ -301,6 +304,8 @@
                     <td>
                         @if ($resultados->aer_mes2 >= 1000000)
                             MNPC
+                            @elseif ($resultados->aer_mes2 > 0 && $resultados->aer_mes2<=10)
+                            {{ $resultados->aer_mes2 }}
                         @elseif ($resultados->aer_mes2 != 0)
                             {{ $resultados->aer_mes2 < 1
                                 ? $resultados->aer_mes2 * 10 ** (strlen(floor($resultados->aer_mes2)) - 1)
@@ -328,6 +333,8 @@
                     <td>
                         @if ($resultados->col_tot >= 1000000)
                             MNPC
+                            @elseif ($resultados->col_tot > 0 && $resultados->col_tot<=10)
+                                            {{ $resultados->col_tot }}
                         @elseif ($resultados->col_tot != 0)
                             {{ $resultados->col_tot < 1
                                 ? $resultados->col_tot * 10 ** (strlen(floor($resultados->col_tot)) - 1)
@@ -341,6 +348,8 @@
                     <td>
                         @if ($resultados->col_tot2 >= 1000000)
                             MNPC
+                            @elseif ($resultados->col_tot2 > 0 && $resultados->col_tot2<=10)
+                                            {{ $resultados->col_tot2 }}
                         @elseif ($resultados->col_tot2 != 0)
                             {{ $resultados->col_tot2 < 1
                                 ? $resultados->col_tot2 * 10 ** (strlen(floor($resultados->col_tot2)) - 1)
@@ -367,10 +376,13 @@
                     <td>
                         @if ($resultados->moh_lev >= 1000000)
                             MNPC
+                            @elseif ($resultados->moh_lev > 0 && $resultados->moh_lev<=10)
+                                            {{ $resultados->moh_lev }}
                         @elseif ($resultados->moh_lev != 0)
                             {{ $resultados->moh_lev < 1
                                 ? $resultados->moh_lev * 10 ** (strlen(floor($resultados->moh_lev)) - 1)
                                 : $resultados->moh_lev / 10 ** (strlen(floor($resultados->moh_lev)) - 1) }}
+
                             x 10
                             <sup>{{ strlen(floor($resultados->moh_lev)) - 1 }}</sup>
                         @else
@@ -381,6 +393,8 @@
                     <td class="nowrap">
                         @if ($resultados->moh_lev2 >= 1000000)
                             MNPC
+                            @elseif ($resultados->moh_lev2 > 0 && $resultados->moh_lev2<=10)
+                                            {{ $resultados->moh_lev2 }}
                         @elseif ($resultados->moh_lev2 != 0)
                             {{ $resultados->moh_lev2 < 1
                                 ? $resultados->moh_lev2 * 10 ** (strlen(floor($resultados->moh_lev2)) - 1)

@@ -123,7 +123,7 @@ Route::middleware(['auth'])->group(function () {
         /*ruta para  almacen */
         Route::get('/almacen/productoTerminado', [AlmacenProductoTerminadoController::class, 'index'])->name('almacenProductoTerminado.index');
     });
-    Route::middleware(['roles:Admi'])->group(function () {
+    Route::middleware(['role.permission:16,2'])->group(function () {
         /*ruta para  contador */
         Route::get('/contador/productoTerminado', [ContadorController::class, 'index'])->name('contadorProductoTerminado.index');
     });

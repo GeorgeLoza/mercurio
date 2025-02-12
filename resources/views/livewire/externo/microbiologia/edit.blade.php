@@ -4,7 +4,7 @@
 
 <div class=" mb-8">
     <h3 class="mb-4 text-md font-medium text-gray-900 dark:text-white">Analisis
-        Microbiologico - Dia 2</h3>
+        Microbiologico - Dia 2 </h3>
     {{ $data->detalleSolicitudPlanta->tipo_muestra_id == 8 }}
 
     <form novalidate wire:submit="dia2">
@@ -15,7 +15,7 @@
             <h3 class="mb-2 text-md font-medium text-gray-900 dark:text-white">Analisis de
                 Superficie</h3>
         @endif
-        @if ($data->detalleSolicitudPlanta->tipoMuestra->id != 9)
+        @if ($data->detalleSolicitudPlanta->tipoMuestra->id != 9 && $data->detalleSolicitudPlanta->tipoMuestra->id != 5)
             <div>
                 <label for="aer_mes" class="block mb-2 text-xs font-medium text-gray-900 dark:text-white">
                     Aerobios mesófilos</label>
