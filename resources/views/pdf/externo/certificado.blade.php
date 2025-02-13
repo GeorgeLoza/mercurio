@@ -128,7 +128,7 @@
                     </td>
                     <th>Código:</th>
                     <td style="font-size: 0.8rem; text-decoration: underline; font-weight: bold">
-                        PLL-MB{{ $datosSolicitud->user->abreviatura }}-{{ $datosSolicitud->subcodigo }}/24
+                        PLL-MB-{{ $datosSolicitud->user->planta->abreviatura  }}-{{ $datosSolicitud->subcodigo }}/{{ \Carbon\Carbon::parse($datosSolicitud->updated_at)->isoFormat('YY') }}
                     </td>
                 </tr>
 

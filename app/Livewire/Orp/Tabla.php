@@ -312,6 +312,11 @@ public function generatePDFsegimiento()
             $estadoDetalles = EstadoDetalle::select('orp_id', 'preparacion')
                 ->with('orp.producto.destinoProducto')
                 ->distinct() // Asegura que no se repitan las combinaciones de orp_id y preparacion
+                ->whereHas('orp.producto', function ($q) {
+                    $q->whereNotNull('destino_producto_id'); // Solo filtra si destino_producto_id no es NULL
+                })
+
+
                 ->when($anio, function ($query) use ($anio) {
                     $query->whereHas('orp', function ($q) use ($anio) {
                         $q->whereYear('updated_at', $anio);
@@ -337,6 +342,7 @@ public function generatePDFsegimiento()
                         $q->where('estado', 'Completado');
                     });
                 })
+
 
                 ->get();
 
