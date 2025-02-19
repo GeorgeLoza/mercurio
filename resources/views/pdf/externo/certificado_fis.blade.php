@@ -278,24 +278,74 @@
             </table>
         </main>
 
+        <style>
+            .capitalize {
+                text-transform: capitalize;
+            }
+
+            /* Estilo para la tabla con la clase "mi-tabla" */
+            table.mi-tabla {
+                width: 40%;
+                border-collapse: collapse;
+                /* Colapsa los bordes de las celdas */
+                border: 1px solid #000;
+                /* Borde externo de la tabla */
+            }
+
+            /* Estilo para las cabeceras de la tabla con la clase "mi-tabla" */
+            table.mi-tabla th {
+                padding: 8px;
+                text-align: left;
+
+                /* Color de fondo para las cabeceras */
+            }
+
+            /* Estilo para las celdas del cuerpo de la tabla con la clase "mi-tabla" */
+            table.mi-tabla td {
+                padding: 4px;
+                text-align: left;
+            }
+
+            /* Estilo para las celdas de cabecera en la primera fila de la tabla con la clase "mi-tabla" */
+            table.mi-tabla thead th {
+                border-bottom: 2px solid #000;
+                /* Borde inferior más grueso para las cabeceras */
+            }
+        </style>
+        <table class="mi-tabla" style="font-size: 0.7rem">
+            <thead>
+
+                <tr>
+
+                    <th style="padding: 5px">Analistas</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                    <tr>
+
+                        <th class="capitalize" style="padding: 5px">
+                         E. Analisis  T.S. {{ ucwords(strtolower($resultados->user->nombre . ' ' . $resultados->user->apellido)) }}
+                        </th>
+                    </tr>
+
+            </tbody>
+        </table>
+
         <table>
-            <div class="footer" style="opacity: 1;">
-                <div class="signature-box">
+            <div class="footer" style="opacity: 1; font-size: 1rem;">
+                <div class="signature-box ">
                     <div class="signer">
-                        @if ($resultados->user_id == 20)
-                            <img style="width: 60%" src="img/firma/fq_helen.png" alt="">
-                        @endif
-                        @if ($resultados->user_id == 24)
-                            <img style="width: 60%" src="img/firma/fq_jennyS.png" alt="">
-                        @endif
-                        @if ($resultados->user_id == 32)
-                            <img style="width: 60%" src="img/firma/fq_mescalera.png" alt="">
-                        @endif
-                        <div class="line">Analista de Fisicoquímico</div>
+                        <img style="width: 60%" src="img/firma/alejandra.jpeg" alt="">
+                        <p class="line" style="font-size: 0.8rem;">Ing. Alejandra Ledezma Calizaya</p>
+                        <div  style="font-size: 0.8rem;">Responsable de Analisis Externos</div>
+                        <p style="font-size: 0.8rem;">Lab. Planta Lacteos</p>
                     </div>
                     <div class="signer">
-                        <img style="width: 60%" src="img/firma/rubenC.png" alt="">
-                        <div class="line">Jefe de Calidad</div>
+                        <img style="width: 60%" src="img/firma/ruben.jpeg" alt="">
+                        <p class="line" style="font-size: 0.8rem;">Ing. Ruben Casilla Condori</p>
+                        <div  style="font-size: 0.8rem;">Jefe de Control de Calidad</div>
+                        <p style="font-size: 0.8rem;">Lab. Planta Lacteos</p>
                     </div>
                 </div>
             </div>

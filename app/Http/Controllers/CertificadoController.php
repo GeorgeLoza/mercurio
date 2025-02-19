@@ -58,12 +58,19 @@ class CertificadoController extends Controller
     {
         $datosSolicitud = DetalleSolicitudPlanta::find($id);
 
+
+
         $normas = TipoMuestra::find($datosSolicitud->tipo_muestra_id);
 
         if ($datosSolicitud->tipo_analisis == 'Fisicoquimico') {
             $resultados = ActividadAgua::where('detalle_solicitud_planta_id', $id)->first();
 
         }
+
+
+
+
+
         $pdf = Pdf::loadView('pdf.externo.certificado_fis', compact('datosSolicitud', 'resultados', 'normas'));
         $pdf->setPaper('letter', 'portrait');
 

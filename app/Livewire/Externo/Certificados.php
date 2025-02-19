@@ -62,15 +62,15 @@ class Certificados extends Component
                     $query->where('estado', 'like', '%' . $this->f_estado . '%');
                 });
             })
-            ->when(auth()->check() && auth()->user()->rol === 'Ext', function ($query) {
-                $query->whereHas('detalleSolicitudPlanta', function ($query) {
-                    $query->where('user_id', auth()->id());
+            ->when(auth()->check() && auth()->user()->role->id == 23, function ($query) {
+                $query->whereHas('detalleSolicitudPlanta.solicitudPlanta.user', function ($query) {
+                    $query->where('planta_id', auth()->user()->planta_id);
                 });
             })
             ->orderBy('id', 'desc'); // Ordenar de manera descendente según el id;
 
         $micros = $this->aplicandoFiltros ? $query->get() : $query->paginate(50);
-        
+
         $query2 = ActividadAgua::query()
         ->when($this->f_codigo, function ($query2) {
             $query2->whereHas('detalleSolicitudPlanta', function ($query2) {
@@ -92,15 +92,15 @@ class Certificados extends Component
                 $query2->where('estado', 'like', '%' . $this->f_estado . '%');
             });
         })
-        ->when(auth()->check() && auth()->user()->rol === 'Ext', function ($query2) {
-            $query2->whereHas('detalleSolicitudPlanta', function ($query2) {
-                $query2->where('user_id', auth()->id());
+        ->when(auth()->check() && auth()->user()->role->id == 23, function ($query2) {
+            $query2->whereHas('detalleSolicitudPlanta.solicitudPlanta.user', function ($query2) {
+                $query2->where('planta_id', auth()->user()->planta_id);
             });
         })
         ->orderBy('id', 'desc'); // Ordenar de manera descendente según el id
-    
+
     $fisicos = $this->aplicandoFiltros ? $query2->get() : $query2->paginate(50);
-    
+
 
         return view('livewire.externo.certificados', [
             'micros' => $micros,
@@ -110,7 +110,7 @@ class Certificados extends Component
 
     public function cambiar_estado($id)
     {
-        
+
         $registro = DetalleSolicitudPlanta::find($id);
         $registro->estado = 'Terminado';
         $registro->save();

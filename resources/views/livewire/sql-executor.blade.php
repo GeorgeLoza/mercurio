@@ -2,16 +2,16 @@
     <h2 class="text-lg font-semibold">Ejecutar Consulta SQL</h2>
 
     <!-- Campo para ingresar la consulta SQL -->
-    <textarea 
-        wire:model="query" 
-        placeholder="Introduce tu consulta SQL" 
-        rows="5" 
+    <textarea
+        wire:model="query"
+        placeholder="Introduce tu consulta SQL"
+        rows="5"
         class="w-full border p-2 bg-gray-50 text-gray-800 border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700">
     </textarea>
 
     <!-- Botón para ejecutar la consulta -->
-    <button 
-        wire:click="execute" 
+    <button
+        wire:click="execute"
         class="bg-blue-500 text-white p-2 mt-2 rounded-md hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
         Ejecutar
     </button>
@@ -60,4 +60,18 @@
             <strong>Error:</strong> {{ $error }}
         </div>
     @endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>

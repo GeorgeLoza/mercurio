@@ -11,6 +11,7 @@ use App\Notifications\CierreOrp;
 use Illuminate\Support\Facades\DB;
 use LivewireUI\Modal\ModalComponent;
 use App\Notifications\orpNotification;
+use Carbon\Carbon;
 
 class EstadoOrp extends ModalComponent
 {
@@ -18,17 +19,31 @@ class EstadoOrp extends ModalComponent
     public $estado;
 
     public function render()
-    {
-        $orps = Contador::select('contadors.orp_id', DB::raw('SUM(cantidad) as cantidad_total'))
-            ->whereIn('tipo', ['Total por Turno', 'Total para Muestras'])
-            ->groupBy('contadors.orp_id')
-            ->join('orps', 'contadors.orp_id', '=', 'orps.id')
-            ->where('orps.estado', 'En proceso') // Condición agregada para el estado de la ORP
-            ->get();
-        return view('livewire.contador.productoterminado.estado-orp', [
-            'orps' => $orps
-        ]);
-    }
+{
+    $orps = Contador::select('contadors.orp_id', DB::raw('SUM(cantidad) as cantidad_total'))
+        ->whereIn('tipo', ['Total por Turno', 'Total para Muestras'])
+        ->groupBy('contadors.orp_id')
+        ->join('orps', 'contadors.orp_id', '=', 'orps.id')
+        ->whereNotExists(function ($query) {
+            $query->select(DB::raw(1))
+                  ->from('contadors as c')
+                  ->whereColumn('c.orp_id', 'contadors.orp_id')
+                  ->where('c.tipo', 'Total'); // Excluir ORP si tiene un tipo 'Total'
+        })
+        ->where(function ($query) {
+            $query->where('orps.estado', 'En proceso')
+                  ->orWhere(function ($q) {
+                      $q->where('orps.estado', 'Completado')
+                        ->whereDate('orps.updated_at', '>=', Carbon::now()->subDays(3));
+                  });
+        })
+        ->get();
+
+    return view('livewire.contador.productoterminado.estado-orp', [
+        'orps' => $orps
+    ]);
+}
+
     public function concluir($id)
     {
         try {
@@ -37,51 +52,46 @@ class EstadoOrp extends ModalComponent
                 ->where('orp_id', $id)
                 ->groupBy('contadors.orp_id')
                 ->join('orps', 'contadors.orp_id', '=', 'orps.id')
-                ->where('orps.estado', 'En proceso') // Condición agregada para el estado de la ORP
                 ->first();
 
 
             DB::beginTransaction();
 
-            $registro = Orp::findOrFail($id);
-            $registro->estado = 'Completado';
-            $registro->save();
+            // $registro = Orp::findOrFail($id);
+            // $registro->estado = 'Completado';
+            // $registro->save();
             try {
-                DB::table('colors')
-                    ->where('orp_id', $id)
-                    ->update(['orp_id' => null]);
+                // DB::table('colors')
+                //     ->where('orp_id', $id)
+                //     ->update(['orp_id' => null]);
 
 
-                    $registros = EstadoPlanta::select('*')
-                    ->where('proceso', 'Produccion')
-                    ->where('etapa_id', 8)
-                    ->whereHas('estadoDetalle.orp', function ($query) use ($id) {
-                        $query->where('id', $id);
-                    })
-                    ->whereIn('id', function ($query) {
-                        $query->select(DB::raw('MAX(id)'))
-                            ->from('estado_plantas')
-                            ->groupBy('origen_id');
-                    })
-                    ->get();
+                // $registros = EstadoPlanta::select('*')
+                // ->where('proceso', 'Produccion')
+                // ->where('etapa_id', 8)
+                // ->whereHas('estadoDetalle.orp', function ($query) use ($id) {
+                //     $query->where('id', $id);
+                // })
+                // ->whereIn('id', function ($query) {
+                //     $query->select(DB::raw('MAX(id)'))
+                //         ->from('estado_plantas')
+                //         ->groupBy('origen_id');
+                // })
+                // ->get();
 
 
-                        foreach ($registros as $registro) {
-                            // Crear un nuevo registro con las modificaciones necesarias
-                            EstadoPlanta::create([
-                                'tiempo' => now(), // Asignar el tiempo actual
-                                'user_id' => auth()->user()->id, // Asignar el ID del usuario actual
-                                'origen_id' => $registro->origen_id, // Copiar el origen_id
-                                'proceso' => 'Detenido', // Cambiar el proceso a 'Detenido'
-                                'etapa_id' => 8, // Establecer etapa_id a null
-                                // Otros campos que sean necesarios
-                            ]);
-                        }
+                // foreach ($registros as $registro) {
+                //     // Crear un nuevo registro con las modificaciones necesarias
+                //     EstadoPlanta::create([
+                //         'tiempo' => now(), // Asignar el tiempo actual
+                //         'user_id' => auth()->user()->id, // Asignar el ID del usuario actual
+                //         'origen_id' => $registro->origen_id, // Copiar el origen_id
+                //         'proceso' => 'Detenido', // Cambiar el proceso a 'Detenido'
+                //         'etapa_id' => 8, // Establecer etapa_id a null
+                //         // Otros campos que sean necesarios
+                //     ]);
+                // }
             } catch (\Throwable $th) {
-
-
-
-
             }
 
 
@@ -117,7 +127,6 @@ class EstadoOrp extends ModalComponent
 
 
             $this->dispatch('actualizar_tabla_contador_productoTerminado');
-
         } catch (\Throwable $th) {
             DB::rollBack();
             $this->closeModal();
@@ -128,55 +137,55 @@ class EstadoOrp extends ModalComponent
 
 
 
-    public function completar($id)
-{
+    //     public function completar($id)
+    // {
 
 
-    try {
-        $userId = auth()->id();
+    //     try {
+    //         $userId = auth()->id();
 
-        $registro = Orp::find($id);
-        $registro->estado = 'Completado';
-        $registro->save();
+    //         $registro = Orp::find($id);
+    //         $registro->estado = 'Completado';
+    //         $registro->save();
 
-        try {
-            DB::table('colors')
-                ->where('orp_id', $id)
-                ->update(['orp_id' => null]);
-        } catch (\Throwable $th) {
-            // Manejo de error: puedes registrar el error si es necesario
-            // Log::error('Error al actualizar colors: ' . $th->getMessage());
-        }
+    //         try {
+    //             DB::table('colors')
+    //                 ->where('orp_id', $id)
+    //                 ->update(['orp_id' => null]);
+    //         } catch (\Throwable $th) {
+    //             // Manejo de error: puedes registrar el error si es necesario
+    //             // Log::error('Error al actualizar colors: ' . $th->getMessage());
+    //         }
 
-    $registros = EstadoPlanta::select('*')
-    ->where('proceso', 'Produccion')
-    ->where('etapa_id', 8)
-    ->whereHas('estadoDetalle.orp', function ($query) use ($id) {
-        $query->where('id', $id);
-    })
-    ->whereIn('id', function ($query) {
-        $query->select(DB::raw('MAX(id)'))
-            ->from('estado_plantas')
-            ->groupBy('origen_id');
-    })
-    ->get();
+    //     $registros = EstadoPlanta::select('*')
+    //     ->where('proceso', 'Produccion')
+    //     ->where('etapa_id', 8)
+    //     ->whereHas('estadoDetalle.orp', function ($query) use ($id) {
+    //         $query->where('id', $id);
+    //     })
+    //     ->whereIn('id', function ($query) {
+    //         $query->select(DB::raw('MAX(id)'))
+    //             ->from('estado_plantas')
+    //             ->groupBy('origen_id');
+    //     })
+    //     ->get();
 
 
-        foreach ($registros as $registro) {
-            // Crear un nuevo registro con las modificaciones necesarias
-            EstadoPlanta::create([
-                'tiempo' => now(), // Asignar el tiempo actual
-                'user_id' => $userId, // Asignar el ID del usuario actual
-                'origen_id' => $registro->origen_id, // Copiar el origen_id
-                'proceso' => 'Detenido', // Cambiar el proceso a 'Detenido'
-                'etapa_id' => 8, // Establecer etapa_id a null
-                // Otros campos que sean necesarios
-            ]);
-        }
+    //         foreach ($registros as $registro) {
+    //             // Crear un nuevo registro con las modificaciones necesarias
+    //             EstadoPlanta::create([
+    //                 'tiempo' => now(), // Asignar el tiempo actual
+    //                 'user_id' => $userId, // Asignar el ID del usuario actual
+    //                 'origen_id' => $registro->origen_id, // Copiar el origen_id
+    //                 'proceso' => 'Detenido', // Cambiar el proceso a 'Detenido'
+    //                 'etapa_id' => 8, // Establecer etapa_id a null
+    //                 // Otros campos que sean necesarios
+    //             ]);
+    //         }
 
-    } catch (\Throwable $th) {
-        dd($th);
-    }
-}
+    //     } catch (\Throwable $th) {
+    //         dd($th);
+    //     }
+    // }
 
 }

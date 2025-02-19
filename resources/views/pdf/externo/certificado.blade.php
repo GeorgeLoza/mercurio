@@ -33,6 +33,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-bottom: 10px
         }
 
         .head th,
@@ -70,8 +71,18 @@
 
         .footer {
             width: 100%;
-            position: absolute;
+
             bottom: 0;
+            margin-bottom: 0px;
+            padding-bottom: 0px;
+
+
+            position: fixed;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            height: 170px;
+            text-align: center;
         }
 
         .signature-box {
@@ -115,28 +126,28 @@
         </head>
 
         <main>
-            <table class="" style="margin: 0.3rem 0; border:0; font-size:0.8rem;">
+            <table class="" style="margin: 0.3rem 0; border:0; font-size:0.8rem; margin-bottom: 10px">
                 <tr>
                     <th>Lugar y Fecha de emisión: </th>
                     <td>El Alto,
                         {{ \Carbon\Carbon::parse($datosSolicitud->updated_at)->isoFormat(
                             'dddd D [de] MMMM
-                                                                                                                                                                                                                                                [de] YYYY',
+                                                                                                                                                                                                                                                                                                [de] YYYY',
                             0,
                             'es',
                         ) }}
                     </td>
                     <th>Código:</th>
                     <td style="font-size: 0.8rem; text-decoration: underline; font-weight: bold">
-                        PLL-MB-{{ $datosSolicitud->user->planta->abreviatura  }}-{{ $datosSolicitud->subcodigo }}/{{ \Carbon\Carbon::parse($datosSolicitud->updated_at)->isoFormat('YY') }}
+                        PLL-MB-{{ $datosSolicitud->user->planta->abreviatura }}-{{ $datosSolicitud->subcodigo }}/{{ \Carbon\Carbon::parse($datosSolicitud->updated_at)->isoFormat('YY') }}
                     </td>
                 </tr>
 
                 <tr>
                 </tr>
             </table>
-            <br>
-            <table style="margin: 0.3rem 0; border:0; text-align:center; font-size:0.8rem;">
+
+            <table style="margin: 0.3rem 0; border:0; text-align:center; font-size:0.8rem; margin-bottom: 10px">
                 <tr>
                     <th colspan="3" style="border: 1px solid black">DATOS DE LA MUESTRA</th>
                 </tr>
@@ -146,7 +157,8 @@
                     <td style="text-align: left ">{{ $datosSolicitud->subcodigo }}</td>
                 </tr>
                 <tr style="border-right: 1px solid black;">
-                    <td  @if (!in_array($datosSolicitud->tipo_muestra_id, [9, 1, 2, 6, 10, 11, 12])) rowspan="6" @else rowspan="2" @endif style="width: 380px; border: 1px solid black;font-size: 20px">
+                    <td @if (!in_array($datosSolicitud->tipo_muestra_id, [9, 1, 2, 6, 10, 11, 12])) rowspan="6" @else rowspan="2" @endif
+                        style="width: 380px; border: 1px solid black;font-size: 20px">
                         @if ($datosSolicitud->productosPlanta)
                             {{ $datosSolicitud->productosPlanta->nombre }}
                         @else
@@ -155,14 +167,14 @@
                     </td>
                     @if (!in_array($datosSolicitud->tipo_muestra_id, [9, 1, 2, 6, 10, 11, 12]))
 
-                    <th style="text-align: right ; padding: 0 15px">Lote: </th>
-                    <td style="text-align: left ">
-                        @if ($datosSolicitud->lote)
-                            {{ $datosSolicitud->lote }}
-                        @else
-                            ----
-                        @endif
-                    </td>
+                        <th style="text-align: right ; padding: 0 15px">Lote: </th>
+                        <td style="text-align: left ">
+                            @if ($datosSolicitud->lote)
+                                {{ $datosSolicitud->lote }}
+                            @else
+                                ----
+                            @endif
+                        </td>
                 </tr>
                 <tr style="border-right: 1px solid black;">
                     <th style="text-align: right; padding: 0 15px">Marca: </th>
@@ -181,6 +193,8 @@
                         {{ \Carbon\Carbon::parse($datosSolicitud->fecha_vencimiento)->isoFormat('D / M / YYYY', 0, 'es') }}
                     </td>
                 </tr>
+                @else
+                <th colspan="2"></th>
                 @endif
 
 
@@ -194,8 +208,8 @@
 
                 </tr>
             </table>
-            <br>
-            <table style="margin: 0.3rem 0; border:0; text-align:center; font-size:0.8rem;">
+
+            <table style="margin: 0.3rem 0; border:0; text-align:center; font-size:0.8rem; margin-bottom: 10px">
                 <tr>
                     <th colspan="4" style="border: 1px solid black">DATOS DE SOLICITANTE</th>
                 </tr>
@@ -223,13 +237,13 @@
                     </td>
                 </tr>
             </table>
-            <br>
-            <table style="margin: 0.3rem 0; border:0; text-align:center; font-size:0.8rem;">
+
+            <table style="margin: 0.3rem 0; border:0; text-align:center; font-size:0.8rem; margin-bottom: 10px ">
                 <tr style="border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
                     <th>Fecha de muestreo:</th>
                     <td>{{ \Carbon\Carbon::parse($datosSolicitud->fecha_muestreo)->isoFormat(
                         'dddd[,] D [de] MMMM [de]
-                                                                                                                                                                                                            YYYY',
+                                                                                                                                                                                                                                                    YYYY',
                         0,
                         'es',
                     ) }}
@@ -239,7 +253,7 @@
                     <th>Fecha de ingreso:</th>
                     <td>{{ \Carbon\Carbon::parse($datosSolicitud->solicitudPlanta->tiempo)->isoFormat(
                         'dddd[,] D [de] MMMM
-                                                                                                                                                                                                            [de] YYYY',
+                                                                                                                                                                                                                                                    [de] YYYY',
                         0,
                         'es',
                     ) }}
@@ -250,14 +264,14 @@
                     <th>Fecha de análisis:</th>
                     <td>{{ \Carbon\Carbon::parse($resultados->fecha_sembrado)->isoFormat(
                         'dddd[,] D [de] MMMM [de]
-                                                                                                                                                                                                            YYYY',
+                                                                                                                                                                                                                                                    YYYY',
                         0,
                         'es',
                     ) }}
                     </td>
                 </tr>
             </table>
-            <br>
+
             <table>
                 <tr>
                     <th style="text-align:left;">Notas:</th>
@@ -285,14 +299,13 @@
                         <td>
                             @if ($resultados->aer_mes >= 1000000)
                                 MNPC
-                                @elseif ($resultados->aer_mes > 0 && $resultados->aer_mes<=10)
-                                            {{ $resultados->aer_mes }}
+                            @elseif ($resultados->aer_mes > 0 && $resultados->aer_mes <= 10)
+                                {{ $resultados->aer_mes }}
                             @elseif ($resultados->aer_mes != 0)
                                 {{ $resultados->aer_mes < 1
                                     ? $resultados->aer_mes * 10 ** (strlen(floor($resultados->aer_mes)) - 1)
                                     : $resultados->aer_mes / 10 ** (strlen(floor($resultados->aer_mes)) - 1) }}
                                 x 10<sup>{{ strlen(floor($resultados->aer_mes)) - 1 }}</sup>
-
                             @else
                                 &lt; 1 x 10<sup>1</sup>
                             @endif
@@ -315,8 +328,8 @@
                         <td>
                             @if ($resultados->col_tot >= 1000000)
                                 MNPC
-                                @elseif ($resultados->col_tot > 0 && $resultados->col_tot<=10)
-                                            {{ $resultados->col_tot }}
+                            @elseif ($resultados->col_tot > 0 && $resultados->col_tot <= 10)
+                                {{ $resultados->col_tot }}
                             @elseif ($resultados->col_tot != 0)
                                 {{ $resultados->col_tot < 1
                                     ? $resultados->col_tot * 10 ** (strlen(floor($resultados->col_tot)) - 1)
@@ -344,7 +357,7 @@
                         <td>
                             @if ($resultados->moh_lev >= 1000000)
                                 MNPC
-                                @elseif ($resultados->moh_lev > 0 && $resultados->moh_lev<=10)
+                            @elseif ($resultados->moh_lev > 0 && $resultados->moh_lev <= 10)
                                 {{ $resultados->moh_lev }}
                             @elseif ($resultados->moh_lev != 0)
                                 {{ $resultados->moh_lev < 1
@@ -365,7 +378,7 @@
                 @endif
 
             </table>
-            <br>
+
             <table>Notas:</table>
             <table style="margin: 0.3rem 0; border:0; text-align:left; font-size:0.7rem;">
                 <tr>
@@ -403,25 +416,96 @@
             </table>
         </main>
 
-        <table>
-            <div class="footer" style="opacity: 1;">
-                <div class="signature-box">
-                    <div class="signer">
+        <style>
+            .capitalize {
+                text-transform: capitalize;
+            }
 
-                        @if ($resultados->ana_dia5_id == 22)
-                            <img style="width: 60%" src="img/firma/mb_veronica.jpeg" alt="">
-                        @endif
-                        @if ($resultados->ana_dia5_id == 23)
-                            <img style="width: 60%" src="img/firma/mb_mabel.jpeg" alt="">
-                        @endif
-                        @if ($resultados->ana_dia5_id == 12)
-                            <img style="width: 60%" src="img/firma/mb_lizethG.jpeg" alt="">
-                        @endif
-                        <div class="line">Analista de Microbiología</div>
+            /* Estilo para la tabla con la clase "mi-tabla" */
+            table.mi-tabla {
+                width: 50%;
+                border-collapse: collapse;
+                /* Colapsa los bordes de las celdas */
+                border: 1px solid #000;
+                /* Borde externo de la tabla */
+            }
+
+            /* Estilo para las cabeceras de la tabla con la clase "mi-tabla" */
+            table.mi-tabla th {
+                padding: 8px;
+                text-align: left;
+
+                /* Color de fondo para las cabeceras */
+            }
+
+            /* Estilo para las celdas del cuerpo de la tabla con la clase "mi-tabla" */
+            table.mi-tabla td {
+                padding: 4px;
+                text-align: left;
+            }
+
+            /* Estilo para las celdas de cabecera en la primera fila de la tabla con la clase "mi-tabla" */
+            table.mi-tabla thead th {
+                border-bottom: 2px solid #000;
+                /* Borde inferior más grueso para las cabeceras */
+            }
+        </style>
+        <table class="mi-tabla" style="font-size: 0.7rem">
+            <thead>
+
+                <tr>
+
+                    <th style="padding: 5px">Analistas</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if ($resultados->user1)
+                    <tr>
+
+                        <th class="capitalize" style="padding: 5px">
+                           E. Siembra: T.S.
+                            {{ ucwords(strtolower($resultados->user1->nombre . ' ' . $resultados->user1->nombre)) }}
+                        </th>
+                    </tr>
+                @endif
+                @if ($resultados->user2)
+                    <tr>
+
+                        <th class="capitalize" style="padding: 5px">
+                          E. 1º analisis:  T.S.
+                            {{ ucwords(strtolower($resultados->user2->nombre . ' ' . $resultados->user2->nombre)) }}
+                        </th>
+                    </tr>
+                @endif
+
+                @if ($resultados->user3)
+                    <tr>
+
+                        <th class="capitalize" style="padding: 5px">
+                            E. 2º analisis: T.S.
+                            {{ ucwords(strtolower($resultados->user3->nombre . ' ' . $resultados->user3->nombre)) }}
+                        </th>
+                    </tr>
+                @endif
+
+            </tbody>
+        </table>
+
+
+        <table>
+            <div class="footer" style="opacity: 1; font-size: 1rem;">
+                <div class="signature-box ">
+                    <div class="signer">
+                        <img style="width: 60%" src="img/firma/alejandra.jpeg" alt="">
+                        <p class="line" style="font-size: 0.8rem;">Ing. Alejandra Ledezma Calizaya</p>
+                        <div style="font-size: 0.8rem;">Responsable de Analisis Externos</div>
+                        <p style="font-size: 0.8rem;">Lab. Planta Lacteos</p>
                     </div>
                     <div class="signer">
-                        <img style="width: 60%" src="img/firma/rubenC.jpeg" alt="">
-                        <div class="line">Jefe de control de Calidad</div>
+                        <img style="width: 60%" src="img/firma/ruben.jpeg" alt="">
+                        <p class="line" style="font-size: 0.8rem;">Ing. Ruben Casilla Condori</p>
+                        <div style="font-size: 0.8rem;">Jefe de Control de Calidad</div>
+                        <p style="font-size: 0.8rem;">Lab. Planta Lacteos</p>
                     </div>
                 </div>
             </div>

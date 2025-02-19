@@ -165,6 +165,9 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['role.permission:27,2'])->group(function () {
         Route::get('/externo/actividadAgua', [ExternoController::class, 'actividadAgua'])->name('actividadAgua.index');
     });
+    Route::middleware(['role.permission:31,2'])->group(function () {
+        Route::get('/externo/aguaFisico', [ExternoController::class, 'aguaFisico'])->name('aguaFisico.index');
+    });
     Route::middleware(['role.permission:28,2'])->group(function () {
         Route::get('/externo/microbiologia', [ExternoController::class, 'microbiologia'])->name('microbiologia.index');
     });

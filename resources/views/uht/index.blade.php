@@ -5,7 +5,7 @@
 @endsection
 
 @section('contenido')
-    <div class="md:flex gap-2 h-[calc(50vh)]">
+    <div class="md:flex gap-2 ">
         <div class="md:w-1/3 flex flex-col ">
             <div class="md:w-full flex justify-center mb-2 font-bold">
                 <h2>PESOS</h2>

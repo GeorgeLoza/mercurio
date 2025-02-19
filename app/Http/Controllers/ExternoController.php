@@ -42,4 +42,8 @@ class ExternoController extends Controller
     {
         return view('externo/certificado');
     }
+    public function aguaFisico()
+    {
+        return view('externo/aguaFisico');
+    }
 }

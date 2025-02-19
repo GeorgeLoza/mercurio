@@ -5,6 +5,7 @@ namespace App\Livewire\Contador\Productoterminado;
 use App\Models\almacenProductoTerminado;
 use App\Models\Contador;
 use App\Models\Orp;
+use Carbon\Carbon;
 use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
 
@@ -22,9 +23,15 @@ class Crear extends ModalComponent
 
     public function mount()
     {
-        $this->orps = Orp::where('estado', 'En proceso')
-            ->whereNotIn('codigo', [0, 1, 2])
-            ->get();
+        $this->orps = Orp::where(function ($query) {
+            $query->where('estado', 'En proceso')
+                  ->orWhere(function ($q) {
+                      $q->where('estado', 'Completado')
+                        ->whereDate('updated_at', '>=', Carbon::now()->subDays(3));
+                  });
+        })
+        ->whereNotIn('codigo', [0, 1, 2])
+        ->get();
 
         $this->almacenes = almacenProductoTerminado::all();
     }

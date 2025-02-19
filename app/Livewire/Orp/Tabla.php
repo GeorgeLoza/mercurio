@@ -295,66 +295,53 @@ class Tabla extends Component
 
 public function generatePDFsegimiento()
 {
-    // Definir las variables antes de la descarga
-    $anio = Carbon::parse($this->fecha)->year;
-    $mes = Carbon::parse($this->fecha)->month;
-    $dia = Carbon::parse($this->fecha)->day;
-    $cat = 'HTST';
-
-    // Obtener el nombre completo del mes
-    $nombreMes = Carbon::createFromDate($anio, $mes, $dia)->format('F'); // Nombre completo del mes
+    // Obtener la fecha y el nombre del mes en español
+    $fecha = Carbon::parse($this->fecha);
+    $nombreMes = $fecha->locale('es')->translatedFormat('F');
 
     // Construir el nombre del archivo
-    $nombreArchivo = "{$dia} {$nombreMes} {$anio}.pdf";  // Nombre del archivo PDF
+    $nombreArchivo = "{$fecha->day} {$nombreMes} {$fecha->year}.pdf";
 
     return response()->streamDownload(
-        function () use ($anio, $mes, $dia, $cat) { // Pasamos las variables necesarias
+        function () use ($fecha) {
             $estadoDetalles = EstadoDetalle::select('orp_id', 'preparacion')
                 ->with('orp.producto.destinoProducto')
-                ->distinct() // Asegura que no se repitan las combinaciones de orp_id y preparacion
+                ->distinct()
                 ->whereHas('orp.producto', function ($q) {
-                    $q->whereNotNull('destino_producto_id'); // Solo filtra si destino_producto_id no es NULL
+                    $q->whereNotNull('destino_producto_id');
                 })
+                ->whereHas('orp', function ($q) use ($fecha) {
+                    $q->whereDate('updated_at', $fecha)
+                      ->where('estado', 'Completado');
+                })
+                ->whereHas('orp.producto.categoriaProducto', function ($q) {
+                    $q->where('grupo', 'HTST');
+                });
 
+            // Aplicar filtro de destinoProducto según $this->cat
+            if (!is_null($this->cat)) {
+                if ($this->cat == 1) {
+                    $estadoDetalles->whereHas('orp.producto.destinoProducto', function ($q) {
+                        $q->where('id', 1);
+                    });
+                } elseif ($this->cat == 2) {
+                    $estadoDetalles->whereHas('orp.producto.destinoProducto', function ($q) {
+                        $q->where('id', '!=', 1);
+                    });
+                }
+            }
 
-                ->when($anio, function ($query) use ($anio) {
-                    $query->whereHas('orp', function ($q) use ($anio) {
-                        $q->whereYear('updated_at', $anio);
-                    });
-                })
-                ->when($mes, function ($query) use ($mes) {
-                    $query->whereHas('orp', function ($q) use ($mes) {
-                        $q->whereMonth('updated_at', $mes);
-                    });
-                })
-                ->when($dia, function ($query) use ($dia) {
-                    $query->whereHas('orp', function ($q) use ($dia) {
-                        $q->whereDay('updated_at', $dia);
-                    });
-                })
-                ->when($cat, function ($query) use ($cat) {
-                    $query->whereHas('orp.producto.categoriaProducto', function ($q) use ($cat) {
-                        $q->where('grupo', 'HTST');
-                    });
-                })
-                ->when($cat, function ($query) use ($cat) {
-                    $query->whereHas('orp', function ($q) use ($cat) {
-                        $q->where('estado', 'Completado');
-                    });
-                })
+            $estadoDetalles = $estadoDetalles->get();
 
-
-                ->get();
-
-            $pdf = App::make('dompdf.wrapper');
-            $pdf = Pdf::loadView('pdf.reportes.seguimientoProductoTerminado', compact(['estadoDetalles']));
+            // Generar PDF
+            $pdf = Pdf::loadView('pdf.reportes.seguimientoProductoTerminado', compact('estadoDetalles','fecha'));
             $pdf->setPaper('letter', 'portrait');
+
             echo $pdf->stream();
         },
-        $nombreArchivo // Ahora pasamos la variable correctamente
+        $nombreArchivo
     );
 }
-
 
 
 }

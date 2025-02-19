@@ -47,7 +47,10 @@ class DetalleSolicitudPlanta extends Model
     {
         return $this->hasOne(ActividadAgua::class);
     }
-
+    public function aguaFisico()
+    {
+        return $this->hasOne(AguaFisico::class);
+    }
     public function microbiologiaExterno()
     {
         return $this->hasOne(MicrobiologiaExterno::class);

@@ -18,9 +18,12 @@ class SolicitudPlanta extends Component
     public function render()
     {
         if (auth()->user()->role->id == 23) {
-            $solicitudes = ModelsSolicitudPlanta::where('user_id', auth()->user()->id)
-                ->orderBy('created_at', 'desc')
-                ->get();
+            $solicitudes = ModelsSolicitudPlanta::whereHas('user', function ($query) {
+                $query->where('planta_id', auth()->user()->planta_id);
+            })
+            ->orderBy('created_at', 'desc')
+            ->get();
+
         } else {
             $solicitudes = ModelsSolicitudPlanta::orderBy('created_at', 'desc')->get();
         }
@@ -74,10 +77,15 @@ class SolicitudPlanta extends Component
         $detalle->save();
 
         if ($detalle->tipo_analisis == "Fisicoquimico") {
+
+
+
             ActividadAgua::create([
                 'estado' => "Pendiente",
                 'detalle_solicitud_planta_id' => $id,
             ]);
+
+
         }
         if ($detalle->tipo_analisis == "Microbiologico") {
             MicrobiologiaExterno::create([

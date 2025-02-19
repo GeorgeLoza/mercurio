@@ -15,6 +15,10 @@ class EstadoDetalle extends Model
         'user_id',
         'cantidad',
     ];
+    public function setPreparacionAttribute($value)
+    {
+        $this->attributes['preparacion'] = preg_replace('/\s+/', '', $value);
+    }
     public function orp()
     {
         return $this->belongsTo(Orp::class);

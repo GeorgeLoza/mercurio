@@ -76,6 +76,10 @@ class User extends Authenticatable
     {
         return $this->belongsto(ActividadAgua::class);
     }
+    public function aguaFisico()
+    {
+        return $this->belongsto(AguaFisico::class);
+    }
     public function microbiologiaExterno()
     {
         return $this->belongsto(MicrobiologiaExterno::class);

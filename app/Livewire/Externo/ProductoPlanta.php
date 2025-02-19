@@ -24,23 +24,23 @@ class ProductoPlanta extends Component
     #[On('actualizar_tabla_recepcionLeche')]
     public function render()
     {
-        if(auth()->user()->rol == 'Ext'){
+        if(auth()->user()->role->id == 23){
             $productosPlanta = ProductosPlantas::whereHas('planta', function ($query) {
                 $query->where('id',auth()->user()->planta->id);
             })->get();
-            
+
         }else{
             $productosPlanta = ProductosPlantas::all();
         }
-        
+
         return view('livewire.externo.producto-planta', [
             'productosPlanta' => $productosPlanta
         ]);
     }
 
     public function create()
-    {   
-        
+    {
+
         try {
             $this->validate();
             ProductosPlantas::create([
@@ -54,7 +54,7 @@ class ProductoPlanta extends Component
         }
     }
 
-    
+
 
     public function update()
     {

@@ -148,6 +148,7 @@
             <!-- Título dentro de cada tabla -->
             <div class="title">
                 Reporte de Seguimiento de Producto Terminado - Pasteurizado
+
             </div>
 
             <table>
@@ -205,11 +206,8 @@
                     <tr>
                         <th class="completo" colspan="3">Fecha A.</th> <!-- Columna fija para los nombres de las filas -->
                         @foreach ($grupoColumnas as $columna)
-                            @php
-                                // Obtener la fecha de elaboración desde la relación
-                                $fechaElaboracion = \Carbon\Carbon::parse(now());
-                            @endphp
-                            <th colspan="8"     class="right">{{ $fechaElaboracion->format('d-m-Y') }}</th> <!-- Encabezados dinámicos (NO divididos) -->
+
+                            <th colspan="8"     class="right">{{ $fecha->copy()->addDays(1)->format('d-m-Y') }}</th> <!-- Encabezados dinámicos (NO divididos) -->
                         @endforeach
                         <!-- Agregar columnas ficticias si es necesario -->
                         @for ($i = count($grupoColumnas); $i < $columnasPorHoja; $i++)
@@ -234,9 +232,9 @@
                                             $fechaElaboracion = \Carbon\Carbon::parse(now());
                                         @endphp
                                         @if ($columna['orp']['producto']['destino_producto']['nombre'] == 'Comerciales')
-                                            {{ $fechaMas7Dias = $fechaElaboracion->copy()->addDays(7)->format('d-m-Y') }}
+                                            {{ $fechaMas7Dias = $fecha->copy()->addDays(7)->format('d-m-Y') }}
                                         @else
-                                            {{ $fechaMas3Dias = $fechaElaboracion->copy()->addDays(3)->format('d-m-Y') }}
+                                            {{ $fechaMas3Dias = $fecha->copy()->addDays(3)->format('d-m-Y') }}
                                         @endif
                                     </td>
                                 @elseif ($nombreFila === 'C-O-S-T')

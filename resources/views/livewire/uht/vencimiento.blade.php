@@ -5,8 +5,8 @@
                 <tr>
                     <th scope="col" class="px-1 py-1">orp</th>
                     <th scope="col" class="px-1 py-1">producto</th>
-                    <th scope="col" class="px-1 py-1">Preparaciones</th>
-                    <th scope="col" class="px-1 py-1">f. Vencimiento</th>
+                    <th scope="col" class="px-1 py-1">Prep.</th>
+                    <th scope="col" class="px-1 py-1">f. Venc.</th>
                     <th scope="col" class="px-1 py-1"><span class="sr-only">Edit</span></th>
                 </tr>
             </thead>
