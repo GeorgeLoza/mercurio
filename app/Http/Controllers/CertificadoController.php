@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ActividadAgua;
+use App\Models\AguaFisico;
 use App\Models\Clasificacion;
 use App\Models\DetalleSolicitud;
 use App\Models\DetalleSolicitudPlanta;
@@ -63,7 +64,14 @@ class CertificadoController extends Controller
         $normas = TipoMuestra::find($datosSolicitud->tipo_muestra_id);
 
         if ($datosSolicitud->tipo_analisis == 'Fisicoquimico') {
-            $resultados = ActividadAgua::where('detalle_solicitud_planta_id', $id)->first();
+
+            if($datosSolicitud->tipo_muestra_id == 1){
+                $resultados = AguaFisico::where('detalle_solicitud_planta_id', $id)->first();
+
+            }else{
+
+                $resultados = ActividadAgua::where('detalle_solicitud_planta_id', $id)->first();
+            }
 
         }
 

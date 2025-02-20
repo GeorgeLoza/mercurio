@@ -117,7 +117,7 @@
         <main>
             <table class="" style="margin: 0.3rem 0; border:0; font-size:0.8rem;">
                 <tr>
-                    <th>Lugar y Fecha de emisión: </th>
+                    <th>Lugar y Fecha de Emisión: </th>
                     <td>El Alto,
                         {{ \Carbon\Carbon::parse($datosSolicitud->updated_at)->isoFormat(
                             'dddd D [de] MMMM
@@ -142,7 +142,7 @@
                 </tr>
                 <tr style="border-right: 1px solid black;">
                     <td style="width: 380px; border: 1px solid black">Muestra</td>
-                    <th style="text-align: right ; padding: 0 15px">Codigo: </th>
+                    <th style="text-align: right ; padding: 0 15px">Código: </th>
                     <td style="text-align: left ">{{ $datosSolicitud->subcodigo }}</td>
                 </tr>
 
@@ -161,20 +161,27 @@
                 </tr>
                 <tr style="border-right: 1px solid black;">
                     <th style="text-align: right; padding: 0 15px">Marca: </th>
-                    <td style="text-align: left">San Gabriel</td>
+                    <td style="text-align: left">  @if ($datosSolicitud->tipo_muestra_id != 1)San Gabriel @else ---- @endif</td>
                 </tr>
 
                 <tr style="border-right: 1px solid black;">
                     <th style="text-align: right; padding: 0 15px ">Fecha de Elaboración: </th>
                     <td style="text-align: left; ">
+                        @if ($datosSolicitud->tipo_muestra_id != 1)
                         {{ \Carbon\Carbon::parse($datosSolicitud->fecha_elaboracion)->isoFormat('D / M / YYYY', 0, 'es') }}
+                        @else ----
+
+                         @endif
                     </td>
 
                 </tr>
                 <tr style="border-right: 1px solid black;">
                     <th style="text-align: right; padding: 0 15px">Fecha de Vencimiento: </th>
                     <td style="text-align: left">
+                        @if ($datosSolicitud->tipo_muestra_id != 1)
                         {{ \Carbon\Carbon::parse($datosSolicitud->fecha_vencimiento)->isoFormat('D / M / YYYY', 0, 'es') }}
+                        @else ----
+                         @endif
                     </td>
                 </tr>
 
@@ -191,17 +198,25 @@
             <br>
             <table style="margin: 0.3rem 0; border:0; text-align:center; font-size:0.8rem;">
                 <tr>
-                    <th colspan="4" style="border: 1px solid black">DATOS DE SOLICITANTE</th>
+                    <th colspan="4" style="border: 1px solid black">DATOS DEL SOLICITANTE</th>
                 </tr>
                 <tr style="border-left: 1px solid black; border-right: 1px solid black">
                     <th>Procedencia de la muestra</th>
-                    <td>{{ $datosSolicitud->user->informacionUsuario->procedencia }}</td>
+                    <td> @if ($datosSolicitud->user && $datosSolicitud->user->informacionUsuario)
+                        {{ $datosSolicitud->user->informacionUsuario->procedencia }}
+                    @else
+                        No hay información disponible
+                    @endif</td>
                     <th>Solicitante</th>
                     <td>{{ $datosSolicitud->user->nombre }} {{ $datosSolicitud->user->apellido }}</td>
                 </tr>
                 <tr style="border-left: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black">
                     <th>Dirección de procedencia</th>
-                    <td colspan="3">{{ $datosSolicitud->user->informacionUsuario->direccion }}</td>
+                    <td colspan="3">@if ($datosSolicitud->user && $datosSolicitud->user->informacionUsuario)
+                        {{ $datosSolicitud->user->informacionUsuario->direccion }}
+                    @else
+                        No hay información disponible
+                    @endif</td>
                 </tr>
             </table>
             <br>
@@ -239,6 +254,7 @@
                 </tr>
             </table>
             <br>
+            @if ($datosSolicitud->tipo_muestra_id == 1)
 
             <table style="margin: 0.3rem 0; border:0; text-align:center; font-size:0.8rem;">
                 <tr>
@@ -248,20 +264,71 @@
                     <th>#</th>
                     <th>PARÁMETROS</th>
                     <th>UNIDADES</th>
-                    <th>MÉTODO DE ENSAYOS</th>
+                    <th>MÉTODO DE ENSAYO</th>
+                    <th>RESULTADO</th>
+
+                </tr>
+                <tr
+                    style="border-left: 1px solid black;  1px solid black; border-right: 1px solid black; ">
+                    <td style="height: 25px;">1</td>
+                    <td style="height: 25px;">pH</td>
+                    <td style="height: 25px;"> -- </td>
+                    <td style="height: 25px;">Interno</td>
+                    <td style="height: 25px;">{{ $resultados->ph }}</td>
+                </tr>
+                <tr
+                    style="border-left: 1px solid black;  1px solid black; border-right: 1px solid black; ">
+                    <td style="height: 25px;">2</td>
+                    <td style="height: 25px;">Dureza Total</td>
+                    <td style="height: 25px;"> ppm CaCO3 </td>
+                    <td style="height: 25px;">Interno</td>
+                    <td style="height: 25px;">{{ $resultados->dureza }}</td>
+                </tr>
+                <tr
+                    style="border-left: 1px solid black;  1px solid black; border-right: 1px solid black; ">
+                    <td style="height: 25px;">3</td>
+                    <td style="height: 25px;">Cloruros</td>
+                    <td style="height: 25px;"> ppm Cl- </td>
+                    <td style="height: 25px;">Interno</td>
+                    <td style="height: 25px;">{{ $resultados->cloruros }}</td>
+                </tr>
+                <tr
+                    style="border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; ">
+                    <td style="height: 25px;">4</td>
+                    <td style="height: 25px;">Conductividad</td>
+                    <td style="height: 25px;"> µs/cm </td>
+                    <td style="height: 25px;">Interno</td>
+                    <td style="height: 25px;">{{ $resultados->conductividad }}</td>
+                </tr>
+
+            </table>
+
+                @else
+            <table style="margin: 0.3rem 0; border:0; text-align:center; font-size:0.8rem;">
+                <tr>
+                    <th colspan="5" style="border: 1px solid black">RESULTADO DE ENSAYO</th>
+                </tr>
+                <tr style="border-left: 1px solid black; border-right: 1px solid black; ">
+                    <th>#</th>
+                    <th>PARÁMETROS</th>
+                    <th>UNIDADES</th>
+                    <th>MÉTODO DE ENSAYO</th>
                     <th>RESULTADO</th>
 
                 </tr>
                 <tr
                     style="border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; ">
-                    <td style="height: 60px;">1</td>
-                    <td style="height: 60px;">Actividad de agua</td>
-                    <td style="height: 60px;"> -- </td>
-                    <td style="height: 60px;">Interno</td>
-                    <td style="height: 60px;">{{ $resultados->act_agua }}</td>
+                    <td style="height: 25px;">1</td>
+                    <td style="height: 25px;">Actividad de agua</td>
+                    <td style="height: 25px;"> -- </td>
+                    <td style="height: 25px;">Interno</td>
+                    <td style="height: 25px;">{{ $resultados->act_agua }}</td>
                 </tr>
 
             </table>
+            @endif
+
+
             <br>
             <table>
                 <tr>
@@ -272,7 +339,7 @@
                 <tr>
                     <th style="text-align:right; padding-right:10px">*:</th>
                     <td>Los parámetros no tienen límites de referencia, se recomienda al cliente tener en cuenta sus
-                        datos historicos.</td>
+                        datos históricos.</td>
                 </tr>
 
             </table>
@@ -317,7 +384,7 @@
 
                 <tr>
 
-                    <th style="padding: 5px">Analistas</th>
+                    <th style="padding: 5px">ENCARGADO DE ANÁLISIS</th>
                 </tr>
             </thead>
             <tbody>
@@ -325,7 +392,7 @@
                     <tr>
 
                         <th class="capitalize" style="padding: 5px">
-                         E. Analisis  T.S. {{ ucwords(strtolower($resultados->user->nombre . ' ' . $resultados->user->apellido)) }}
+                          T.S. {{ ucwords(strtolower($resultados->user->nombre . ' ' . $resultados->user->apellido)) }}
                         </th>
                     </tr>
 
@@ -338,14 +405,14 @@
                     <div class="signer">
                         <img style="width: 60%" src="img/firma/alejandra.jpeg" alt="">
                         <p class="line" style="font-size: 0.8rem;">Ing. Alejandra Ledezma Calizaya</p>
-                        <div  style="font-size: 0.8rem;">Responsable de Analisis Externos</div>
-                        <p style="font-size: 0.8rem;">Lab. Planta Lacteos</p>
+                        <div  style="font-size: 0.8rem;">Responsable de Servicio Externo</div>
+                        <p style="font-size: 0.8rem;">Lab. Planta Lácteos</p>
                     </div>
                     <div class="signer">
                         <img style="width: 60%" src="img/firma/ruben.jpeg" alt="">
                         <p class="line" style="font-size: 0.8rem;">Ing. Ruben Casilla Condori</p>
                         <div  style="font-size: 0.8rem;">Jefe de Control de Calidad</div>
-                        <p style="font-size: 0.8rem;">Lab. Planta Lacteos</p>
+                        <p style="font-size: 0.8rem;">Lab. Planta Lácteos</p>
                     </div>
                 </div>
             </div>

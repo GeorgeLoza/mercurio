@@ -17,57 +17,62 @@
         <div class="overflow-x-auto overflow-y-auto">
             <!--Tabla de fisico-->
             @if ($selectedOption === 'fisico')
-                <table class="w-full  text-xs text-center text-gray-500 dark:text-gray-400">
+                <table class="w-full  text-xs text-center text-gray-500 dark:text-gray-400 items-center justify-center">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <th scope="col" class="px-2 py-1">
+                            <th scope="col" class="px-1 py-1">
                                 #
                             </th>
-                            <th scope="col" class="px-2 py-1">
+                            <th scope="col" class="px-1 py-1">
                                 Codigo
                             </th>
-                            <th scope="col" class="px-2 py-1">
+
+                            <th scope="col" class="px-1 py-1">
+                                Fecha
+                            </th>
+                            <th scope="col" class="px-1 py-1">
                                 Producto
                             </th>
-                            <th scope="col" class="px-2 py-1">
+                            <th scope="col" class="px-1 py-1">
                                 Lote
                             </th>
-                            <th scope="col" class="px-2 py-1">
+                            <th scope="col" class="px-1 py-1">
                                 Tipo
                             </th>
                             @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
 
-                                <th scope="col" class="px-2 py-1">
+                                <th scope="col" class="px-1 py-1">
                                     Planta
                                 </th>
-                                <th scope="col" class="px-2 py-1">
+                                <th scope="col" class="px-1 py-1">
                                     Temperatura
                                 </th>
-                                <th scope="col" class="px-2 py-1">
+                                <th scope="col" class="px-1 py-1">
                                     %Hr
                                 </th>
-                                <th scope="col" class="px-2 py-1">
+                                <th scope="col" class="px-1 py-1">
                                     Aw
                                 </th>
                             @endif
-                            <th scope="col" class="px-2 py-1">
+                            <th scope="col" class="px-1 py-1">
                                 Estado
                             </th>
-                            <th scope="col" class="px-2 py-1">
+                            <th scope="col" class="px-1 py-1">
                                 Opciones
                             </th>
 
                         </tr>
                         <tr>
-                            <th scope="col" class="px-2 py-1">
+                            <th scope="col" class="px-1 py-1">
 
                             </th>
-                            <th scope="col" class="px-2 py-1">
+                            <th scope="col" class="px-1 py-1 justify-center">
                                 <input type="text" id="" wire:model.live='f_codigo'
-                                    class="bg-gray-50 border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    class="w-20 bg-gray-50 border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="">
                             </th>
-                            <th scope="col" class="px-2 py-1">
+                            <th></th>
+                            <th scope="col" class="px-1 py-1">
                                 <input type="text" id="" wire:model.live='f_producto'
                                     class="bg-gray-50 border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="">
@@ -79,28 +84,28 @@
                             </th>
                             @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
 
-                                <th scope="col" class="px-2 py-1">
+                                <th scope="col" class="px-1 py-1">
 
                                 </th>
-                                <th scope="col" class="px-2 py-1">
+                                <th scope="col" class="px-1 py-1">
 
                                 </th>
-                                <th scope="col" class="px-2 py-1">
+                                <th scope="col" class="px-1 py-1">
 
                                 </th>
-                                <th scope="col" class="px-2 py-1">
+                                <th scope="col" class="px-1 py-1">
 
                                 </th>
                             @endif
-                            <th scope="col" class="px-2 py-1">
+                            <th scope="col" class="px-1 py-1">
 
                             </th>
-                            <th scope="col" class="px-2 py-1">
+                            <th scope="col" class="px-1 py-1">
                                 <input type="text" id="" wire:model.live='f_estado'
                                     class="w-24 bg-gray-50 border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="">
                             </th>
-                            <th scope="col" class="px-2 py-1">
+                            <th scope="col" class="px-1 py-1">
 
                             </th>
 
@@ -110,31 +115,48 @@
                         @foreach ($fisicos as $index => $fis)
                             <tr
                                 class="b-500 border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <td class="  px-3 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <td class="  px-1 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {{ $index + 1 }}
                                 </td>
                                 <td scope="row"
                                     class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                                     nowrap>{{ $fis->detalleSolicitudPlanta->subcodigo }}</td>
-                                <td class="px-3 py-1" nowrap >
+                                    <td scope="row"
+                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                    nowrap>
+                                    {{ \Carbon\Carbon::parse($fis->detalleSolicitudPlanta->solicitudPlanta->tiempo)->isoFormat('DD-MM-YY', 0, 'es') }}
+
+                                </td>
+
+                                <td class="px-1 py-1" nowrap >
                                     @if ($fis->detalleSolicitudPlanta->productosPlanta)
 
                                     {{ $fis->detalleSolicitudPlanta->productosPlanta->nombre }}
                                     @endif
 
                                 </td>
-                                <td class="px-3 py-1">{{ $fis->detalleSolicitudPlanta->lote }}</td>
-                                <td class="px-3 py-1" nowrap>{{ $fis->detalleSolicitudPlanta->tipoMuestra->nombre }}
+                                <td class="px-1 py-1">{{ $fis->detalleSolicitudPlanta->lote }}</td>
+                                <td class="px-1 py-1" nowrap>{{ $fis->detalleSolicitudPlanta->tipoMuestra->nombre }}
                                 </td>
                                 @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
 
-                                    <td class="px-3 py-1" nowrap>
+                                    <td class="px-1 py-1" nowrap>
                                         {{ $fis->detalleSolicitudPlanta->user->planta->nombre }}</td>
-                                    <td class="px-3 py-1" nowrap>{{ $fis->temperatura }}</td>
-                                    <td class="px-3 py-1" nowrap>{{ $fis->por_hum_rel }}</td>
-                                    <td class="px-3 py-1" nowrap>{{ $fis->act_agua }}</td>
+                                        @if ($fis->detalleSolicitudPlanta->tipo_muestra_id==1)
+
+                                            <td class="px-1 py-1 text-2xs" colspan="3" nowrap>pH:{{ $fis->ph }},Dure:{{ $fis->dureza }},Clor:{{ $fis->cloruros }},Cond:{{ $fis->conductividad }}</td>
+
+                                            @else
+
+                                            <td class="px-1 py-1" nowrap>{{ $fis->temperatura }}</td>
+                                            <td class="px-1 py-1" nowrap>{{ $fis->por_hum_rel }}</td>
+                                            <td class="px-1 py-1" nowrap>{{ $fis->act_agua }}</td>
+                                        @endif
+
+
+
                                 @endif
-                                <td class="px-3 py-1" nowrap>
+                                <td class="px-1 py-1" nowrap>
                                     <div class="flex items-center">
                                         @if ($fis->detalleSolicitudPlanta->estado == 'Cancelado')
                                             <div class="h-2.5 w-2.5 rounded-full bg-red-500 mr-1"></div>
@@ -154,7 +176,7 @@
                                         {{ $fis->detalleSolicitudPlanta->estado }}
                                     </div>
                                 </td>
-                                <td class="px-3 py-1" nowrap>
+                                <td class="px-1 py-1" nowrap>
                                     @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
 
                                         <!--boton para cancelar-->
@@ -211,53 +233,57 @@
                 <table class="w-full  text-xs text-center text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <th scope="col" class="px-2 py-1">
+                            <th scope="col" class="px-1 py-1">
                                 #
                             </th>
-                            <th scope="col" class="px-2 py-1">
+                            <th scope="col" class="px-1 py-1">
                                 Código
                             </th>
-                            <th scope="col" class="px-2 py-1">
+                            <th scope="col" class="px-1 py-1">
+                                Fecha
+                            </th>
+                            <th scope="col" class="px-1 py-1">
                                 Producto
                             </th>
-                            <th scope="col" class="px-2 py-1">
+                            <th scope="col" class="px-1 py-1">
                                 Lote
                             </th>
-                            <th scope="col" class="px-2 py-1">
+                            <th scope="col" class="px-1 py-1">
                                 Tipo
                             </th>
                             @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
 
-                                <th scope="col" class="px-2 py-1">
+                                <th scope="col" class="px-1 py-1">
                                     Planta
                                 </th>
-                                <th scope="col" class="px-2 py-1">
+                                <th scope="col" class="px-1 py-1">
                                     Mesófilos, Aeróbicos Totales
                                 </th>
-                                <th scope="col" class="px-2 py-1">
+                                <th scope="col" class="px-1 py-1">
                                     Coliformes Totales
                                 </th>
-                                <th scope="col" class="px-2 py-1">
+                                <th scope="col" class="px-1 py-1">
                                     Mohos y Levaduras
                                 </th>
                             @endif
-                            <th scope="col" class="px-2 py-1">
+                            <th scope="col" class="px-1 py-1">
                                 Estado
                             </th>
-                            <th scope="col" class="px-2 py-1">
+                            <th scope="col" class="px-1 py-1">
                                 Opciones
                             </th>
                         </tr>
                         <tr>
-                            <th scope="col" class="px-2 py-1">
+                            <th scope="col" class="px-1 py-1">
 
                             </th>
-                            <th scope="col" class="px-2 py-1">
+                            <th scope="col" class="px-1 py-1">
                                 <input type="text" id="" wire:model.live='f_codigo'
                                     class="bg-gray-50 w-32 border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="">
                             </th>
-                            <th scope="col" class="px-2 py-1">
+                            <th></th>
+                            <th scope="col" class="px-1 py-1">
                                 <input type="text" id="" wire:model.live='f_producto'
                                     class="bg-gray-50  border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="">
@@ -267,30 +293,30 @@
                                     class="w-16 bg-gray-50  border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="">
                             </th>
-                            <th scope="col" class="px-2 py-1">
+                            <th scope="col" class="px-1 py-1">
 
                             </th>
                             @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
 
-                                <th scope="col" class="px-2 py-1">
+                                <th scope="col" class="px-1 py-1">
 
                                 </th>
-                                <th scope="col" class="px-2 py-1">
+                                <th scope="col" class="px-1 py-1">
 
                                 </th>
-                                <th scope="col" class="px-2 py-1">
+                                <th scope="col" class="px-1 py-1">
 
                                 </th>
-                                <th scope="col" class="px-2 py-1">
+                                <th scope="col" class="px-1 py-1">
 
                                 </th>
                             @endif
-                            <th scope="col" class="px-2 py-1">
+                            <th scope="col" class="px-1 py-1">
                                 <input type="text" id="" wire:model.live='f_estado'
                                     class="bg-gray-50 border w-24 border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="">
                             </th>
-                            <th scope="col" class="px-2 py-1">
+                            <th scope="col" class="px-1 py-1">
 
                             </th>
 
@@ -301,14 +327,20 @@
                         @foreach ($micros as $index => $micro)
                             <tr
                                 class=" border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <td class="  px-3 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <td class="  px-1 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {{ $index + 1 }}
                                 </td>
                                 <td scope="row"
-                                    class="px-2 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                                    nowrap>{{ $micro->detalleSolicitudPlanta->subcodigo }}</td>
+                                    class="px-1 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                    nowrap>{{ $micro->detalleSolicitudPlanta->subcodigo }}</td>.
+                                    <td scope="row"
+                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                    nowrap>
+                                    {{ \Carbon\Carbon::parse($micro->detalleSolicitudPlanta->solicitudPlanta->tiempo)->isoFormat('DD-MM-YY', 0, 'es') }}
 
-                                <td class="px-2 py-1 " >
+                                </td>
+
+                                <td class="px-1 py-1 " >
                                     @if ($micro->detalleSolicitudPlanta->productosPlanta)
                                         {{ $micro->detalleSolicitudPlanta->productosPlanta->nombre }}
                                     @else
@@ -316,15 +348,15 @@
                                     @endif
 
                                 </td>
-                                <td class="px-2 py-1">{{ $micro->detalleSolicitudPlanta->lote }}</td>
-                                <td class="px-2 py-1" nowrap>{{ $micro->detalleSolicitudPlanta->tipoMuestra->nombre }}
+                                <td class="px-1 py-1">{{ $micro->detalleSolicitudPlanta->lote }}</td>
+                                <td class="px-1 py-1" nowrap>{{ $micro->detalleSolicitudPlanta->tipoMuestra->nombre }}
                                 </td>
                                 @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
 
-                                    <td class="px-3 py-1" nowrap>
+                                    <td class="px-1 py-1" nowrap>
                                         {{ $micro->detalleSolicitudPlanta->user->planta->nombre }}
                                     </td>
-                                    <td class="px-2 py-1">
+                                    <td class="px-1 py-1">
                                         <p class="p-0">
                                             @if ($micro->aer_mes >= 1000000)
                                                 MNPC
@@ -364,7 +396,7 @@
                                             </p>
                                         @endif
                                     </td>
-                                    <td class="px-2 py-1 ">
+                                    <td class="px-1 py-1 ">
                                         @if ($micro->col_tot >= 1000000)
                                             MNPC
                                         @endif
@@ -414,7 +446,7 @@
                                         @endif
 
                                     </td>
-                                    <td class="px-2 py-1 ">
+                                    <td class="px-1 py-1 ">
 
                                         @if ($micro->moh_lev >= 1000000)
                                             MNPC
@@ -453,7 +485,7 @@
                                     @endif
                                     </td>
                                 @endif
-                                <td class="px-2 py-1" nowrap>
+                                <td class="px-1 py-1" nowrap>
                                     <div class="flex items-center">
                                         @if ($micro->detalleSolicitudPlanta->estado == 'Cancelado')
                                             <div class="h-2.5 w-2.5 rounded-full bg-red-500 mr-1"></div>
@@ -476,7 +508,7 @@
                                         {{ $micro->detalleSolicitudPlanta->estado }}
                                     </div>
                                 </td>
-                                <td class="px-2 py-1" nowrap>
+                                <td class="px-1 py-1" nowrap>
                                     @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
 
                                         <!--boton para cancelar-->

@@ -128,7 +128,7 @@
         <main>
             <table class="" style="margin: 0.3rem 0; border:0; font-size:0.8rem; margin-bottom: 10px">
                 <tr>
-                    <th>Lugar y Fecha de emisión: </th>
+                    <th>Lugar y Fecha de Emisión: </th>
                     <td>El Alto,
                         {{ \Carbon\Carbon::parse($datosSolicitud->updated_at)->isoFormat(
                             'dddd D [de] MMMM
@@ -153,7 +153,7 @@
                 </tr>
                 <tr style="border-right: 1px solid black;">
                     <td style="width: 380px; border: 1px solid black">Muestra</td>
-                    <th style="text-align: right ; padding: 0 15px">Codigo: </th>
+                    <th style="text-align: right ; padding: 0 15px">Código: </th>
                     <td style="text-align: left ">{{ $datosSolicitud->subcodigo }}</td>
                 </tr>
                 <tr style="border-right: 1px solid black;">
@@ -211,7 +211,7 @@
 
             <table style="margin: 0.3rem 0; border:0; text-align:center; font-size:0.8rem; margin-bottom: 10px">
                 <tr>
-                    <th colspan="4" style="border: 1px solid black">DATOS DE SOLICITANTE</th>
+                    <th colspan="4" style="border: 1px solid black">DATOS DEL SOLICITANTE</th>
                 </tr>
                 <tr style="border-left: 1px solid black; border-right: 1px solid black">
                     <th>Procedencia de la muestra</th>
@@ -285,8 +285,8 @@
 
                     <th>PARÁMETROS</th>
                     <th>UNIDADES</th>
-                    <th>MÉTODO DE ENSAYOS</th>
-                    <th>RESULTADOS</th>
+                    <th>MÉTODO DE ENSAYO</th>
+                    <th>RESULTADO</th>
                     <th>m (*)</th>
                     <th>M (*)</th>
                 </tr>
@@ -455,7 +455,7 @@
 
                 <tr>
 
-                    <th style="padding: 5px">Analistas</th>
+                    <th style="padding: 5px">ENCARGADO DE ANALISIS</th>
                 </tr>
             </thead>
             <tbody>
@@ -463,28 +463,31 @@
                     <tr>
 
                         <th class="capitalize" style="padding: 5px">
-                           E. Siembra: T.S.
-                            {{ ucwords(strtolower($resultados->user1->nombre . ' ' . $resultados->user1->nombre)) }}
+
+                         T.S.   {{ ucwords(strtolower($resultados->user1->nombre . ' ' . $resultados->user1->apellido)) }}
                         </th>
                     </tr>
                 @endif
                 @if ($resultados->user2)
                     <tr>
 
+                        @if ($resultados->user2!=$resultados->user1)
                         <th class="capitalize" style="padding: 5px">
-                          E. 1º analisis:  T.S.
-                            {{ ucwords(strtolower($resultados->user2->nombre . ' ' . $resultados->user2->nombre)) }}
+
+                            T.S.   {{ ucwords(strtolower($resultados->user2->nombre . ' ' . $resultados->user2->apellido)) }}
                         </th>
+                        @endif
                     </tr>
                 @endif
 
                 @if ($resultados->user3)
                     <tr>
 
+                        @if ($resultados->user3!=$resultados->user2 &&$resultados->user3!=$resultados->user1  )
                         <th class="capitalize" style="padding: 5px">
-                            E. 2º analisis: T.S.
-                            {{ ucwords(strtolower($resultados->user3->nombre . ' ' . $resultados->user3->nombre)) }}
+                            T.S.    {{ ucwords(strtolower($resultados->user3->nombre . ' ' . $resultados->user3->apellido)) }}
                         </th>
+                        @endif
                     </tr>
                 @endif
 
@@ -498,14 +501,14 @@
                     <div class="signer">
                         <img style="width: 60%" src="img/firma/alejandra.jpeg" alt="">
                         <p class="line" style="font-size: 0.8rem;">Ing. Alejandra Ledezma Calizaya</p>
-                        <div style="font-size: 0.8rem;">Responsable de Analisis Externos</div>
-                        <p style="font-size: 0.8rem;">Lab. Planta Lacteos</p>
+                        <div style="font-size: 0.8rem;">Responsable de Servivio Externo</div>
+                        <p style="font-size: 0.8rem;">Lab. Planta Lácteos</p>
                     </div>
                     <div class="signer">
                         <img style="width: 60%" src="img/firma/ruben.jpeg" alt="">
                         <p class="line" style="font-size: 0.8rem;">Ing. Ruben Casilla Condori</p>
                         <div style="font-size: 0.8rem;">Jefe de Control de Calidad</div>
-                        <p style="font-size: 0.8rem;">Lab. Planta Lacteos</p>
+                        <p style="font-size: 0.8rem;">Lab. Planta Lácteos</p>
                     </div>
                 </div>
             </div>

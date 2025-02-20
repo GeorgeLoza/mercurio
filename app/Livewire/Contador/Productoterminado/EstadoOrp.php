@@ -34,7 +34,7 @@ class EstadoOrp extends ModalComponent
             $query->where('orps.estado', 'En proceso')
                   ->orWhere(function ($q) {
                       $q->where('orps.estado', 'Completado')
-                        ->whereDate('orps.updated_at', '>=', Carbon::now()->subDays(3));
+                        ->whereDate('orps.updated_at', '>=', Carbon::now()->subDays(1));
                   });
         })
         ->get();

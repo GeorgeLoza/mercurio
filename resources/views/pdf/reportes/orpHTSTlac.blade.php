@@ -482,7 +482,7 @@
                         <th>pH</th>
 
                         <th>°Brix</th>
-                        <th>µ [s]</th>
+                        <th>Acidez [%]</th>
                         <th>Color</th>
                         <th>Olor</th>
                         <th>Sabor</th>
@@ -552,8 +552,8 @@
                                 @else
                                     <th>-</th>
                                 @endif
-                                @if ($analisis->viscosidad)
-                                    <th>{{ $analisis->viscosidad }}</th>
+                                @if ($analisis->acidez)
+                                    <th>{{ $analisis->acidez }}</th>
                                 @else
                                     <th>-</th>
                                 @endif
@@ -643,7 +643,7 @@
                         <th>pH</th>
 
                         <th>°Brix</th>
-                        <th>µ [s]</th>
+                        <th>Acidez [%]</th>
                         <th>Color</th>
                         <th>Olor</th>
                         <th>Sabor</th>
@@ -722,8 +722,8 @@
                                 @else
                                     <th>-</th>
                                 @endif
-                                @if ($analisis->viscosidad)
-                                    <th>{{ $analisis->viscosidad }}</th>
+                                @if ($analisis->acidez)
+                                    <th>{{ $analisis->acidez }}</th>
                                 @else
                                     <th>-</th>
                                 @endif

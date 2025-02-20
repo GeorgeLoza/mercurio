@@ -3,6 +3,7 @@
 namespace App\Livewire\Externo;
 
 use App\Models\ActividadAgua;
+use App\Models\AguaFisico;
 use App\Models\DetalleSolicitudPlanta;
 use App\Models\MicrobiologiaExterno;
 use App\Models\SolicitudPlanta as ModelsSolicitudPlanta;
@@ -78,12 +79,20 @@ class SolicitudPlanta extends Component
 
         if ($detalle->tipo_analisis == "Fisicoquimico") {
 
+            if($detalle->tipo_muestra_id == 1){
+                AguaFisico::create([
+                    'estado' => "Pendiente",
+                    'detalle_solicitud_planta_id' => $id,
+                ]);
 
+            }
+            else{
 
-            ActividadAgua::create([
-                'estado' => "Pendiente",
-                'detalle_solicitud_planta_id' => $id,
-            ]);
+                ActividadAgua::create([
+                    'estado' => "Pendiente",
+                    'detalle_solicitud_planta_id' => $id,
+                ]);
+            }
 
 
         }

@@ -44,6 +44,7 @@ class LoginController extends Controller
 
 
                 }
+
             }
             // Obtener el ID del usuario autenticado
             $userId = Auth::id();

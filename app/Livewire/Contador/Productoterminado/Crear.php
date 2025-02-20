@@ -27,7 +27,7 @@ class Crear extends ModalComponent
             $query->where('estado', 'En proceso')
                   ->orWhere(function ($q) {
                       $q->where('estado', 'Completado')
-                        ->whereDate('updated_at', '>=', Carbon::now()->subDays(3));
+                        ->whereDate('updated_at', '>=', Carbon::now()->subDays(1));
                   });
         })
         ->whereNotIn('codigo', [0, 1, 2])

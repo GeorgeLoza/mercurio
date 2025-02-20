@@ -224,7 +224,7 @@
             white-space: nowrap;
         }
     </style>
-     <style>
+    <style>
         .capitalize {
             text-transform: capitalize;
         }
@@ -269,7 +269,8 @@
             <th style="width: 25%; font-size: 0.8rem">PLL-REG-035 <br> Versión 002 <br> Página 1 de 1 </th>
         </tr>
         <tr>
-            <td colspan="3" style="text-align: center; padding: 0.6rem;  font-weight:bold; text-transform: uppercase">Control de
+            <td colspan="3"
+                style="text-align: center; padding: 0.6rem;  font-weight:bold; text-transform: uppercase">Control de
                 calidad en proceso - Linea HTST</td>
         </tr>
     </table>
@@ -278,6 +279,7 @@
     SOALPRO SRL - Planta Lácteos - Reporte generado el {{ date('d/m/Y') }}
     <div class="page-number"></div>
 </footer>
+
 <body>
     <div class="page">
 
@@ -346,7 +348,10 @@
             <table class="table-container " style="  font-wheight:0">
                 <thead>
                     <tr>
-                        <th colspan="13" style="font-weight:bold;">
+                        <th @if ($informacion->producto->destinoProducto->nombre == 'DE - La Paz')
+                           colspan="14"
+                        @else
+                        colspan="13"@endif style="font-weight:bold;">
                             MEZCLA
                         </th>
                     </tr>
@@ -360,7 +365,11 @@
                         <th>Temp [°C]</th>
                         <th>pH</th>
                         <th>°Brix</th>
-                        <th>Acidez [%]</th>
+                        @if ($informacion->producto->destinoProducto->nombre == 'DE - La Paz')
+                            <th>Acidez [%]</th><th></th>
+                        @else
+                            <th></th>
+                        @endif
 
 
                         <th></th>
@@ -428,10 +437,14 @@
                                     <th>-</th>
                                 @endif
 
-                                @if ($analisis->acidez)
-                                    <th>{{ $analisis->acidez }}</th>
+                                @if ($informacion->producto->destinoProducto->nombre == 'DE - La Paz')
+                                    @if ($analisis->acidez)
+                                        <th>{{ $analisis->acidez }}</th><th></th>
+                                    @else
+                                        <th>-</th><th></th>
+                                    @endif
                                 @else
-                                    <th>-</th>
+                                    <th></th>
                                 @endif
 
 
@@ -468,7 +481,12 @@
             <table class="table-container " style="  font-wheight:0">
                 <thead>
                     <tr>
-                        <th colspan="13" style="font-weight:bold;">
+                        <th @if ($informacion->producto->destinoProducto->nombre == 'DE - La Paz')
+                            colspan="14"
+                        @else
+                            colspan="13"
+                        @endif
+                         style="font-weight:bold;">
                             Saborizacion
                         </th>
                     </tr>
@@ -483,6 +501,11 @@
                         <th>pH</th>
 
                         <th>°Brix</th>
+                        @if ($informacion->producto->destinoProducto->nombre == 'DE - La Paz')
+                            <th>Acidez [%]</th>
+                        @else
+
+                        @endif
 
                         <th>Color</th>
                         <th>Olor</th>
@@ -554,6 +577,16 @@
                                     <th>-</th>
                                 @endif
 
+                                @if ($informacion->producto->destinoProducto->nombre == 'DE - La Paz')
+                                    @if ($analisis->acidez)
+                                        <th>{{ $analisis->acidez }}</th>
+                                    @else
+                                        <th>-</th>
+                                    @endif
+                                @else
+
+                                @endif
+
 
                                 @if ($analisis->color)
                                     @if ($analisis->color == true)
@@ -617,7 +650,11 @@
 
                 <thead>
                     <tr>
-                        <th colspan="13" style="font-weight:bold;">
+                        <th @if ($informacion->producto->destinoProducto->nombre == 'DE - La Paz')
+                            colspan="14"
+                        @else
+                            colspan="13"
+                        @endif style="font-weight:bold;">
                             ENVASADO
                         </th>
                     </tr>
@@ -635,6 +672,11 @@
                         <th>pH</th>
 
                         <th>°Brix</th>
+                        @if ($informacion->producto->destinoProducto->nombre == 'DE - La Paz')
+                            <th>Acidez [%]</th>
+                        @else
+
+                        @endif
 
                         <th>Color</th>
                         <th>Olor</th>
@@ -662,17 +704,17 @@
                                 <th>{{ $dato->solicitudAnalisisLinea->estadoPlanta->origen->alias }}</th>
                             @endif
                             @if ($dato->solicitudAnalisisLinea)
-                            @php
-                                $analisis = $dato->solicitudAnalisisLinea->analisisLinea;
-                            @endphp
+                                @php
+                                    $analisis = $dato->solicitudAnalisisLinea->analisisLinea;
+                                @endphp
                             @endif
 
-                              {{-- peso --}}
-                              @if ($analisis->peso)
-                              <th>{{ $analisis->peso /1 }}</th>
-                          @else
-                              <th>-</th>
-                          @endif
+                            {{-- peso --}}
+                            @if ($analisis->peso)
+                                <th>{{ $analisis->peso / 1 }}</th>
+                            @else
+                                <th>-</th>
+                            @endif
                             @php
                                 $fecha = new DateTime($dato->solicitudAnalisisLinea->tiempo);
                                 $diaDelAno = $fecha->format('z') + 1;
@@ -718,6 +760,15 @@
                                     <th>-</th>
                                 @endif
 
+                                @if ($informacion->producto->destinoProducto->nombre == 'DE - La Paz')
+                                @if ($analisis->acidez)
+                                    <th>{{ $analisis->acidez }}</th>
+                                @else
+                                    <th>-</th>
+                                @endif
+
+
+                            @endif
 
 
                                 @if ($analisis->color)
@@ -833,7 +884,7 @@
 
         </main>
     </div>
-    <div >
+    <div>
         <div style=" display: flex; justify-content: flex-end;  page-break-inside: avoid; ">
 
 
@@ -862,9 +913,9 @@
 
             <div style="padding-left: 500px; ">
                 <strong
-                        style=" border-top: 1px solid #000; padding-top: 7px; padding-right: 25px; padding-left: 25px; ">
-                        REVISADO </strong>
-                </div>
+                    style=" border-top: 1px solid #000; padding-top: 7px; padding-right: 25px; padding-left: 25px; ">
+                    REVISADO </strong>
+            </div>
 
 
         </div>

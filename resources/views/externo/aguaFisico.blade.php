@@ -8,7 +8,7 @@ Actividad de Agua Fisico
 @section('contenido')
 
 <!--Tabla -->
-@livewire('externo.actividadAgua.tabla')
+@livewire('externo.aguaFisico.tabla')
 
 
 @endsection

@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('estado')->nullable();
             $table->dateTime('tiempo')->nullable();
             $table->decimal('ph', 4, 2)->nullable();
-            $table->decimal('dureza', 4, 2)->nullable();
-            $table->decimal('cloruros', 4, 2)->nullable();
-            $table->decimal('conductividad', 4, 2)->nullable();
+            $table->decimal('dureza', 5, 2)->nullable();
+            $table->decimal('cloruros', 5, 2)->nullable();
+            $table->decimal('conductividad', 5, 2)->nullable();
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('restrict');
             $table->foreignId('detalle_solicitud_planta_id')->nullable()->constrained()->onDelete('restrict');
             $table->timestamps();

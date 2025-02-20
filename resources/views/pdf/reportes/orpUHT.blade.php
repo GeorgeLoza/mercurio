@@ -563,7 +563,7 @@
                                     <th>-</th>
                                 @endif
 
-                                @if ($analisis->acidez)
+                                @if ($analisis->acidez || $analisis->acidez!= 0)
                                     <th>{{ $analisis->acidez }}</th>
                                 @else
                                     <th>-</th>
