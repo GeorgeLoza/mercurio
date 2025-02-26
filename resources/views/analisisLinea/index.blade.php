@@ -5,8 +5,8 @@
 @endsection
 
 @section('contenido')
-    
+
 
     <!--Tabla -->
-            @livewire('analisis-linea.analisis.tabla')   
+            @livewire('analisis-linea.analisis.tabla')
 @endsection

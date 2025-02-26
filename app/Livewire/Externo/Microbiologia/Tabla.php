@@ -179,7 +179,7 @@ class Tabla extends Component
             }
             $microbiologia->save();
 
-            $this->dispatch('actualizar_tabla_microexterno');
+            // $this->dispatch('actualizar_tabla_microexterno');
 
             $this->dispatch('success', mensaje: 'Analisis realizado exitosamente.');
         } catch (\Throwable $th) {
@@ -211,7 +211,7 @@ class Tabla extends Component
             $detalle->estado = "Revision";
             $detalle->save();
 
-            $this->dispatch('actualizar_tabla_microexterno');
+            // $this->dispatch('actualizar_tabla_microexterno');
 
             $this->dispatch('success', mensaje: 'Analisis realizado exitosamente.');
         } catch (\Throwable $th) {

@@ -130,136 +130,136 @@
                             </td>
 
                             @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
-                            <td class="px-1 py-0" nowrap>
-                                {{ $micro->detalleSolicitudPlanta->user->planta->nombre }}
-                            </td>
-                            <td class="px-1 py-0">
-                                <p class="p-0">
-                                    @if ($micro->aer_mes >= 1000000)
-                                        MNPC
-                                    @elseif ($micro->aer_mes < 1000000 && $micro->aer_mes >= 10)
-                                        {{ $micro->aer_mes < 1
-                                            ? $micro->aer_mes * 10 ** (strlen(floor($micro->aer_mes)) - 1)
-                                            : $micro->aer_mes / 10 ** (strlen(floor($micro->aer_mes)) - 1) }}
-                                        x 10<sup>{{ strlen(floor($micro->aer_mes)) - 1 }}</sup>
-                                    @elseif ($micro->aer_mes > 0)
-                                        {{ $micro->aer_mes }}
-                                    @elseif ($micro->aer_mes === 0)
-                                        < 1 x 10<sup>1</sup>
-                                        @elseif (is_null($micro->aer_mes))
-                                            --
-                                    @endif
-
-                                </p>
-                                @if ($micro->aer_mes2 === null)
-                                @else
+                                <td class="px-1 py-0" nowrap>
+                                    {{ $micro->detalleSolicitudPlanta->user->planta->nombre }}
+                                </td>
+                                <td class="px-1 py-0">
                                     <p class="p-0">
-
-                                        @if ($micro->aer_mes2 >= 1000000)
+                                        @if ($micro->aer_mes >= 1000000)
                                             MNPC
-                                        @elseif ($micro->aer_mes2 < 1000000 && $micro->aer_mes2 >= 10)
-                                            {{ $micro->aer_mes2 < 1
-                                                ? $micro->aer_mes2 * 10 ** (strlen(floor($micro->aer_mes2)) - 1)
-                                                : $micro->aer_mes2 / 10 ** (strlen(floor($micro->aer_mes2)) - 1) }}
-                                            x 10<sup>{{ strlen(floor($micro->aer_mes2)) - 1 }}</sup>
-                                        @elseif ($micro->aer_mes2 > 0)
-                                            {{ $micro->aer_mes2 }}
-                                        @elseif ($micro->aer_mes2 === 0)
+                                        @elseif ($micro->aer_mes < 1000000 && $micro->aer_mes >= 10)
+                                            {{ $micro->aer_mes < 1
+                                                ? $micro->aer_mes * 10 ** (strlen(floor($micro->aer_mes)) - 1)
+                                                : $micro->aer_mes / 10 ** (strlen(floor($micro->aer_mes)) - 1) }}
+                                            x 10<sup>{{ strlen(floor($micro->aer_mes)) - 1 }}</sup>
+                                        @elseif ($micro->aer_mes > 0)
+                                            {{ $micro->aer_mes }}
+                                        @elseif ($micro->aer_mes === 0)
                                             < 1 x 10<sup>1</sup>
-                                            @elseif (is_null($micro->aer_mes2))
+                                            @elseif (is_null($micro->aer_mes))
                                                 --
                                         @endif
-                                    </p>
-                                @endif
-                            </td>
-                            <td class="px-1 py-0 ">
-                                @if ($micro->col_tot >= 1000000)
-                                    MNPC
-                                @endif
-                                @if ($micro->col_tot < 1000000 && $micro->col_tot >= 10)
-                                    <p>
-                                        {{ $micro->col_tot < 1
-                                            ? $micro->col_tot * 10 ** (strlen(floor($micro->col_tot)) - 1)
-                                            : $micro->col_tot / 10 ** (strlen(floor($micro->col_tot)) - 1) }}
-                                        x 10<sup>{{ strlen(floor($micro->col_tot)) - 1 }}</sup>
-                                    @elseif ($micro->col_tot > 0)
-                                        {{ $micro->col_tot }}
-                                    </p>
-                                @endif
 
-                                @if ($micro->col_tot === null)
-                                    <p>
-                                        --
                                     </p>
-                                @endif
-                                @if ($micro->col_tot === 0)
-                                    <p>
+                                    @if ($micro->aer_mes2 === null)
+                                    @else
+                                        <p class="p-0">
 
-                                        < 1 x 10<sup>1</sup>
-                                    </p>
-                                @endif
-
-                                @if ($micro->col_tot2 !== null)
-                                    @if ($micro->col_tot2 >= 1000000)
+                                            @if ($micro->aer_mes2 >= 1000000)
+                                                MNPC
+                                            @elseif ($micro->aer_mes2 < 1000000 && $micro->aer_mes2 >= 10)
+                                                {{ $micro->aer_mes2 < 1
+                                                    ? $micro->aer_mes2 * 10 ** (strlen(floor($micro->aer_mes2)) - 1)
+                                                    : $micro->aer_mes2 / 10 ** (strlen(floor($micro->aer_mes2)) - 1) }}
+                                                x 10<sup>{{ strlen(floor($micro->aer_mes2)) - 1 }}</sup>
+                                            @elseif ($micro->aer_mes2 > 0)
+                                                {{ $micro->aer_mes2 }}
+                                            @elseif ($micro->aer_mes2 === 0)
+                                                < 1 x 10<sup>1</sup>
+                                                @elseif (is_null($micro->aer_mes2))
+                                                    --
+                                            @endif
+                                        </p>
+                                    @endif
+                                </td>
+                                <td class="px-1 py-0 ">
+                                    @if ($micro->col_tot >= 1000000)
                                         MNPC
                                     @endif
-                                    @if ($micro->col_tot2 < 1000000 && $micro->col_tot2 >= 10)
-                                        {{ $micro->col_tot2 < 1
-                                            ? $micro->col_tot2 * 10 ** (strlen(floor($micro->col_tot2)) - 1)
-                                            : $micro->col_tot2 / 10 ** (strlen(floor($micro->col_tot2)) - 1) }}
-                                        x 10<sup>{{ strlen(floor($micro->col_tot2)) - 1 }}</sup>
-                                    @elseif ($micro->col_tot2 > 0)
-                                        {{ $micro->col_tot2 }}
+                                    @if ($micro->col_tot < 1000000 && $micro->col_tot >= 10)
+                                        <p>
+                                            {{ $micro->col_tot < 1
+                                                ? $micro->col_tot * 10 ** (strlen(floor($micro->col_tot)) - 1)
+                                                : $micro->col_tot / 10 ** (strlen(floor($micro->col_tot)) - 1) }}
+                                            x 10<sup>{{ strlen(floor($micro->col_tot)) - 1 }}</sup>
+                                        @elseif ($micro->col_tot > 0)
+                                            {{ $micro->col_tot }}
+                                        </p>
                                     @endif
 
-                                    @if ($micro->col_tot2 === null)
-                                        --
+                                    @if ($micro->col_tot === null)
+                                        <p>
+                                            --
+                                        </p>
                                     @endif
                                     @if ($micro->col_tot === 0)
-                                        < 1 x 10<sup>1</sup>
-                                    @endif
-                                @endif
+                                        <p>
 
-                            </td>
-                            <td class="px-1 py-0 ">
-
-                                @if ($micro->moh_lev >= 1000000)
-                                    MNPC
-                                @elseif ($micro->moh_lev < 1000000 && $micro->moh_lev >= 10)
-                                    {{ $micro->moh_lev < 1
-                                        ? $micro->moh_lev * 10 ** (strlen(floor($micro->moh_lev)) - 1)
-                                        : $micro->moh_lev / 10 ** (strlen(floor($micro->moh_lev)) - 1) }}
-                                    x 10<sup>{{ strlen(floor($micro->moh_lev)) - 1 }}</sup>
-                                @elseif ($micro->moh_lev > 0)
-                                    {{ $micro->moh_lev }}
-                                @elseif ($micro->moh_lev === 0)
-                                    < 1 x 10<sup>1</sup>
-                                    @elseif (is_null($micro->moh_lev))
-                                        --
-                                @endif
-                                </p>
-                                @if ($micro->moh_lev2 === null)
-                                @else
-                                    <p class="p-0">
-
-                                        @if ($micro->moh_lev2 >= 1000000)
-                                            MNPC
-                                        @elseif ($micro->moh_lev2 < 1000000 && $micro->moh_lev2 >= 10)
-                                            {{ $micro->moh_lev2 < 1
-                                                ? $micro->moh_lev2 * 10 ** (strlen(floor($micro->moh_lev2)) - 1)
-                                                : $micro->moh_lev2 / 10 ** (strlen(floor($micro->moh_lev2)) - 1) }}
-                                            x 10<sup>{{ strlen(floor($micro->moh_lev2)) - 1 }}</sup>
-                                        @elseif ($micro->moh_lev2 > 0)
-                                            {{ $micro->moh_lev2 }}
-                                        @elseif ($micro->moh_lev2 === 0)
                                             < 1 x 10<sup>1</sup>
-                                            @elseif (is_null($micro->moh_lev2))
-                                                --
+                                        </p>
+                                    @endif
+
+                                    @if ($micro->col_tot2 !== null)
+                                        @if ($micro->col_tot2 >= 1000000)
+                                            MNPC
                                         @endif
+                                        @if ($micro->col_tot2 < 1000000 && $micro->col_tot2 >= 10)
+                                            {{ $micro->col_tot2 < 1
+                                                ? $micro->col_tot2 * 10 ** (strlen(floor($micro->col_tot2)) - 1)
+                                                : $micro->col_tot2 / 10 ** (strlen(floor($micro->col_tot2)) - 1) }}
+                                            x 10<sup>{{ strlen(floor($micro->col_tot2)) - 1 }}</sup>
+                                        @elseif ($micro->col_tot2 > 0)
+                                            {{ $micro->col_tot2 }}
+                                        @endif
+
+                                        @if ($micro->col_tot2 === null)
+                                            --
+                                        @endif
+                                        @if ($micro->col_tot === 0)
+                                            < 1 x 10<sup>1</sup>
+                                        @endif
+                                    @endif
+
+                                </td>
+                                <td class="px-1 py-0 ">
+
+                                    @if ($micro->moh_lev >= 1000000)
+                                        MNPC
+                                    @elseif ($micro->moh_lev < 1000000 && $micro->moh_lev >= 10)
+                                        {{ $micro->moh_lev < 1
+                                            ? $micro->moh_lev * 10 ** (strlen(floor($micro->moh_lev)) - 1)
+                                            : $micro->moh_lev / 10 ** (strlen(floor($micro->moh_lev)) - 1) }}
+                                        x 10<sup>{{ strlen(floor($micro->moh_lev)) - 1 }}</sup>
+                                    @elseif ($micro->moh_lev > 0)
+                                        {{ $micro->moh_lev }}
+                                    @elseif ($micro->moh_lev === 0)
+                                        < 1 x 10<sup>1</sup>
+                                        @elseif (is_null($micro->moh_lev))
+                                            --
+                                    @endif
                                     </p>
-                                @endif
-                            </td>
-                        @endif
+                                    @if ($micro->moh_lev2 === null)
+                                    @else
+                                        <p class="p-0">
+
+                                            @if ($micro->moh_lev2 >= 1000000)
+                                                MNPC
+                                            @elseif ($micro->moh_lev2 < 1000000 && $micro->moh_lev2 >= 10)
+                                                {{ $micro->moh_lev2 < 1
+                                                    ? $micro->moh_lev2 * 10 ** (strlen(floor($micro->moh_lev2)) - 1)
+                                                    : $micro->moh_lev2 / 10 ** (strlen(floor($micro->moh_lev2)) - 1) }}
+                                                x 10<sup>{{ strlen(floor($micro->moh_lev2)) - 1 }}</sup>
+                                            @elseif ($micro->moh_lev2 > 0)
+                                                {{ $micro->moh_lev2 }}
+                                            @elseif ($micro->moh_lev2 === 0)
+                                                < 1 x 10<sup>1</sup>
+                                                @elseif (is_null($micro->moh_lev2))
+                                                    --
+                                            @endif
+                                        </p>
+                                    @endif
+                                </td>
+                            @endif
                             <td class="px-1 py-0" nowrap>
                                 <div class="flex items-center">
                                     @if ($micro->detalleSolicitudPlanta->estado == 'Cancelado')
@@ -296,7 +296,10 @@
                                     </button>
                                     <!--boton para emitir certificado-->
                                     <button class="p-1 rounded-md "
-                                        wire:click="cambiar_estado({{ $micro->detalleSolicitudPlanta->id }})">
+                                        wire:click="cambiar_estado({{ $micro->detalleSolicitudPlanta->id }})"
+                                        {{-- borra la siguiente linea si no funciona en externos --}}
+                                        {{-- onclick="window.location.reload();" --}}
+                                        >
                                         <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-5 w-5"
                                             viewBox="0 0 512 512">
 
