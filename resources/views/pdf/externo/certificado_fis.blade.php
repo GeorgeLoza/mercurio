@@ -149,7 +149,11 @@
 
                 <tr style="border-right: 1px solid black;">
                     <td rowspan="6" style="width: 380px; border: 1px solid black;font-size: 20px">
-                        {{ $datosSolicitud->productosPlanta->nombre }}</td>
+                        @if ( $datosSolicitud->productosPlanta )
+
+                        {{ $datosSolicitud->productosPlanta->nombre }}
+                        @endif
+                    </td>
                     <th style="text-align: right ; padding: 0 15px">Lote: </th>
                     <td style="text-align: left ">
                         @if ($datosSolicitud->lote)
@@ -244,12 +248,14 @@
                 </tr>
                 <tr style="border-left: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black">
                     <th>Fecha de análisis:</th>
-                    <td>{{ \Carbon\Carbon::parse($resultados->tiempo)->isoFormat(
+                    <td>
+                        {{ \Carbon\Carbon::parse($resultados->tiempo)->isoFormat(
                         'dddd[,] D [de] MMMM [de]
                                             YYYY',
                         0,
                         'es',
                     ) }}
+
                     </td>
                 </tr>
             </table>

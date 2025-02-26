@@ -59,14 +59,15 @@ class ProductoPlanta extends Component
     public function update()
     {
         $this->validate();
-
-        $producto = ProductosPlantas::find($this->id);
+        $producto = ProductosPlantas::find($this->productoId);
         $producto->update([
             'nombre' => $this->nombre,
             'plata_id' => auth()->user()->planta->id,
         ]);
 
         $this->resetFields();
+
+
     }
     public function edit($id)
     {

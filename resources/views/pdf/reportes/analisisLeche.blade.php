@@ -258,7 +258,7 @@
         </tr>
         <tr>
             <td colspan="3" style="text-align: center; padding: 0.6rem;  font-weight:bold;">ANÁLISIS DE
-                LECHES</td>
+                LECHE</td>
         </tr>
     </table>
 </header>

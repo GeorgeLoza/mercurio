@@ -152,6 +152,7 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::middleware(['role.permission:24,2'])->group(function () {
         Route::get('/externo/certificado', [ExternoController::class, 'certificado'])->name('certificado.index');
+        Route::get('/externo/certificadoMicrobiologia', [ExternoController::class, 'certificadoMicrobiologia'])->name('certificadoMicrobiologia.index');
         Route::get('/certificado/pdf_cer/{id}', [CertificadoController::class, 'certificado_micro_pdf'])->name('certificado.pdf_cer');
         Route::get('/certificado/pdf_cer2/{id}', [CertificadoController::class, 'certificado_micro_pdf2'])->name('certificado.pdf_cer2');
         Route::get('/certificado_fis/pdf_cer/{id}', [CertificadoController::class, 'certificado_fisi_pdf'])->name('certificado_fis.pdf_cer');

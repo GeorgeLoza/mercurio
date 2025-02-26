@@ -42,6 +42,10 @@ class ExternoController extends Controller
     {
         return view('externo/certificado');
     }
+    public function certificadoMicrobiologia()
+    {
+        return view('externo/certificadoMicrobiologia');
+    }
     public function aguaFisico()
     {
         return view('externo/aguaFisico');

@@ -1,13 +1,13 @@
 @extends('layout.app')
 
 @section('titulo')
-certificados fisicoquimico
+certificados microbiologia
 
 @endsection
 
 @section('contenido')
 
 <!--Tabla -->
-@livewire('externo.certificados')
+@livewire('externo.certificadosMicrobiologia')
 
 @endsection

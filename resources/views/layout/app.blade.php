@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ asset('build/assets/app-da32ce76.css') }}">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-47af31d4.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-bcbac709.css') }}">
 
     <script src="{{ asset('build/assets/app-56df689c.js') }}" defer></script>
     <script src="{{ asset('js/app.js') }}"></script>
@@ -532,7 +532,12 @@
                                 <li>
                                     <a href="{{ route('certificado.index') }}"
                                         class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                                        Certificados</a>
+                                        Certificados FisicoQuimicos</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('certificadoMicrobiologia.index') }}"
+                                        class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                                        Certificados Microbiologia</a>
                                 </li>
                             @endif
                             @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 25)->where('permiso_id', 2)->isNotEmpty())

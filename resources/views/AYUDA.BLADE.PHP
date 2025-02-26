@@ -1,288 +1,72 @@
-<?php
-
-namespace App\Livewire\Orp;
-
-use App\Exports\MuestrasExport;
-use App\Models\AnalisisLinea;
-use App\Models\Orp;
-use App\Models\Color;
-use App\Models\User;
-use App\Notifications\CierreOrp;
-use App\Notifications\orpNotification;
-use Livewire\WithPagination;
-use Livewire\Component;
-use Livewire\Attributes\On;
-use Carbon\Carbon;
-use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\DB;
-
-class Tabla extends Component
+class MicrobiologiaExterno extends Component
 {
-    use WithPagination;
-    //filtros-busqueda
-    public $f_codigo = null;
-    public $f_codigoProducto = null;
-    public $f_nombreProducto = null;
-    public $f_lote = null;
-    public $f_estado = null;
-    public $f_tiempoElaboracion = null;
-    public $f_fechaVencimiento1 = null;
-    public $f_fechaVencimiento2 = null;
-    public $f_producto = null;
-    public $f_productoCodigo = null;
-    //categoria
-    public $f_grupo = null;
+    public $microbiologia;
+    public $currentPage = 1; // ✅ Agregar propiedad para la página actual
 
-
-    public $aplicandoFiltros = false;
-
-    //filtros-ordenamiento
-    public $sortField;
-    public $sortAsc = true;
-    //mostrar filtro
-    public $filtro = false;
-
-
-    public $anio;  // Año, por ejemplo: 2024
-    public $mes;
-    public $dia;
-    public $fecha;
-    public $cat;
-
-    public function show_filtro()
-    {
-        $this->filtro = !$this->filtro;
-    }
-
-
-
-    public function sortBy($field)
-    {
-        if ($this->sortField === $field) {
-            $this->sortAsc = !$this->sortAsc;
-        } else {
-            $this->sortAsc = true;
-        }
-
-        $this->sortField = $field;
-    }
-
-    public function iniciar($id)
-    {
-
-        $registro = Orp::find($id);
-        $registro->estado = 'En proceso';
-        $registro->tiempo_elaboracion = now();
-        $registro->save();
-
-        $colorDisponible = Color::whereNull('orp_id')->first();
-        if ($colorDisponible) {
-            $colorDisponible->orp_id = $id;
-            $colorDisponible->save();
-        }
-
-
-        // Notificar a los usuarios admin
-        $admins = User::where('rol', 'Admi')->orWhere('rol', 'Jef')->orWhere('rol', 'Sup')->get();
-
-        foreach ($admins as $admin) {
-            $admin->notify(new orpNotification($registro));
-        }
-
-    }
-
-    public function cancelar($id)
-    {
-        $registro = Orp::find($id);
-        $registro->estado = 'Cancelado';
-        $registro->save();
-
-    }
-
-    public function pendiente($id)
-    {
-        $registro = Orp::find($id);
-        $registro->estado = 'Pendiente';
-        $registro->save();
-    }
-
-    public function programar($id)
-    {
-        $registro = Orp::find($id);
-        $registro->estado = 'Programado';
-        $registro->save();
-    }
-    public function completar($id)
-    {
-        $registro = Orp::find($id);
-        $registro->estado = 'Completado';
-        $registro->save();
-
-
-        try {
-            DB::table('colors')
-                ->where('orp_id', $id)
-                ->update(['orp_id' => null]);
-        } catch (\Throwable $th) {
-            // Manejo de error: puedes registrar el error si es necesario
-            // Log::error('Error al actualizar colors: ' . $th->getMessage());
-        }
-
-        // DB::table('colors')
-        //     ->where('orp_id', $id)
-        //     ->update(['orp_id' => null]);
-
-        // Notificar a los usuarios admin
-        $admins = User::where('rol', 'Admi')->orWhere('rol', 'Jef')->orWhere('rol', 'Sup')->get();
-
-        foreach ($admins as $admin) {
-            $admin->notify(new CierreOrp($registro));
-        }
-    }
-
-    public function mount()
-    {
-        $this->sortField = 'created_at';
-        $this->sortAsc = false;
-    }
-
-
-    #[On('actualizar_tabla_orps')]
+    #[On('actualizar_tabla_microexterno')]
     public function render()
     {
         $this->aplicandoFiltros = $this->hayFiltrosActivos();
-        $query = Orp::query()
 
-            ->when($this->f_codigo, function ($query) {
-                return $query->where('codigo', 'like', '%' . $this->f_codigo . '%');
-            })
-
-            //prueba
-            ->when($this->f_grupo, function ($query) {
-                return $query->whereHas('producto.categoriaProducto', function ($query) {
-                    $query->where('grupo', 'like', '%' . $this->f_grupo . '%');
+        $this->microbiologia = MicrobiologiaExterno::query()
+            ->when($this->f_planta, function ($query) {
+                return $query->whereHas('detalleSolicitudPlanta.solicitudPlanta.user.planta', function ($query) {
+                    $query->where('nombre', 'like', '%' . $this->f_planta);
                 });
             })
-            //fin prueba
-            ->when($this->f_codigoProducto, function ($query) {
-                return $query->whereHas('producto', function ($query) {
-                    $query->where('codigo', 'like', '%' . $this->f_codigoProducto . '%');
-                });
-            })
-            ->when($this->f_nombreProducto, function ($query) {
-                return $query->whereHas('producto', function ($query) {
-                    $query->where('nombre', 'like', '%' . $this->f_nombreProducto . '%');
-                });
-            })
-            ->when($this->f_lote, function ($query) {
-                return $query->where('lote', 'like', '%' . $this->f_lote . '%');
-            })
-            ->when($this->f_estado, function ($query) {
-                return $query->where('estado', 'like', '%' . $this->f_estado . '%');
-            })
-            ->when($this->f_tiempoElaboracion, function ($query) {
-                return $query->where('tiempo_elaboracion', 'like', '%' . $this->f_tiempoElaboracion . '%');
-            })
-                ->when($this->f_fechaVencimiento1, function ($query) {
+            ->orderBy('created_at', 'desc')
+            ->paginate(50, ['*'], 'page', $this->currentPage); // ✅ Mantiene la página actual
 
-                    return $query->where('fecha_vencimiento1', 'like', '%' . $this->f_fechaVencimiento1 . '%');
-                })
-            ->when($this->f_fechaVencimiento2, function ($query) {
-                return $query->where('fecha_vencimiento2', 'like', '%' . $this->f_fechaVencimiento2 . '%');
-            })
-
-            ->when($this->f_productoCodigo, function ($query) {
-                return $query->whereHas('producto', function ($query) {
-                    $query->where('codigo', 'like', '%' . $this->f_productoCodigo . '%');
-                });
-            })
-
-            ->when($this->sortField, function ($query) {
-                $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
-            });
-        $orps = $this->aplicandoFiltros ? $query->get() : $query->paginate(50);
-
-
-        return view('livewire.orp.tabla', [
-            'orps' => $orps
+        return view('livewire.externo.microbiologia.tabla', [
+            'microbiologia' => $this->microbiologia
         ]);
     }
 
-    public function aplicarFiltros()
+    public function dia2($id)
     {
-        $this->aplicandoFiltros = true;
-        // Resto de la lógica para aplicar los filtros
+        try {
+            $microbiologia = MicrobiologiaExterno::find($id);
+            $microbiologia->aer_mes = 0;
+            $microbiologia->col_tot = 0;
+
+            if ($microbiologia->detalleSolicitudPlanta->tipoMuestra->id == 2) {
+                $microbiologia->col_tot = null;
+            }
+
+            if (in_array($microbiologia->detalleSolicitudPlanta->tipoMuestra->id, [9, 5])) {
+                $microbiologia->aer_mes = null;
+                $microbiologia->estado = "Analizado";
+
+                $detalle = DetalleSolicitudPlanta::find($microbiologia->detalle_solicitud_planta_id);
+                $detalle->estado = "Revision";
+                $detalle->save();
+            } else {
+                $microbiologia->estado = "2 Dias";
+            }
+
+            if (is_null($microbiologia->fecha_dia2)) {
+                $microbiologia->fecha_dia2 = now();
+            }
+
+            if (is_null($microbiologia->ana_dia2_id)) {
+                $microbiologia->ana_dia2_id = auth()->user()->id;
+            }
+
+            $microbiologia->save();
+
+            // ✅ Guardar la página actual antes de actualizar
+            $this->currentPage = $this->microbiologia->currentPage();
+
+            $this->dispatch('actualizar_tabla_microexterno');
+
+            $this->dispatch('success', mensaje: 'Análisis realizado exitosamente.');
+        } catch (\Throwable $th) {
+            $this->dispatch('error_mensaje', mensaje: 'Problema: ' . $th->getMessage());
+        }
     }
-    public function limpiarFiltros()
+
+    public function updatingCurrentPage($page)
     {
-        $this->reset(['f_codigo', 'f_codigoProducto', 'f_nombreProducto', 'f_lote', 'f_estado', 'f_tiempoElaboracion', 'f_fechaVencimiento1', 'f_fechaVencimiento2', 'f_productoCodigo','f_grupo']);
-
-        // Refresca el componente
-        $this->js('window.location.reload()');
+        $this->currentPage = $page; // ✅ Captura la página cuando cambia
     }
-    private function hayFiltrosActivos(): bool
-    {
-        return $this->f_codigo || $this->f_codigoProducto || $this->f_nombreProducto || $this->f_lote || $this->f_estado || $this->f_tiempoElaboracion || $this->f_fechaVencimiento1 || $this->f_fechaVencimiento2 || $this->f_productoCodigo || $this->f_grupo;
-    }
-
-
-
-    public function exportarExcel()
-{
-    // Asegúrate de que $this->fecha esté correctamente definido
-    // Extraer año, mes y día de la fecha seleccionada
-    $anio = Carbon::parse($this->fecha)->year;
-    $mes = Carbon::parse($this->fecha)->month;
-    $dia = Carbon::parse($this->fecha)->day;
-     $cat= $this->cat ;
-
-    // Consultar registros basados en la fecha completa
-    $mezclas = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) {
-        $query->where('etapa_id', 1); // Filtra registros con etapa_id = 1
-    })
-
-    ->when($anio, function ($query) use ($anio) {
-        $query->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle.orp', function ($q) use ($anio) {
-            $q->whereYear('tiempo_elaboracion', $anio);
-        });
-    })
-    ->when($mes, function ($query) use ($mes) {
-        $query->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle.orp', function ($q) use ($mes) {
-            $q->whereMonth('tiempo_elaboracion', $mes);
-        });
-    })
-    ->when($dia, function ($query) use ($dia) {
-        $query->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle.orp', function ($q) use ($dia) {
-            $q->whereDay('tiempo_elaboracion', $dia);
-        });
-    })
-    ->when($cat, function ($query) use ($cat) {
-                $query->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle.orp.producto.categoriaProducto', function ($q) use ($cat) {
-                    $q->where('grupo', $cat);
-                 });
-             })
-
-
-
-
-
-
-        ->get();
-
-
-
-
-
-
-    // Crear nombre del archivo con la fecha seleccionada
-    $nombreMes = Carbon::createFromFormat('m', $mes)->translatedFormat('F'); // Obtener el nombre del mes
-    $nombreArchivo = "{$dia}-{$nombreMes}-{$anio}.csv";
-
-    // Exportar datos usando el paquete maatwebsite/excel
-    return Excel::download(new MuestrasExport($mezclas), $nombreArchivo, \Maatwebsite\Excel\Excel::CSV);
-}
-
-
-
-
 }
