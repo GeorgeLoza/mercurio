@@ -106,10 +106,10 @@
                             </thead>
                             <tbody>
                                 @foreach ($solicitud->detalles as $detalle)
-                                    <tr>
+                                    <tr class="border-b">
                                         @if ($editMode && $editId === $detalle->id)
                                             <!-- Modo de edición -->
-                                            <td class="px-1 py-1">
+                                            <td class="px-1 py-1 ">
                                                 <input type="text" wire:model.defer="editData.subcodigo"
                                                     class="form-input w-full" />
                                             </td>
@@ -200,22 +200,22 @@
                                             </td>
 
                                             @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 22)->where('permiso_id', 3)->isNotEmpty())
-                                                <td>
+                                                <td class="gap-2">
 
 
                                                     <button wire:click="edit({{ $detalle->id }})"
-                                                        class="bg-blue-500 text-white px-2 py-1 rounded">Editar</button>
+                                                        class="bg-blue-500 text-white px-2 py-1 m-2 rounded">Editar</button>
 
                                                     <button wire:click="eliminar_detalle({{ $detalle->id }})" wire:confirm="Esta seguro de eliminar el elemento?"
-                                                        class="bg-red-500 text-white px-2 py-1 rounded">Eliminar</button>
+                                                        class="bg-red-500 text-white px-2 py-1 m-2 rounded">Eliminar</button>
 
                                                     <!-- Botones adicionales para cambiar los estados -->
                                                     <button
                                                         wire:click="confirmar({{ $detalle->id }})"
-                                                        class="bg-yellow-500 text-white px-2 py-1 rounded">Confirmar</button>
+                                                        class="bg-yellow-500 text-white px-2 py-1 m-2 rounded">Confirmar</button>
                                                     <button
                                                         wire:click="observado({{ $detalle->id }})"
-                                                        class="bg-green-500 text-white px-2 py-1 rounded">Observar</button>
+                                                        class="bg-green-500 text-white px-2 py-1 m-2 rounded">Observar</button>
                                                 </td>
                                             @endif
                                         @endif

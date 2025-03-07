@@ -335,7 +335,13 @@
 
 
 
-                            <th></th>
+                            <th>
+                                @if ($ruta[0]->codigo =='LB03' )
+
+                                {{ number_format((($variables->saldo/1000) - 1.266) / 1.84, 2) }} [L]
+                                @endif
+                            </th>
+
                             <th>
                                 @if ($variables->mov->usuarioAutorizante)
                                     {{ $variables->mov->usuarioAutorizante->codigo }}

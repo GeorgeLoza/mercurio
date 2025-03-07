@@ -1,7 +1,8 @@
 <div>
 
 
-    <div class="overflow-x-auto overflow-y-auto h-[calc(100vh-140px)]">
+    <div class="overflow-x-auto overflow-y-auto ">
+    {{-- <div class="overflow-x-auto overflow-y-auto h-[calc(100vh-140px)]"> --}}
         <table class="w-full  text-sm text-center text-gray-500 dark:text-gray-400">
             <thead
                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400  sticky top-0 z-20">

@@ -45,37 +45,6 @@ class Certificados extends Component
 
     public function render()
     {
-        $query = MicrobiologiaExterno::query()
-            ->when($this->f_codigo, function ($query) {
-                $query->whereHas('detalleSolicitudPlanta', function ($query) {
-                    $query->where('subcodigo', 'like', '%' . $this->f_codigo . '%');
-                });
-            })
-            ->when($this->f_producto, function ($query) {
-                $query->whereHas('detalleSolicitudPlanta.productosPlanta', function ($query) {
-                    $query->where('nombre', 'like', '%' . $this->f_producto . '%');
-                });
-            })
-            ->when($this->f_lote, function ($query) {
-                $query->whereHas('detalleSolicitudPlanta', function ($query) {
-                    $query->where('lote', 'like', '%' . $this->f_lote . '%');
-                });
-            })
-            ->when($this->f_estado, function ($query) {
-                $query->whereHas('detalleSolicitudPlanta', function ($query) {
-                    $query->where('estado', 'like', '%' . $this->f_estado . '%');
-                });
-            })
-            ->when(auth()->check() && auth()->user()->role->id == 23, function ($query) {
-                $query->whereHas('detalleSolicitudPlanta.solicitudPlanta.user', function ($query) {
-                    $query->where('planta_id', auth()->user()->planta_id);
-                });
-            })
-            ->orderBy('id', 'desc'); // Ordenar de manera descendente según el id;
-
-        $micros = $this->aplicandoFiltros ? $query->get() : $query->paginate(50);
-
-
 
         $query1 = ActividadAgua::query();
         $query2 = AguaFisico::query();
@@ -135,7 +104,7 @@ class Certificados extends Component
 
 
         return view('livewire.externo.certificados', [
-            'micros' => $micros,
+
             'fisicos' => $fisicos,
         ]);
     }

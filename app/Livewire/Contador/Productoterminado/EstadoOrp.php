@@ -16,6 +16,8 @@ use Carbon\Carbon;
 class EstadoOrp extends ModalComponent
 {
     //input
+
+    public $id;
     public $estado;
 
     public function render()
@@ -31,11 +33,8 @@ class EstadoOrp extends ModalComponent
                   ->where('c.tipo', 'Total'); // Excluir ORP si tiene un tipo 'Total'
         })
         ->where(function ($query) {
-            $query->where('orps.estado', 'En proceso')
-                  ->orWhere(function ($q) {
-                      $q->where('orps.estado', 'Completado')
-                        ->whereDate('orps.updated_at', '>=', Carbon::now()->subDays(1));
-                  });
+            $query->where('orps.id', $this->id);
+
         })
         ->get();
 

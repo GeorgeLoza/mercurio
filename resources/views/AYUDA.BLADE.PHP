@@ -1,72 +1,126 @@
-class MicrobiologiaExterno extends Component
-{
-    public $microbiologia;
-    public $currentPage = 1; // ✅ Agregar propiedad para la página actual
+<div>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg  overflow-y-auto h-[28rem] overflow-hidden">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
+                        wire:click="sortBy('nombre')">
+                        Fecha - Hora
+                    </th>
+                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
+                        wire:click="sortBy('codigo')">
+                        ORP
+                    </th>
+                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
+                        wire:click="sortBy('producto')">
+                        Producto
+                    </th>
+                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
+                        Tipo
+                    </th>
+                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
+                        wire:click="sortBy('cantidad')">
+                        Cantidad
+                    </th>
 
-    #[On('actualizar_tabla_microexterno')]
-    public function render()
-    {
-        $this->aplicandoFiltros = $this->hayFiltrosActivos();
+                    <th scope="col" class=" gap-2 px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
+                        opciones
+                        <button wire:click="show_filtro">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-gray-700 dark:fill-gray-300"
+                                viewBox="0 0 512 512">
+                                <path
+                                    d="M3.9 54.9C10.5 40.9 24.5 32 40 32H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L320 320.9V448c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48c-8.1-6-12.8-15.5-12.8-25.6V320.9L9 97.3C-.7 85.4-2.8 68.8 3.9 54.9z" />
+                            </svg>
+                        </button>
 
-        $this->microbiologia = MicrobiologiaExterno::query()
-            ->when($this->f_planta, function ($query) {
-                return $query->whereHas('detalleSolicitudPlanta.solicitudPlanta.user.planta', function ($query) {
-                    $query->where('nombre', 'like', '%' . $this->f_planta);
-                });
-            })
-            ->orderBy('created_at', 'desc')
-            ->paginate(50, ['*'], 'page', $this->currentPage); // ✅ Mantiene la página actual
+                    </th>
 
-        return view('livewire.externo.microbiologia.tabla', [
-            'microbiologia' => $this->microbiologia
-        ]);
-    }
+                </tr>
+            </thead>
+            <tbody class="">
+                @if($filtro == true)
+                <!-- fila de filtros -->
+                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    <th class="p-1">
+                        <input type="text" wire:model.live='f_fecha_hora' placeholder="Filtrar por Tiempo"
+                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    </th>
+                    <th class="p-1">
+                        <input type="text" wire:model.live='f_codigo' placeholder="Filtrar por Código"
+                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    </th>
+                    <th class="p-1">
+                        <input type="text" wire:model.live='f_producto' placeholder="Filtrar por Producto"
+                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    </th>
+                    <th class="p-1">
+                        <input type="text" wire:model.live='f_tipo' placeholder="Filtrar por Tipo"
+                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    </th>
+                    <th class="p-1">
+                        <input type="number" wire:model.live='f_cantidad' placeholder="Filtrar por Cantidad"
+                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    </th>
+                    {{-- <th class="p-1">
+                        <input type="text" wire:model.live='f_ubicacion' placeholder="Filtrar por ubicación"
+                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    </th> --}}
+                </tr>
+                @endif
+                @foreach ($terminados as $terminado)
+                <tr
+                    class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <th scope="row" class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 
-    public function dia2($id)
-    {
-        try {
-            $microbiologia = MicrobiologiaExterno::find($id);
-            $microbiologia->aer_mes = 0;
-            $microbiologia->col_tot = 0;
+                        {{\Carbon\Carbon::parse($terminado->tiempo)->isoFormat('DD-MM-YY HH:mm' ) }}
+                    </th>
+                    <td class="px-6 py-2" nowrap>
+                        {{$terminado->orp->codigo}}
+                    </td>
+                    <td class="px-6 py-2" nowrap>
+                        <div class="whitespace-nowrap" data-popover-target="popover-{{$terminado->id}}">
+                            {{Str::limit($terminado->orp->producto->nombre,20)}}</div>
+                        <div data-popover id="popover-{{$terminado->id}}" role="tooltip"
+                            class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                            {{$terminado->orp->producto->nombre}}</div>
+                    </td>
+                    <td class="px-6 py-2">
+                        {{$terminado->tipo}}
+                    </td>
+                    <td class="px-6 py-2">
+                        {{$terminado->cantidad}}
+                    </td>
 
-            if ($microbiologia->detalleSolicitudPlanta->tipoMuestra->id == 2) {
-                $microbiologia->col_tot = null;
-            }
+                    <td class="flex items-center px-6 py-2 gap-2">
+                        @if(auth()->user()->role->rolModuloPermisos->where('modulo_id', 16)->where('permiso_id', 3)->isNotEmpty())
+                        <svg onclick="Livewire.dispatch('openModal', { component: 'contador.productoterminado.editar', arguments: { id: {{ $terminado->id}} } })"
+                            xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-blue-600 dark:fill-blue-500"
+                            viewBox="0 0 512 512">
+                            <path
+                                d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z" />
+                        </svg>
+                        @endif
+                        @if(auth()->user()->role->rolModuloPermisos->where('modulo_id', 16)->where('permiso_id', 4)->isNotEmpty())
+                        <svg onclick="Livewire.dispatch('openModal', { component: 'contador.productoterminado.eliminar', arguments: { id: {{ $terminado->id}} } })"
+                            xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-red-600 dark:fill-red-500"
+                            viewBox="0 0 448 512">
+                            <path
+                                d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" />
+                        </svg>
+                       @endif
+                    </td>
+                </tr>
+                @endforeach
 
-            if (in_array($microbiologia->detalleSolicitudPlanta->tipoMuestra->id, [9, 5])) {
-                $microbiologia->aer_mes = null;
-                $microbiologia->estado = "Analizado";
 
-                $detalle = DetalleSolicitudPlanta::find($microbiologia->detalle_solicitud_planta_id);
-                $detalle->estado = "Revision";
-                $detalle->save();
-            } else {
-                $microbiologia->estado = "2 Dias";
-            }
+            </tbody>
 
-            if (is_null($microbiologia->fecha_dia2)) {
-                $microbiologia->fecha_dia2 = now();
-            }
+        </table>
+    </div>
+    @if (!$aplicandoFiltros)
+    <div>
+        {{ $terminados->links('pagination::tailwind') }}
+    </div>
+@endif
 
-            if (is_null($microbiologia->ana_dia2_id)) {
-                $microbiologia->ana_dia2_id = auth()->user()->id;
-            }
-
-            $microbiologia->save();
-
-            // ✅ Guardar la página actual antes de actualizar
-            $this->currentPage = $this->microbiologia->currentPage();
-
-            $this->dispatch('actualizar_tabla_microexterno');
-
-            $this->dispatch('success', mensaje: 'Análisis realizado exitosamente.');
-        } catch (\Throwable $th) {
-            $this->dispatch('error_mensaje', mensaje: 'Problema: ' . $th->getMessage());
-        }
-    }
-
-    public function updatingCurrentPage($page)
-    {
-        $this->currentPage = $page; // ✅ Captura la página cuando cambia
-    }
-}
+</div>

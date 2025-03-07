@@ -157,7 +157,7 @@
                     <td style="text-align: left ">{{ $datosSolicitud->subcodigo }}</td>
                 </tr>
                 <tr style="border-right: 1px solid black;">
-                    <td @if (!in_array($datosSolicitud->tipo_muestra_id, [9, 1, 2, 6, 10, 11, 12])) rowspan="6" @else rowspan="2" @endif
+                    <td rowspan="6"
                         style="width: 380px; border: 1px solid black;font-size: 20px">
                         @if ($datosSolicitud->productosPlanta)
                             {{ $datosSolicitud->productosPlanta->nombre }}
@@ -165,20 +165,18 @@
                             {{ $datosSolicitud->otro }}
                         @endif
                     </td>
-                    @if (!in_array($datosSolicitud->tipo_muestra_id, [9, 1, 2, 6, 10, 11, 12]))
-
-                        <th style="text-align: right ; padding: 0 15px">Lote: </th>
+                      <th style="text-align: right ; padding: 0 15px">Lote: </th>
                         <td style="text-align: left ">
                             @if ($datosSolicitud->lote)
                                 {{ $datosSolicitud->lote }}
                             @else
-                                ----
+                                --
                             @endif
                         </td>
                 </tr>
                 <tr style="border-right: 1px solid black;">
                     <th style="text-align: right; padding: 0 15px">Marca: </th>
-                    <td style="text-align: left">San Gabriel</td>
+                    <td style="text-align: left">--</td>
                 </tr>
 
                 <tr style="border-right: 1px solid black;">
@@ -193,9 +191,7 @@
                         {{ \Carbon\Carbon::parse($datosSolicitud->fecha_vencimiento)->isoFormat('D / M / YYYY', 0, 'es') }}
                     </td>
                 </tr>
-                @else
-                <th colspan="2"></th>
-                @endif
+
 
 
                 <tr style="border-bottom:  1px solid black; border-right: 1px solid black;">
@@ -272,11 +268,7 @@
                 </tr>
             </table>
 
-            <table>
-                <tr>
-                    <th style="text-align:left;">Notas:</th>
-                </tr>
-            </table>
+
             <table style="margin: 0.3rem 0; border:0; text-align:center; font-size:0.8rem;">
                 <tr>
                     <th colspan="6" style="border: 1px solid black">RESULTADO DE ENSAYO</th>
@@ -311,10 +303,10 @@
                             @endif
 
                         </td>
-                        <td>{{ $normas->min_mes }} <sup>{{ $normas->min_mes_e }}</sup>
+                        <td>{{ $normas->min_mes }} <sup>{{ $normas->min_mes_e == null ? " " : $normas->min_mes_e }}</sup>
 
                         </td>
-                        <td>{{ $normas->max_mes }} <sup>{{ $normas->max_mes_e }}</sup>
+                        <td>{{ $normas->max_mes }} <sup>{{ $normas->max_mes_e == null ? " " : $normas->max_mes_e }}</sup>
 
                         </td>
                     </tr>
@@ -340,16 +332,16 @@
                             @endif
 
                         </td>
-                        <td>{{ $normas->min_colTot }} <sup>{{ $normas->min_colTot_e }}</sup>
+                        <td>{{ $normas->min_colTot }} <sup>{{ $normas->min_colTot_e == null ? " " : $normas->min_colTot_e }}</sup>
                         </td>
-                        <td>{{ $normas->max_colTot }} <sup>{{ $normas->max_colTot_e }}</sup>
+                        <td>{{ $normas->max_colTot }} <sup>{{ $normas->max_colTot_e == null ? " " : $normas->max_colTot_e }}</sup>
 
                         </td>
                     </tr>
                 @endif
                 @if ($resultados->moh_lev !== null)
                     <tr
-                        style="border-left: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black">
+                        style="border-left: 1px solid black; border-right: 1px solid black;  solid black">
 
                         <td>Mohos y Levaduras</td>
                         <td>{{ $normas->unidad }}</td>
@@ -370,16 +362,22 @@
                             @endif
 
                         </td>
-                        <td>{{ $normas->min_mohLev }} <sup>{{ $normas->min_mohLev_e }}</sup>
+                        <td>{{ $normas->min_mohLev }} <sup>{{ $normas->min_mohLev_e == null ?  " ": $normas->min_mohLev_e }}</sup>
                         </td>
-                        <td>{{ $normas->max_mohLev }} <sup>{{ $normas->max_mohLev_e }}</sup>
+                        <td>{{ $normas->max_mohLev }} <sup>{{ $normas->max_mohLev_e == null ?  " ": $normas->max_mohLev_e }}</sup>
                         </td>
                     </tr>
-                @endif
+                    @endif
+                    <tr style="border-left: 1px solid black; border-right: 1px solid black;  border-bottom: 1px solid black"> <td></td><td></td><td></td><td></td><td></td><td></td></tr>
+
 
             </table>
 
-            <table>Notas:</table>
+            <table>
+                <tr>
+                    <th style="text-align:left;">Notas:</th>
+                </tr>
+            </table>
             <table style="margin: 0.3rem 0; border:0; text-align:left; font-size:0.7rem;">
                 <tr>
                     <th style="text-align:right; padding-right:10px">*:</th>
@@ -455,7 +453,7 @@
 
                 <tr>
 
-                    <th style="padding: 5px">ENCARGADO DE ANALISIS</th>
+                    <th style="padding: 5px">ENCARGADO DE ANÁLISIS</th>
                 </tr>
             </thead>
             <tbody>

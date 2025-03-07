@@ -23,13 +23,20 @@ class Editar extends ModalComponent
 
     public function mount()
     {
-        $this->orps = Orp::where('estado', 'En proceso')->get();
+
+
+
+
         $this->almacenes = almacenProductoTerminado::all();
         $contador = Contador::where('id', $this->id)->first();
         $this->orp_id = $contador->orp_id;
         $this->tipo = $contador->tipo;
+        $this->observaciones = $contador->observaciones;
         $this->almacen_id = $contador->almacen_producto_terminado_id;
         $this->cantidad = $contador->cantidad;
+
+        $this->orps = Orp::where('id', $this->orp_id)->get();
+
     }
 
     public function render()
@@ -39,6 +46,7 @@ class Editar extends ModalComponent
     }
     public function update()
     {
+        //validacion de orp
         $this->validate([
             'orp_id' => 'required',
             'tipo' => 'required',

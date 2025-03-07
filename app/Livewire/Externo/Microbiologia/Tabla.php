@@ -68,7 +68,10 @@ class Tabla extends Component
         ->orderBy('created_at', 'desc');
 
 
+
+
         $microbiologia = $this->aplicandoFiltros ? $microbiologia->get() : $microbiologia->paginate(50)->withQueryString();
+
 
 
 

@@ -175,8 +175,8 @@
                                 <td class="px-1 py-0 ">
                                     @if ($micro->col_tot >= 1000000)
                                         MNPC
-                                    @endif
-                                    @if ($micro->col_tot < 1000000 && $micro->col_tot >= 10)
+
+                                    @elseif ($micro->col_tot < 1000000 && $micro->col_tot >= 10)
                                         <p>
                                             {{ $micro->col_tot < 1
                                                 ? $micro->col_tot * 10 ** (strlen(floor($micro->col_tot)) - 1)
@@ -186,6 +186,7 @@
                                             {{ $micro->col_tot }}
                                         </p>
                                     @endif
+
 
                                     @if ($micro->col_tot === null)
                                         <p>
