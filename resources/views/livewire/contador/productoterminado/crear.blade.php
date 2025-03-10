@@ -30,7 +30,7 @@
                         <option selected class="bg-gray-100 dark:bg-gray-800">Escoge una opcion</option>
                         <option value="Parcial" class="bg-gray-100 dark:bg-gray-800">Parcial</option>
                         <option value="Total Por Turno" class="bg-gray-100 dark:bg-gray-800">Total por Turno</option>
-                        <option value="Total para Muestras" class="bg-gray-100 dark:bg-gray-800">Total para Muestras</option>
+                        <option value="Muestras Calidad" class="bg-gray-100 dark:bg-gray-800">Muestras Calidad</option>
                     </select>
                     @error('tipo')
                     <p class="text-red-500 text-xs">* {{$message}}</p>

@@ -229,4 +229,8 @@
             @endforeach
         </tbody>
     </table>
+    <div>
+        {{ $solicitudes->links('pagination::tailwind') }}
+    </div>
 </div>
+

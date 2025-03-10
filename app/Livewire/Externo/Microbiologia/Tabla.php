@@ -91,9 +91,21 @@ class Tabla extends Component
             // Encontrar la microbiología
             $microbiologia = MicrobiologiaExterno::findOrFail($id);
 
-            // Actualizar el microbiología
+            // Obtener la hora actual
+            $now = now();
+
+            // Verificar si es después de las 10:00 p.m. y antes de las 12:00 a.m.
+            if ($now->hour >= 22 && $now->hour < 24) {
+                // Establecer la fecha para el día siguiente a las 00:00
+                $fechaSembrado = $now->addDay()->startOfDay();
+            } else {
+                // Usar la fecha y hora actual
+                $fechaSembrado = $now;
+            }
+
+            // Actualizar la microbiología
             $microbiologia->update([
-                'fecha_sembrado' => now(),
+                'fecha_sembrado' => $fechaSembrado,
                 'estado' => 'Sembrado',
                 'ana_sem_id' => auth()->user()->id,
             ]);
@@ -115,6 +127,7 @@ class Tabla extends Component
             $this->dispatch('error', mensaje: 'Hubo un error al realizar el sembrado.');
         }
     }
+
 
     public function sembrar($id)
     {

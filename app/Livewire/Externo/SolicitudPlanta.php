@@ -23,10 +23,10 @@ class SolicitudPlanta extends Component
                 $query->where('planta_id', auth()->user()->planta_id);
             })
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate(100)->withQueryString();
 
         } else {
-            $solicitudes = ModelsSolicitudPlanta::orderBy('created_at', 'desc')->get();
+            $solicitudes = ModelsSolicitudPlanta::orderBy('created_at', 'desc')->paginate(100)->withQueryString();
         }
         return view('livewire.externo.solicitud-planta', [
             'solicitudes' => $solicitudes

@@ -21,6 +21,7 @@ class Certificados extends Component
     public $f_producto;
     public $f_lote;
     public $f_estado;
+    public $f_planta;
 
     public $aplicandoFiltros = false;
     public $filtro = false;
@@ -66,11 +67,17 @@ class Certificados extends Component
                         $query->where('lote', 'like', '%' . $this->f_lote . '%');
                     });
                 })
+                ->when($this->f_planta, function ($query) {
+                    $query->whereHas('detalleSolicitudPlanta.user.planta', function ($query) {
+                        $query->where('nombre', 'like', '%' . $this->f_planta . '%');
+                    });
+                })
                 ->when($this->f_estado, function ($query) {
                     $query->whereHas('detalleSolicitudPlanta', function ($query) {
                         $query->where('estado', 'like', '%' . $this->f_estado . '%');
                     });
                 })
+
                 ->when(auth()->check() && auth()->user()->role->id == 23, function ($query) {
                     $query->whereHas('detalleSolicitudPlanta.solicitudPlanta.user', function ($query) {
                         $query->where('planta_id', auth()->user()->planta_id);

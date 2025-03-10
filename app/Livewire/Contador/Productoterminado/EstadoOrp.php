@@ -23,7 +23,7 @@ class EstadoOrp extends ModalComponent
     public function render()
 {
     $orps = Contador::select('contadors.orp_id', DB::raw('SUM(cantidad) as cantidad_total'))
-        ->whereIn('tipo', ['Total por Turno', 'Total para Muestras'])
+        ->whereIn('tipo', ['Total por Turno'])
         ->groupBy('contadors.orp_id')
         ->join('orps', 'contadors.orp_id', '=', 'orps.id')
         ->whereNotExists(function ($query) {
@@ -47,7 +47,7 @@ class EstadoOrp extends ModalComponent
     {
         try {
             $orps = Contador::select('contadors.orp_id', DB::raw('SUM(cantidad) as cantidad_total'))
-                ->whereIn('tipo', ['Total por Turno', 'Total para Muestras'])
+                ->whereIn('tipo', ['Total por Turno'])
                 ->where('orp_id', $id)
                 ->groupBy('contadors.orp_id')
                 ->join('orps', 'contadors.orp_id', '=', 'orps.id')

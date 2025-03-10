@@ -99,27 +99,27 @@
                     <th></th>
                     <th></th>
                     <th></th>
-                    <th class="p-1 ">
+                    <th class="p-1 w-16   ">
                         <select wire:model.live='f_planta'
-                            class="block  p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            class="block  w-16   p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option selected class="font-normal" value="">Planta</option>
 
                             <option value="Carsa"> Carsa</option>
                             <option value="Álamo"> Alamo</option>
                             <option value="Panaderia"> Panaderia</option>
                             <option value="Tecalim"> Tecalim</option>
-                            <option value="Galleteria R"> Galleteria R</option>
-                            <option value="Galleteria M"> GalleteriaM</option>
+                            <option value="Galleteria R"> Galleteria Prod.</option>
+                            <option value="Galleteria M"> Galleteria Serv.</option>
 
                             <option value="Soya"> Soya</option>
 
-                            <option value="Tecalim-Panetones"> Tecalim-Panetones</option>
+                            <option value="Tecalim-Panetones"> Teca. Paneton</option>
                         </select>
                     </th>
 
                     <th class="p-1 ">
                         <select wire:model.live='f_tipo'
-                            class="block  p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            class="block w-16  p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option value="" class="font-normal">Tipo</option>
 
                             <option value="grupo_1"> Servicios</option>
@@ -175,11 +175,11 @@
 
 
 
-                        <td class="px-1 py-0" nowrap>
+                        <td class="px-1 py-0 text-2xs" nowrap>
 
                             {{ $micro->detalleSolicitudPlanta->user->planta->nombre }}
                         </td>
-                        <td class="px-1 py-0" nowrap>
+                        <td class="px-1 py-0 text-2xs" nowrap>
 
                             {{ $micro->detalleSolicitudPlanta->tipoMuestra->nombre }}
                         </td>

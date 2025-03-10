@@ -12,7 +12,7 @@ class Tabla extends Component
     public function render()
     {
 
-        $aguaFisico = AguaFisico::orderBy('created_at', 'desc')->paginate(15);
+        $aguaFisico = AguaFisico::orderBy('created_at', 'desc')->paginate(15)->withQueryString();
         return view('livewire.externo.agua-fisico.tabla', compact(['aguaFisico']));
     }
 

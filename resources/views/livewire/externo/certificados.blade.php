@@ -74,7 +74,9 @@
 
                             </th>
                             <th scope="col" class="px-1 py-0">
-
+                                <input type="text" id="" wire:model.live='f_planta'
+                                class="w-24 bg-gray-50 border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="">
                             </th>
                             <th scope="col" class="px-1 py-0">
 
@@ -179,16 +181,22 @@
                                 @endif
                                 <!--boton de obtener pdf de certificado-->
                                 @if ($fis->detalleSolicitudPlanta->estado == 'Terminado')
-                                    <button class="p-1 rounded-md bg-red-600">
-                                        <a
-                                            href="{{ route('certificado_fis.pdf_cer', $fis->detalleSolicitudPlanta->id) }}">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-white h-4 w-4"
-                                                viewBox="0 0 384 512">
-                                                <path
-                                                    d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM112 256H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z" />
-                                            </svg>
+                                    @if ($fis->detalleSolicitudPlanta->user->planta->nombre != 'Carsa')
+
+
+                                    <a class="p-1"
+                                        href="{{ route('certificado_fis.pdf_cer', $fis->detalleSolicitudPlanta->id) }}">
+                                        <button class="p-1 rounded-md bg-red-600">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-white h-4 w-4"
+                                                    viewBox="0 0 384 512">
+                                                    <path
+                                                        d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM112 256H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z" />
+                                                </svg>
+                                            </button>
                                         </a>
-                                    </button>
+
+
+                                    @endif
                                 @endif
                             </td>
 

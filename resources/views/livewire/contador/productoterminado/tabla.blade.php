@@ -47,8 +47,9 @@
                         // Si no hay 'Total', filtrar por 'Total por turno' y 'Total para muestras'
                         if ($contadoresTotales->isEmpty()) {
                             $contadoresTotales = $contadores->filter(function ($contador) {
-                                return $contador->tipo === 'Total Por Turno' ||
-                                    $contador->tipo === 'Total para Muestras';
+                                return $contador->tipo === 'Total Por Turno' ;
+                                // ||
+                                //     $contador->tipo === 'Total para Muestras';
                             });
                         }
 
