@@ -19,7 +19,7 @@
 
 
                         <button wire:click="toggleCollapse({{ $solicitud->id }})"
-                            aria-expanded="{{ isset($openCollapse[$solicitud->id]) && $openCollapse[$solicitud->id] ? 'true' : 'false' }}">
+                            >
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
                                 class="fill-green-600 h-5 w-5">
                                 <path
@@ -29,9 +29,9 @@
                         {{ $loop->iteration }}
                         @foreach ($solicitud->detalles as $detalle)
                             @if ($detalle->estado == 'Pendiente')
-                            <span
-                            class="flex w-2 h-2 bg-orange-600 rounded-full  flex-shrink-0 mr-2 text-sm"></span>
-                            @break
+                                <span
+                                    class="flex w-2 h-2 bg-orange-600 rounded-full  flex-shrink-0 mr-2 text-sm"></span>
+                                @break
                             @endif
                         @endforeach
                     </td>
@@ -93,148 +93,151 @@
 
                     </td>
                 </tr>
-
-                <tr id="collapse-{{ $solicitud->id }}"
-                    class="{{ isset($openCollapse[$solicitud->id]) && $openCollapse[$solicitud->id] ? '' : 'hidden' }}">
-                    <td colspan="5" class="px-4 py-2">
-                        <table class="min-w-full bg-gray-50 border border-gray-200 dark:bg-gray-900">
-                            <thead>
-                                <tr>
-                                    <th class="px-4 py-2">Subcódigo</th>
-                                    <th class="px-4 py-2">Ítem</th>
-                                    <th class="px-4 py-2">Lote</th>
-                                    <th class="px-4 py-2">Fecha de Elaboración</th>
-                                    <th class="px-4 py-2">Fecha de Muestreo</th>
-                                    <th class="px-4 py-2">Fecha de Vencimiento</th>
-
-                                    <th class="px-4 py-2">Análisis</th>
-                                    <th class="px-4 py-2">Estado</th>
-                                    @if (auth()->user()->rol != 'Ext')
-                                        <th class="px-4 py-2">Acciones</th>
-                                    @endif
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($solicitud->detalles as $detalle)
-                                    <tr class="border-b">
-                                        @if ($editMode && $editId === $detalle->id)
-                                            <!-- Modo de edición -->
-                                            <td class="px-1 py-1 ">
-                                                <input type="text" wire:model.defer="editData.subcodigo"
-                                                    class="form-input w-full" />
-                                            </td>
-                                            <td class="px-1 py-1">
-                                                <!-- Mostrar el producto pero sin permitir edición -->
-                                                {{ $detalle->productosPlanta ? $detalle->productosPlanta->nombre : $detalle->otro }}
-                                            </td>
-                                            <td class="px-1 py-1">
-                                                <input type="text" wire:model.defer="editData.lote"
-                                                    class="form-input w-full" />
-                                            </td>
-                                            <td class="px-1 py-1">
-                                                <input type="date" wire:model.defer="editData.fecha_elaboracion"
-                                                    class="form-input w-full" />
-                                            </td>
-                                            <td class="px-1 py-1">
-                                                <input type="date" wire:model.defer="editData.fecha_muestreo"
-                                                    class="form-input w-full" />
-                                            </td>
-                                            <td class="px-1 py-1">
-                                                <input type="date" wire:model.defer="editData.fecha_vencimiento"
-                                                    class="form-input w-full" />
-                                            </td>
-                                            <td class="px-1 py-1">
-                                                <input type="text" wire:model.defer="editData.tipo_analisis"
-                                                    class="form-input w-full" />
-                                            </td>
-                                            <td class="px-1 py-1">
-                                                <select wire:model.defer="editData.estado" class="form-select w-full">
-                                                    <option value="Pendiente">Pendiente</option>
-                                                    <option value="Por Analizar">Por Analizar</option>
-                                                    <option value="Analizando">Analizando</option>
-                                                    <option value="Analizado">Analizado</option>
-                                                    <option value="Terminado">Terminado</option>
-                                                    <option value="Observado">Observado</option>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <button wire:click="save"
-                                                    class="bg-green-500 text-white px-2 py-1 rounded">Guardar</button>
-                                                <button wire:click="resetEdit"
-                                                    class="bg-red-500 text-white px-2 py-1 rounded">Cancelar</button>
-                                            </td>
-                                        @else
-                                            <!-- Vista normal -->
-                                            <td class="px-1 py-1">{{ $detalle->subcodigo }}</td>
-                                            <td class="px-1 py-1">
-                                                {{ $detalle->productosPlanta ? $detalle->productosPlanta->nombre : $detalle->otro }}
-                                            </td>
-                                            <td class="px-1 py-1">{{ $detalle->lote }}</td>
-                                            <td class="px-1 py-1">
-                                                {{ \Carbon\Carbon::parse($detalle->fecha_elaboracion)->isoFormat('DD/MM/YYYY') }}
-                                            </td>
-                                            <td class="px-1 py-1">
-                                                {{ \Carbon\Carbon::parse($detalle->fecha_muestreo)->isoFormat('DD/MM/YYYY') }}
-                                            </td>
-                                            <td class="px-1 py-1">
-                                                {{ \Carbon\Carbon::parse($detalle->fecha_vencimiento)->isoFormat('DD/MM/YYYY') }}
-                                            </td>
-                                            <td class="px-1 py-1">{{ $detalle->tipoMuestra->nombre }}</td>
-                                            <td class="px-1 py-1">{{ $detalle->tipo_analisis }}</td>
-                                            <td class="px-1 py-1">
-                                                @if ($detalle->estado == 'Pendiente')
-                                                    <span
-                                                        class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">{{ $detalle->estado }}</span>
-                                                @endif
-                                                @if ($detalle->estado == 'Por Analizar')
-                                                    <span
-                                                        class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">{{ $detalle->estado }}</span>
-                                                @endif
-                                                @if ($detalle->estado == 'Analizando')
-                                                    <span
-                                                        class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">{{ $detalle->estado }}</span>
-                                                @endif
-                                                @if ($detalle->estado == 'Analizado')
-                                                    <span
-                                                        class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">{{ $detalle->estado }}</span>
-                                                @endif
-                                                @if ($detalle->estado == 'Terminado')
-                                                    <span
-                                                        class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">{{ $detalle->estado }}</span>
-                                                @endif
-                                                @if ($detalle->estado == 'Observado')
-                                                    <span
-                                                        class="bg-green-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">{{ $detalle->estado }}</span>
-                                                @endif
-
-                                            </td>
-
-                                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 22)->where('permiso_id', 3)->isNotEmpty())
-                                                <td class="gap-2">
+                @if (isset($openCollapse[$solicitud->id]))
+                    <tr>
 
 
-                                                    <button wire:click="edit({{ $detalle->id }})"
-                                                        class="bg-blue-500 text-white px-2 py-1 m-2 rounded">Editar</button>
+                        <td colspan="5" class="px-4 py-2">
+                            <table class="min-w-full bg-gray-50 border border-gray-200 dark:bg-gray-900">
+                                <thead>
+                                    <tr>
+                                        <th class="px-4 py-2">Subcódigo</th>
+                                        <th class="px-4 py-2">Ítem</th>
+                                        <th class="px-4 py-2">Lote</th>
+                                        <th class="px-4 py-2">Fecha de Elaboración</th>
+                                        <th class="px-4 py-2">Fecha de Muestreo</th>
+                                        <th class="px-4 py-2">Fecha de Vencimiento</th>
 
-                                                    <button wire:click="eliminar_detalle({{ $detalle->id }})"
-                                                        wire:confirm="Esta seguro de eliminar el elemento?"
-                                                        class="bg-red-500 text-white px-2 py-1 m-2 rounded">Eliminar</button>
-
-                                                    <!-- Botones adicionales para cambiar los estados -->
-                                                    <button wire:click="confirmar({{ $detalle->id }})"
-                                                        class="bg-yellow-500 text-white px-2 py-1 m-2 rounded">Confirmar</button>
-                                                    <button wire:click="observado({{ $detalle->id }})"
-                                                        class="bg-green-500 text-white px-2 py-1 m-2 rounded">Observar</button>
-                                                </td>
-                                            @endif
+                                        <th class="px-4 py-2">Análisis</th>
+                                        <th class="px-4 py-2">Estado</th>
+                                        @if (auth()->user()->rol != 'Ext')
+                                            <th class="px-4 py-2">Acciones</th>
                                         @endif
                                     </tr>
-                                @endforeach
+                                </thead>
+                                <tbody>
+                                    @foreach ($solicitud->detalles as $detalle)
+                                        <tr class="border-b">
+                                            @if ($editMode && $editId === $detalle->id)
+                                                <!-- Modo de edición -->
+                                                <td class="px-1 py-1 ">
+                                                    <input type="text" wire:model.defer="editData.subcodigo"
+                                                        class="form-input w-full" />
+                                                </td>
+                                                <td class="px-1 py-1">
+                                                    <!-- Mostrar el producto pero sin permitir edición -->
+                                                    {{ $detalle->productosPlanta ? $detalle->productosPlanta->nombre : $detalle->otro }}
+                                                </td>
+                                                <td class="px-1 py-1">
+                                                    <input type="text" wire:model.defer="editData.lote"
+                                                        class="form-input w-full" />
+                                                </td>
+                                                <td class="px-1 py-1">
+                                                    <input type="date" wire:model.defer="editData.fecha_elaboracion"
+                                                        class="form-input w-full" />
+                                                </td>
+                                                <td class="px-1 py-1">
+                                                    <input type="date" wire:model.defer="editData.fecha_muestreo"
+                                                        class="form-input w-full" />
+                                                </td>
+                                                <td class="px-1 py-1">
+                                                    <input type="date" wire:model.defer="editData.fecha_vencimiento"
+                                                        class="form-input w-full" />
+                                                </td>
+                                                <td class="px-1 py-1">
+                                                    <input type="text" wire:model.defer="editData.tipo_analisis"
+                                                        class="form-input w-full" />
+                                                </td>
+                                                <td class="px-1 py-1">
+                                                    <select wire:model.defer="editData.estado"
+                                                        class="form-select w-full">
+                                                        <option value="Pendiente">Pendiente</option>
+                                                        <option value="Por Analizar">Por Analizar</option>
+                                                        <option value="Analizando">Analizando</option>
+                                                        <option value="Analizado">Analizado</option>
+                                                        <option value="Terminado">Terminado</option>
+                                                        <option value="Observado">Observado</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <button wire:click="save"
+                                                        class="bg-green-500 text-white px-2 py-1 rounded">Guardar</button>
+                                                    <button wire:click="resetEdit"
+                                                        class="bg-red-500 text-white px-2 py-1 rounded">Cancelar</button>
+                                                </td>
+                                            @else
+                                                <!-- Vista normal -->
+                                                <td class="px-1 py-1">{{ $detalle->subcodigo }}</td>
+                                                <td class="px-1 py-1">
+                                                    {{ $detalle->productosPlanta ? $detalle->productosPlanta->nombre : $detalle->otro }}
+                                                </td>
+                                                <td class="px-1 py-1">{{ $detalle->lote }}</td>
+                                                <td class="px-1 py-1">
+                                                    {{ \Carbon\Carbon::parse($detalle->fecha_elaboracion)->isoFormat('DD/MM/YYYY') }}
+                                                </td>
+                                                <td class="px-1 py-1">
+                                                    {{ \Carbon\Carbon::parse($detalle->fecha_muestreo)->isoFormat('DD/MM/YYYY') }}
+                                                </td>
+                                                <td class="px-1 py-1">
+                                                    {{ \Carbon\Carbon::parse($detalle->fecha_vencimiento)->isoFormat('DD/MM/YYYY') }}
+                                                </td>
+                                                <td class="px-1 py-1">{{ $detalle->tipoMuestra->nombre }}</td>
+                                                <td class="px-1 py-1">{{ $detalle->tipo_analisis }}</td>
+                                                <td class="px-1 py-1">
+                                                    @if ($detalle->estado == 'Pendiente')
+                                                        <span
+                                                            class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">{{ $detalle->estado }}</span>
+                                                    @endif
+                                                    @if ($detalle->estado == 'Por Analizar')
+                                                        <span
+                                                            class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">{{ $detalle->estado }}</span>
+                                                    @endif
+                                                    @if ($detalle->estado == 'Analizando')
+                                                        <span
+                                                            class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">{{ $detalle->estado }}</span>
+                                                    @endif
+                                                    @if ($detalle->estado == 'Analizado')
+                                                        <span
+                                                            class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">{{ $detalle->estado }}</span>
+                                                    @endif
+                                                    @if ($detalle->estado == 'Terminado')
+                                                        <span
+                                                            class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">{{ $detalle->estado }}</span>
+                                                    @endif
+                                                    @if ($detalle->estado == 'Observado')
+                                                        <span
+                                                            class="bg-green-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">{{ $detalle->estado }}</span>
+                                                    @endif
 
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
+                                                </td>
+
+                                                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 22)->where('permiso_id', 3)->isNotEmpty())
+                                                    <td class="gap-2">
+
+
+                                                        <button wire:click="edit({{ $detalle->id }})"
+                                                            class="bg-blue-500 text-white px-2 py-1 m-2 rounded">Editar</button>
+
+                                                        <button wire:click="eliminar_detalle({{ $detalle->id }})"
+                                                            wire:confirm="Esta seguro de eliminar el elemento?"
+                                                            class="bg-red-500 text-white px-2 py-1 m-2 rounded">Eliminar</button>
+
+                                                        <!-- Botones adicionales para cambiar los estados -->
+                                                        <button wire:click="confirmar({{ $detalle->id }})"
+                                                            class="bg-yellow-500 text-white px-2 py-1 m-2 rounded">Confirmar</button>
+                                                        <button wire:click="observado({{ $detalle->id }})"
+                                                            class="bg-green-500 text-white px-2 py-1 m-2 rounded">Observar</button>
+                                                    </td>
+                                                @endif
+                                            @endif
+                                        </tr>
+                                    @endforeach
+
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                @endif
             @endforeach
         </tbody>
     </table>

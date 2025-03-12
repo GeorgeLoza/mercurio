@@ -12,9 +12,10 @@
     <script src="{{ asset('js/flowbite.js') }}"></script>
 
     <title>Soalpro</title>
-
+    @livewireStyles
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
+    @livewireScripts
 
 </head>
 

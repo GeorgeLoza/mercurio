@@ -323,14 +323,7 @@
                         'Envasado' => [],
                     ];
 
-                    foreach ($data as $preparacion => $resultados) {
-                        foreach ($resultados as $resultado) {
-                            $etapa = $resultado->estadoPlanta->etapa->nombre; // Suponiendo que 'nombre' es el campo de la etapa
-                            if (array_key_exists($etapa, $etapas)) {
-                                $etapas[$etapa][] = $resultado;
-                            }
-                        }
-                    }
+
                 @endphp
             </table>
 
@@ -526,7 +519,10 @@
                             @php
                                 $contador = $contador + 1;
                             @endphp
-                            <th>{{ $dato->solicitudAnalisisLinea->estadoPlanta->origen->alias }}</th>
+                            <th>{{ $dato->solicitudAnalisisLinea->estadoPlanta->origen->alias }}
+
+
+                            </th>
                             @php
                                 $fecha = new DateTime($dato->solicitudAnalisisLinea->tiempo);
                                 $diaDelAno = $fecha->format('z') + 1;

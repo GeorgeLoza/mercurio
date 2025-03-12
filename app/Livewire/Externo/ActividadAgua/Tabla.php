@@ -5,10 +5,11 @@ namespace App\Livewire\Externo\ActividadAgua;
 use App\Models\ActividadAgua;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Tabla extends Component
 {
-
+    use WithPagination;
     #[On('actualizar_tabla_ActividadAgua')]
     public function render()
     {

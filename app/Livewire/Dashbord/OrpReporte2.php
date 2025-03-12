@@ -22,19 +22,41 @@ class OrpReporte2 extends Component
     public $orpId;
     public $reporte;
     public $analisis;
-    public $resultados_agrupados;
+    public $solicitudesAgrupadas;
     public $cantidad;
     public $usuariosInvolucrados;
 
 
 
-    public function mount()
-    {
 
-        $this->reporte = Orp::where('id', $this->orpId)->first();
+    public function mount($orpId)
+{
+    $this->orpId = $orpId;
+    $this->reporte = Orp::where('id', $this->orpId)->first();
+
+    // Obtener todas las preparaciones únicas
+    $preparacionesCrudas = EstadoDetalle::where('orp_id', $this->orpId)
+        ->whereHas('estadoPlanta', function ($query) {
+            $query->where('etapa_id', 1);
+        })
+        ->distinct()
+        ->pluck('preparacion');
+
+    $this->solicitudesAgrupadas = [];
+
+    foreach ($preparacionesCrudas as $preparacion) {
+        $this->solicitudesAgrupadas[$preparacion] = SolicitudAnalisisLinea::whereHas('estadoPlanta.estadoDetalle', function ($query) use ($preparacion) {
+            $query->where('orp_id', $this->orpId)
+                  ->where('preparacion', $preparacion);
+        })
+        ->orderBy('tiempo', 'asc') // Ordenar por tiempo descendente
+        ->get();
     }
+}
+
     public function render()
     {
+
         return view('livewire.dashbord.orp-reporte2');
     }
 
@@ -48,12 +70,12 @@ class OrpReporte2 extends Component
         return response()->streamDownload(
             function () {
 
-                $data = $this->resultados_agrupados;
+
                 $informacion = $this->reporte;
                 $usuariosInvolucrados = $this->usuariosInvolucrados;
 
                 $pdf = App::make('dompdf.wrapper');
-                $pdf = Pdf::loadView('pdf.reportes.orpReport', compact(['data', 'informacion', 'usuariosInvolucrados']));
+                $pdf = Pdf::loadView('pdf.reportes.orpReport', compact([ 'informacion', 'usuariosInvolucrados']));
                 $pdf->setPaper('letter', 'portrait');
                 echo $pdf->stream();
             },
@@ -67,11 +89,11 @@ class OrpReporte2 extends Component
         return response()->streamDownload(
             function () {
 
-                $data = $this->resultados_agrupados;
+
                 $informacion = $this->reporte;
                 $usuariosInvolucrados = $this->usuariosInvolucrados;
                 $pdf = App::make('dompdf.wrapper');
-                $pdf = Pdf::loadView('pdf.reportes.orpReport2', compact(['data', 'informacion', 'usuariosInvolucrados']));
+                $pdf = Pdf::loadView('pdf.reportes.orpReport2', compact([ 'informacion', 'usuariosInvolucrados']));
                 $pdf->setPaper('letter', 'portrait');
                 echo $pdf->stream();
             },
@@ -211,12 +233,12 @@ class OrpReporte2 extends Component
 
 
 
-                $data = $this->resultados_agrupados;
+
                 $informacion = $this->reporte;
                 $usuariosInvolucrados = $this->usuariosInvolucrados;
 
                 $pdf = App::make('dompdf.wrapper');
-                $pdf = Pdf::loadView('pdf.reportes.orpUHT', compact(['data', 'informacion', 'usuariosInvolucrados', 'mezclas', 'envasados', 'obs', 'orpId']));
+                $pdf = Pdf::loadView('pdf.reportes.orpUHT', compact([ 'informacion', 'usuariosInvolucrados', 'mezclas', 'envasados', 'obs', 'orpId']));
                 $pdf->setPaper('letter', 'portrait');
                 echo $pdf->stream();
             },
@@ -376,11 +398,11 @@ class OrpReporte2 extends Component
 
 
 
-                $data = $this->resultados_agrupados;
+
                 $informacion = $this->reporte;
                 $usuariosInvolucrados = $this->usuariosInvolucrados;
                 $pdf = App::make('dompdf.wrapper');
-                $pdf = Pdf::loadView('pdf.reportes.orpHTST', compact(['data', 'informacion', 'usuariosInvolucrados', 'mezclas', 'inoculaciones', 'Acortes', 'Dcortes', 'envasados', 'obs', 'orpId']));
+                $pdf = Pdf::loadView('pdf.reportes.orpHTST', compact([ 'informacion', 'usuariosInvolucrados', 'mezclas', 'inoculaciones', 'Acortes', 'Dcortes', 'envasados', 'obs', 'orpId']));
                 $pdf->setPaper('letter', 'portrait');
                 echo $pdf->stream();
             },
@@ -520,11 +542,11 @@ class OrpReporte2 extends Component
 
 
 
-                $data = $this->resultados_agrupados;
+
                 $informacion = $this->reporte;
                 $usuariosInvolucrados = $this->usuariosInvolucrados;
                 $pdf = App::make('dompdf.wrapper');
-                $pdf = Pdf::loadView('pdf.reportes.orpHTSTjugos', compact(['data', 'informacion', 'usuariosInvolucrados', 'mezclas', 'saborizaciones', 'envasados', 'obs', 'orpId']));
+                $pdf = Pdf::loadView('pdf.reportes.orpHTSTjugos', compact([ 'informacion', 'usuariosInvolucrados', 'mezclas', 'saborizaciones', 'envasados', 'obs', 'orpId']));
                 $pdf->setPaper('letter', 'portrait');
                 echo $pdf->stream();
             },
@@ -663,15 +685,15 @@ class OrpReporte2 extends Component
 
 
 
-                $data = $this->resultados_agrupados;
+
                 $informacion = $this->reporte;
                 $usuariosInvolucrados = $this->usuariosInvolucrados;
                 $pdf = App::make('dompdf.wrapper');
-                $pdf = Pdf::loadView('pdf.reportes.orpHTSTlac', compact(['data', 'informacion', 'usuariosInvolucrados', 'mezclas', 'saborizaciones', 'envasados', 'obs', 'orpId']));
+                $pdf = Pdf::loadView('pdf.reportes.orpHTSTlac', compact([ 'informacion', 'usuariosInvolucrados', 'mezclas', 'saborizaciones', 'envasados', 'obs', 'orpId']));
                 $pdf->setPaper('letter', 'portrait');
                 echo $pdf->stream();
             },
-           str_replace(['/', '\\'], '-', "{$this->reporte->codigo} {$this->reporte->producto->nombre}.pdf")
+            str_replace(['/', '\\'], '-', "{$this->reporte->codigo} {$this->reporte->producto->nombre}.pdf")
         );
     }
 }

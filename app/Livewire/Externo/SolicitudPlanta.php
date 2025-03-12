@@ -10,9 +10,13 @@ use App\Models\SolicitudPlanta as ModelsSolicitudPlanta;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\App;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class SolicitudPlanta extends Component
 {
+    use WithPagination;
+
+
     public $openCollapse = [];
 
 
@@ -23,10 +27,10 @@ class SolicitudPlanta extends Component
                 $query->where('planta_id', auth()->user()->planta_id);
             })
             ->orderBy('created_at', 'desc')
-            ->paginate(100)->withQueryString();
+            ->paginate(100);
 
         } else {
-            $solicitudes = ModelsSolicitudPlanta::orderBy('created_at', 'desc')->paginate(100)->withQueryString();
+            $solicitudes = ModelsSolicitudPlanta::orderBy('created_at', 'desc')->paginate(100);
         }
         return view('livewire.externo.solicitud-planta', [
             'solicitudes' => $solicitudes
@@ -132,8 +136,7 @@ class SolicitudPlanta extends Component
     public function toggleCollapse($solicitudId)
     {
         if (isset($this->openCollapse[$solicitudId])) {
-
-            $this->openCollapse[$solicitudId] = !$this->openCollapse[$solicitudId];
+           unset($this->openCollapse[$solicitudId]);
         } else {
             $this->openCollapse[$solicitudId] = true;
         }

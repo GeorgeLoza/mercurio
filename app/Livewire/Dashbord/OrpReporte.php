@@ -43,13 +43,14 @@ class OrpReporte extends Component
             })
             ->distinct()
             ->pluck('preparacion');
+
         $preparacionesProcesadas = [];
 
         foreach ($preparacionesCrudas as $prep) {
             $preparacionesProcesadas = array_merge($preparacionesProcesadas, $this->agruparPreparaciones($prep));
         }
 
-        $preparacionesProcesadas = array_unique($preparacionesProcesadas);
+        // $preparacionesProcesadas = array_unique($preparacionesProcesadas);
 
         $this->resultados_agrupados = [];
 
@@ -84,13 +85,10 @@ class OrpReporte extends Component
                 // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
                 return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
             })
-            ->map(function ($group) {
-                // Ordena por 'tiempo' y toma el último registro
-                return $group->sortByDesc('tiempo')->first();
-            })
+
             ->values() // Reindexa la colección para eliminar claves asociativas
             ->pluck('solicitudAnalisisLinea.user_id')
-            ->unique();
+            ;
 
 
         $userIdsFromAnalisisLinea = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) {
