@@ -46,68 +46,39 @@ class Certificados extends Component
 
     public function render()
     {
+        $query1 = DetalleSolicitudPlanta::query()
+        ->where('tipo_analisis', 'Fisicoquimico')
+        ->when($this->f_codigo, function ($query) {
+            $query->where('subcodigo', 'like', '%' . $this->f_codigo . '%');
+        })
+        ->when($this->f_producto, function ($query) {
+            $query->whereHas('productosPlanta', function ($query) {
+                $query->where('nombre', 'like', '%' . $this->f_producto . '%');
+            });
+        })
+        ->when($this->f_lote, function ($query) {
+            $query->where('lote', 'like', '%' . $this->f_lote . '%');
+        })
+        ->when($this->f_planta, function ($query) {
+            $query->whereHas('user.planta', function ($query) {
+                $query->where('nombre', 'like', '%' . $this->f_planta . '%');
+            });
+        })
+        ->when($this->f_estado, function ($query) {
+            $query->where('estado', 'like', '%' . $this->f_estado . '%');
+        })
+        ->when(auth()->check() && auth()->user()->role->id == 23, function ($query) {
+            $query->whereHas('solicitudPlanta.user', function ($query) {
+                $query->where('planta_id', auth()->user()->planta_id);
+            });
+        })
+        ->orderBy('id', 'desc'); // Ordenar de manera descendente por ID
 
-        $query1 = ActividadAgua::query();
-        $query2 = AguaFisico::query();
+        $fisicos = $this->aplicandoFiltros ? $query1->get() : $query1->paginate(100)->withQueryString();
 
-        $applyFilters = function ($query) {
-            return $query
-                ->when($this->f_codigo, function ($query) {
-                    $query->whereHas('detalleSolicitudPlanta', function ($query) {
-                        $query->where('subcodigo', 'like', '%' . $this->f_codigo . '%');
-                    });
-                })
-                ->when($this->f_producto, function ($query) {
-                    $query->whereHas('detalleSolicitudPlanta.productosPlanta', function ($query) {
-                        $query->where('nombre', 'like', '%' . $this->f_producto . '%');
-                    });
-                })
-                ->when($this->f_lote, function ($query) {
-                    $query->whereHas('detalleSolicitudPlanta', function ($query) {
-                        $query->where('lote', 'like', '%' . $this->f_lote . '%');
-                    });
-                })
-                ->when($this->f_planta, function ($query) {
-                    $query->whereHas('detalleSolicitudPlanta.user.planta', function ($query) {
-                        $query->where('nombre', 'like', '%' . $this->f_planta . '%');
-                    });
-                })
-                ->when($this->f_estado, function ($query) {
-                    $query->whereHas('detalleSolicitudPlanta', function ($query) {
-                        $query->where('estado', 'like', '%' . $this->f_estado . '%');
-                    });
-                })
 
-                ->when(auth()->check() && auth()->user()->role->id == 23, function ($query) {
-                    $query->whereHas('detalleSolicitudPlanta.solicitudPlanta.user', function ($query) {
-                        $query->where('planta_id', auth()->user()->planta_id);
-                    });
-                });
-        };
 
-        // Aplicar filtros a ambas consultas
-        $query1 = $applyFilters($query1);
-        $query2 = $applyFilters($query2);
 
-        // Obtener resultados
-        $result1 = $query1->get();
-        $result2 = $query2->get();
-
-        // Combinar y ordenar por subcodigo en orden descendente
-        $fisicos = collect($result1)->merge($result2)->sortByDesc('detalleSolicitudPlanta.subcodigo');
-
-        // Si no se están aplicando filtros, paginar manualmente
-        if (!$this->aplicandoFiltros) {
-            $page = request()->get('page', 1); // Obtener la página actual
-            $perPage = 50; // Elementos por página
-            $fisicos = new LengthAwarePaginator(
-                $fisicos->forPage($page, $perPage), // Obtener elementos para la página actual
-                $fisicos->count(), // Total de elementos
-                $perPage, // Elementos por página
-                $page, // Página actual
-                ['path' => request()->url(), 'query' => request()->query()] // URL de paginación
-            );
-        }
 
 
         return view('livewire.externo.certificados', [

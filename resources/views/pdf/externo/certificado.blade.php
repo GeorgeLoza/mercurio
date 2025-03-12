@@ -130,12 +130,8 @@
                 <tr>
                     <th>Lugar y Fecha de Emisión: </th>
                     <td>El Alto,
-                        {{ \Carbon\Carbon::parse($datosSolicitud->updated_at)->isoFormat(
-                            'dddd D [de] MMMM
-                                                                                                                                                                                                                                                                                                [de] YYYY',
-                            0,
-                            'es',
-                        ) }}
+                        {{ \Carbon\Carbon::parse($resultados->fecha_sembrado)->addDays(7)->isoFormat('dddd D [de] MMMM [de] YYYY', 'es') }}
+
                     </td>
                     <th>Código:</th>
                     <td style="font-size: 0.8rem; text-decoration: underline; font-weight: bold">

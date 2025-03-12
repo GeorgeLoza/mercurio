@@ -132,6 +132,7 @@ class SolicitudPlanta extends Component
     public function toggleCollapse($solicitudId)
     {
         if (isset($this->openCollapse[$solicitudId])) {
+
             $this->openCollapse[$solicitudId] = !$this->openCollapse[$solicitudId];
         } else {
             $this->openCollapse[$solicitudId] = true;
@@ -198,4 +199,7 @@ class SolicitudPlanta extends Component
         $this->editId = null;
         $this->editData = [];
     }
+public function hola(){
+
+}
 }

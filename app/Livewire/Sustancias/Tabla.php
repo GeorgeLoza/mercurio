@@ -48,6 +48,9 @@ class Tabla extends Component
             $this->detallesAbiertos[$movId] = true; // Abrir si está cerrado
         }
     }
+
+
+
     public function render()
     {
         $movimientos = Mov::with('detalleMovs.item')

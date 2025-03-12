@@ -4,6 +4,7 @@ namespace App\Livewire\Uht;
 
 use App\Models\AnalisisLinea;
 use Livewire\Component;
+use Carbon\Carbon;
 
 class Pesos extends Component
 {
@@ -23,7 +24,9 @@ class Pesos extends Component
     public function loadData()
     {
         $this->resultados = AnalisisLinea::where(function ($query) {
-            $query->whereNull('peso');
+            $query->whereNull('peso')
+
+            ->orWhere('updated_at', '>=', Carbon::now()->subMinutes(5));
         })
             ->whereHas('solicitudAnalisisLinea.estadoPlanta.origen', function ($query) {
                 $query->where('descripcion', 'like', '%ENVASADORA%');
@@ -49,16 +52,16 @@ class Pesos extends Component
     public function save($index)
     {
         $this->validate();
-    
+
         // Obtén la instancia del modelo para el índice actual
         $resultado = AnalisisLinea::find($this->resultados[$index]['id']);
-    
+
         if ($resultado) {
             // Actualiza los valores de peso y volumen
             $resultado->peso = $this->resultados[$index]['peso'];
             $resultado->save(); // Guarda los cambios en la base de datos
         }
-    
+
         $this->editing = null; // Finaliza la edición
         $this->loadData(); // Recarga los datos para reflejar los cambios
     }

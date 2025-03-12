@@ -15,7 +15,9 @@
             @foreach ($solicitudes as $solicitud)
                 <tr
                     class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 ">
-                    <td class="flex gap-3 items-center py-1">
+                    <td class="flex gap-3 items-center py-1 w-6 mr-4">
+
+
                         <button wire:click="toggleCollapse({{ $solicitud->id }})"
                             aria-expanded="{{ isset($openCollapse[$solicitud->id]) && $openCollapse[$solicitud->id] ? 'true' : 'false' }}">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
@@ -25,9 +27,16 @@
                             </svg>
                         </button>
                         {{ $loop->iteration }}
+                        @foreach ($solicitud->detalles as $detalle)
+                            @if ($detalle->estado == 'Pendiente')
+                            <span
+                            class="flex w-2 h-2 bg-orange-600 rounded-full  flex-shrink-0 mr-2 text-sm"></span>
+                            @break
+                            @endif
+                        @endforeach
                     </td>
                     <td>{{ \Carbon\Carbon::parse($solicitud->tiempo)->isoFormat('DD-MM-YY HH:mm') }}</td>
-                    <td>{{ $solicitud->user->planta->nombre}}</td>
+                    <td>{{ $solicitud->user->planta->nombre }}</td>
                     <td>{{ $solicitud->codigo }}</td>
                     <td>
                         @if ($solicitud->estado == 'Pendiente')
@@ -73,7 +82,8 @@
                         </button>
 
                         <!--boton para eliminar-->
-                        <button wire:click="eliminar({{ $solicitud->id }})" wire:confirm="Esta seguro de eliminar el elemento?">
+                        <button wire:click="eliminar({{ $solicitud->id }})"
+                            wire:confirm="Esta seguro de eliminar el elemento?">
 
                             <svg xmlns="http://www.w3.org/2000/svg" class="fill-red-500 w-4 h-4" viewBox="0 0 448 512">
                                 <path
@@ -206,15 +216,14 @@
                                                     <button wire:click="edit({{ $detalle->id }})"
                                                         class="bg-blue-500 text-white px-2 py-1 m-2 rounded">Editar</button>
 
-                                                    <button wire:click="eliminar_detalle({{ $detalle->id }})" wire:confirm="Esta seguro de eliminar el elemento?"
+                                                    <button wire:click="eliminar_detalle({{ $detalle->id }})"
+                                                        wire:confirm="Esta seguro de eliminar el elemento?"
                                                         class="bg-red-500 text-white px-2 py-1 m-2 rounded">Eliminar</button>
 
                                                     <!-- Botones adicionales para cambiar los estados -->
-                                                    <button
-                                                        wire:click="confirmar({{ $detalle->id }})"
+                                                    <button wire:click="confirmar({{ $detalle->id }})"
                                                         class="bg-yellow-500 text-white px-2 py-1 m-2 rounded">Confirmar</button>
-                                                    <button
-                                                        wire:click="observado({{ $detalle->id }})"
+                                                    <button wire:click="observado({{ $detalle->id }})"
                                                         class="bg-green-500 text-white px-2 py-1 m-2 rounded">Observar</button>
                                                 </td>
                                             @endif
@@ -233,4 +242,3 @@
         {{ $solicitudes->links('pagination::tailwind') }}
     </div>
 </div>
-

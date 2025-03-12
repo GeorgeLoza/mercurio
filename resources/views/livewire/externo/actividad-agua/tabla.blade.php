@@ -4,13 +4,11 @@
         <table class="w-full  text-sm text-center text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    <th scope="col" class="px-2 py-1 sticky left-0 z-10 bg-gray-50 dark:bg-gray-700 ">
-                        #
-                    </th>
-                    <th scope="col" class="px-2 py-1 sticky left-8 z-10 bg-gray-50 dark:bg-gray-700">
+
+                    <th scope="col" class="px-2 py-1 sticky left-0 z-10 bg-gray-50 dark:bg-gray-700">
                         Codigo Muestra
                     </th>
-                    <th scope="col" class="px-2 py-1 sticky left-28 z-10 bg-gray-50 dark:bg-gray-700">
+                    <th scope="col" class="px-2 py-1 sticky left-20   z-10 bg-gray-50 dark:bg-gray-700">
                         Producto / Servicio
                     </th>
                     <th scope="col" class="px-2 py-1">
@@ -26,7 +24,7 @@
                         Fecha Analisis
                     </th>
                     <th scope="col" class="px-2 py-1">
-                        Temperatura
+                        Temp.
                     </th>
                     <th scope="col" class="px-2 py-1">
                         % Humedad
@@ -53,14 +51,12 @@
                 @foreach ($actividadAgua as $index => $actividad)
                     <tr
                         class=" bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td scope="row"
-                            class="lg:sticky left-0 z-10 bg-white dark:bg-gray-800 px-3 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $index + 1 }}
+
+                        <td class="px-3 py-2 lg:sticky left-0 z-10 bg-white dark:bg-gray-800" nowrap>
+                            {{ ltrim($actividad->detalleSolicitudPlanta->subcodigo, '0') }}
+
                         </td>
-                        <td class="px-3 py-2 lg:sticky left-8 z-10 bg-white dark:bg-gray-800" nowrap>
-                            {{ $actividad->detalleSolicitudPlanta->subcodigo }}
-                        </td>
-                        <td class="px-3 py-2 lg:sticky left-28 z-10 bg-white dark:bg-gray-800" nowrap>
+                        <td class="px-3 py-2 lg:sticky left-16 z-10 bg-white dark:bg-gray-800 text-2xs" nowrap>
 
                             @if ($actividad->detalleSolicitudPlanta->productosPlanta)
                                 {{ $actividad->detalleSolicitudPlanta->productosPlanta->nombre }}

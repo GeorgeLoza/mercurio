@@ -12,7 +12,7 @@ class Tabla extends Component
     #[On('actualizar_tabla_ActividadAgua')]
     public function render()
     {
-        $actividadAgua = ActividadAgua::orderBy('created_at', 'desc')->paginate(15);
+        $actividadAgua = ActividadAgua::orderBy('created_at', 'desc')->paginate(50)->withQueryString();
         return view('livewire.externo.actividad-agua.tabla', compact(['actividadAgua']));
     }
 

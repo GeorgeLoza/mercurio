@@ -1,4 +1,4 @@
-<div>
+<div wire:poll.180s>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg h-[calc(40vh)] bg-white dark:bg-gray-900">
         <table class="w-full text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
             <thead class="sticky top-0 z-10 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

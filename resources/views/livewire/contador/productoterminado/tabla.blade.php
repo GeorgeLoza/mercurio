@@ -1,5 +1,5 @@
 <div>
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg  overflow-y-auto h-[28rem] overflow-hidden">
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg  overflow-hidden">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
@@ -86,7 +86,7 @@
                                 {{ isset($orpExpandida[$orpId]) ? 'Ocultar' : 'Detalles' }}
                             </button>
 
-
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 16)->where('permiso_id', 1)->isNotEmpty())
                             <button class="p-1 px-2 mr-2 ml-2  bg-green-500 rounded-md" onclick="Livewire.dispatch('openModal', { component: 'contador.productoterminado.agregar' , arguments: { id: {{ $orp->id }} }  })">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-white" viewBox="0 0 448 512">
@@ -99,6 +99,10 @@
                                 Finalizar
 
                             </button>
+
+                            @endif
+
+
                         </td>
                     </tr>
 
@@ -162,7 +166,10 @@
                 @endforeach
             </tbody>
         </table>
+
     </div>
 
-
+    <div class="mt-4">
+        {{ $orpPaginator->links() }}
+    </div>
 </div>

@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Livewire\Dashbord;
 
 use App\Models\AnalisisLinea;
@@ -14,7 +15,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use App\Models\SolicitudAnalisisLinea;
 
-class OrpReporte extends Component
+
+class OrpReporte2 extends Component
 {
 
     public $orpId;
@@ -25,154 +27,20 @@ class OrpReporte extends Component
     public $usuariosInvolucrados;
 
 
-    public function mount($orpId)
+
+    public function mount()
     {
-        $this->orpId = $orpId;
-        $this->cantidad = Contador::select('contadors.orp_id', DB::raw('SUM(cantidad) as cantidad_total'))
-            ->where('tipo', 'Total')
-            ->where('orp_id', $this->orpId)
-            ->groupBy('contadors.orp_id')
-            ->join('orps', 'contadors.orp_id', '=', 'orps.id')
-            ->get();
 
         $this->reporte = Orp::where('id', $this->orpId)->first();
-
-        $preparacionesCrudas = EstadoDetalle::where('orp_id', $this->orpId)
-            ->whereHas('estadoPlanta', function ($query) {
-                $query->where('etapa_id', 1);
-            })
-            ->distinct()
-            ->pluck('preparacion');
-        $preparacionesProcesadas = [];
-
-        foreach ($preparacionesCrudas as $prep) {
-            $preparacionesProcesadas = array_merge($preparacionesProcesadas, $this->agruparPreparaciones($prep));
-        }
-
-        $preparacionesProcesadas = array_unique($preparacionesProcesadas);
-
-        $this->resultados_agrupados = [];
-
-        foreach ($preparacionesProcesadas as $preparacion) {
-            $this->resultados_agrupados[$preparacion] = EstadoDetalle::where('preparacion', 'LIKE', "%$preparacion%")
-                ->where('orp_id', $this->orpId)
-                ->whereHas('estadoPlanta.solicitudAnalisisLinea') // Asegura que exista una solicitud de análisis relacionada
-                ->get();
-        }
-
-        // Recolectar IDs de usuarios directamente involucrados en EstadoDetalle para el Orp dado
-        // $userIdsFromEstadoDetalle = EstadoDetalle::where('orp_id', $this->orpId)
-        //     ->pluck('user_id')
-        //     ->unique();
-
-        // Recolectar IDs de usuarios desde EstadoPlanta a través de EstadoDetalle
-        // $userIdsFromEstadoPlanta = EstadoDetalle::where('orp_id', $this->orpId)
-        //     ->with('estadoPlanta')
-        //     ->get()
-        //     ->pluck('estadoPlanta.user_id')
-        //     ->unique();
-
-        // Recolectar IDs de usuarios desde SolicitudAnalisisLinea a través de EstadoPlanta
-        // Recolectar IDs de usuarios relacionados con una ORP específica desde SolicitudAnalisisLinea
-        $userIdsFromSolicitudAnalisis = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) {
-            $query->where('orp_id', $this->orpId);
-        })
-
-            ->with(['solicitudAnalisisLinea.estadoPlanta.estadoDetalle']) // Trae la relación para acceder a 'preparacion'
-            ->get()
-            ->groupBy(function ($item) {
-                // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
-                return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
-            })
-            ->map(function ($group) {
-                // Ordena por 'tiempo' y toma el último registro
-                return $group->sortByDesc('tiempo')->first();
-            })
-            ->values() // Reindexa la colección para eliminar claves asociativas
-            ->pluck('solicitudAnalisisLinea.user_id')
-            ->unique();
-
-
-        $userIdsFromAnalisisLinea = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) {
-            $query->where('orp_id', $this->orpId);
-        })
-
-            ->with(['solicitudAnalisisLinea.estadoPlanta.estadoDetalle']) // Trae la relación para acceder a 'preparacion'
-            ->get()
-            ->groupBy(function ($item) {
-                // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
-                return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
-            })
-            ->map(function ($group) {
-                // Ordena por 'tiempo' y toma el último registro
-                return $group->sortByDesc('tiempo')->first();
-            })
-            ->values() // Reindexa la colección para eliminar claves asociativas
-            ->pluck('user_id')
-            ->unique();
-
-
-
-
-
-
-        // dd($userIdsFromAnalisisLinea);
-
-        //         $userIdsFromSolicitudAnalisis = SolicitudAnalisisLinea::whereHas('estadoPlanta.estadoDetalle', function ($query) {
-        //             $query->where('orp_id', $this->orpId);
-        //         })
-        //             ->pluck('user_id')
-        //             ->unique();
-
-
-
-        //         // Recolectar IDs de usuarios desde AnalisisLinea a través de SolicitudAnalisisLinea
-        //         $userIdsFromAnalisisLinea = SolicitudAnalisisLinea::whereHas('estadoPlanta.estadoDetalle', function ($query) {
-        //             $query->where('orp_id', $this->orpId);
-        //         })
-        //             ->with('analisisLinea')
-        //             ->get()
-        //             ->pluck('analisisLinea.user_id')
-        //             ->unique();
-
-        //         dd($userIdsFromSolicitudAnalisis);
-        // Combinar todos los IDs recolectados y eliminar duplicados
-
-        // $allUserIds = $userIdsFromEstadoDetalle
-        // ->merge($userIdsFromEstadoPlanta)
-
-        $allUserIds = $userIdsFromSolicitudAnalisis
-
-            ->merge($userIdsFromAnalisisLinea)
-            ->unique();
-
-        // Recuperar los detalles de los usuarios
-        $this->usuariosInvolucrados = User::whereIn('id', $allUserIds)->get();
     }
-
     public function render()
     {
-        return view('livewire.dashbord.orp-reporte');
+        return view('livewire.dashbord.orp-reporte2');
     }
-    public function agruparPreparaciones($preparacion)
-    {
-        // Dividir la cadena de preparación en partes usando "-"
-        $partes = explode('-', $preparacion);
-        $nuevaAgrupacion = [];
 
-        // Agrupar las partes de dos en dos, incluso para cadenas largas
-        for ($i = 0; $i < count($partes); $i += 2) {
-            if (isset($partes[$i + 1])) {
-                // Si hay una pareja disponible, agrupar juntos
-                $nuevaAgrupacion[] = $partes[$i] . '-' . $partes[$i + 1];
-            } else {
-                // Si es el último elemento sin pareja, agregarlo solo
-                $nuevaAgrupacion[] = $partes[$i];
-            }
-        }
 
-        return $nuevaAgrupacion;
-    }
+
+
 
     public function generatePDF()
     {

@@ -108,26 +108,26 @@
                             </td>
                             <td scope="row"
                                 class="px-1 py-0 font-medium text-gray-900 whitespace-nowrap dark:text-white" nowrap>
-                                {{ $fis->detalleSolicitudPlanta->subcodigo }}</td>
+                                {{ $fis->subcodigo }}</td>
                             <td scope="row"
                                 class="px-1 py-0 font-medium text-gray-900 whitespace-nowrap dark:text-white" nowrap>
-                                {{ \Carbon\Carbon::parse($fis->detalleSolicitudPlanta->solicitudPlanta->tiempo)->isoFormat('DD-MM-YY', 0, 'es') }}
+                                {{ \Carbon\Carbon::parse($fis->solicitudPlanta->tiempo)->isoFormat('DD-MM-YY', 0, 'es') }}
 
                             </td>
 
                             <td class="px-1 py-0" nowrap>
-                                @if ($fis->detalleSolicitudPlanta->productosPlanta)
-                                    {{ $fis->detalleSolicitudPlanta->productosPlanta->nombre }}
+                                @if ($fis->productosPlanta)
+                                    {{ $fis->productosPlanta->nombre }}
                                 @endif
 
                             </td>
-                            <td class="px-1 py-0">{{ $fis->detalleSolicitudPlanta->lote }}</td>
-                            <td class="px-1 py-0" nowrap>{{ $fis->detalleSolicitudPlanta->tipoMuestra->nombre }}
+                            <td class="px-1 py-0">{{ $fis->lote }}</td>
+                            <td class="px-1 py-0" nowrap>{{ $fis->tipoMuestra->nombre }}
                             </td>
                             @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
                                 <td class="px-1 py-0" nowrap>
-                                    {{ $fis->detalleSolicitudPlanta->user->planta->nombre }}</td>
-                                @if ($fis->detalleSolicitudPlanta->tipo_muestra_id == 1)
+                                    {{ $fis->user->planta->nombre }}</td>
+                                @if ($fis->tipo_muestra_id == 1)
                                     <td class="px-1 py-0 text-2xs" colspan="3" nowrap>
                                         pH:{{ $fis->ph }},Dure:{{ $fis->dureza }},Clor:{{ $fis->cloruros }},Cond:{{ $fis->conductividad }}
                                     </td>
@@ -139,29 +139,29 @@
                             @endif
                             <td class="px-1 py-0" nowrap>
                                 <div class="flex items-center  justify-center">
-                                    @if ($fis->detalleSolicitudPlanta->estado == 'Cancelado')
+                                    @if ($fis->estado == 'Cancelado')
                                         <div class="h-2.5 w-2.5 rounded-full bg-red-500 mr-1"></div>
                                     @endif
-                                    @if ($fis->detalleSolicitudPlanta->estado == 'Solicitado' || $fis->detalleSolicitudPlanta->estado == '')
+                                    @if ($fis->estado == 'Solicitado' || $fis->estado == '')
                                         <div class="h-2.5 w-2.5 rounded-full bg-orange-500 mr-1"></div>Solicitado
                                     @endif
-                                    @if ($fis->detalleSolicitudPlanta->estado == 'Analizando')
+                                    @if ($fis->estado == 'Analizando')
                                         <div class="h-2.5 w-2.5 rounded-full bg-blue-500 mr-1"></div>
                                     @endif
-                                    @if ($fis->detalleSolicitudPlanta->estado == 'Revision')
+                                    @if ($fis->estado == 'Revision')
                                         <div class="h-2.5 w-2.5 rounded-full bg-yellow-500 mr-1"></div>
                                     @endif
-                                    @if ($fis->detalleSolicitudPlanta->estado == 'Terminado')
+                                    @if ($fis->estado == 'Terminado')
                                         <div class="h-2.5 w-2.5 rounded-full bg-green-500 mr-1"></div>
                                     @endif
-                                    {{ $fis->detalleSolicitudPlanta->estado }}
+                                    {{ $fis->estado }}
                                 </div>
                             </td>
                             <td class="px-1 py-0 flex" nowrap>
                                 @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
                                     <!--boton para cancelar-->
                                     <button class="p-1 rounded-md "
-                                        wire:click="cancelar({{ $fis->detalleSolicitudPlanta->id }})">
+                                        wire:click="cancelar({{ $fis->id }})">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="fill-red-500 h-5 w-5"
                                             viewBox="0 0 512 512">
                                             <path
@@ -170,7 +170,7 @@
                                     </button>
                                     <!--boton para emitir certificado-->
                                     <button class="p-1 rounded-md "
-                                        wire:click="cambiar_estado({{ $fis->detalleSolicitudPlanta->id }})">
+                                        wire:click="cambiar_estado({{ $fis->id }})">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-5 w-5"
                                             viewBox="0 0 512 512">
 
@@ -180,12 +180,12 @@
                                     </button>
                                 @endif
                                 <!--boton de obtener pdf de certificado-->
-                                @if ($fis->detalleSolicitudPlanta->estado == 'Terminado')
-                                    @if ($fis->detalleSolicitudPlanta->user->planta->nombre != 'Carsa')
+                                @if ($fis->estado == 'Terminado')
+                                    @if ($fis->user->planta->nombre != 'Carsa')
 
 
                                     <a class="p-1"
-                                        href="{{ route('certificado_fis.pdf_cer', $fis->detalleSolicitudPlanta->id) }}">
+                                        href="{{ route('certificado_fis.pdf_cer', $fis->id) }}">
                                         <button class="p-1 rounded-md bg-red-600">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="fill-white h-4 w-4"
                                                     viewBox="0 0 384 512">
