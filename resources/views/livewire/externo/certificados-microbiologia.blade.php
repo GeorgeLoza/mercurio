@@ -351,5 +351,53 @@
 
         </div>
     </div>
+    @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
+
+    <div class="p-4">
+
+        <button wire:click="generarTabla" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+            Generar Tabla
+        </button>
+
+        @if (!empty($solicitudes))
+        <table class="w-full border-collapse border border-gray-300 mt-4">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="border border-gray-300 px-4 py-2">Subcódigo</th>
+                    <th class="border border-gray-300 px-4 py-2">Tipo Análisis</th>
+                    <th class="border border-gray-300 px-4 py-2">Usuario</th>
+                    <th class="border border-gray-300 px-4 py-2">Tipo Muestra</th>
+                    <th class="border border-gray-300 px-4 py-2">Producto / Otro</th> {{-- Nueva columna combinada --}}
+                    <th class="border border-gray-300 px-4 py-2">Lote</th>
+                    <th class="border border-gray-300 px-4 py-2">Fecha Elaboración</th>
+                    <th class="border border-gray-300 px-4 py-2">Fecha Vencimiento</th>
+                    <th class="border border-gray-300 px-4 py-2">Fecha Muestreo</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($solicitudes as $solicitud)
+                    <tr class="text-center">
+                        <td class="border border-gray-300 px-4 py-2">{{ $solicitud['subcodigo'] }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ $solicitud['tipo_analisis'] }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ $solicitud['usuario'] }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ $solicitud['tipo_muestra'] }}</td>
+                        <td class="border border-gray-300 px-4 py-2">
+                            {{ $solicitud['nombre_producto'] }}
+                            @if (!empty($solicitud['otro']))
+                                ({{ $solicitud['otro'] }})
+                            @endif
+                        </td>
+                        <td class="border border-gray-300 px-4 py-2">{{ $solicitud['lote'] }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ $solicitud['fecha_elaboracion'] }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ $solicitud['fecha_vencimiento'] }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ $solicitud['fecha_muestreo'] }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+        @endif
+    </div>
+    @endif
 
 </div>

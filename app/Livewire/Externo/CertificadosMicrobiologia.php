@@ -25,6 +25,7 @@ class CertificadosMicrobiologia extends Component
     public $f_lote;
     public $f_estado;
     public $f_planta;
+    public $solicitudes;
 
     public $aplicandoFiltros = false;
     public $filtro = false;
@@ -109,5 +110,28 @@ class CertificadosMicrobiologia extends Component
         $registro = DetalleSolicitudPlanta::find($id);
         $registro->estado = 'Cancelado';
         $registro->save();
+    }
+
+    public function generarTabla()
+    {
+        $this->solicitudes = DetalleSolicitudPlanta::select(
+                'detalle_solicitud_plantas.subcodigo',
+                'detalle_solicitud_plantas.tipo_analisis',
+                'detalle_solicitud_plantas.otro',
+                'users.nombre as usuario',
+                'tipo_muestras.nombre as tipo_muestra',
+                'productos_plantas.nombre as nombre_producto',
+                'detalle_solicitud_plantas.lote',
+                'detalle_solicitud_plantas.fecha_elaboracion',
+                'detalle_solicitud_plantas.fecha_vencimiento',
+                'detalle_solicitud_plantas.fecha_muestreo'
+            )
+            ->leftJoin('solicitud_plantas', 'detalle_solicitud_plantas.solicitud_planta_id', '=', 'solicitud_plantas.id')
+            ->leftJoin('users', 'solicitud_plantas.user_id', '=', 'users.id')
+            ->leftJoin('tipo_muestras', 'detalle_solicitud_plantas.tipo_muestra_id', '=', 'tipo_muestras.id')
+            ->leftJoin('productos_plantas', 'detalle_solicitud_plantas.productos_planta_id', '=', 'productos_plantas.id')
+            ->where('users.nombre', 'Rosa')
+            ->get()
+            ->toArray();
     }
 }

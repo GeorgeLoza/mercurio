@@ -495,7 +495,7 @@
                     <div class="signer">
                         <img style="width: 60%" src="img/firma/alejandra.jpeg" alt="">
                         <p class="line" style="font-size: 0.8rem;">Ing. Alejandra Ledezma Calizaya</p>
-                        <div style="font-size: 0.8rem;">Responsable de Servivio Externo</div>
+                        <div style="font-size: 0.8rem;">Responsable de Servicio Externo</div>
                         <p style="font-size: 0.8rem;">Lab. Planta Lácteos</p>
                     </div>
                     <div class="signer">

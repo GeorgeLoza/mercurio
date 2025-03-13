@@ -222,7 +222,7 @@
                 <p class="font-normal text-sm text-gray-700 dark:text-gray-400"> <span class="font-bold">Estado:
                     </span>{{ $reporte->estado }}</p>
                 <p class="font-normal text-sm text-gray-700 dark:text-gray-400"> <span class="font-bold">En Almacen:
-                       </p>
+                </p>
 
             </div>
         </div>
@@ -230,85 +230,83 @@
 
 
 
-<div>
+    <div>
 
 
 
 
-    @foreach($solicitudesAgrupadas as $preparacion => $solicitudes)
-    <div class=" block  p-2 mb-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+        @foreach ($solicitudesAgrupadas as $preparacion => $solicitudes)
+            <div
+                class=" block  p-2 mb-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
 
 
-        <h2>Preparación: {{ $preparacion }}</h2>
-        @if($solicitudes->count())
-            <table class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>Origen</th>
-                        <th>Etapa</th>
-
-
-                        <th>Hora S. </th>
-                        <th>Hora R. </th>
-                        <th>Temp [°C]</th>
-                        <th>pH</th>
-                        <th>Acidez [%]</th>
-                        <th>°Brix</th>
-                        <th>Viscosidad</th>
-                        <th>Peso</th>
-                        <th>Solicitante</th>
-                        <th>Analista</th>
-                        <!-- Agrega más columnas según lo que necesites mostrar -->
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($solicitudes as $solicitud)
-                        <tr>
-                            <td>{{ $solicitud->estadoPlanta->origen->alias  }}</td>
-                            <td>{{ $solicitud->estadoPlanta->etapa->nombre  }}
-
-
-                            </td>
-                            <td>{{ \Carbon\Carbon::parse($solicitud->tiempo)->isoFormat('HH:mm') }}</td>
-                            <td>
-                                {{ optional($solicitud->analisisLinea)->tiempo ? \Carbon\Carbon::parse($solicitud->analisisLinea->tiempo)->isoFormat('HH:mm') : '-' }}
-                            </td>
-                            <td>
-                                {{ optional($solicitud->analisisLinea)->temperatura ? $solicitud->analisisLinea->temperatura : '-' }}
-                            </td>
-                            <td>
-                                {{ optional($solicitud->analisisLinea)->ph ? $solicitud->analisisLinea->ph : '-' }}
-                            </td>
-                            <td>
-                                {{ optional($solicitud->analisisLinea)->acidez ? $solicitud->analisisLinea->acidez : '-' }}
-                            </td>
-                            <td>
-                                {{ optional($solicitud->analisisLinea)->brix ? $solicitud->analisisLinea->brix : '-' }}
-                            </td>
-                            <td>
-                                {{ optional($solicitud->analisisLinea)->viscosidad ? $solicitud->analisisLinea->viscosidad : '-' }}
-                            </td>
-                            <td>
-                                {{ optional($solicitud->analisisLinea)->peso ? $solicitud->analisisLinea->peso : '-' }}
-                            </td>
-                            <td>{{ $solicitud->user->nombre  }}
-
-
-                            </td>
-                            <td>
-                                {{ optional(optional($solicitud->analisisLinea)->user)->nombre ? $solicitud->analisisLinea->user->nombre  : '-' }}
-                            </td>
-
-                              <!-- Más datos de la solicitud -->
+                <h2 class="uppercase">Preparación: {{ $preparacion }}</h2>
+                @if ($solicitudes->count())
+                <table class="w-full border-collapse text-center text-xs">
+                    <thead>
+                        <tr >
+                            <th class="px-4 py-2">Origen</th>
+                            <th class="px-4 py-2">Etapa</th>
+                            <th class="px-4 py-2">Hora S.</th>
+                            <th class="px-4 py-2">Hora R.</th>
+                            <th class="px-4 py-2">Temp [°C]</th>
+                            <th class="px-4 py-2">pH</th>
+                            <th class="px-4 py-2">Acidez [%]</th>
+                            <th class="px-4 py-2">°Brix</th>
+                            <th class="px-4 py-2">Viscosidad</th>
+                            <th class="px-4 py-2">Peso</th>
+                            <th class="px-4 py-2">Solicitante</th>
+                            <th class="px-4 py-2">Analista</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        @else
-            <p>No hay solicitudes para esta preparación.</p>
-        @endif
-        <hr>
+                    </thead>
+                    <tbody>
+                        @foreach ($solicitudes as $solicitud)
+                            <tr class="">
+                                <td class="px-4 py-2">{{ $solicitud->estadoPlanta->origen->alias }}</td>
+                                <td class="px-4 py-2">{{ $solicitud->estadoPlanta->etapa->nombre }}</td>
+                                <td class="px-4 py-2">{{ \Carbon\Carbon::parse($solicitud->tiempo)->isoFormat('HH:mm') }}</td>
+                                <td class="px-4 py-2">
+                                    {{ optional($solicitud->analisisLinea)->tiempo ? \Carbon\Carbon::parse($solicitud->analisisLinea->tiempo)->isoFormat('HH:mm') : '-' }}
+                                </td>
+                                <td class="px-4 py-2">
+                                    {{ optional($solicitud->analisisLinea)->temperatura ?? '-' }}
+                                </td>
+                                <td class="px-4 py-2">
+                                    {{ optional($solicitud->analisisLinea)->ph ?? '-' }}
+                                </td>
+                                <td class="px-4 py-2">
+                                    {{ optional($solicitud->analisisLinea)->acidez ?? '-' }}
+                                </td>
+                                <td class="px-4 py-2">
+                                    {{ optional($solicitud->analisisLinea)->brix ?? '-' }}
+                                </td>
+                                <td class="px-4 py-2">
+                                    {{ optional($solicitud->analisisLinea)->viscosidad ?? '-' }}
+                                </td>
+                                <td class="px-4 py-2">
+                                    {{ optional($solicitud->analisisLinea)->peso ?? '-' }}
+                                </td>
+                                <td class="px-4 py-2">{{ substr($solicitud->user->nombre, 0, 1) .
+                                    substr(explode(' ', $solicitud->user->nombre)[1] ?? '', 0, 1) .
+                                    substr($solicitud->user->apellido, 0, 1) .
+                                    substr(explode(' ', $solicitud->user->apellido)[1] ?? '', 0, 1) }}
+                                    </td>
+                                    <td class="px-4 py-2">
+                                        {{ optional(optional($solicitud->analisisLinea)->user)->nombre ? substr($solicitud->analisisLinea->user->nombre, 0, 1) .
+                                    substr(explode(' ', $solicitud->analisisLinea->user->nombre)[1] ?? '', 0, 1) .
+                                    substr($solicitud->analisisLinea->user->apellido, 0, 1) .
+                                    substr(explode(' ', $solicitud->analisisLinea->user->apellido)[1] ?? '', 0, 1) : '-' }}
+                                    </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+
+                @else
+                    <p>No hay solicitudes para esta preparación.</p>
+                @endif
+                <hr>
+            </div>
+        @endforeach
     </div>
-    @endforeach
-</div>
 </div>
