@@ -36,9 +36,7 @@ class OrpReporte2 extends Component
 
     // Obtener todas las preparaciones únicas
     $preparacionesCrudas = EstadoDetalle::where('orp_id', $this->orpId)
-        ->whereHas('estadoPlanta', function ($query) {
-            $query->where('etapa_id', 1);
-        })
+
         ->distinct()
         ->pluck('preparacion');
 

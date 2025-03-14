@@ -322,25 +322,7 @@
 
         <main>
             <table class="table-container">
-                <!-- Agrupación por etapa -->
-                @php
-                    // Agrupar resultados por etapa
-                    $etapas = [
-                        'Mezcla' => [],
 
-                        'Envasado' => [],
-                    ];
-
-                    foreach ($data as $preparacion => $resultados) {
-                        foreach ($resultados as $resultado) {
-                            $etapa = $resultado->estadoPlanta->etapa->nombre; // Suponiendo que 'nombre' es el campo de la etapa
-                            if (array_key_exists($etapa, $etapas)) {
-                                $etapas[$etapa][] = $resultado;
-                            }
-                        }
-                    }
-                @endphp
-            </table>
 
             <br>
 

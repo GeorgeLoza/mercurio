@@ -1,20 +1,9 @@
 <div>
 
-
-
-    <div>
-
-
-
-
-        @foreach ($solicitudesAgrupadas as $preparacion => $solicitudes)
             <div
-                class=" block  p-2 mb-2 bg-white border border-gray-200 rounded-lg shadow rounded-tl-none dark:bg-gray-800 dark:border-gray-700 ">
+                class=" block  p-2 mb-2 bg-white border border-gray-200 rounded-lg rounded-tl-none  shadow  dark:bg-gray-800 dark:border-gray-700 ">
 
-                <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">Preparación:
-                    {{ $preparacion }}
-                </h5>
-                @if ($solicitudes->count())
+
                 <div class="overflow-x-auto">
                 <table class="w-full border-collapse text-center text-xs">
                     <thead>
@@ -77,11 +66,7 @@
                 </table>
             </div>
 
-                @else
-                    <p>No hay solicitudes para esta preparación.</p>
-                @endif
 
             </div>
-        @endforeach
-    </div>
+
 </div>

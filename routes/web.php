@@ -99,6 +99,14 @@ Route::middleware(['auth'])->group(function () {
         /*ruta para reporte orp */
         Route::get('/orp/reporte/{id}', [OrpController::class, 'report'])->name('orp.report');
         Route::get('/orp/kanan', [OrpController::class, 'kanban'])->name('orp.kanban');
+        Route::get('/descargar-pdfLac/{id}', [OrpController::class, 'generateLac'])->name('descargarLac.pdf');
+
+
+
+        Route::get('/descargar-pdfUHT/{id}', [OrpController::class, 'generateUHT'])->name('descargarUHT.pdf');
+
+        Route::get('/descargar-pdfYog/{id}', [OrpController::class, 'generateYog'])->name('descargarYog.pdf');
+        Route::get('/descargar-pdfJugo/{id}', [OrpController::class, 'generateJugo'])->name('descargarJugo.pdf');
     });
     Route::middleware(['role.permission:12,2'])->group(function () {
         Route::get('/uht', function () {
@@ -193,10 +201,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware(['role.permission:29,2'])->group(function () {
 
-            /*ruta para reporte de daatos */
-            Route::get('/datos', [DatosController::class, 'index'])->name('datos.index');
-
+        /*ruta para reporte de daatos */
+        Route::get('/datos', [DatosController::class, 'index'])->name('datos.index');
     });
+
+
+
 });
 
 
