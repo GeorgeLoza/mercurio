@@ -80,7 +80,6 @@ class Certificados extends Component
 
 
 
-
         return view('livewire.externo.certificados', [
 
             'fisicos' => $fisicos,

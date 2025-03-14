@@ -127,14 +127,20 @@
                             @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
                                 <td class="px-1 py-0" nowrap>
                                     {{ $fis->user->planta->nombre }}</td>
+
+
                                 @if ($fis->tipo_muestra_id == 1)
                                     <td class="px-1 py-0 text-2xs" colspan="3" nowrap>
                                         pH:{{ $fis->ph }},Dure:{{ $fis->dureza }},Clor:{{ $fis->cloruros }},Cond:{{ $fis->conductividad }}
                                     </td>
                                 @else
-                                    <td class="px-1 py-0" nowrap>{{ $fis->temperatura }}</td>
-                                    <td class="px-1 py-0" nowrap>{{ $fis->por_hum_rel }}</td>
-                                    <td class="px-1 py-0" nowrap>{{ $fis->act_agua }}</td>
+                                
+                                    <td class="px-1 py-0" nowrap>
+                                        
+                                        {{ $fis->actividadAgua->temperatura ?? '-'  }}
+                                    </td>
+                                    <td class="px-1 py-0" nowrap>{{ $fis->actividadAgua->por_hum_rel ?? '-' }}</td>
+                                    <td class="px-1 py-0" nowrap>{{ $fis->actividadAgua->act_agua ?? '-' }}</td>
                                 @endif
                             @endif
                             <td class="px-1 py-0" nowrap>
