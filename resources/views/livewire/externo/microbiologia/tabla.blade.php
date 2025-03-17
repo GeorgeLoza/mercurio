@@ -50,6 +50,9 @@
                         Lectura dia 5
                     </th>
                     <th scope="col" class="px-1 py-0" rowspan="2">
+                        Observaciones
+                    </th>
+                    <th scope="col" class="px-1 py-0" rowspan="2">
                         Opciones
                     </th>
                 </tr>
@@ -428,6 +431,7 @@
 
 
                         </td>
+
                         <td>
                             @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 28)->where('permiso_id', 1)->isNotEmpty() ||
                                         auth()->user()->role->id == 1)
@@ -457,6 +461,11 @@
                                 @endif
                         </td>
 
+
+                        <td>
+
+                            {{$micro->observaciones}}
+                        </td>
                         <td class="px-1 py-0 flex justify-center ">
                             @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 28)->where('permiso_id', 1)->isNotEmpty())
                                 <form novalidate wire:submit="sembrar({{ $micro->id }})" class="flex">

@@ -18,6 +18,7 @@ class Tabla extends Component
     public $f_tipo = null;
     public $f_cantidad = null;
     public $f_ubicacion = null;
+    public $f_final = null;
     public $aplicandoFiltros = false;
 
     // Ordenamiento
@@ -27,6 +28,12 @@ class Tabla extends Component
 
     // ORPs desplegadas
     public $orpExpandida = [];
+
+    public function aplicarFiltros()
+    {
+        $this->aplicandoFiltros = true;
+        // Resto de la lógica para aplicar los filtros
+    }
 
     public function mount()
     {
@@ -50,47 +57,59 @@ class Tabla extends Component
     }
 
     #[On('actualizar_tabla_contador_productoTerminado')]
-public function render()
-{
-    $this->aplicandoFiltros = $this->hayFiltrosActivos();
+    public function render()
+    {
+        $this->aplicandoFiltros = $this->hayFiltrosActivos();
 
-    // Primero obtener los ORP paginados
-    $orpPaginator = Contador::query()
-        ->when($this->f_codigo, function ($query) {
-            return $query->whereHas('orp', function ($query) {
-                $query->where('codigo', 'like', '%' . $this->f_codigo . '%');
+        // Obtener los ORP que coinciden con el filtro de tipo
+        $orpIdsConFiltro = Contador::query()
+        ->when($this->f_tipo === 'Total', function ($query) {
+            return $query->where('tipo', 'Total'); // Filtra solo los de tipo "Total"
+        })
+        ->when($this->f_tipo === 'Sin Total', function ($query) {
+            return $query->whereNotIn('orp_id', function ($subquery) {
+                $subquery->select('orp_id')
+                         ->from('contadors') // Nombre real de la tabla de Contador
+                         ->where('tipo', 'Total');
             });
         })
-        ->when($this->f_producto, function ($query) {
-            return $query->whereHas('orp.producto', function ($query) {
-                $query->where('nombre', 'like', '%' . $this->f_producto . '%');
-            });
-        })
-        ->when($this->f_tipo, function ($query) {
-            return $query->where('tipo', 'like', '%' . $this->f_tipo . '%');
-        })
-        ->selectRaw('orp_id, MAX(created_at) as latest_date')
-        ->groupBy('orp_id')
-        ->orderBy($this->sortField === 'created_at' ? 'latest_date' : $this->sortField, $this->sortAsc ? 'asc' : 'desc')
-        ->paginate(25);
+            ->pluck('orp_id')
+            ->unique();
 
-    // Obtener los contadores para los ORPs de la página actual
-    $contadores = Contador::with('orp', 'orp.producto', 'almacenProductoTerminado')
-        ->whereIn('orp_id', $orpPaginator->pluck('orp_id'))
-        ->when($this->f_tipo, function ($query) {
-            return $query->where('tipo', 'like', '%' . $this->f_tipo . '%');
-        })
-        ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
-        ->get();
+        // Obtener los ORP paginados, sin filtrar por tipo directamente
+        $orpPaginator = Contador::query()
+            ->when($this->f_codigo, function ($query) {
+                return $query->whereHas('orp', function ($query) {
+                    $query->where('codigo', 'like', '%' . $this->f_codigo . '%');
+                });
+            })
+            ->when($this->f_producto, function ($query) {
+                return $query->whereHas('orp.producto', function ($query) {
+                    $query->where('nombre', 'like', '%' . $this->f_producto . '%');
+                });
+            })
+            ->when($this->f_tipo, function ($query) use ($orpIdsConFiltro) {
+                return $query->whereIn('orp_id', $orpIdsConFiltro);
+            })
+            ->selectRaw('orp_id, MAX(created_at) as latest_date')
+            ->groupBy('orp_id')
+            ->orderBy($this->sortField === 'created_at' ? 'latest_date' : $this->sortField, $this->sortAsc ? 'asc' : 'desc')
+            ->paginate(25);
 
-    // Agrupar los resultados por ORP
-    $resultados = $contadores->groupBy('orp_id');
+        // Obtener todos los registros asociados a los ORP seleccionados
+        $contadores = Contador::with('orp', 'orp.producto', 'almacenProductoTerminado')
+            ->whereIn('orp_id', $orpPaginator->pluck('orp_id'))
+            ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
+            ->get();
 
-    return view('livewire.contador.productoterminado.tabla', [
-        'orpAgrupadas' => $resultados,
-        'orpPaginator' => $orpPaginator
-    ]);
-}
+        // Agrupar los resultados por ORP
+        $resultados = $contadores->groupBy('orp_id');
+
+        return view('livewire.contador.productoterminado.tabla', [
+            'orpAgrupadas' => $resultados,
+            'orpPaginator' => $orpPaginator
+        ]);
+    }
 
     public function toggleOrp($orpId)
     {

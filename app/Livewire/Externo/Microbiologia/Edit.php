@@ -20,6 +20,7 @@ class Edit extends ModalComponent
     public $aer_mes2;
     public $col_tot2;
     public $moh_lev2;
+    public $observaciones;
 
     public $data;
     public function mount()
@@ -33,6 +34,7 @@ class Edit extends ModalComponent
         $this->aer_mes2 = $microbiologia->aer_mes2;
         $this->col_tot2 = $microbiologia->col_tot2;
         $this->moh_lev2 = $microbiologia->moh_lev2;
+        $this->observaciones = $microbiologia->observaciones;
 
 
     }
@@ -51,10 +53,13 @@ class Edit extends ModalComponent
         try {
             $microbiologia = MicrobiologiaExterno::find($this->id);
             // Verificación para todas las variables antes de asignarlas al modelo
+            $microbiologia->observaciones = $this->observaciones !== '' ? $this->observaciones : null;
             $microbiologia->aer_mes = $this->aer_mes !== '' ? $this->aer_mes : null;
             $microbiologia->col_tot = $this->col_tot !== '' ? $this->col_tot : null;
             $microbiologia->aer_mes2 = $this->aer_mes2 !== '' ? $this->aer_mes2 : null;
             $microbiologia->col_tot2 = $this->col_tot2 !== '' ? $this->col_tot2 : null;
+
+
             if ($microbiologia->detalleSolicitudPlanta->tipoMuestra->id == 9) {
                 $microbiologia->estado = "Analizado";
 
@@ -96,6 +101,8 @@ class Edit extends ModalComponent
 */
         try {
             $microbiologia = MicrobiologiaExterno::find($this->id);
+
+            $microbiologia->observaciones = $this->observaciones !== '' ? $this->observaciones : null;
             $microbiologia->moh_lev = $this->moh_lev !== '' ? $this->moh_lev : null;
             $microbiologia->moh_lev2 = $this->moh_lev2 !== '' ? $this->moh_lev2 : null;
             $microbiologia->estado = "Analizado";

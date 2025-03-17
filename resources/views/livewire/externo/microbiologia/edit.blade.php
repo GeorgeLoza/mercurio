@@ -5,7 +5,8 @@
 <div class=" mb-8">
     <h3 class="mb-4 text-md font-medium text-gray-900 dark:text-white">Analisis
         Microbiologico - Dia 2 </h3>
-    {{ $data->detalleSolicitudPlanta->tipo_muestra_id == 8 }}
+
+    {{-- {{ $data->detalleSolicitudPlanta->tipo_muestra_id == 8 }} --}}
 
     <form novalidate wire:submit="dia2">
         <!--para simples-->
@@ -147,6 +148,12 @@
         @endif
 
 
+
+
+        <h1>Observaciones</h1>
+        <input type="text" step="0.01" name="observaciones" id="aer_mes" wire:model.live="observaciones"
+                        class=" bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        placeholder=" ">
         <button
         {{-- borra la siguiente linea si no funciona en externos --}}
         {{-- onclick="window.location.reload();" --}}
@@ -235,6 +242,11 @@
                     </div>
                 @endif
 
+
+                <h1>Observaciones</h1>
+                <input type="text" step="0.01" name="observaciones" id="aer_mes" wire:model.live="observaciones"
+                                class=" bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                placeholder=" ">
                 <button type="submit"
                     class="w-full mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Registrar
                     analisis</button>
@@ -247,4 +259,6 @@
 
 
     </div>
+
+
 </div>

@@ -24,6 +24,8 @@ class MicrobiologiaExterno extends Model
         'aer_mes2',
         'col_tot2',
         'moh_lev2',
+        'observaciones',
+
     ];
 
     public function user1()

@@ -216,6 +216,7 @@ class Tabla extends Component
             ->when($this->sortField, function ($query) {
                 $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
             });
+
         $orps = $this->aplicandoFiltros ? $query->get() : $query->paginate(50);
 
 

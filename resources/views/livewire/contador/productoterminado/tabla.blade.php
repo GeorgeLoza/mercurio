@@ -32,7 +32,15 @@
                             <input type="text" wire:model.live='f_producto' placeholder="Filtrar por Producto"
                                 class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         </th>
+                        <th>
 
+                            <select wire:model.live="f_tipo"
+                                class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option class="text-gray-600" value="">Sin Filtro</option>
+                                <option value="Total">Completado</option>
+                                <option value="Sin Total">No Completado</option>
+                            </select>
+                        </th>
                 @endif
                 @foreach ($orpAgrupadas as $orpId => $contadores)
                     @php
@@ -44,7 +52,6 @@
                         });
                         if ($contadoresTotales->isNotEmpty()) {
                             $completado = 'Completado'; // Si se encuentra un "Total", poner "Completado"
-
                         }
                         // Si no hay 'Total', filtrar por 'Total por turno' y 'Total para muestras'
                         if ($contadoresTotales->isEmpty()) {
@@ -67,7 +74,6 @@
                         } else {
                             // Sumar la cantidad de los contadores filtrados
                             $cantidadTotal = $contadoresTotales->sum('cantidad');
-
                         }
                     @endphp
 
@@ -82,7 +88,7 @@
                         <td class="px-6 py-1 font-light text-gray-900 whitespace-nowrap dark:text-white">
                             {{ $cantidadTotal }}
                             @if ($completado)
-                                <span class="text-green-500 ml-2 font-bold " >{{ $completado }}</span>
+                                <span class="text-green-500 ml-2 font-bold ">{{ $completado }}</span>
                             @endif
                         </td>
                         <td class="px-6 py-1 font-light text-gray-900 whitespace-nowrap dark:text-white flex gap-1">
@@ -123,6 +129,8 @@
                                             <th class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">Cantidad</th>
                                             <th class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">Observaciones
                                             </th>
+                                            <th class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">Contador
+                                            </th>
                                             <th class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">Opciones</th>
                                         </tr>
                                     </thead>
@@ -134,6 +142,10 @@
                                                 <td class="px-6 py-2">{{ $contador->tipo }}</td>
                                                 <td class="px-6 py-2">{{ $contador->cantidad }}</td>
                                                 <td class="px-6 py-2">{{ $contador->observaciones }}</td>
+                                                <td class="px-6 py-2">{{ substr($contador->user->nombre, 0, 1) .
+                                                    substr(explode(' ', $contador->user->nombre)[1] ?? '', 0, 1) .
+                                                    substr($contador->user->apellido, 0, 1) .
+                                                    substr(explode(' ', $contador->user->apellido)[1] ?? '', 0, 1) }}</td>
                                                 <td class="flex gap-1 py-2  ">
                                                     @if (auth()->user()->id == $contador->user->id ||
                                                             auth()->user()->role->rolModuloPermisos->where('modulo_id', 16)->where('permiso_id', 3)->isNotEmpty())
@@ -173,4 +185,6 @@
     <div class="mt-4">
         {{ $orpPaginator->links() }}
     </div>
+
+
 </div>
