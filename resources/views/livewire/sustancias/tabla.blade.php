@@ -8,17 +8,16 @@
                            bg-white dark:bg-gray-800
                            text-gray-900 dark:text-white ">
                     <h4 class="text-lg font-semibold">{{ $datos['codigo'] }} - {{ $datos['nombre'] }}</h4>
-                    <p class="text-gray-600 dark:text-gray-400 flex items-center" >
-                        Cantidad Actual:  <span class="font-bold px-1" >{{ $datos['cantidad_actual'] }}
+                    <p class="text-gray-600 dark:text-gray-400 flex items-center">
+                        Cantidad Actual: <span class="font-bold px-1">{{ $datos['cantidad_actual'] }}
                             [{{ $datos['unidad'] }}]
-                            </span>
-                            @if ($datos['cantidad_actual'] <=0)
+                        </span>
+                        @if ($datos['cantidad_actual'] <= 0)
                             <svg xmlns="http://www.w3.org/2000/svg" class="fill-red-500 h-4 w-4 m-1" viewBox="0 0 512 512">
                                 <path
                                     d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z" />
                             </svg>
-
-                            @endif
+                        @endif
 
                     </p>
                     @if ($datos['ultimo_egreso'])
@@ -87,13 +86,12 @@
                         </td>
                         <td
                             class="px-4 py-2 font-bold uppercase
-                        @if ($mov->estado == 'Entregado') text-green-500 @endif
-                        @if ($mov->estado == 'Denegado') text-red-500 @endif
-                        @if ($mov->estado == 'Autorizado') text-yellow-500 @endif
-                        @if ($mov->estado == 'Solicitado') text-blue-500 @endif
+                                {{ $mov->estado == 'Entregado' ? 'text-green-500' : '' }}
+                                {{ $mov->estado == 'Denegado' ? 'text-red-500' : '' }}
+                                {{ $mov->estado == 'Autorizado' ? 'text-yellow-500' : '' }}
+                                {{ $mov->estado == 'Solicitado' ? 'text-blue-500' : '' }}
+                            ">
 
-
-                        ">
                             {{ $mov->estado }}</td>
                         <td class="px-4 py-2">
                             {{ \Carbon\Carbon::parse($mov->tiempo)->format('d-m-Y H:m') }}
@@ -112,7 +110,7 @@
                             @if ($mov->tipo == 0)
 
 
-                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 30)->where('permiso_id', 1)->isNotEmpty())
+                                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 30)->where('permiso_id', 1)->isNotEmpty())
                                     @if ($mov->estado != 'Entregado')
                                         @if ($mov->estado != 'Autorizado' && now()->diffInMinutes($mov->created_at) < 1440)
                                             <!-- Botón para autorizado -->
@@ -134,8 +132,7 @@
 
 
                                 @if ($mov->estado == 'Autorizado')
-                                @if (auth()->user()->role->id == 7 || auth()->user()->role->id == 1)
-
+                                    @if (auth()->user()->role->id == 7 || auth()->user()->role->id == 1)
                                         <!-- Botón para entregado -->
                                         <button
                                             onclick="Livewire.dispatch('openModal', { component: 'sustancias.movimiento', arguments: { id: {{ $mov->id }} } })"
@@ -193,7 +190,7 @@
         <p class="mb-1">Descargar Reporte de salidas de sustancias</p>
 
         <button class="bg-red-600 p-2 text-center rounded-md  gap-2" wire:click="PDFSustancias"
-            wire:loading.attr="disabled" >
+            wire:loading.attr="disabled">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="h-5 w-5 fill-white">
                 <path
                     d="M0 64C0 28.7 28.7 0 64 0L224 0l0 128c0 17.7 14.3 32 32 32l128 0 0 144-208 0c-35.3 0-64 28.7-64 64l0 144-48 0c-35.3 0-64-28.7-64-64L0 64zm384 64l-128 0L256 0 384 128zM176 352l32 0c30.9 0 56 25.1 56 56s-25.1 56-56 56l-16 0 0 32c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-48 0-80c0-8.8 7.2-16 16-16zm32 80c13.3 0 24-10.7 24-24s-10.7-24-24-24l-16 0 0 48 16 0zm96-80l32 0c26.5 0 48 21.5 48 48l0 64c0 26.5-21.5 48-48 48l-32 0c-8.8 0-16-7.2-16-16l0-128c0-8.8 7.2-16 16-16zm32 128c8.8 0 16-7.2 16-16l0-64c0-8.8-7.2-16-16-16l-16 0 0 96 16 0zm80-112c0-8.8 7.2-16 16-16l48 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0 0 32 32 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0 0 48c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-64 0-64z" />

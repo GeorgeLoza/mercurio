@@ -163,9 +163,9 @@
 
         </table>
     </div>
-    @if (!$aplicandoFiltros)
+
         <div>
-            {{ $estados->links('pagination::tailwind') }}
+            {{ $estados->links() }}
         </div>
-    @endif
+
 </div>

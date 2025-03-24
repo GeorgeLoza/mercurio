@@ -88,7 +88,7 @@ class Tabla extends Component
             ->when($this->sortField, function ($query) {
                 $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
             });
-            $producto = $this->aplicandoFiltros ? $query->get() : $query->paginate(50);
+            $producto = $query->paginate(50);
 
         return view('livewire.producto.tabla', [
             'productos' => $producto

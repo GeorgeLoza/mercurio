@@ -33,5 +33,9 @@ class Orp extends Model
     {
         return $this->hasOne(Color::class);
     }
+    public function seguimiento()
+    {
+        return $this->hasMany(Seguimiento::class);
+    }
 
 }

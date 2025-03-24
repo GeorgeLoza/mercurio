@@ -217,7 +217,7 @@ class Tabla extends Component
                 $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
             });
 
-        $orps = $this->aplicandoFiltros ? $query->get() : $query->paginate(50);
+        $orps = $query->paginate(50);
 
 
         return view('livewire.orp.tabla', [

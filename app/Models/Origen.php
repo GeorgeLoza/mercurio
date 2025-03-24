@@ -26,4 +26,8 @@ class Origen extends Model
     {
         return $this->hasMany(ParametroLinea::class);
     }
+    public function seguimiento()
+    {
+        return $this->hasMany(Seguimiento::class);
+    }
 }

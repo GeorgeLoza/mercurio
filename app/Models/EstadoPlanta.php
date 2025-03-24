@@ -15,7 +15,7 @@ class EstadoPlanta extends Model
         'origen_id',
         'proceso',
         'etapa_id',
-        
+
     ];
     public function user()
     {
@@ -37,6 +37,6 @@ class EstadoPlanta extends Model
     {
         return $this->hasMany(EstadoDetalle::class);
     }
-    
+
 
 }

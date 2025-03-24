@@ -70,14 +70,14 @@ class Tabla extends Component
 
 
 
-        $microbiologia = $this->aplicandoFiltros ? $microbiologia->get() : $microbiologia->paginate(50)->withQueryString();
+        $microbiologia =  $microbiologia->paginate(50);
 
 
 
 
 
 
-        return view('livewire.externo.microbiologia.tabla', compact(['microbiologia']));
+        return view('livewire.externo.microbiologia.tabla', ['microbiologia'=> $microbiologia]);
     }
 
 
@@ -176,9 +176,13 @@ class Tabla extends Component
                 $microbiologia->col_tot = null;
             }
 
-            if ($microbiologia->detalleSolicitudPlanta->tipoMuestra->id == 9 || $microbiologia->detalleSolicitudPlanta->tipoMuestra->id == 5) {
+
+            if ($microbiologia->detalleSolicitudPlanta->tipoMuestra->id == 9 || $microbiologia->detalleSolicitudPlanta->tipoMuestra->id == 5 || $microbiologia->detalleSolicitudPlanta->tipoMuestra->id == 1) {
                 $microbiologia->aer_mes = null;
                 $microbiologia->estado = "Analizado";
+                if( $microbiologia->detalleSolicitudPlanta->tipoMuestra->id == 5){
+                    $microbiologia->estado = "2 Dias";
+                }
 
                 $detalle = DetalleSolicitudPlanta::where("id", $microbiologia->detalle_solicitud_planta_id)->first();
                 $detalle->estado = "Revision";

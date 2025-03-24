@@ -141,7 +141,7 @@ class Tabla extends Component
             })
             ;
 
-        $orps = $this->aplicandoFiltros ? $query->take(200)->get() : $query->paginate(min(50, 200));
+        $orps =  $query->paginate(50);
 
 
         return view('livewire.htst.tabla', [

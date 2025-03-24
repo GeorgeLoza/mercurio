@@ -9,6 +9,7 @@ use App\Models\MicrobiologiaExterno;
 use App\Models\SolicitudPlanta as ModelsSolicitudPlanta;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\App;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -19,6 +20,7 @@ class SolicitudPlanta extends Component
 
     public $openCollapse = [];
 
+    #[On('actualizar_tabla_solicitudes')]
 
     public function render()
     {
@@ -27,10 +29,10 @@ class SolicitudPlanta extends Component
                 $query->where('planta_id', auth()->user()->planta_id);
             })
             ->orderBy('created_at', 'desc')
-            ->paginate(100);
+            ->paginate(50);
 
         } else {
-            $solicitudes = ModelsSolicitudPlanta::orderBy('created_at', 'desc')->paginate(100);
+            $solicitudes = ModelsSolicitudPlanta::orderBy('created_at', 'desc')->paginate(50);
         }
         return view('livewire.externo.solicitud-planta', [
             'solicitudes' => $solicitudes

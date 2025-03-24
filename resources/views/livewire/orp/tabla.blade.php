@@ -2,7 +2,7 @@
     <div class="flex justify-end mb-2 gap-2">
         <select wire:model.live='f_estado'
             class="block  p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            <option selected>Escoge un estado</option>
+            <option selected value="">Escoge un estado</option>
             <option value="Pendiente"> Pendiente</option>
             <option value="Programado"> Programado</option>
             <option value="Cancelado"> Cancelado</option>
@@ -142,7 +142,7 @@
                         <th class="p-1">
                             <select wire:model.live='f_grupo'
                                 class="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ">
-                                <option selected class="font-light">CAT</option>
+                                <option selected class="font-light" value="">CAT</option>
                                 <option value="UHT"> UHT</option>
                                 <option value="HTST"> HTST</option>
 
@@ -158,7 +158,7 @@
                         <th class="p-1 ">
                             <select wire:model.live='f_estado'
                                 class="block  p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option selected class="font-normal">Estado</option>
+                                <option selected class="font-normal" value="">Estado</option>
                                 <option value="Pendiente"> Pendiente</option>
                                 <option value="Programado"> Programado</option>
                                 <option value="Cancelado"> Cancelado</option>
@@ -393,11 +393,11 @@
         </table>
     </div>
 
-    @if (!$aplicandoFiltros)
+
         <div>
-            {{ $orps->links('pagination::tailwind') }}
+            {{ $orps->links() }}
         </div>
-    @endif
+
 
 
 

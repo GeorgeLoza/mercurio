@@ -6,8 +6,10 @@ use App\Models\EstadoPlanta;
 use Livewire\Component;
 use Livewire\Attributes\On;
 
+use Livewire\WithPagination;
+
 class Tabla extends Component
-{
+{use WithPagination;
     //filtros-busqueda
     public $f_tiempo = null;
     public $f_origen = null;
@@ -92,7 +94,7 @@ class Tabla extends Component
                 $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
             });
             // Decide si usar paginación o mostrar todos los resultados
-        $estados = $this->aplicandoFiltros ? $query->get() : $query->paginate(50);
+        $estados = $query->paginate(50);
 
 
         return view('livewire.estado-planta.tabla', [
@@ -100,7 +102,7 @@ class Tabla extends Component
         ]);
     }
 
-    
+
     public function aplicarFiltros()
     {
         $this->aplicandoFiltros = true;

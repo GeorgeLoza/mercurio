@@ -50,6 +50,14 @@
                     <th scope="col" class="px-2 py-1 sticky top-0 bg-white dark:bg-gray-700 "
                     wire:click="sortBy('updated_at')">
                     Actualizado
+
+                    <button wire:click="show_filtro">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-gray-700 dark:fill-gray-300"
+                            viewBox="0 0 512 512">
+                            <path
+                                d="M3.9 54.9C10.5 40.9 24.5 32 40 32H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L320 320.9V448c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48c-8.1-6-12.8-15.5-12.8-25.6V320.9L9 97.3C-.7 85.4-2.8 68.8 3.9 54.9z" />
+                        </svg>
+                    </button>
                 </th>
                     <th scope="col" class=" hidden px-2 py-1 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('tiempo_elaboracion')">
@@ -61,17 +69,7 @@
                         Fecha Vencimiento 2
                     </th>
 
-                    <th scope="col" class=" gap-2 px-2 py-1 sticky top-0 bg-white dark:bg-gray-700">
 
-                        <button wire:click="show_filtro">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-gray-700 dark:fill-gray-300"
-                                viewBox="0 0 512 512">
-                                <path
-                                    d="M3.9 54.9C10.5 40.9 24.5 32 40 32H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L320 320.9V448c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48c-8.1-6-12.8-15.5-12.8-25.6V320.9L9 97.3C-.7 85.4-2.8 68.8 3.9 54.9z" />
-                            </svg>
-                        </button>
-
-                    </th>
 
                 </tr>
             </thead>
@@ -125,7 +123,7 @@
                         <th class="p-1 ">
                             <select wire:model.live='f_estado'
                                 class="block  p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option selected class="font-normal">Estado</option>
+                                <option selected value="" class="font-normal">Estado</option>
                                 <option value="Pendiente"> Pendiente</option>
                                 <option value="Programado"> Programado</option>
                                 <option value="Cancelado"> Cancelado</option>
@@ -257,15 +255,7 @@
                             {{ $orp->fecha_vencimiento2 }}
                         </td>
 
-                        <td class="flex items-center px-2  gap-1 ">
 
-
-
-
-
-
-
-                        </td>
                     </tr>
                 @endforeach
 
@@ -275,11 +265,10 @@
         </table>
     </div>
 
-    @if (!$aplicandoFiltros)
         <div>
             {{ $orps->links('pagination::tailwind') }}
         </div>
-    @endif
+
 
 
 

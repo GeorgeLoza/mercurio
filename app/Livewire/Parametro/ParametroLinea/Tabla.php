@@ -9,7 +9,7 @@ use App\Models\ParametroLinea;
 
 class Tabla extends Component
 {
-    use WithPagination;   
+    use WithPagination;
  //filtros-busqueda
   public $f_producto_codigo = null;
   public $f_producto_nombre = null;
@@ -44,15 +44,15 @@ class Tabla extends Component
      $this->sortField = $field;
  }
 
- #[On('actualizar_tabla_parametroLinea')] 
+ #[On('actualizar_tabla_parametroLinea')]
     public function render()
 
     {
         $this->aplicandoFiltros = $this->hayFiltrosActivos();
-       
+
 
         $query = ParametroLinea::query()
-             
+
         ->when($this->f_producto_codigo, function ($query) {
             return $query->whereHas('Producto', function ($query) {
                 $query->where('codigo', 'like', '%' . $this->f_producto_codigo . '%');
@@ -67,7 +67,7 @@ class Tabla extends Component
             return $query->whereHas('Etapa', function ($query) {
                 $query->where('nombre', 'like', '%' . $this->f_etapa_nombre . '%');
             });
-        })        
+        })
         ->when($this->f_temperatura_min, function ($query) {
             return $query->where('temperatura_min', 'like', '%' . $this->f_temperatura_min . '%');
         })
@@ -91,7 +91,7 @@ class Tabla extends Component
         })
         ->when($this->f_brix_min, function ($query) {
             return $query->where('brix_min', 'like', '%' . $this->f_brix_max. '%');
-        })       
+        })
         ->when($this->f_viscosidad_min, function ($query) {
             return $query->where('viscosidad_min', 'like', '%' . $this->f_viscosidad_min. '%');
         })
@@ -109,12 +109,12 @@ class Tabla extends Component
         ->when($this->sortField, function($query){
             $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
         });
-        
-        $parametro_lineas = $this->aplicandoFiltros ? $query->get() : $query->paginate(50);
+
+        $parametro_lineas =  $query->paginate(50);
         return view('livewire.parametro.parametro-linea.tabla',['parametro_lineas' => $parametro_lineas
     ]);
-    
-    
+
+
     }
     public function aplicarFiltros()
     {
@@ -134,5 +134,5 @@ class Tabla extends Component
         return $this->f_producto_codigo || $this->f_producto_nombre || $this->f_etapa_nombre || $this->f_temperatura_min || $this->f_temperatura_max || $this->f_ph_min || $this->f_ph_max|| $this->f_acidez_min || $this->f_acidez_max || $this->f_brix_max|| $this->f_viscosidad_min || $this->f_viscosidad_max || $this->f_densidad_min|| $this->f_densidad_max;
     }
 
-   
+
 }

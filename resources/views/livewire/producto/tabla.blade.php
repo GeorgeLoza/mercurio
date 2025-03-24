@@ -194,9 +194,9 @@
 
     </div>
 
-    @if (!$aplicandoFiltros)
+
         <div>
-            {{ $productos->links('pagination::tailwind') }}
+            {{ $productos->links() }}
         </div>
-    @endif
+
 </div>

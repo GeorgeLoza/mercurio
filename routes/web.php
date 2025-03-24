@@ -19,6 +19,7 @@ use App\Http\Controllers\ParametroLineaController;
 use App\Http\Controllers\PaseTurnoController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SeguimientoController;
 use App\Http\Controllers\SolicitudAnalisisLineaController;
 use App\Http\Controllers\UsuarioController;
 
@@ -204,6 +205,13 @@ Route::middleware(['auth'])->group(function () {
         /*ruta para reporte de daatos */
         Route::get('/datos', [DatosController::class, 'index'])->name('datos.index');
     });
+
+
+    Route::middleware(['role.permission:32,2'])->group(function () {
+        Route::get('/seguimiento', [SeguimientoController::class, 'index'])->name('seguimiento.index');
+    });
+
+
 
 
 

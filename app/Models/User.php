@@ -111,6 +111,11 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class, 'rol_id');
     }
 
+    public function seguimiento()
+    {
+        return $this->belongsto(Seguimiento::class);
+    }
+
 
     /**
      * Verifica si el usuario tiene un rol específico.

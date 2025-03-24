@@ -108,6 +108,7 @@
                                         <th class="px-4 py-2">Fecha de Muestreo</th>
                                         <th class="px-4 py-2">Fecha de Vencimiento</th>
 
+                                        <th class="px-4 py-2">Tipo</th>
                                         <th class="px-4 py-2">Análisis</th>
                                         <th class="px-4 py-2">Estado</th>
                                         @if (auth()->user()->rol != 'Ext')

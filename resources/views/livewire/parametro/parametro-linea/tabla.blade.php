@@ -216,10 +216,10 @@
 
         </table>
     </div>
-    @if (!$aplicandoFiltros)
+
     <div>
-        {{ $parametro_lineas->links('pagination::tailwind') }}
+        {{ $parametro_lineas->links() }}
     </div>
-@endif
+
 
 </div>

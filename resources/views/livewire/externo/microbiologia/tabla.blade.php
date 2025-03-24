@@ -436,7 +436,7 @@
                             @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 28)->where('permiso_id', 1)->isNotEmpty() ||
                                         auth()->user()->role->id == 1)
 
-                                       @if ($micro->detalleSolicitudPlanta->tipoMuestra->id !=9)
+                                       @if ($micro->detalleSolicitudPlanta->tipoMuestra->id !=9 && $micro->detalleSolicitudPlanta->tipoMuestra->id !=1 )
 
 
                                     <div class="flex h-full items-center justify-center ml-3 ">
@@ -522,11 +522,12 @@
 
         </table>
     </div>
-    @if (!$aplicandoFiltros)
-    <div>
-        {{ $microbiologia->links('pagination::tailwind') }}
+
+    <div class="mt-4">
+        {{ $microbiologia->links() }}
     </div>
-@endif
+
+
 
 
 </div>

@@ -339,17 +339,15 @@
                             nowrap>
                             {{ $registro->temperatura_congelacion }}
                         </td>
-                        <td class="px-1 py-2 @if ($registro->porcentaje_agua<2.5) text-green-500 @else text-red-500
+                        <td class="px-1 py-2 {{ $registro->porcentaje_agua < 2.5 ? 'text-green-500' : 'text-red-500' }}" nowrap>
 
-                        @endif" nowrap>
                             {{ $registro->porcentaje_agua }}
                         </td>
                         <td class="px-1 py-2" nowrap>
                             {{ $registro->observaciones }}
                         </td>
-                        <td class="px-1 py-2 @if ($registro->recuento<= 4000000) text-green-500 @else text-red-500
+                        <td class="px-1 py-2 {{ $registro->recuento <= 4000000 ? 'text-green-500' : 'text-red-500' }}" nowrap>
 
-                        @endif " nowrap>
 
 
 
