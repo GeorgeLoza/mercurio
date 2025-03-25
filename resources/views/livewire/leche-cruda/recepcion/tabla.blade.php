@@ -146,10 +146,10 @@
 
         </table>
     </div>
-    @if (!$aplicandoFiltros)
+
     <div>
-        {{ $recepciones->links('pagination::tailwind') }}
+        {{ $recepciones->links() }}
     </div>
-@endif
+
 
 </div>

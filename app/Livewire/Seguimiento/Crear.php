@@ -11,6 +11,7 @@ use Carbon\Carbon;
 
 class Crear extends ModalComponent
 {
+    public $buscar_orp = '';
 
     public $origen_id;
     public $orp_id;
@@ -74,9 +75,12 @@ class Crear extends ModalComponent
         })
         ->where('estado', 'Completado')
         ->whereBetween('updated_at', [
-            Carbon::now()->subDays(7)->startOfDay(), // 7 días atrás, inicio del día
-            Carbon::now()->subDays(3)->endOfDay()      // 3 días atrás, fin del día
+            Carbon::now()->subDays(7)->startOfDay(),
+            Carbon::now()->subDays(3)->endOfDay()
         ])
+        ->when($this->buscar_orp, function ($query) {
+            $query->where('codigo', 'like', '%' . $this->buscar_orp . '%');
+        })
         ->orderBy('id', 'desc')
         ->take(50)
         ->get();

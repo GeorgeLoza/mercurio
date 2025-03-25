@@ -112,7 +112,7 @@ class Tabla extends Component
             ->when($this->sortField, function ($query) {
                 $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
             });
-        $registros = $this->aplicandoFiltros ? $query->get() : $query->paginate(50);
+        $registros =   $query->paginate(50);
         $pendiente = SolicitudAnalisisLinea::where('estado', 'pendiente')
             ->where('created_at', '>=', Carbon::now()->subMinutes(20))
             ->exists(); // Devuelve true si existen registros, false si no

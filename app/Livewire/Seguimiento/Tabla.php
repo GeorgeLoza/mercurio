@@ -52,6 +52,27 @@ class Tabla extends Component
             $this->dispatch('error_mensaje', mensaje: 'problema' . $th->getMessage());
         }
     }
+    public function mohos2($id)
+    {
+
+
+        try {
+            $seguimientos = Seguimiento::findOrFail($id);
+            // Verificación para todas las variables antes de asignarlas al modelo
+
+            $seguimientos->moho = null;
+
+
+
+            $seguimientos->save();
+
+
+            $this->dispatch('success', mensaje: 'Analisis realizado exitosamente.');
+        } catch (\Throwable $th) {
+
+            $this->dispatch('error_mensaje', mensaje: 'problema' . $th->getMessage());
+        }
+    }
 
 
 
@@ -95,11 +116,17 @@ class Tabla extends Component
         try {
             $datos = Seguimiento::where(function ($query) {
                 $query->whereBetween('fechaSiembra', [
-                    Carbon::now()->subDays(7)->startOfDay(),
-                    Carbon::now()->subDays(7)->endOfDay()
+                    Carbon::now()->subDays(5)->startOfDay(),
+                    Carbon::now()->subDays(5)->endOfDay()
                 ]);
 
                 // Si hoy es lunes, también traemos los del día de hace 4 días
+                if (Carbon::now()->isMonday()) {
+                    $query->orWhereBetween('fechaSiembra', [
+                        Carbon::now()->subDays(6)->startOfDay(),
+                        Carbon::now()->subDays(6)->endOfDay()
+                    ]);
+                }
 
             })
             ->where('moho', 0)

@@ -5,9 +5,11 @@ namespace App\Livewire\AnalisisLinea\Solicitud;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use App\Models\SolicitudAnalisisLinea;
+use Livewire\WithPagination;
 
 class Tabla extends Component
 {
+    use WithPagination;
 
     //filtros-busqueda
     public $f_orp = null;
@@ -55,7 +57,7 @@ class Tabla extends Component
     public function render()
     {
         $this->aplicandoFiltros = $this->hayFiltrosActivos();
-       
+
         $query = SolicitudAnalisisLinea::query()
             ->when($this->f_orp, function ($query) {
                 return $query->whereHas('AnalisisLinea.solicitudAnalisisLinea.estadoPlanta.estadoDetalle.orp', function ($query) {
@@ -101,8 +103,8 @@ class Tabla extends Component
                 $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
             });
 
-            $solicitudes = $this->aplicandoFiltros ? $query->get() : $query->paginate(50);
-          
+            $solicitudes = $query->paginate(40);
+
 
         return view('livewire.analisis-linea.solicitud.tabla', [
             'solicitudes' => $solicitudes

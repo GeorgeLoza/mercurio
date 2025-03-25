@@ -74,7 +74,7 @@ class Certificados extends Component
         })
         ->orderBy('id', 'desc'); // Ordenar de manera descendente por ID
 
-        $fisicos = $this->aplicandoFiltros ? $query1->get() : $query1->paginate(100)->withQueryString();
+        $fisicos =  $query1->paginate(50)->withQueryString();
 
 
 

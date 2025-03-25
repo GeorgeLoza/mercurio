@@ -12,12 +12,14 @@ use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\DatosExport;
 use App\Models\Orp;
+use Livewire\WithPagination;
+
 
 class Tabla extends Component
 {
     // descarga excel
 
-
+    use WithPagination;
     public $anio;  // Año, por ejemplo: 2024
     public $mes;    // Mes, por ejemplo: 6 (junio)
 
@@ -107,7 +109,7 @@ class Tabla extends Component
 
     // public function exportarExcel( )
 
-    // {  
+    // {
 
     //     $this->validate();
 

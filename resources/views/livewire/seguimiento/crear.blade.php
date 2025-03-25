@@ -1,19 +1,25 @@
 <div class="p-4 space-y-4">
     <h2 class="text-lg font-semibold">Crear Seguimientos</h2>
 
+    <div class="mb-2">
+        <label for="buscar_orp" class="block text-sm font-medium">Buscar ORP por código</label>
+        <input type="text" wire:model.live.debounce.500ms="buscar_orp" id="buscar_orp" placeholder="Escribe el código..." class="w-full border border-gray-500 rounded p-2 dark:bg-slate-800"" />
+    </div>
+
     <div>
         <label for="orp_id" class="block text-sm font-medium">ORP</label>
         <select wire:model.live="orp_id" id="orp_id" class="w-full border border-gray-500 rounded p-2">
             <option class="dark:bg-slate-800" value="">Seleccione una ORP</option>
             @foreach ($orps as $orp)
-                <option class="dark:bg-slate-800"  value="{{ $orp->id }}">{{ $orp->codigo }}-{{$orp->producto->nombre}}</option>
+                <option class="dark:bg-slate-800" value="{{ $orp->id }}">{{ $orp->codigo }} - {{ $orp->producto->nombre }}</option>
             @endforeach
         </select>
         @error('orp_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
     </div>
+
     <div>
         <label for="origen_id" class="block text-sm font-medium">Origen</label>
-        <select wire:model="origen_id" id="origen_id" class="w-full border border-gray-500 rounded p-2 ">
+        <select wire:model.live="origen_id" id="origen_id" class="w-full border border-gray-500 rounded p-2 ">
             <option class="dark:bg-slate-800"  value="">Seleccione un origen</option>
             @foreach ($origens as $origen)
                 <option class="dark:bg-slate-800"  value="{{ $origen->id }}">{{ $origen->alias }}</option>

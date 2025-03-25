@@ -1,7 +1,7 @@
 <div @if (auth()->user()->rol == 'FQ') wire:poll.10s @endif>
     <div class="flex mb-2 gap-2">
-      
-       
+
+
     </div>
     {{-- filtrado de datos al descargar --}}
     <div  class="flex justify-between m-2 ">
@@ -31,12 +31,12 @@
         <option value="12">Diciembre</option>
     </select>
      @error('mes') <span class="text-red-500 text-base">{{ $message }}</span> @enderror
-    
+
 
     <label >Año:</label>
-    
-    <input id=¨yr¨  type="number" 
-    min="2024" 
+
+    <input id=¨yr¨  type="number"
+    min="2024"
     max="2100"  class="rounded p-1 text-black" placeholder=" año" wire:model.defer="anio">
     @error('anio') <span class="text-red-500 text-base">{{ $message }}</span> @enderror
 
@@ -61,21 +61,21 @@
 
 
 
-        
+
         <div>
             <button wire:click="show_filtro">
 
         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-gray-700 dark:fill-gray-300" viewBox="0 0 512 512">
             <path
                 d="M3.9 54.9C10.5 40.9 24.5 32 40 32H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L320 320.9V448c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48c-8.1-6-12.8-15.5-12.8-25.6V320.9L9 97.3C-.7 85.4-2.8 68.8 3.9 54.9z" />
-        </svg> 
+        </svg>
         </div>
-      
+
     </button>
-   
+
     </div>
-   
-    
+
+
 
 
 
@@ -353,30 +353,11 @@
 
         </table>
     </div>
-    @if (!$aplicandoFiltros)
-        @if (auth()->user()->rol == 'FQ')
-        @else
+
             <div>
-                {{ $calidades->links('pagination::tailwind') }}
+                {{ $calidades->links() }}
             </div>
-        @endif
-    @endif
-    {{-- <div wire:loading>
-        <div
-            class="fixed inset-0 flex items-center justify-center bg-gray-50 bg-opacity-75 dark:bg-gray-800 dark:bg-opacity-75 z-50">
-            <div role="status">
-                <svg aria-hidden="true" class="w-16 h-16 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
-                    viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                        fill="currentColor" />
-                    <path
-                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                        fill="currentFill" />
-                </svg>
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div>
-    </div> --}}
+
+
 
 </div>

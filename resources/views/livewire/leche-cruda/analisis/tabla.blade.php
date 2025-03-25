@@ -127,10 +127,11 @@
                 @if ($filtro == true)
                     <!-- fila de filtros -->
                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                        <th class="p-1">
+                        <th class="p-1 ">
                             <input type="text" wire:model.live='f_tiempo' placeholder="Filtrar por Tiempo"
                                 class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         </th>
+                        <th></th>
                         <th class="p-1">
                             <input type="text" wire:model.live='f_subruta' placeholder="Filtrar por Subruta"
                                 class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -182,8 +183,8 @@
                             <!--Observaciones-->
                         </th>
                         <th class="p-1">
-                            <input type="text" wire:model.live='f_user' placeholder="Filtrar por Cantidad"
-                                class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            {{-- <input type="text" wire:model.live='f_user' placeholder="Filtrar por Cantidad"
+                                class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"> --}}
                         </th>
                     </tr>
                 @endif
@@ -472,11 +473,11 @@
 
         </table>
     </div>
-    @if (!$aplicandoFiltros)
+
         <div>
-            {{ $registros->links('pagination::tailwind') }}
+            {{ $registros->links() }}
         </div>
-    @endif
+
 
 
 

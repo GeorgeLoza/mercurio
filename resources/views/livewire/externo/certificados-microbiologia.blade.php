@@ -13,9 +13,7 @@
 
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col" class="px-1 py-0">
-                            #
-                        </th>
+
                         <th scope="col" class="px-1 py-0">
                             Código
                         </th>
@@ -53,12 +51,10 @@
                         </th>
                     </tr>
                     <tr>
-                        <th scope="col" class="px-1 py-0">
 
-                        </th>
                         <th scope="col" class="px-1 py-0">
                             <input type="text" id="" wire:model.live='f_codigo'
-                                class="bg-gray-50 w-32 border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="bg-gray-50 w-20 border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="">
                         </th>
                         <th></th>
@@ -107,9 +103,7 @@
                     @foreach ($micros as $index => $micro)
                         <tr
                             class=" border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <td class="  px-1 py-0 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $index + 1 }}
-                            </td>
+
                             <td scope="row"
                                 class="px-1 py-0 font-medium text-gray-900 whitespace-nowrap dark:text-white" nowrap>
                                 {{ $micro->detalleSolicitudPlanta->subcodigo }}</td>

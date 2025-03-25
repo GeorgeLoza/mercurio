@@ -189,9 +189,8 @@
 
         </table>
     </div>
-    @if (!$aplicandoFiltros)
         <div>
-            {{ $solicitudes->links('pagination::tailwind') }}
+            {{ $solicitudes->links() }}
         </div>
-    @endif
+
 </div>

@@ -10,8 +10,12 @@ use App\Models\RecepcionLeche;
 use App\Models\SolicitudAnalisisLinea;
 use Carbon\Carbon;
 
+use Livewire\WithPagination;
+
 class Tabla extends Component
 {
+
+    use WithPagination;
 
     //filtros-busqueda
     public $f_orp = null;
@@ -119,7 +123,7 @@ class Tabla extends Component
                 $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
             });
 
-        $calidades = $this->aplicandoFiltros ? $query->get() : $query->paginate(50);
+        $calidades =  $query->paginate(50);
 
         $pendiente = RecepcionLeche::where('estado', 'pendiente')
             ->where('created_at', '>=', Carbon::now()->subMinutes(20))

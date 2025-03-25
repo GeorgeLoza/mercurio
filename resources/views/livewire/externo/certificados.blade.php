@@ -8,9 +8,7 @@
             <table class="w-full  text-xs text-center text-gray-500 dark:text-gray-400 items-center justify-center">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col" class="px-0 py-0">
-                            #
-                        </th>
+
                         <th scope="col" class="px-0 py-0">
                             Codigo
                         </th>
@@ -50,9 +48,7 @@
 
                     </tr>
                     <tr>
-                        <th scope="col" class="px-1 py-0">
 
-                        </th>
                         <th scope="col" class="px-1 py-0    flex justify-center">
                             <input type="text" id="" wire:model.live='f_codigo'
                                 class="w-20 bg-gray-50 border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -103,9 +99,7 @@
                     @foreach ($fisicos as $index => $fis)
                         <tr
                             class="b-500 border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <td class="  px-1 py-0 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $index + 1 }}
-                            </td>
+
                             <td scope="row"
                                 class="px-1 py-0 font-medium text-gray-900 whitespace-nowrap dark:text-white" nowrap>
                                 {{ $fis->subcodigo }}</td>
@@ -134,9 +128,9 @@
                                         pH:{{ $fis->ph }},Dure:{{ $fis->dureza }},Clor:{{ $fis->cloruros }},Cond:{{ $fis->conductividad }}
                                     </td>
                                 @else
-                                
+
                                     <td class="px-1 py-0" nowrap>
-                                        
+
                                         {{ $fis->actividadAgua->temperatura ?? '-'  }}
                                     </td>
                                     <td class="px-1 py-0" nowrap>{{ $fis->actividadAgua->por_hum_rel ?? '-' }}</td>
@@ -213,11 +207,10 @@
 
             </table>
 
-            @if (!$aplicandoFiltros)
                 <div>
-                    {{ $fisicos->links('pagination::tailwind') }}
+                    {{ $fisicos->links() }}
                 </div>
-            @endif
+
 
 
             <!--Tabla de microbiologia-->

@@ -6,10 +6,11 @@ use Livewire\Component;
 use App\Models\Contador;
 use App\Models\RecepcionLeche;
 use Livewire\Attributes\On;
+use Livewire\WithPagination;
 
 class Tabla extends Component
 {
-
+    use WithPagination;
 
     //filtros-busqueda
     public $f_tiempo = null;
@@ -55,18 +56,18 @@ class Tabla extends Component
     public function render()
     {
         $this->aplicandoFiltros = $this->hayFiltrosActivos();
-       
+
         $query = RecepcionLeche::query()
             ->when($this->f_tiempo, function ($query) {
                 return $query->where('tiempo', 'like', '%' . $this->f_tiempo . '%');
             })
-            
-            ->when($this->f_ruta, function ($query) { 
+
+            ->when($this->f_ruta, function ($query) {
                return $query->whereHas('subruta_acopio.ruta_acopio', function ($query) {
                         $query->where('nombre', 'like', '%' . $this->f_ruta . '%');
                     });
                 })
-            
+
             ->when($this->f_subruta, function ($query) {
                 return $query->whereHas('subruta_acopio', function ($query) {
                     $query->where('nombre', 'like', '%' . $this->f_subruta . '%');
@@ -85,11 +86,11 @@ class Tabla extends Component
                             ->orWhere('apellido', 'like', '%' . $this->f_user . '%');
                     });
                 });
-            }) 
+            })
             ->when($this->sortField, function ($query) {
                 $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
             });
-            $recepciones = $this->aplicandoFiltros ? $query->get() : $query->paginate(50); 
+            $recepciones = $query->paginate(50);
 
 
         return view('livewire.leche-cruda.recepcion.tabla', [

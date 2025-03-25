@@ -143,7 +143,7 @@
         </table>
     </div>
     <div>
-        {{ $aguaFisico->links('pagination::tailwind') }}
+        {{ $aguaFisico->links() }}
     </div>
 
 </div>
