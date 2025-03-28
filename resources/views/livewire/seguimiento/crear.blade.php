@@ -1,57 +1,57 @@
 <div class="p-4 space-y-4">
     <h2 class="text-lg font-semibold">Crear Seguimientos</h2>
 
+
     <div class="mb-2">
         <label for="buscar_orp" class="block text-sm font-medium">Buscar ORP por código</label>
-        <input type="text" wire:model.live.debounce.500ms="buscar_orp" id="buscar_orp" placeholder="Escribe el código..." class="w-full border border-gray-500 rounded p-2 dark:bg-slate-800"" />
+        <input type="text" wire:model.live.debounce.500ms="buscar_orp" id="buscar_orp" placeholder="Escribe el código..." class="w-full border border-gray-500 rounded p-2 dark:bg-slate-800" />
     </div>
 
-    <div>
+    <div class="mb-2">
         <label for="orp_id" class="block text-sm font-medium">ORP</label>
         <select wire:model.live="orp_id" id="orp_id" class="w-full border border-gray-500 rounded p-2">
             <option class="dark:bg-slate-800" value="">Seleccione una ORP</option>
             @foreach ($orps as $orp)
-                <option class="dark:bg-slate-800" value="{{ $orp->id }}">{{ $orp->codigo }} - {{ $orp->producto->nombre }}</option>
+                <option class="dark:bg-slate-800"  value="{{ $orp->id }}">{{ $orp->codigo }} - {{ $orp->producto->nombre }}</option>
             @endforeach
         </select>
-        @error('orp_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+        @error('orp_id')
+            <span class="text-red-500 text-sm">{{ $message }}</span>
+        @enderror
     </div>
 
-    <div>
-        <label for="origen_id" class="block text-sm font-medium">Origen</label>
-        <select wire:model.live="origen_id" id="origen_id" class="w-full border border-gray-500 rounded p-2 ">
-            <option class="dark:bg-slate-800"  value="">Seleccione un origen</option>
-            @foreach ($origens as $origen)
-                <option class="dark:bg-slate-800"  value="{{ $origen->id }}">{{ $origen->alias }}</option>
-            @endforeach
-        </select>
-        @error('origen_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-    </div>
+    @if ($orp_id)
+        <div>
+            <h3 class="text-lg font-medium">Seleccione los rangos de número para cada origen</h3>
+            <div class="grid grid-cols-3 gap-4 mt-1">
+                @foreach ($origens as $origen)
+                    @php
+                        $bgColor = match (true) {
+                            in_array($origen->alias, ['1A', '1B', '1C']) => 'bg-green-300',
+                            in_array($origen->alias, ['2A', '2B']) => 'bg-blue-300',
+                            in_array($origen->alias, ['3A', '3B']) => 'bg-purple-300',
+                            default => 'bg-gray-500',
+                        };
+                    @endphp
 
-    <div>
-        <label for="modo" class="block text-sm font-medium">Modo de creación</label>
-        <select wire:model.live="modo" id="modo" class="w-full border border-gray-500 rounded p-2">
-            <option class="dark:bg-slate-800"  value="1-n">Del 1 hasta N</option>
-            <option class="dark:bg-slate-800"  value="m-n">Desde M hasta N</option>
-        </select>
-    </div>
+                    <div class="mb-2 flex gap-2 items-center pl-1 rounded {{ $bgColor }}">
+                        <label class="block text-sm font-medium text-black pl-1 ">{{ $origen->alias }}:</label>
+                        <div class="flex">
+                            <input wire:model="rango_origen.{{ $origen->id }}.desde" type="number" min="1"
+                                class="w-full border border-gray-500 rounded p-2 dark:bg-slate-800" placeholder="Desde">
+                            <input wire:model="rango_origen.{{ $origen->id }}.hasta" type="number" min="1"
+                                class="w-full border border-gray-500 rounded p-2 dark:bg-slate-800" placeholder="Hasta">
+                        </div>
+                        @error("rango_origen.{$origen->id}.desde")
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
+                        @error("rango_origen.{$origen->id}.hasta")
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
+                    </div>
+                @endforeach
 
-    @if ($modo === '1-n')
-        <div>
-            <label for="numero" class="block text-sm font-medium">Número de registros a crear (del 1 al N)</label>
-            <input wire:model="numero" type="number" min="1" class="w-full border border-gray-500 rounded p-2 dark:bg-slate-800" id="numero">
-            @error('numero') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-        </div>
-    @else
-        <div>
-            <label class="block text-sm font-medium">Desde</label>
-            <input wire:model="desde" type="number" min="1" class="w-full border border-gray-500 rounded p-2 dark:bg-slate-800">
-            @error('desde') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-        </div>
-        <div>
-            <label class="block text-sm font-medium">Hasta</label>
-            <input wire:model="hasta" type="number" min="1" class="w-full border border-gray-500 rounded p-2 dark:bg-slate-800">
-            @error('hasta') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+            </div>
         </div>
     @endif
 
@@ -59,8 +59,9 @@
         <button wire:click="guardar" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
             Guardar
         </button>
-        <button wire:click="$emit('closeModal')" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">
+        <button wire:click="$dispatch('closeModal')" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">
             Cancelar
         </button>
+
     </div>
 </div>

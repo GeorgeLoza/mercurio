@@ -12,64 +12,54 @@ use Carbon\Carbon;
 class Crear extends ModalComponent
 {
     public $buscar_orp = '';
-
-    public $origen_id;
     public $orp_id;
-    public $modo = '1-n'; // valores posibles: '1-n' o 'm-n'
-    public $numero;       // para el modo 1-n
-    public $desde;        // para el modo m-n
-    public $hasta;
+public $origens = []; // Para almacenar los orígenes asociados a la ORP seleccionada.
+public $rango_origen = []; // Para almacenar los rangos 'desde' y 'hasta' para cada origen.
 
-    public function guardar()
-    {
-        $this->validate([
-            'origen_id' => 'required|exists:origens,id',
-            'modo' => 'required|in:1-n,m-n',
-            'numero' => 'required_if:modo,1-n|nullable|integer|min:1',
-            'desde' => 'required_if:modo,m-n|nullable|integer|min:1',
-            'hasta' => 'required_if:modo,m-n|nullable|integer|gte:desde',
-        ]);
+public function updatedOrpId($orp_id)
+{
+    // Al cambiar la ORP seleccionada, obtenemos los orígenes asociados
+    if ($orp_id) {
+        $this->origens = Origen::whereBetween('id', [27, 33])
+        ->whereHas('estadoPlanta.estadoDetalle', function ($query) use ($orp_id) {
+            $query->where('orp_id', $orp_id);
+        })->get();
+    } else {
+        $this->origens = [];
+    }
+}
 
-        if ($this->modo === '1-n') {
-            for ($i = 1; $i <= $this->numero; $i++) {
-                Seguimiento::create([
-                    'origen_id' => $this->origen_id,
-                    'numero' => $i,
-                    'orp_id' => $this->orp_id,
-                    'rt' => 0,
-                    'fechaSiembra' => now()->hour >= 22 ? now()->addDay()->startOfDay() : now(),
+public function guardar()
+{
+    $this->validate([
+        'orp_id' => 'required|exists:orps,id',
+        'rango_origen.*.desde' => 'required|integer|min:1', // Validar cada 'desde'
+        'rango_origen.*.hasta' => 'required|integer|gte:rango_origen.*.desde', // Validar cada 'hasta'
+    ]);
 
-                    'usuario_siembra' =>  auth()->user()->id
-
-
-                ]);
-            }
-        } else {
-            for ($i = $this->desde; $i <= $this->hasta; $i++) {
-                Seguimiento::create([
-                    'origen_id' => $this->origen_id,
-                    'numero' => $i,
-                    'orp_id' => $this->orp_id,
-                    'rt' => 0,
-                    'fechaSiembra' => now()->hour >= 22 ? now()->addDay()->startOfDay() : now(),
-
-
-                    'usuario_siembra' =>  auth()->user()->id
-
-                ]);
-            }
+    // Crear los registros para cada origen con el rango correspondiente
+    foreach ($this->rango_origen as $origen_id => $rango) {
+        for ($i = $rango['desde']; $i <= $rango['hasta']; $i++) {
+            Seguimiento::create([
+                'origen_id' => $origen_id,
+                'numero' => $i,
+                'orp_id' => $this->orp_id,
+                'rt' => 0,
+                'fechaSiembra' => now()->hour >= 22 ? now()->addDay()->startOfDay() : now(),
+                'usuario_siembra' => auth()->user()->id
+            ]);
         }
-
-        $this->dispatch('actualizar_tabla_seguimiento');
-        $this->closeModal();
-        session()->flash('success', 'Seguimientos creados correctamente.');
-        $this->reset();
-
     }
 
-    public function render()
-    {
-        $orp_id = $this->orp_id;
+    $this->dispatch('actualizar_tabla_seguimiento');
+    $this->closeModal();
+    session()->flash('success', 'Seguimientos creados correctamente.');
+    $this->reset();
+}
+
+public function render()
+{
+    $orp_id = $this->orp_id;
         $orps = Orp::whereHas('producto.categoriaProducto', function ($query) {
             $query->where('grupo', 'UHT');
         })
@@ -84,19 +74,10 @@ class Crear extends ModalComponent
         ->orderBy('id', 'desc')
         ->take(50)
         ->get();
+    return view('livewire.seguimiento.crear', [
+        'orps' => $orps, // Cargar todas las ORP
+    ]);
+}
 
 
-        $origenes = Origen::whereBetween('id', [27, 33])
-            ->whereHas('estadoPlanta.estadoDetalle', function ($query) use ($orp_id) {
-                $query->where('orp_id', $this->orp_id);
-            })
-            ->get();
-
-
-        return view('livewire.seguimiento.crear', [
-            'origens' => $origenes,
-            'orps' => $orps,
-
-        ]);
-    }
 }
