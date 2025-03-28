@@ -74,6 +74,11 @@ class Tabla extends Component
         }
     }
 
+    public function eliminar($id)
+    {
+        $microbiologia = Seguimiento::findOrFail($id);
+        $microbiologia->delete();
+    }
 
 
     public function firmar()

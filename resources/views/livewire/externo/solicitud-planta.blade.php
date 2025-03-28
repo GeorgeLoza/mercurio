@@ -82,6 +82,7 @@
                         </button>
 
                         <!--boton para eliminar-->
+
                         <button wire:click="eliminar({{ $solicitud->id }})"
                             wire:confirm="Esta seguro de eliminar el elemento?">
 
@@ -218,10 +219,11 @@
 
                                                         <button wire:click="edit({{ $detalle->id }})"
                                                             class="bg-blue-500 text-white px-2 py-1 m-2 rounded">Editar</button>
-
+                                                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 32)->where('permiso_id', 4)->isNotEmpty())
                                                         <button wire:click="eliminar_detalle({{ $detalle->id }})"
                                                             wire:confirm="Esta seguro de eliminar el elemento?"
                                                             class="bg-red-500 text-white px-2 py-1 m-2 rounded">Eliminar</button>
+                                                            @endif
 
                                                         <!-- Botones adicionales para cambiar los estados -->
                                                         <button wire:click="confirmar({{ $detalle->id }})"

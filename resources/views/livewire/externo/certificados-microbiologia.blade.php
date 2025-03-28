@@ -20,6 +20,12 @@
                         <th scope="col" class="px-1 py-0">
                             Fecha
                         </th>
+
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
+                        <th scope="col" class="px-1 py-0">
+                            Fecha siembra
+                        </th>
+                        @endif
                         <th scope="col" class="px-1 py-0">
                             Producto
                         </th>
@@ -58,6 +64,11 @@
                                 placeholder="">
                         </th>
                         <th></th>
+
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
+                        <th></th>
+                        @endif
+
                         <th scope="col" class="px-1 py-0">
                             <input type="text" id="" wire:model.live='f_producto'
                                 class="bg-gray-50  border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -112,7 +123,18 @@
                                 {{ \Carbon\Carbon::parse($micro->detalleSolicitudPlanta->solicitudPlanta->tiempo)->isoFormat('DD-MM-YY', 0, 'es') }}
 
                             </td>
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
+                            <td scope="row"
+                                class="px-1 py-0 font-medium text-gray-900 whitespace-nowrap dark:text-white" nowrap>
+                                @if ($micro->fecha_sembrado)
 
+                                {{ \Carbon\Carbon::parse($micro->fecha_sembrado)->isoFormat('DD-MM-YY', 0, 'es') }}
+                                @else
+                                -
+                                @endif
+
+                            </td>
+                            @endif
                             <td class="px-1 py-0 ">
                                 @if ($micro->detalleSolicitudPlanta->productosPlanta)
                                     {{ $micro->detalleSolicitudPlanta->productosPlanta->nombre }}
@@ -126,6 +148,7 @@
                             </td>
 
                             @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
+
                                 <td class="px-1 py-0" nowrap>
                                     {{ $micro->detalleSolicitudPlanta->user->planta->nombre }}
                                 </td>

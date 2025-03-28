@@ -7,7 +7,7 @@
 
         {{-- yogurt --}}
         @if ($reporte->producto->categoriaProducto->tipo == 'yogurts')
-            <a href="{{ route('descargarYog.pdf', ['id' => $id]) }}" target="_blank"
+            <a href="{{ route('descargarYog.pdf', ['id' => $id]) }}"
                 class=" text-white font-bold py-2 px-4 rounded">
 
                 <button class="bg-green-600 p-2 text-center rounded-md flex gap-2"
@@ -44,7 +44,7 @@
 
         {{-- jugos --}}
         @if ($reporte->producto->categoriaProducto->tipo == 'jugos')
-        <a href="{{ route('descargarJugo.pdf', ['id' => $id]) }}" target="_blank"
+        <a href="{{ route('descargarJugo.pdf', ['id' => $id]) }}"
             class=" text-white font-bold py-2 px-4 rounded">
             <button class="bg-green-600 p-2 text-center rounded-md flex gap-2"
                 wire:loading.attr="disabled">
@@ -82,7 +82,7 @@
 
 
         @if ($reporte->producto->categoriaProducto->tipo == 'lacteas')
-            <a href="{{ route('descargarLac.pdf', ['id' => $id]) }}" target="_blank"
+            <a href="{{ route('descargarLac.pdf', ['id' => $id]) }}"
                 class=" text-white font-bold py-2 px-4 rounded">
 
                 <button class="bg-green-600 p-2 text-center rounded-md flex gap-2" wire:loading.attr="disabled">
@@ -118,7 +118,7 @@
 
         @if ($reporte->producto->categoriaProducto->grupo == 'UHT')
             {{-- UHT --}}
-            <a href="{{ route('descargarUHT.pdf', ['id' => $id]) }}" target="_blank"
+            <a href="{{ route('descargarUHT.pdf', ['id' => $id]) }}"
                 class=" text-white font-bold py-2 px-4 rounded">
 
                 <button class="bg-green-600 p-2 text-center rounded-md flex gap-2" wire:loading.attr="disabled">

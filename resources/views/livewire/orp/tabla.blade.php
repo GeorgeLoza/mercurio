@@ -201,7 +201,7 @@
                         <th scope="row"
                             class="sticky flex py-1  bg-white  p-1 left-0 z-10 px-1  font-medium text-gray-900 whitespace-nowrap dark:text-white dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50  dark:hover:bg-gray-600 rounded-lg">
                             <!--boton reporte ORP-->
-                            <a target="_blank" href="{{ route('orp.report', ['id' => $orp->id]) }}"
+                            <a  href="{{ route('orp.report', ['id' => $orp->id]) }}"
                                 class="rounded-md mr-4">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-5 w-5"
                                     viewBox="0 0 512 512">
