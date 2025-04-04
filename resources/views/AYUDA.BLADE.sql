@@ -1,102 +1,32 @@
-<?php
+update analisis_lineas
+set tiempo = case
+    when solicitud_analisis_linea_id = 22383 THEN '2025-04-01 01:29:25'
+    when solicitud_analisis_linea_id = 22384 THEN '2025-04-01 01:30:25'
+    when solicitud_analisis_linea_id = 22385 THEN '2025-04-01 01:31:25'
+    when solicitud_analisis_linea_id = 22387 THEN '2025-04-01 01:51:25'
+    when solicitud_analisis_linea_id = 22388 THEN '2025-04-01 01:51:25'
+    when solicitud_analisis_linea_id = 22389 THEN '2025-04-01 01:53:25'
+    when solicitud_analisis_linea_id = 22392 THEN '2025-04-01 02:18:25'
+    when solicitud_analisis_linea_id = 22393 THEN '2025-04-01 02:18:25'
+    when solicitud_analisis_linea_id = 22394 THEN '2025-04-01 02:18:25'
+    when solicitud_analisis_linea_id = 22397 THEN '2025-04-01 02:41:25'
+    when solicitud_analisis_linea_id = 22398 THEN '2025-04-01 02:45:25'
+    when solicitud_analisis_linea_id = 22399 THEN '2025-04-01 02:45:25'
+    when solicitud_analisis_linea_id = 22401 THEN '2025-04-01 02:59:25'
+    when solicitud_analisis_linea_id = 22402 THEN '2025-04-01 02:59:25'
+    when solicitud_analisis_linea_id = 22403 THEN '2025-04-01 02:59:25'
 
-namespace App\Livewire\Seguimiento;
-
-use Livewire\Component;
-use LivewireUI\Modal\ModalComponent;
-use App\Models\Origen;
-use App\Models\Orp;
-use App\Models\Seguimiento;
-use Carbon\Carbon;
-
-class Crear extends ModalComponent
-{
-    public $buscar_orp = '';
-
-    public $origen_id;
-    public $orp_id;
-    public $modo = '1-n'; // valores posibles: '1-n' o 'm-n'
-    public $numero;       // para el modo 1-n
-    public $desde;        // para el modo m-n
-    public $hasta;
-
-    public function guardar()
-    {
-        $this->validate([
-            'origen_id' => 'required|exists:origens,id',
-            'modo' => 'required|in:1-n,m-n',
-            'numero' => 'required_if:modo,1-n|nullable|integer|min:1',
-            'desde' => 'required_if:modo,m-n|nullable|integer|min:1',
-            'hasta' => 'required_if:modo,m-n|nullable|integer|gte:desde',
-        ]);
-
-        if ($this->modo === '1-n') {
-            for ($i = 1; $i <= $this->numero; $i++) {
-                Seguimiento::create([
-                    'origen_id' => $this->origen_id,
-                    'numero' => $i,
-                    'orp_id' => $this->orp_id,
-                    'rt' => 0,
-                    'fechaSiembra' => now()->hour >= 22 ? now()->addDay()->startOfDay() : now(),
-
-                    'usuario_siembra' =>  auth()->user()->id
+    when solicitud_analisis_linea_id = 22405 THEN '2025-04-01 03:17:25'
+    when solicitud_analisis_linea_id = 22407 THEN '2025-04-01 03:18:25'
+    when solicitud_analisis_linea_id = 22409 THEN '2025-04-01 03:18:25'
+    when solicitud_analisis_linea_id = 22411 THEN '2025-04-01 03:31:25'
+    when solicitud_analisis_linea_id = 22412 THEN '2025-04-01 03:32:25'
+    when solicitud_analisis_linea_id = 22413 THEN '2025-04-01 03:34:25'
+    when solicitud_analisis_linea_id = 22415 THEN '2025-04-01 03:58:25'
+    when solicitud_analisis_linea_id = 22416 THEN '2025-04-01 03:58:25'
+    when solicitud_analisis_linea_id = 22417 THEN '2025-04-01 03:59:25'
 
 
-                ]);
-            }
-        } else {
-            for ($i = $this->desde; $i <= $this->hasta; $i++) {
-                Seguimiento::create([
-                    'origen_id' => $this->origen_id,
-                    'numero' => $i,
-                    'orp_id' => $this->orp_id,
-                    'rt' => 0,
-                    'fechaSiembra' => now()->hour >= 22 ? now()->addDay()->startOfDay() : now(),
-
-
-                    'usuario_siembra' =>  auth()->user()->id
-
-                ]);
-            }
-        }
-
-        $this->dispatch('actualizar_tabla_seguimiento');
-        $this->closeModal();
-        session()->flash('success', 'Seguimientos creados correctamente.');
-        $this->reset();
-
-    }
-
-    public function render()
-    {
-        $orp_id = $this->orp_id;
-        $orps = Orp::whereHas('producto.categoriaProducto', function ($query) {
-            $query->where('grupo', 'UHT');
-        })
-        ->where('estado', 'Completado')
-        ->whereBetween('updated_at', [
-            Carbon::now()->subDays(7)->startOfDay(),
-            Carbon::now()->subDays(3)->endOfDay()
-        ])
-        ->when($this->buscar_orp, function ($query) {
-            $query->where('codigo', 'like', '%' . $this->buscar_orp . '%');
-        })
-        ->orderBy('id', 'desc')
-        ->take(50)
-        ->get();
-
-
-        $origenes = Origen::whereBetween('id', [27, 33])
-            ->whereHas('estadoPlanta.estadoDetalle', function ($query) use ($orp_id) {
-                $query->where('orp_id', $this->orp_id);
-            })
-            ->get();
-
-
-        return view('livewire.seguimiento.crear', [
-            'origens' => $origenes,
-            'orps' => $orps,
-
-        ]);
-    }
-}
+    end
+where solicitud_analisis_linea_id in (
+22383,22384,22385,22387,22388,22389,22392,22393,22394,22397,22398,22399,22401,22402,22403,22405,22407,22409,22411,22412,22413,22415,22416,22417);

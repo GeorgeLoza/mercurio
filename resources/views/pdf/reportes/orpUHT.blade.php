@@ -323,11 +323,11 @@
                         'Envasado' => [],
                     ];
 
-
                 @endphp
             </table>
 
             <br>
+
 
 
             <table class="table-container " style="  font-wheight:0">
@@ -405,10 +405,9 @@
 
                                 @if ($analisis->acidez)
                                     @if ($analisis->acidez == 0)
-                                    <th>-</th>
+                                        <th>-</th>
                                     @else
-
-                                    <th>{{ $analisis->acidez }}</th>
+                                        <th>{{ $analisis->acidez }}</th>
                                     @endif
                                 @else
                                     <th>-</th>
@@ -478,7 +477,23 @@
                 </tbody>
 
             </table>
+            <br>
 
+            <table class="table-container">
+                <tbody>
+                    <tr>
+                        <th>
+                            <span style="font-weight:bold;">
+                                Cabezales habilitados:
+                            </span>
+                            @foreach ($origens as $origen)
+                                {{ $origen->alias }}
+                            @endforeach
+                        </th>
+
+                    </tr>
+                </tbody>
+            </table>
 
             <br>
             <table class="table-container">
@@ -565,15 +580,14 @@
                                 @endif
 
                                 @if ($analisis->acidez)
-                                @if ($analisis->acidez == 0)
-                                <th>-</th>
+                                    @if ($analisis->acidez == 0)
+                                        <th>-</th>
+                                    @else
+                                        <th>{{ $analisis->acidez }}</th>
+                                    @endif
                                 @else
-
-                                <th>{{ $analisis->acidez }}</th>
+                                    <th>-</th>
                                 @endif
-                            @else
-                                <th>-</th>
-                            @endif
 
                                 @if ($analisis->brix)
                                     <th>{{ $analisis->brix }}</th>

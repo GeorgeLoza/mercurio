@@ -119,9 +119,9 @@
                 <tr>
                     <th>Lugar y Fecha de Emisión: </th>
                     <td>El Alto,
-                        {{ \Carbon\Carbon::parse($datosSolicitud->updated_at)->isoFormat(
-                            'dddd D [de] MMMM
-                                                [de] YYYY',
+                        {{ \Carbon\Carbon::parse($resultados->tiempo)->isoFormat(
+                            'dddd[,] D [de] MMMM [de]
+                                                YYYY',
                             0,
                             'es',
                         ) }}

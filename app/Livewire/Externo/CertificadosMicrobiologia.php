@@ -83,7 +83,7 @@ class CertificadosMicrobiologia extends Component
             })
             ->orderBy('id', 'desc'); // Ordenar de manera descendente según el id;
 
-        $micros = $this->aplicandoFiltros ? $query->get() : $query->paginate(100)->withQueryString();
+        $micros = $query->paginate(100)->withQueryString();
 
 
         return view('livewire.externo.certificados-microbiologia', [

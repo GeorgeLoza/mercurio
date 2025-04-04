@@ -4,7 +4,8 @@
 
     <div class="mb-2">
         <label for="buscar_orp" class="block text-sm font-medium">Buscar ORP por código</label>
-        <input type="text" wire:model.live.debounce.500ms="buscar_orp" id="buscar_orp" placeholder="Escribe el código..." class="w-full border border-gray-500 rounded p-2 dark:bg-slate-800" />
+        <input type="text" wire:model.live.debounce.500ms="buscar_orp" id="buscar_orp" placeholder="Escribe el código..."
+            class="w-full border border-gray-500 rounded p-2 dark:bg-slate-800" />
     </div>
 
     <div class="mb-2">
@@ -12,7 +13,8 @@
         <select wire:model.live="orp_id" id="orp_id" class="w-full border border-gray-500 rounded p-2">
             <option class="dark:bg-slate-800" value="">Seleccione una ORP</option>
             @foreach ($orps as $orp)
-                <option class="dark:bg-slate-800"  value="{{ $orp->id }}">{{ $orp->codigo }} - {{ $orp->producto->nombre }}</option>
+                <option class="dark:bg-slate-800" value="{{ $orp->id }}">{{ $orp->codigo }} -
+                    {{ $orp->producto->nombre }}</option>
             @endforeach
         </select>
         @error('orp_id')
@@ -20,7 +22,34 @@
         @enderror
     </div>
 
-    @if ($orp_id)
+    <div class="mb-2">
+        <label for="orp_id2" class="block text-sm font-medium">ORP 2</label>
+        <select wire:model.live="orp_id2" id="orp_id2" class="w-full border border-gray-500 rounded p-2">
+            <option class="dark:bg-slate-800" value="">Seleccione una ORP</option>
+            @foreach ($orps as $orp)
+                <option class="dark:bg-slate-800" value="{{ $orp->id }}">{{ $orp->codigo }} -
+                    {{ $orp->producto->nombre }}</option>
+            @endforeach
+        </select>
+        @error('orp_id2')
+            <span class="text-red-500 text-sm">{{ $message }}</span>
+        @enderror
+    </div>
+    <div class="mb-2">
+        <label for="orp_id3" class="block text-sm font-medium">ORP 2</label>
+        <select wire:model.live="orp_id3" id="orp_id3" class="w-full border border-gray-500 rounded p-2">
+            <option class="dark:bg-slate-800" value="">Seleccione una ORP</option>
+            @foreach ($orps as $orp)
+                <option class="dark:bg-slate-800" value="{{ $orp->id }}">{{ $orp->codigo }} -
+                    {{ $orp->producto->nombre }}</option>
+            @endforeach
+        </select>
+        @error('orp_id3')
+            <span class="text-red-500 text-sm">{{ $message }}</span>
+        @enderror
+    </div>
+
+    @if ($orp_id || $orp_id2 || $orp_id3)
         <div>
             <h3 class="text-lg font-medium">Seleccione los rangos de número para cada origen</h3>
             <div class="grid grid-cols-3 gap-4 mt-1">
@@ -51,6 +80,14 @@
                     </div>
                 @endforeach
 
+            </div>
+            <div>
+                <label class="block text-sm font-medium  mb-2">Lote</label>
+                <input wire:model="lote" type="number" min="0"
+                    class="w-full border rounded p-2 mb-2 dark:bg-slate-800 border-gray-500">
+                @error('lote')
+                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                @enderror
             </div>
         </div>
     @endif

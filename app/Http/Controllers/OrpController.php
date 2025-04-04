@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AnalisisLinea;
+use App\Models\Origen;
 use App\Models\Orp;
 use App\Models\SolicitudAnalisisLinea;
 use App\Models\User;
@@ -50,6 +51,11 @@ class OrpController extends Controller
         $orpId = $id;
         $reporte = Orp::find($orpId);
 
+
+        $origens = Origen::whereBetween('id', [27, 33])
+        ->whereHas('estadoPlanta.estadoDetalle', function ($query) use ($id) {
+            $query->where('orp_id', $id);
+        })->get();
 
 
         $userIdsFromSolicitudAnalisis = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) use ($orpId) {
@@ -136,7 +142,7 @@ class OrpController extends Controller
         $informacion = $reporte;
 
         // Crear el PDF
-        $pdf = Pdf::loadView('pdf.reportes.orpUHT', compact(['data', 'informacion', 'usuariosInvolucrados', 'mezclas', 'envasados', 'obs', 'orpId']));
+        $pdf = Pdf::loadView('pdf.reportes.orpUHT', compact(['data', 'informacion', 'usuariosInvolucrados', 'mezclas', 'envasados', 'obs', 'orpId','origens']));
         $pdf->setPaper('letter', 'portrait');
 
         // Descargar el PDF con un nombre basado en el reporte

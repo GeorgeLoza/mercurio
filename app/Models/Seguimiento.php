@@ -12,7 +12,7 @@ class Seguimiento extends Model
 
     protected $fillable = [
 
-        'orp_id',
+'orp_ids',
         'fechaSiembra',
         'numero',
         'origen_id',
@@ -27,12 +27,17 @@ class Seguimiento extends Model
         'usuario_fq',
         'observaciones_micro',
         'observaciones_fq',
+        'lote',
     ];
 
 
-    public function orp()
+    protected $casts = [
+        'orp_ids' => 'array', // Laravel convertirá automáticamente JSON a un array PHP
+    ];
+
+    public function orps()
     {
-        return $this->belongsTo(Orp::class);
+        return Orp::whereIn('id', $this->orp_ids ?? [])->get();
     }
 
 

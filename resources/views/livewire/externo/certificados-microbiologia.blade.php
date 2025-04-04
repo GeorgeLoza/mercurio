@@ -359,11 +359,11 @@
                 </tbody>
 
             </table>
-            @if (!$aplicandoFiltros)
+
                 <div>
-                    {{ $micros->links('pagination::tailwind') }}
+                    {{ $micros->links() }}
                 </div>
-            @endif
+
 
 
         </div>

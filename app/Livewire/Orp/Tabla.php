@@ -87,12 +87,6 @@ class Tabla extends Component
         }
 
 
-        // Notificar a los usuarios admin
-        // $admins = User::where('rol', 'Admi')->orWhere('rol', 'Jef')->orWhere('rol', 'Sup')->get();
-
-        // foreach ($admins as $admin) {
-        //     $admin->notify(new orpNotification($registro));
-        // }
 
     }
 
@@ -133,16 +127,7 @@ class Tabla extends Component
             // Log::error('Error al actualizar colors: ' . $th->getMessage());
         }
 
-        // DB::table('colors')
-        //     ->where('orp_id', $id)
-        //     ->update(['orp_id' => null]);
 
-        // Notificar a los usuarios admin
-        // $admins = User::where('rol', 'Admi')->orWhere('rol', 'Jef')->orWhere('rol', 'Sup')->get();
-
-        // foreach ($admins as $admin) {
-        //     $admin->notify(new CierreOrp($registro));
-        // }
     }
 
     public function mount()
