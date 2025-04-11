@@ -1,5 +1,5 @@
 <div>
-    <div class="flex gap-2">
+    <div class="flex gap-2 mt-2">
         <button class="bg-green-500 rounded-md text-white  py-1.5 px-2 text-lg mb-2"
             onclick="Livewire.dispatch('openModal', { component: 'seguimiento.crear' })">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-white" viewBox="0 0 448 512">

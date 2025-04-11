@@ -36,6 +36,7 @@ class PaseTurnoReporte extends Component
     public $TKSC;
     public $TKAUX1;
     public $TKAUX2;
+    public $TK102;
 
     //seccion soya
     public $TKSY;
@@ -84,7 +85,7 @@ class PaseTurnoReporte extends Component
     {
         ini_set('max_execution_time', 300);
         ini_set('memory_limit', '512M');
-        
+
         // Subconsulta para obtener el último registro por origen_id
         $latestEstadoPlantas = DB::table('estado_plantas')
             ->select('origen_id', DB::raw('MAX(created_at) as max_created_at'))
@@ -168,7 +169,7 @@ class PaseTurnoReporte extends Component
             ->select('ed.orp_id', 'ed.preparacion', 'o.id as origen_id', 'o.alias')
             ->orderBy('o.alias', 'asc') // Ordenar alias ascendentemente
             ->get();
-            
+
             $resultssoya = DB::table('estado_detalles as ed')
             ->joinSub($latestEstadoPlantasDetails, 'latest_estado_plantas_details', function ($join) {
                 $join->on('ed.estado_planta_id', '=', 'latest_estado_plantas_details.estado_planta_id');
@@ -311,6 +312,7 @@ class PaseTurnoReporte extends Component
         $this->V1 = EstadoPlanta::where('origen_id', '50')->latest('created_at')->first();
         $this->V2 = EstadoPlanta::where('origen_id', '51')->latest('created_at')->first();
         $this->V3 = EstadoPlanta::where('origen_id', '52')->latest('created_at')->first();
+        $this->TK102 = EstadoPlanta::where('origen_id', '60')->latest('created_at')->first();
 
 
         //ARAñA

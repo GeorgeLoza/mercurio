@@ -8,6 +8,7 @@ use App\Models\Seguimiento;
 
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Orp as ModelsOrp;
+use App\Models\User;
 use Livewire\Component;
 
 use Illuminate\Support\Facades\App;
@@ -30,10 +31,58 @@ class Orp extends Component
                 ->get()
                 ->groupBy('numero');
 
+
+                $seguimientos2 = Seguimiento::with('origen')
+                ->whereJsonContains('orp_ids', (int) $this->orp_id)
+                ->get();
+
+                $conteoPorOrigen = $seguimientos2
+                ->groupBy('origen_id')
+                ->map(function ($items, $origen_id) {
+                    $alias = optional($items->first()->origen)->alias;
+                    $total = $items->count();
+                    $conEspacioRT = $items->where('rt', '>', 0)->count();
+
+                    $conMoho = $items->where('moho', '>', 0)->count(); // 👈 Nuevo campo
+
+                    $conMoho2 = $items->filter(fn($item) => !is_null($item->moho))->count();
+                    return [
+                        'alias' => $alias,
+                        'con_espacio_rt' => $conEspacioRT,
+
+                        'con_moho' => $conMoho, // 👈 Lo agregamos al array
+                        'con_moho2' => $conMoho2, // 👈 Lo agregamos al array
+                        'total' => $total,
+                    ];
+                })->values();
+
+
             $origenes = Origen::whereBetween('id', [27, 33])->pluck('alias', 'id'); // Para construir el header de la tabla
 
+            $ids = Seguimiento::select('usuario_siembra', 'usuario_rt', 'usuario_moho')
+                ->get()
+                ->flatMap(function ($item) {
+                    return [$item->usuario_siembra, $item->usuario_rt, $item->usuario_moho];
+                })
+                ->filter() // elimina nulls
+                ->unique()
+                ->values(); // reindexa
+
+            // Resultado: colección de IDs únicos
+
+            $usuariosInvolucrados = User::whereIn('id', $ids)->get();
+
+
+
+
+
+
+
+
+
+
                 $pdf = App::make('dompdf.wrapper');
-                $pdf = Pdf::loadView('pdf.reportes.seguimientoUHT', compact(['seguimientos', 'orps','origenes']));
+                $pdf = Pdf::loadView('pdf.reportes.seguimientoUHT', compact(['seguimientos', 'orps','origenes','conteoPorOrigen','usuariosInvolucrados' ]));
                 $pdf->setPaper('letter', 'portrait');
                 echo $pdf->stream();
             },
@@ -49,7 +98,7 @@ class Orp extends Component
                 $query->where('grupo', 'UHT');
             })
             ->where('estado', 'Completado')
-            ->whereDate('created_at', '>=', Carbon::parse('2024-03-23'))
+            ->whereDate('created_at', '>=', Carbon::parse('2025-03-23'))
             ->when($this->buscar_orp, function ($query) {
                 $query->where('codigo', 'like', '%' . $this->buscar_orp . '%');
             })

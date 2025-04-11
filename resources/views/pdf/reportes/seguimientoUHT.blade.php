@@ -246,12 +246,14 @@
             border-bottom: 2px solid #000;
             /* Borde inferior más grueso para las cabeceras */
         }
+
         .right {
-            border-right: 1px solid black;
+            border-right: 0.5px solid black;
         }
 
-
-
+        .bottom {
+            border-bottom: 0.5px solid black;
+        }
     </style>
 
 </head>
@@ -278,6 +280,7 @@
 </footer>
 
 <body>
+    <br>
     <div class="page">
 
 
@@ -320,8 +323,8 @@
 
     </div>
     <div>
-
-
+<br>
+<br>
 
         <table class="table-container ">
             <thead>
@@ -343,7 +346,7 @@
                 @foreach ($seguimientos as $numero => $items)
                     <tr>
                         <td class="right">{{ $items->first()->lote }}</td>
-                        <td class="right">{{ $numero }}</td>
+                        <td class="right bottom">{{ $numero }}</td>
 
                         @foreach ($origenes as $origenId => $origenAlias)
                             @php
@@ -352,21 +355,20 @@
                             @if ($item)
                                 @if (!is_null($item->rt))
                                     <td class="border px-2 text-sm">
-                                         {{ $item->rt ?? '-' }}
-                                        </td>
-                                    @else
+                                        {{ $item->rt ?? '-' }}
+                                    </td>
+                                @else
                                     <td>-</td>
                                 @endif
 
                                 @if (!is_null($item->moho))
-                                <td class="right">
+                                    <td class="right">
 
-                                     {{ $item->moho ?? '-' }}
-                                </td>
+                                        {{ $item->moho ?? '-' }}
+                                    </td>
                                 @else
-                                <td class="right">-</td>
+                                    <td class="right">-</td>
                                 @endif
-
                             @else
                                 <td>
 
@@ -380,11 +382,98 @@
                         @endforeach
                     </tr>
                 @endforeach
+
+
+                <div class="">
+
+
+
+
+                </div>
             </tbody>
+        </table>
+<br>
+        <br>
+        <table class="table-container">
+            <tr>
+
+                @foreach ($origenes as $origenAlias)
+                    <th class="border px-2 right" colspan="2">{{ $origenAlias }}</th>
+                @endforeach
+            </tr>
+            <tr>
+                @foreach ($origenes as $origenAlias)
+                    <th class="border px-2">RT</th>
+                    <th class="border px-2 right">MyL</th>
+                @endforeach
+            </tr>
+
+            <tr>
+
+                @foreach ($origenes as $origenAlias)
+                    @php
+                        $origen = collect($conteoPorOrigen)->firstWhere('alias', $origenAlias);
+                    @endphp
+
+                    @if ($origen)
+                        <th>{{ $origen['con_espacio_rt'] }}/{{ $origen['total'] }}</th>
+                        <th class="right">{{ $origen['con_moho'] }}/{{ $origen['con_moho2'] }}</th>
+                    @else
+                        <th>-</th>
+                        <th class="right">-</th>
+                    @endif
+                @endforeach
+
+
+            </tr>
+
+
+
+
         </table>
 
     </div>
+    <br>
+    <br>
 
+    <div>
+        <div style=" display: flex; justify-content: flex-end;  page-break-inside: avoid; ">
+
+
+
+            <!-- Aplica la clase "mi-tabla" solo a la tabla que deseas estilizar -->
+            <table class="mi-tabla ">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($usuariosInvolucrados as $usuariosUnicoss)
+                        <tr>
+                            <td>{{ $usuariosUnicoss->codigo }}</td>
+                            <td class="capitalize">
+                                {{ ucwords(strtolower($usuariosUnicoss->nombre . ' ' . $usuariosUnicoss->apellido)) }}
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+
+
+            <div style="padding-left: 500px; ">
+                <strong
+                    style=" border-top: 1px solid #000; padding-top: 7px; padding-right: 25px; padding-left: 25px; ">
+                    REVISADO </strong>
+            </div>
+
+
+        </div>
+
+
+    </div>
 
 
 
