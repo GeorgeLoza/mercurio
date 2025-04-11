@@ -35,6 +35,7 @@ class Planta extends Component
     public $TKSC;
     public $TKAUX1;
     public $TKAUX2;
+    public $TK102;
 
     //seccion soya
     public $TKSY;
@@ -210,6 +211,7 @@ class Planta extends Component
 
         //ARAñA
         $this->araña = EstadoPlanta::where('origen_id', '53')->latest('created_at')->first();
+        $this->TK102 = EstadoPlanta::where('origen_id', '60')->latest('created_at')->first();
 
         return view('livewire.dashbord.planta');
 

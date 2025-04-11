@@ -175,13 +175,19 @@
                                                 </td>
                                                 <td class="px-1 py-1">{{ $detalle->lote }}</td>
                                                 <td class="px-1 py-1">
+                                                    @if ($detalle->fecha_elaboracion)
+
                                                     {{ \Carbon\Carbon::parse($detalle->fecha_elaboracion)->isoFormat('DD/MM/YYYY') }}
+                                                    @endif
                                                 </td>
                                                 <td class="px-1 py-1">
                                                     {{ \Carbon\Carbon::parse($detalle->fecha_muestreo)->isoFormat('DD/MM/YYYY') }}
                                                 </td>
                                                 <td class="px-1 py-1">
+                                                    @if ($detalle->fecha_vencimiento)
+
                                                     {{ \Carbon\Carbon::parse($detalle->fecha_vencimiento)->isoFormat('DD/MM/YYYY') }}
+                                                    @endif
                                                 </td>
                                                 <td class="px-1 py-1">{{ $detalle->tipoMuestra->nombre }}</td>
                                                 <td class="px-1 py-1">{{ $detalle->tipo_analisis }}</td>

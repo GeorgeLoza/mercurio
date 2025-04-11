@@ -25,31 +25,31 @@ class Crear extends ModalComponent
     public $rango_origen = []; // Para almacenar los rangos 'desde' y 'hasta' para cada origen.
 
     public function updatedOrpId()
-{
-    $this->actualizarOrigens();
-}
-
-public function updatedOrpId2()
-{
-    $this->actualizarOrigens();
-}
-public function updatedOrpId3()
-{
-    $this->actualizarOrigens();
-}
-private function actualizarOrigens()
-{
-    if ($this->orp_id || $this->orp_id2 || $this->orp_id3) {
-        $this->origens = Origen::whereBetween('id', [27, 33])
-            ->whereHas('estadoPlanta.estadoDetalle', function ($query) {
-                $query->whereIn('orp_id', array_filter([$this->orp_id, $this->orp_id2, $this->orp_id3])); // Filtrar valores no nulos
-            })
-            ->distinct()
-            ->get();
-    } else {
-        $this->origens = [];
+    {
+        $this->actualizarOrigens();
     }
-}
+
+    public function updatedOrpId2()
+    {
+        $this->actualizarOrigens();
+    }
+    public function updatedOrpId3()
+    {
+        $this->actualizarOrigens();
+    }
+    private function actualizarOrigens()
+    {
+        if ($this->orp_id || $this->orp_id2 || $this->orp_id3) {
+            $this->origens = Origen::whereBetween('id', [27, 33])
+                ->whereHas('estadoPlanta.estadoDetalle', function ($query) {
+                    $query->whereIn('orp_id', array_filter([$this->orp_id, $this->orp_id2, $this->orp_id3])); // Filtrar valores no nulos
+                })
+                ->distinct()
+                ->get();
+        } else {
+            $this->origens = [];
+        }
+    }
 
 
     public function guardar()
@@ -99,14 +99,15 @@ private function actualizarOrigens()
         })
             ->where('estado', 'Completado')
             ->whereBetween('updated_at', [
-                Carbon::now()->subDays(7)->startOfDay(),
-                Carbon::now()->subDays(3)->endOfDay()
+                Carbon::now()->subDays(10)->startOfDay(),
+                Carbon::now()->endOfDay()
             ])
+
             ->when($this->buscar_orp, function ($query) {
                 $query->where('codigo', 'like', '%' . $this->buscar_orp . '%');
             })
             ->orderBy('id', 'desc')
-            ->take(50)
+
             ->get();
         return view('livewire.seguimiento.crear', [
             'orps' => $orps, // Cargar todas las ORP

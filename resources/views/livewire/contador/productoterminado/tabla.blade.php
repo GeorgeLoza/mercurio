@@ -5,6 +5,7 @@
                 <tr>
                     <th class="px-6 py-2 sticky top-0 bg-white dark:bg-gray-700">Código ORP</th>
                     <th class="px-6 py-2 sticky top-0 bg-white dark:bg-gray-700">Producto</th>
+                    <th class="px-6 py-2 sticky top-0 bg-white dark:bg-gray-700">Lotes</th>
                     <th class="px-6 py-2 sticky top-0 bg-white dark:bg-gray-700">Cantidad Total</th>
                     <th class="px-6 py-2 sticky top-0 bg-white dark:bg-gray-700">Acciones
 
@@ -84,6 +85,9 @@
                         </td>
                         <td class="px-6 py-1 font-light text-gray-900 whitespace-nowrap dark:text-white">
                             {{ $orp->producto->nombre }}
+                        </td>
+                        <td class="px-6 py-1 font-light text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ $orp->lote/1 }}
                         </td>
                         <td class="px-6 py-1 font-light text-gray-900 whitespace-nowrap dark:text-white">
                             {{ $cantidadTotal }}

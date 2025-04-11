@@ -2,6 +2,7 @@
 
 namespace App\Livewire\TablaReporte;
 
+use App\Exports\ContadorExport;
 use Livewire\Component;
 use App\Models\AnalisisLinea;
 use App\Models\CalidadLeche;
@@ -11,7 +12,10 @@ use Livewire\Attributes\On;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\DatosExport;
+use App\Exports\SeguimientoExport;
+use App\Models\Contador;
 use App\Models\Orp;
+use App\Models\Seguimiento;
 use Livewire\WithPagination;
 
 
@@ -78,16 +82,12 @@ class Tabla extends Component
     }
 
     public function exportarExcel()
-
     {
         ini_set('max_execution_time', 300);
         ini_set('memory_limit', '512M');
-
         $this->validate();
-
-
         $analisis = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle.orp', function ($query) {
-            $query->whereNotIn('codigo', [0, 1, 2, 10073794 ]);
+            $query->whereNotIn('codigo', [0, 1, 2, 10073794]);
         })
             ->when($this->anio, function ($query) {
                 return $query->whereYear('created_at', $this->anio);
@@ -95,9 +95,7 @@ class Tabla extends Component
             ->when($this->mes, function ($query) {
                 return $query->whereMonth('created_at', $this->mes);
             })
-            // ->when($this->mes, function ($query) {
-            //     return $query->whereMonth('created_at', '<', $this->mes);
-            // })
+
             ->orderBy('created_at', 'asc')
             ->get();
 
@@ -107,31 +105,55 @@ class Tabla extends Component
         return Excel::download(new DatosExport($analisis), $nombreArchivo, \Maatwebsite\Excel\Excel::CSV);
     }
 
-    // public function exportarExcel( )
 
-    // {
+    public function exportarExcelSeguimientos()
 
-    //     $this->validate();
+    {
+        ini_set('max_execution_time', 300);
+        ini_set('memory_limit', '512M');
+        $this->validate();
+
+        $seguimientos = Seguimiento::when($this->anio, function ($query) {
+            return $query->whereYear('fechaSiembra', $this->anio);
+        })
+            ->when($this->mes, function ($query) {
+                return $query->whereMonth('fechaSiembra', $this->mes);
+            })
+            ->orderBy('created_at', 'asc')
+            ->get();
 
 
-    //     $analisis = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle.orp', function ($query) {
-    //         $query->whereNotIn('codigo', [1, 2, 0, 10073794  ]);
-    //     })
-    //     ->when($this->anio, function ($query) {
-    //         return $query->whereYear('created_at', $this->anio);
-    //     })
-    //     ->when($this->mes, function ($query) {
-    //         return $query->whereMonth('created_at', $this->mes);
-    //     })
-    //     ->orderBy('created_at', 'desc')
-    //     ->get();
 
-    //     $nombreMes = Carbon::createFromFormat('m', $this->mes)->translatedFormat('F'); // 'F' da el nombre completo del mes
+        $nombreMes = Carbon::createFromFormat('m', $this->mes)->translatedFormat('F'); // 'F' da el nombre completo del mes
+        $nombreArchivo = "{$nombreMes}-{$this->anio}.csv";
+        // Utiliza el paquete maatwebsite/excel para exportar los datos a un archivo Excel
+        return Excel::download(new SeguimientoExport($seguimientos), $nombreArchivo, \Maatwebsite\Excel\Excel::CSV);
 
-    //     // Utiliza el paquete maatwebsite/excel para exportar los datos a un archivo Excel
-    //     return Excel::download(new DatosExport($analisis), "{$nombreMes}-{$this->anio}.xlsx");
-    // }
+    }
 
+    public function exportarExcelContadores()
+
+    {
+        ini_set('max_execution_time', 300);
+        ini_set('memory_limit', '512M');
+        $this->validate();
+
+        $contadores = Contador::when($this->anio, function ($query) {
+            return $query->whereYear('created_at', $this->anio);
+        })
+            ->when($this->mes, function ($query) {
+                return $query->whereMonth('created_at', $this->mes);
+            })
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+
+
+        $nombreMes = Carbon::createFromFormat('m', $this->mes)->translatedFormat('F'); // 'F' da el nombre completo del mes
+        $nombreArchivo = "{$nombreMes}-{$this->anio}.csv";
+        // Utiliza el paquete maatwebsite/excel para exportar los datos a un archivo Excel
+        return Excel::download(new ContadorExport($contadores), $nombreArchivo, \Maatwebsite\Excel\Excel::CSV);
+    }
 
 
     public function sortBy($field)
