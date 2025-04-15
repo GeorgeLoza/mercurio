@@ -44,28 +44,28 @@ class Tabla extends Component
         $microbiologia = MicrobiologiaExterno::query()
 
 
-        //prueba
-        ->when($this->f_planta, function ($microbiologia) {
-            return $microbiologia->whereHas('detalleSolicitudPlanta.solicitudPlanta.user.planta', function ($microbiologia) {
-                $microbiologia->where('nombre', 'like', '%' . $this->f_planta );
-            });
-        })
-        ->when($this->f_tipo, function ($query) {
-            if ($this->f_tipo === 'grupo_1') {
-                return $query->whereHas('detalleSolicitudPlanta.tipoMuestra', function ($query) {
-                    $query->whereIn('nombre', ['PERSONAL', 'AMBIENTE', 'SUPERFICIES','SUP. UTENSILIOS'] );
+            //prueba
+            ->when($this->f_planta, function ($microbiologia) {
+                return $microbiologia->whereHas('detalleSolicitudPlanta.solicitudPlanta.user.planta', function ($microbiologia) {
+                    $microbiologia->where('nombre', 'like', '%' . $this->f_planta);
                 });
-                // return $query->whereIn('tipo', ['PERSONAL', 'AMBIENTE', 'SUPERFICIE']);
-            } elseif ($this->f_tipo === 'grupo_2') {
-                return $query->whereHas('detalleSolicitudPlanta.tipoMuestra', function ($query) {
-                    $query->whereNotIn('nombre', ['PERSONAL', 'AMBIENTE', 'SUPERFICIES','SUP. UTENSILIOS'] );
-                });
-                // return $query->whereNotIn('tipo', ['PERSONAL', 'AMBIENTE', 'SUPERFICIE']);
-            }
-        })
+            })
+            ->when($this->f_tipo, function ($query) {
+                if ($this->f_tipo === 'grupo_1') {
+                    return $query->whereHas('detalleSolicitudPlanta.tipoMuestra', function ($query) {
+                        $query->whereIn('nombre', ['PERSONAL', 'AMBIENTE', 'SUPERFICIES', 'SUP. UTENSILIOS']);
+                    });
+                    // return $query->whereIn('tipo', ['PERSONAL', 'AMBIENTE', 'SUPERFICIE']);
+                } elseif ($this->f_tipo === 'grupo_2') {
+                    return $query->whereHas('detalleSolicitudPlanta.tipoMuestra', function ($query) {
+                        $query->whereNotIn('nombre', ['PERSONAL', 'AMBIENTE', 'SUPERFICIES', 'SUP. UTENSILIOS']);
+                    });
+                    // return $query->whereNotIn('tipo', ['PERSONAL', 'AMBIENTE', 'SUPERFICIE']);
+                }
+            })
 
 
-        ->orderBy('created_at', 'desc');
+            ->orderBy('created_at', 'desc');
 
 
 
@@ -77,7 +77,7 @@ class Tabla extends Component
 
 
 
-        return view('livewire.externo.microbiologia.tabla', ['microbiologia'=> $microbiologia]);
+        return view('livewire.externo.microbiologia.tabla', ['microbiologia' => $microbiologia]);
     }
 
 
@@ -161,60 +161,36 @@ class Tabla extends Component
 
     public function dia2($id)
     {
-        /*$this->validate([
-            'aer_mes' => 'required',
-            'col_tot' => 'required',
-        ]);*/
-
         try {
             $microbiologia = MicrobiologiaExterno::find($id);
-            // Verificación para todas las variables antes de asignarlas al modelo
-
-            $microbiologia->aer_mes = 0;
-            $microbiologia->col_tot = 0;
-            if ($microbiologia->detalleSolicitudPlanta->tipoMuestra->id == 2) {
-                $microbiologia->col_tot = null;
+            $excluidosrt = [1, 9, 5,  17];
+            if (!in_array($microbiologia->detalleSolicitudPlanta->tipoMuestra->id, $excluidosrt)) {
+                $microbiologia->aer_mes = 0;
             }
-
-
-            if ($microbiologia->detalleSolicitudPlanta->tipoMuestra->id == 9 || $microbiologia->detalleSolicitudPlanta->tipoMuestra->id == 5 || $microbiologia->detalleSolicitudPlanta->tipoMuestra->id == 1) {
-                $microbiologia->aer_mes = null;
+            $excluidoscol = [2];
+            if (!in_array($microbiologia->detalleSolicitudPlanta->tipoMuestra->id, $excluidoscol)) {
+                $microbiologia->col_tot = 0;
+            }
+            $excluidosmoho = [1,9,10,18];
+            if (in_array($microbiologia->detalleSolicitudPlanta->tipoMuestra->id, $excluidosmoho)) {
                 $microbiologia->estado = "Analizado";
-                if( $microbiologia->detalleSolicitudPlanta->tipoMuestra->id == 5){
-                    $microbiologia->estado = "2 Dias";
-                }
-
                 $detalle = DetalleSolicitudPlanta::where("id", $microbiologia->detalle_solicitud_planta_id)->first();
                 $detalle->estado = "Revision";
                 $detalle->save();
-            } else {
+            }else{
                 $microbiologia->estado = "2 Dias";
             }
-
-            if (is_null($microbiologia->fecha_dia2)) {
-                $microbiologia->fecha_dia2 = now();
-            }
-            if (is_null($microbiologia->ana_dia2_id)) {
-                $microbiologia->ana_dia2_id = auth()->user()->id;
-            }
+            if (is_null($microbiologia->fecha_dia2)) {$microbiologia->fecha_dia2 = now();}
+            if (is_null($microbiologia->ana_dia2_id)) {$microbiologia->ana_dia2_id = auth()->user()->id;}
             $microbiologia->save();
-
-            // $this->dispatch('actualizar_tabla_microexterno');
-
             $this->dispatch('success', mensaje: 'Analisis realizado exitosamente.');
         } catch (\Throwable $th) {
-
             $this->dispatch('error_mensaje', mensaje: 'problema' . $th->getMessage());
         }
     }
 
     public function dia5($id)
     {
-        /*
-        $this->validate([
-            'moh_lev' => 'required',
-        ]);
-*/
         try {
             $microbiologia = MicrobiologiaExterno::find($id);
             $microbiologia->moh_lev = 0;
@@ -226,16 +202,11 @@ class Tabla extends Component
                 $microbiologia->ana_dia5_id = auth()->user()->id;
             }
             $microbiologia->save();
-
             $detalle = DetalleSolicitudPlanta::where("id", $microbiologia->detalle_solicitud_planta_id)->first();
             $detalle->estado = "Revision";
             $detalle->save();
-
-            // $this->dispatch('actualizar_tabla_microexterno');
-
             $this->dispatch('success', mensaje: 'Analisis realizado exitosamente.');
         } catch (\Throwable $th) {
-
             $this->dispatch('error_mensaje', mensaje: 'problema' . $th->getMessage());
         }
     }

@@ -153,22 +153,21 @@
                     <td style="text-align: left ">{{ $datosSolicitud->subcodigo }}</td>
                 </tr>
                 <tr style="border-right: 1px solid black;">
-                    <td rowspan="6"
-                        style="width: 380px; border: 1px solid black;font-size: 20px">
+                    <td rowspan="6" style="width: 380px; border: 1px solid black;font-size: 20px">
                         @if ($datosSolicitud->productosPlanta)
                             {{ $datosSolicitud->productosPlanta->nombre }}
                         @else
                             {{ $datosSolicitud->otro }}
                         @endif
                     </td>
-                      <th style="text-align: right ; padding: 0 15px">Lote: </th>
-                        <td style="text-align: left ">
-                            @if ($datosSolicitud->lote)
-                                {{ $datosSolicitud->lote }}
-                            @else
-                                --
-                            @endif
-                        </td>
+                    <th style="text-align: right ; padding: 0 15px">Lote: </th>
+                    <td style="text-align: left ">
+                        @if ($datosSolicitud->lote)
+                            {{ $datosSolicitud->lote }}
+                        @else
+                            --
+                        @endif
+                    </td>
                 </tr>
                 <tr style="border-right: 1px solid black;">
                     <th style="text-align: right; padding: 0 15px">Marca: </th>
@@ -178,13 +177,20 @@
                 <tr style="border-right: 1px solid black;">
                     <th style="text-align: right; padding: 0 15px ">Fecha de Elaboración: </th>
                     <td style="text-align: left; ">
-                        {{ \Carbon\Carbon::parse($datosSolicitud->fecha_elaboracion)->isoFormat('D / M / YYYY', 0, 'es') }}
+                        @if ($datosSolicitud->fecha_elaboracion)
+                            {{ \Carbon\Carbon::parse($datosSolicitud->fecha_elaboracion)->isoFormat('D / M / YYYY', 0, 'es') }}
+                            @else--
+                        @endif
+
                     </td>
                 </tr>
                 <tr style="border-right: 1px solid black;">
                     <th style="text-align: right; padding: 0 15px">Fecha de Vencimiento: </th>
                     <td style="text-align: left">
-                        {{ \Carbon\Carbon::parse($datosSolicitud->fecha_vencimiento)->isoFormat('D / M / YYYY', 0, 'es') }}
+                        @if ($datosSolicitud->fecha_vencimiento)
+                            {{ \Carbon\Carbon::parse($datosSolicitud->fecha_vencimiento)->isoFormat('D / M / YYYY', 0, 'es') }}
+                            @else--
+                        @endif
                     </td>
                 </tr>
 
@@ -235,7 +241,7 @@
                     <th>Fecha de muestreo:</th>
                     <td>{{ \Carbon\Carbon::parse($datosSolicitud->fecha_muestreo)->isoFormat(
                         'dddd[,] D [de] MMMM [de]
-                                                                                                                                                                                                                                                    YYYY',
+                                                                                                                                                                                                                                                                        YYYY',
                         0,
                         'es',
                     ) }}
@@ -245,7 +251,7 @@
                     <th>Fecha de ingreso:</th>
                     <td>{{ \Carbon\Carbon::parse($datosSolicitud->solicitudPlanta->tiempo)->isoFormat(
                         'dddd[,] D [de] MMMM
-                                                                                                                                                                                                                                                    [de] YYYY',
+                                                                                                                                                                                                                                                                        [de] YYYY',
                         0,
                         'es',
                     ) }}
@@ -256,7 +262,7 @@
                     <th>Fecha de análisis:</th>
                     <td>{{ \Carbon\Carbon::parse($resultados->fecha_sembrado)->isoFormat(
                         'dddd[,] D [de] MMMM [de]
-                                                                                                                                                                                                                                                    YYYY',
+                                                                                                                                                                                                                                                                        YYYY',
                         0,
                         'es',
                     ) }}
@@ -299,10 +305,12 @@
                             @endif
 
                         </td>
-                        <td>{{ $normas->min_mes }} <sup>{{ $normas->min_mes_e == null ? " " : $normas->min_mes_e }}</sup>
+                        <td>{{ $normas->min_mes }}
+                            <sup>{{ $normas->min_mes_e == null ? ' ' : $normas->min_mes_e }}</sup>
 
                         </td>
-                        <td>{{ $normas->max_mes }} <sup>{{ $normas->max_mes_e == null ? " " : $normas->max_mes_e }}</sup>
+                        <td>{{ $normas->max_mes }}
+                            <sup>{{ $normas->max_mes_e == null ? ' ' : $normas->max_mes_e }}</sup>
 
                         </td>
                     </tr>
@@ -328,16 +336,17 @@
                             @endif
 
                         </td>
-                        <td>{{ $normas->min_colTot }} <sup>{{ $normas->min_colTot_e == null ? " " : $normas->min_colTot_e }}</sup>
+                        <td>{{ $normas->min_colTot }}
+                            <sup>{{ $normas->min_colTot_e == null ? ' ' : $normas->min_colTot_e }}</sup>
                         </td>
-                        <td>{{ $normas->max_colTot }} <sup>{{ $normas->max_colTot_e == null ? " " : $normas->max_colTot_e }}</sup>
+                        <td>{{ $normas->max_colTot }}
+                            <sup>{{ $normas->max_colTot_e == null ? ' ' : $normas->max_colTot_e }}</sup>
 
                         </td>
                     </tr>
                 @endif
                 @if ($resultados->moh_lev !== null)
-                    <tr
-                        style="border-left: 1px solid black; border-right: 1px solid black;  solid black">
+                    <tr style="border-left: 1px solid black; border-right: 1px solid black;  solid black">
 
                         <td>Mohos y Levaduras</td>
                         <td>{{ $normas->unidad }}</td>
@@ -358,13 +367,23 @@
                             @endif
 
                         </td>
-                        <td>{{ $normas->min_mohLev }} <sup>{{ $normas->min_mohLev_e == null ?  " ": $normas->min_mohLev_e }}</sup>
+                        <td>{{ $normas->min_mohLev }}
+                            <sup>{{ $normas->min_mohLev_e == null ? ' ' : $normas->min_mohLev_e }}</sup>
                         </td>
-                        <td>{{ $normas->max_mohLev }} <sup>{{ $normas->max_mohLev_e == null ?  " ": $normas->max_mohLev_e }}</sup>
+                        <td>{{ $normas->max_mohLev }}
+                            <sup>{{ $normas->max_mohLev_e == null ? ' ' : $normas->max_mohLev_e }}</sup>
                         </td>
                     </tr>
-                    @endif
-                    <tr style="border-left: 1px solid black; border-right: 1px solid black;  border-bottom: 1px solid black"> <td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                @endif
+                <tr
+                    style="border-left: 1px solid black; border-right: 1px solid black;  border-bottom: 1px solid black">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
 
 
             </table>
@@ -458,18 +477,20 @@
 
                         <th class="capitalize" style="padding: 5px">
 
-                         T.S.   {{ ucwords(strtolower($resultados->user1->nombre . ' ' . $resultados->user1->apellido)) }}
+                            T.S.
+                            {{ ucwords(strtolower($resultados->user1->nombre . ' ' . $resultados->user1->apellido)) }}
                         </th>
                     </tr>
                 @endif
                 @if ($resultados->user2)
                     <tr>
 
-                        @if ($resultados->user2!=$resultados->user1)
-                        <th class="capitalize" style="padding: 5px">
+                        @if ($resultados->user2 != $resultados->user1)
+                            <th class="capitalize" style="padding: 5px">
 
-                            T.S.   {{ ucwords(strtolower($resultados->user2->nombre . ' ' . $resultados->user2->apellido)) }}
-                        </th>
+                                T.S.
+                                {{ ucwords(strtolower($resultados->user2->nombre . ' ' . $resultados->user2->apellido)) }}
+                            </th>
                         @endif
                     </tr>
                 @endif
@@ -477,10 +498,11 @@
                 @if ($resultados->user3)
                     <tr>
 
-                        @if ($resultados->user3!=$resultados->user2 &&$resultados->user3!=$resultados->user1  )
-                        <th class="capitalize" style="padding: 5px">
-                            T.S.    {{ ucwords(strtolower($resultados->user3->nombre . ' ' . $resultados->user3->apellido)) }}
-                        </th>
+                        @if ($resultados->user3 != $resultados->user2 && $resultados->user3 != $resultados->user1)
+                            <th class="capitalize" style="padding: 5px">
+                                T.S.
+                                {{ ucwords(strtolower($resultados->user3->nombre . ' ' . $resultados->user3->apellido)) }}
+                            </th>
                         @endif
                     </tr>
                 @endif

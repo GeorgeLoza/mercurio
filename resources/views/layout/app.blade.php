@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ asset('build/assets/app-da32ce76.css') }}">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-34619709.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-47114636.css') }}">
 
     <script src="{{ asset('build/assets/app-56df689c.js') }}" defer></script>
     <script src="{{ asset('js/app.js') }}"></script>

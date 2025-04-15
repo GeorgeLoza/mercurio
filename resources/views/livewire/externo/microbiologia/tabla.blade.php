@@ -1,8 +1,13 @@
 <div>
+    <div>
 
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 mb-2 fill-green-500"
+        onclick="Livewire.dispatch('openModal', { component: 'externo.microbiologia.info' })"
+        viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+    </div>
 
     <div class="overflow-x-auto overflow-y-auto ">
-    {{-- <div class="overflow-x-auto overflow-y-auto h-[calc(100vh-140px)]"> --}}
+        {{-- <div class="overflow-x-auto overflow-y-auto h-[calc(100vh-140px)]"> --}}
         <table class="w-full  text-sm text-center text-gray-500 dark:text-gray-400">
             <thead
                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400  sticky top-0 z-20">
@@ -16,7 +21,8 @@
                     <th scope="col" class="px-0 py-0 sticky left-20 z-30 bg-gray-50 dark:bg-gray-700" rowspan="2">
                         Codigo Muestra
                     </th>
-                    <th scope="col" class="px-0 py-0 sticky left-32 z-30 bg-gray-50 dark:bg-gray-700 " rowspan="2" style="max-width: 15rem;">
+                    <th scope="col" class="px-0 py-0 sticky left-32 z-30 bg-gray-50 dark:bg-gray-700 " rowspan="2"
+                        style="max-width: 15rem;">
                         Producto / Servicio <button wire:click="show_filtro">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 fill-gray-700 dark:fill-gray-300"
                                 viewBox="0 0 512 512">
@@ -93,48 +99,48 @@
             </thead>
             <tbody>
                 @if ($filtro == true)
-                <!-- fila de filtros -->
-                <tr class="bg-white border-b dark:bg-gray-700 dark:border-gray-700  z-20 top-6">
+                    <!-- fila de filtros -->
+                    <tr class="bg-white border-b dark:bg-gray-700 dark:border-gray-700  z-20 top-6">
 
 
-                    {{-- fin filtro categoria --}}
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th class="p-1 w-16   ">
-                        <select wire:model.live='f_planta'
-                            class="block  w-16   p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option selected class="font-normal" value="">Planta</option>
+                        {{-- fin filtro categoria --}}
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th class="p-1 w-16   ">
+                            <select wire:model.live='f_planta'
+                                class="block  w-16   p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option selected class="font-normal" value="">Planta</option>
 
-                            <option value="Carsa"> Carsa</option>
-                            <option value="Álamo"> Alamo</option>
-                            <option value="Panaderia"> Panaderia</option>
-                            <option value="Tecalim"> Tecalim</option>
-                            <option value="Galleteria R"> Galleteria Prod.</option>
-                            <option value="Galleteria M"> Galleteria Serv.</option>
+                                <option value="Carsa"> Carsa</option>
+                                <option value="Álamo"> Alamo</option>
+                                <option value="Panaderia"> Panaderia</option>
+                                <option value="Tecalim"> Tecalim</option>
+                                <option value="Galleteria R"> Galleteria Prod.</option>
+                                <option value="Galleteria M"> Galleteria Serv.</option>
 
-                            <option value="Soya"> Soya</option>
+                                <option value="Soya"> Soya</option>
 
-                            <option value="Tecalim-Panetones"> Teca. Paneton</option>
-                        </select>
-                    </th>
+                                <option value="Tecalim-Panetones"> Teca. Paneton</option>
+                            </select>
+                        </th>
 
-                    <th class="p-1 ">
-                        <select wire:model.live='f_tipo'
-                            class="block w-16  p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option value="" class="font-normal">Tipo</option>
+                        <th class="p-1 ">
+                            <select wire:model.live='f_tipo'
+                                class="block w-16  p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option value="" class="font-normal">Tipo</option>
 
-                            <option value="grupo_1"> Servicios</option>
-                            <option value="grupo_2"> Productos</option>
+                                <option value="grupo_1"> Servicios</option>
+                                <option value="grupo_2"> Productos</option>
 
-                        </select>
-                    </th>
+                            </select>
+                        </th>
 
 
 
-                </tr>
-            @endif
+                    </tr>
+                @endif
                 @foreach ($microbiologia as $index => $micro)
                     <tr
                         class=" bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -150,13 +156,14 @@
 
 
                             @if ($micro->fecha_sembrado)
-                            {{ \Carbon\Carbon::parse($micro->fecha_sembrado)->format('d-m-y') }}
-                        @endif
+                                {{ \Carbon\Carbon::parse($micro->fecha_sembrado)->format('d-m-y') }}
+                            @endif
                         </td>
                         <td class="px-1 py-0 sticky left-20 z-10 bg-white dark:bg-gray-800" nowrap>
                             {{ ltrim($micro->detalleSolicitudPlanta->subcodigo, '0') }}
                         </td>
-                        <td class="px-1 py-0 sticky left-32 z-10 bg-white dark:bg-gray-800 text-2xs overflow-hidden text-ellipsis whitespace-nowrap" data-popover-target="popover-{{ $micro->id }}" style="max-width: 15rem;">
+                        <td class="px-1 py-0 sticky left-32 z-10 bg-white dark:bg-gray-800 text-2xs overflow-hidden text-ellipsis whitespace-nowrap"
+                            data-popover-target="popover-{{ $micro->id }}" style="max-width: 15rem;">
                             @if ($micro->detalleSolicitudPlanta->productosPlanta)
                                 {{ $micro->detalleSolicitudPlanta->productosPlanta->nombre }}
                             @else
@@ -219,7 +226,7 @@
                             {{ $micro->detalleSolicitudPlanta->lote }}
                         </td>
                         <td class="px-1 py-0 border-l" nowrap>
-                            <form  wire:submit="sembrarNow({{ $micro->id }})" class="flex">
+                            <form wire:submit="sembrarNow({{ $micro->id }})" class="flex">
 
 
                                 <div class="p-1">
@@ -264,8 +271,8 @@
                                         ? $micro->aer_mes * 10 ** (strlen(floor($micro->aer_mes)) - 1)
                                         : $micro->aer_mes / 10 ** (strlen(floor($micro->aer_mes)) - 1) }}
                                     x 10<sup>{{ strlen(floor($micro->aer_mes)) - 1 }}</sup>
-                                    @elseif ($micro->aer_mes > 0)
-                                            {{ $micro->aer_mes }}
+                                @elseif ($micro->aer_mes > 0)
+                                    {{ $micro->aer_mes }}
                                 @elseif ($micro->aer_mes === 0)
                                     < 1 x 10<sup>1</sup>
                                     @elseif (is_null($micro->aer_mes))
@@ -284,8 +291,8 @@
                                             ? $micro->aer_mes2 * 10 ** (strlen(floor($micro->aer_mes2)) - 1)
                                             : $micro->aer_mes2 / 10 ** (strlen(floor($micro->aer_mes2)) - 1) }}
                                         x 10<sup>{{ strlen(floor($micro->aer_mes2)) - 1 }}</sup>
-                                        @elseif ($micro->aer_mes2 > 0)
-                                            {{ $micro->aer_mes2 }}
+                                    @elseif ($micro->aer_mes2 > 0)
+                                        {{ $micro->aer_mes2 }}
                                     @elseif ($micro->aer_mes2 === 0)
                                         < 1 x 10<sup>1</sup>
                                         @elseif (is_null($micro->aer_mes2))
@@ -309,8 +316,8 @@
                                             ? $micro->col_tot * 10 ** (strlen(floor($micro->col_tot)) - 1)
                                             : $micro->col_tot / 10 ** (strlen(floor($micro->col_tot)) - 1) }}
                                         x 10<sup>{{ strlen(floor($micro->col_tot)) - 1 }}</sup>
-                                        @elseif ($micro->col_tot > 0)
-                                            {{ $micro->col_tot }}
+                                    @elseif ($micro->col_tot > 0)
+                                        {{ $micro->col_tot }}
                                     @elseif ($micro->col_tot === 0)
                                         < 1 x 10<sup>1</sup>
                                         @elseif (is_null($micro->col_tot))
@@ -328,7 +335,7 @@
                                                 ? $micro->col_tot2 * 10 ** (strlen(floor($micro->col_tot2)) - 1)
                                                 : $micro->col_tot2 / 10 ** (strlen(floor($micro->col_tot2)) - 1) }}
                                             x 10<sup>{{ strlen(floor($micro->col_tot2)) - 1 }}</sup>
-                                            @elseif ($micro->col_tot2 > 0)
+                                        @elseif ($micro->col_tot2 > 0)
                                             {{ $micro->col_tot2 }}
                                         @elseif ($micro->col_tot2 === 0)
                                             < 1 x 10<sup>1</sup>
@@ -344,25 +351,25 @@
                         </td>
                         <td class="border-r">
                             @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 28)->where('permiso_id', 1)->isNotEmpty() ||
-                            auth()->user()->role->id == 1)
-                        <div class="flex h-full items-center justify-center ml-3">
-                            <svg wire:click="dia2({{ $micro->id }})" class="h-5 mr-1 fill-green-500"
-                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                                <path
-                                    d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
-                            </svg>
+                                    auth()->user()->role->id == 1)
+                                <div class="flex h-full items-center justify-center ml-3">
+                                    <svg wire:click="dia2({{ $micro->id }})" class="h-5 mr-1 fill-green-500"
+                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                        <path
+                                            d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
+                                    </svg>
 
 
-                            <button>
-                                <svg onclick="Livewire.dispatch('openModal', { component: 'externo.microbiologia.edit', arguments: { id: {{ $micro->id }}, id2:1 } })"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    class="h-4 w-10 fill-blue-600 dark:fill-blue-500" viewBox="0 0 512 512">
-                                    <path
-                                        d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z" />
-                                </svg>
-                            </button>
-                        </div>
-                    @endif
+                                    <button>
+                                        <svg onclick="Livewire.dispatch('openModal', { component: 'externo.microbiologia.edit', arguments: { id: {{ $micro->id }}, id2:1 } })"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            class="h-4 w-10 fill-blue-600 dark:fill-blue-500" viewBox="0 0 512 512">
+                                            <path
+                                                d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            @endif
 
 
                         </td>
@@ -413,9 +420,8 @@
                                                     ? $micro->moh_lev2 * 10 ** (strlen(floor($micro->moh_lev2)) - 1)
                                                     : $micro->moh_lev2 / 10 ** (strlen(floor($micro->moh_lev2)) - 1) }}
                                                 x 10<sup>{{ strlen(floor($micro->moh_lev2)) - 1 }}</sup>
-
-                                                @elseif ($micro->moh_lev2 > 0)
-                                            {{ $micro->moh_lev2 }}
+                                            @elseif ($micro->moh_lev2 > 0)
+                                                {{ $micro->moh_lev2 }}
                                             @elseif ($micro->moh_lev2 === 0)
                                                 < 1 x 10<sup>1</sup>
                                                 @elseif (is_null($micro->moh_lev2))
@@ -434,11 +440,11 @@
 
                         <td>
                             @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 28)->where('permiso_id', 1)->isNotEmpty() ||
-                                        auth()->user()->role->id == 1)
-
-                                       @if ($micro->detalleSolicitudPlanta->tipoMuestra->id !=9 && $micro->detalleSolicitudPlanta->tipoMuestra->id !=1 )
-
-
+                                    auth()->user()->role->id == 1)
+                                @php
+                                    $excluidos = [1, 9, 10, 18];
+                                @endphp
+                                @if (!in_array($micro->detalleSolicitudPlanta->tipoMuestra->id, $excluidos))
                                     <div class="flex h-full items-center justify-center ml-3 ">
                                         <svg wire:click="dia5({{ $micro->id }})" class="h-5 mr-1 fill-green-500"
                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
@@ -457,14 +463,14 @@
                                             </svg>
                                         </button>
                                     </div>
-                                    @endif
                                 @endif
+                            @endif
                         </td>
 
 
                         <td>
 
-                            {{$micro->observaciones}}
+                            {{ $micro->observaciones }}
                         </td>
                         <td class="px-1 py-0 flex justify-center ">
                             @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 28)->where('permiso_id', 1)->isNotEmpty())

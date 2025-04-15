@@ -19,7 +19,7 @@
             <option class="dark:bg-slate-800" value="">Seleccione una ORP</option>
             @foreach ($orps as $orp)
                 <option class="dark:bg-slate-800" value="{{ $orp->id }}">{{ $orp->codigo }} -
-                    {{ $orp->producto->nombre }}</option>
+                    {{ $orp->producto->nombre }} -  {{ $orp->fecha_vencimiento1 }} </option>
             @endforeach
         </select>
         @error('orp_id')
@@ -29,7 +29,8 @@
     <div class="grid grid-cols-4 ">
 
         @foreach ($conteoPorOrigen as $origen)
-        <div class=" p-5 m-2 rounded-md border text-center  {{ $origen['con_espacio_rt'] > 0 ? 'bg-red-500 ' : 'bg-white dark:bg-slate-700 ' }}">
+        <div class=" p-5 m-2 rounded-md border text-center  {{ ($origen['con_espacio_rt'] > 0 || $origen['con_moho'] > 0) ? 'bg-red-500 ' : 'bg-white dark:bg-slate-700 ' }}
+ ">
             <p class="font-bold">Cabezal: {{ $origen['alias'] }} </p>
             <p> RT: {{ $origen['con_espacio_rt'] }}/{{ $origen['total'] }} </p>
             <p> MyL: {{ $origen['con_moho'] }}/{{ $origen['con_moho2'] }}</p>

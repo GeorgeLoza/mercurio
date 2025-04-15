@@ -71,16 +71,6 @@ class Orp extends Component
             // Resultado: colección de IDs únicos
 
             $usuariosInvolucrados = User::whereIn('id', $ids)->get();
-
-
-
-
-
-
-
-
-
-
                 $pdf = App::make('dompdf.wrapper');
                 $pdf = Pdf::loadView('pdf.reportes.seguimientoUHT', compact(['seguimientos', 'orps','origenes','conteoPorOrigen','usuariosInvolucrados' ]));
                 $pdf->setPaper('letter', 'portrait');

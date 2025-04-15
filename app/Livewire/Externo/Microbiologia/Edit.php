@@ -45,36 +45,23 @@ class Edit extends ModalComponent
 
     public function dia2()
     {
-        /*$this->validate([
-            'aer_mes' => 'required',
-            'col_tot' => 'required',
-        ]);*/
-
         try {
             $microbiologia = MicrobiologiaExterno::find($this->id);
-            // Verificación para todas las variables antes de asignarlas al modelo
             $microbiologia->observaciones = $this->observaciones !== '' ? $this->observaciones : null;
             $microbiologia->aer_mes = $this->aer_mes !== '' ? $this->aer_mes : null;
             $microbiologia->col_tot = $this->col_tot !== '' ? $this->col_tot : null;
             $microbiologia->aer_mes2 = $this->aer_mes2 !== '' ? $this->aer_mes2 : null;
             $microbiologia->col_tot2 = $this->col_tot2 !== '' ? $this->col_tot2 : null;
 
-
-            if ($microbiologia->detalleSolicitudPlanta->tipoMuestra->id == 9) {
+            $excluidosmoho = [1,9,10,18];
+            if (in_array($microbiologia->detalleSolicitudPlanta->tipoMuestra->id, $excluidosmoho)) {
                 $microbiologia->estado = "Analizado";
-
                 $detalle = DetalleSolicitudPlanta::where("id", $microbiologia->detalle_solicitud_planta_id)->first();
                 $detalle->estado = "Revision";
                 $detalle->save();
             } else {
-                if($this->id2 == 3){
+                $microbiologia->estado = "2 Dias";
                 }
-                else{
-
-                    $microbiologia->estado = "2 Dias";
-                }
-            }
-
             if (is_null($microbiologia->fecha_dia2)) {
                 $microbiologia->fecha_dia2 = now();
             }
@@ -82,7 +69,6 @@ class Edit extends ModalComponent
                 $microbiologia->ana_dia2_id = auth()->user()->id;
             }
             $microbiologia->save();
-
             $this->dispatch('actualizar_tabla_microexterno');
             $this->closeModal();
             $this->dispatch('success', mensaje: 'Analisis realizado exitosamente.');
@@ -94,14 +80,8 @@ class Edit extends ModalComponent
 
     public function dia5()
     {
-        /*
-        $this->validate([
-            'moh_lev' => 'required',
-        ]);
-*/
         try {
             $microbiologia = MicrobiologiaExterno::find($this->id);
-
             $microbiologia->observaciones = $this->observaciones !== '' ? $this->observaciones : null;
             $microbiologia->moh_lev = $this->moh_lev !== '' ? $this->moh_lev : null;
             $microbiologia->moh_lev2 = $this->moh_lev2 !== '' ? $this->moh_lev2 : null;
@@ -117,7 +97,6 @@ class Edit extends ModalComponent
             $detalle = DetalleSolicitudPlanta::where("id", $microbiologia->detalle_solicitud_planta_id)->first();
             $detalle->estado = "Revision";
             $detalle->save();
-
             $this->dispatch('actualizar_tabla_microexterno');
             $this->closeModal();
             $this->dispatch('success', mensaje: 'Analisis realizado exitosamente.');
