@@ -110,8 +110,12 @@
                             </td>
 
                             <td class="px-1 py-0" nowrap>
+
+
                                 @if ($fis->productosPlanta)
                                     {{ $fis->productosPlanta->nombre }}
+                                    @else
+                                {{ $fis->otro }}
                                 @endif
 
                             </td>
