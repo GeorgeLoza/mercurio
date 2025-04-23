@@ -183,10 +183,10 @@
                 </div>
                 <!--TKSC -->
                 <div class="flex gap-1 items-center">
-                    <label for="TK102"
+                    <label for="TK11"
                         class="block text-xs font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                        TK102:</label>
-                    <input id="TK102" wire:model="TK102" type="number"
+                        TK11:</label>
+                    <input id="TK11" wire:model="TK11" type="number"
                         class="block p-1 w-full text-xs text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 </div>
 

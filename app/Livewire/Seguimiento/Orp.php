@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\App;
 class Orp extends Component
 {
     public $buscar_orp = '';
-    public $orp_id  ;
+    public $orp_id;
 
 
 
@@ -27,56 +27,76 @@ class Orp extends Component
                 $orps = ModelsOrp::findOrFail($this->orp_id);
 
                 $seguimientos = Seguimiento::with(['origen'])
-                ->whereJsonContains('orp_ids', (int) $this->orp_id)
-                ->get()
-                ->groupBy('numero');
+                    ->whereJsonContains('orp_ids', (int) $this->orp_id)
+                    ->get()
+                    ->groupBy('numero');
 
 
                 $seguimientos2 = Seguimiento::with('origen')
-                ->whereJsonContains('orp_ids', (int) $this->orp_id)
-                ->get();
+                    ->whereJsonContains('orp_ids', (int) $this->orp_id)
+                    ->get();
 
                 $conteoPorOrigen = $seguimientos2
-                ->groupBy('origen_id')
-                ->map(function ($items, $origen_id) {
-                    $alias = optional($items->first()->origen)->alias;
-                    $total = $items->count();
-                    $conEspacioRT = $items->where('rt', '>', 0)->count();
+                    ->groupBy('origen_id')
+                    ->map(function ($items, $origen_id) {
+                        $alias = optional($items->first()->origen)->alias;
+                        $total = $items->count();
+                        $conEspacioRT = $items->where('rt', '>', 0)->count();
 
-                    $conMoho = $items->where('moho', '>', 0)->count(); // 👈 Nuevo campo
+                        $conMoho = $items->where('moho', '>', 0)->count(); // 👈 Nuevo campo
 
-                    $conMoho2 = $items->filter(fn($item) => !is_null($item->moho))->count();
-                    return [
-                        'alias' => $alias,
-                        'con_espacio_rt' => $conEspacioRT,
+                        $conMoho2 = $items->filter(fn($item) => !is_null($item->moho))->count();
+                        return [
+                            'alias' => $alias,
+                            'con_espacio_rt' => $conEspacioRT,
 
-                        'con_moho' => $conMoho, // 👈 Lo agregamos al array
-                        'con_moho2' => $conMoho2, // 👈 Lo agregamos al array
-                        'total' => $total,
-                    ];
-                })->values();
+                            'con_moho' => $conMoho, // 👈 Lo agregamos al array
+                            'con_moho2' => $conMoho2, // 👈 Lo agregamos al array
+                            'total' => $total,
+                        ];
+                    })->values();
 
 
-            $origenes = Origen::whereBetween('id', [27, 33])->pluck('alias', 'id'); // Para construir el header de la tabla
+                $origenes = Origen::whereBetween('id', [27, 33])->pluck('alias', 'id'); // Para construir el header de la tabla
 
-            $ids = Seguimiento::select('usuario_siembra', 'usuario_rt', 'usuario_moho')
-                ->get()
-                ->flatMap(function ($item) {
-                    return [$item->usuario_siembra, $item->usuario_rt, $item->usuario_moho];
-                })
-                ->filter() // elimina nulls
-                ->unique()
-                ->values(); // reindexa
+                // $ids = Seguimiento::select('usuario_siembra', 'usuario_rt', 'usuario_moho')
+                //     ->get()
+                //     ->flatMap(function ($item) {
+                //         return [$item->usuario_siembra, $item->usuario_rt, $item->usuario_moho];
+                //     })
+                //     ->filter() // elimina nulls
+                //     ->unique()
+                //     ->values(); // reindexa
 
-            // Resultado: colección de IDs únicos
+                $ids_siembra = Seguimiento::whereNotNull('usuario_siembra')
+                    ->pluck('usuario_siembra')
+                    ->unique()
+                    ->values();
 
-            $usuariosInvolucrados = User::whereIn('id', $ids)->get();
+                $ids_rt = Seguimiento::whereNotNull('usuario_rt')
+                    ->pluck('usuario_rt')
+                    ->unique()
+                    ->values();
+
+                $ids_moho = Seguimiento::whereNotNull('usuario_moho')
+                    ->pluck('usuario_moho')
+                    ->unique()
+                    ->values();
+
+
+                // Resultado: colección de IDs únicos
+
+                $usuariosSiembra= User::whereIn('id', $ids_siembra)->get();
+                $usuariosRt= User::whereIn('id', $ids_rt)->get();
+                $usuariosMoho= User::whereIn('id', $ids_moho)->get();
+
+
                 $pdf = App::make('dompdf.wrapper');
-                $pdf = Pdf::loadView('pdf.reportes.seguimientoUHT', compact(['seguimientos', 'orps','origenes','conteoPorOrigen','usuariosInvolucrados' ]));
+                $pdf = Pdf::loadView('pdf.reportes.seguimientoUHT', compact(['seguimientos', 'orps', 'origenes', 'conteoPorOrigen', 'usuariosSiembra','usuariosRt','usuariosMoho']));
                 $pdf->setPaper('letter', 'portrait');
                 echo $pdf->stream();
             },
-           "seguimiento.pdf"
+            "seguimiento.pdf"
         );
     }
 
@@ -85,8 +105,8 @@ class Orp extends Component
     {
 
         $orps = ModelsOrp::whereHas('producto.categoriaProducto', function ($query) {
-                $query->where('grupo', 'UHT');
-            })
+            $query->where('grupo', 'UHT');
+        })
             ->where('estado', 'Completado')
             ->whereDate('created_at', '>=', Carbon::parse('2025-03-23'))
             ->when($this->buscar_orp, function ($query) {
@@ -96,11 +116,11 @@ class Orp extends Component
             ->get();
 
 
-            $seguimientos = Seguimiento::with('origen')
+        $seguimientos = Seguimiento::with('origen')
             ->whereJsonContains('orp_ids', (int) $this->orp_id)
             ->get();
 
-            $conteoPorOrigen = $seguimientos
+        $conteoPorOrigen = $seguimientos
             ->groupBy('origen_id')
             ->map(function ($items, $origen_id) {
                 $alias = optional($items->first()->origen)->alias;
@@ -125,7 +145,5 @@ class Orp extends Component
             'seguimientos' => $seguimientos, // Cargar todas las ORP
             'conteoPorOrigen' => $conteoPorOrigen, // Cargar todas las ORP
         ]);
-
-
     }
 }

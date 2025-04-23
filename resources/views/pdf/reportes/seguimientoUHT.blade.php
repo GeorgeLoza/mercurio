@@ -263,7 +263,7 @@
         <tr>
             <th class="cel-img" style="width: 25%;"><img src="img/logo/logocompleto.png" alt=""></th>
             <th style="width: 50%;">REGISTRO</th>
-            <th style="width: 25%; font-size: 0.8rem">PLL-REG-052 <br> Versión 002 <br>
+            <th style="width: 25%; font-size: 0.8rem">PLL-REG-021 <br> Versión 002 <br>
                 <div class="page-number"></div>
             </th>
         </tr>
@@ -323,8 +323,8 @@
 
     </div>
     <div>
-<br>
-<br>
+        <br>
+        <br>
 
         <table class="table-container ">
             <thead>
@@ -346,7 +346,7 @@
                 @foreach ($seguimientos as $numero => $items)
                     <tr>
                         <td class="right">{{ $items->first()->lote }}</td>
-                        <td class="right bottom">{{ $numero }}</td>
+                        <td class="right ">{{ $numero }}</td>
 
                         @foreach ($origenes as $origenId => $origenAlias)
                             @php
@@ -384,15 +384,10 @@
                 @endforeach
 
 
-                <div class="">
 
-
-
-
-                </div>
             </tbody>
         </table>
-<br>
+        <br>
         <br>
         <table class="table-container">
             <tr>
@@ -441,36 +436,63 @@
 
 
 
+
+
             <!-- Aplica la clase "mi-tabla" solo a la tabla que deseas estilizar -->
-            <table class="mi-tabla ">
-                <thead>
+            <div>
+                <table class="table-container">
+
                     <tr>
-                        <th>Código</th>
-                        <th>Nombre</th>
+                        <th class="p-2 border">Usuarios Siembra</th>
+                        <th class="p-2 border">Usuarios Lectura 2 dias</th>
+                        <th class="p-2 border">Usuarios Lectura 5 dias</th>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach ($usuariosInvolucrados as $usuariosUnicoss)
-                        <tr>
-                            <td>{{ $usuariosUnicoss->codigo }}</td>
-                            <td class="capitalize">
-                                {{ ucwords(strtolower($usuariosUnicoss->nombre . ' ' . $usuariosUnicoss->apellido)) }}
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+
+                    <tbody>
+                        @php
+                            $maxCount = max($usuariosSiembra->count(), $usuariosRt->count(), $usuariosMoho->count());
+                        @endphp
+                        @for ($i = 0; $i < $maxCount; $i++)
+                            <tr>
+                                <td class="p-2 border">
+
+                                    {{ ucwords(strtolower($usuariosSiembra[$i]->nombre ?? '')) }}
 
 
+                                    <span
+                                        class="text-gray-500">{{ ucwords(strtolower($usuariosSiembra[$i]->apellido ?? '')) }}</span>
+                                </td>
+                                <td class="p-2 border">
+                                    {{ ucwords(strtolower($usuariosRt[$i]->nombre ?? '')) }}
 
-            <div style="padding-left: 500px; ">
-                <strong
-                    style=" border-top: 1px solid #000; padding-top: 7px; padding-right: 25px; padding-left: 25px; ">
-                    REVISADO </strong>
+                                    <span class="text-gray-500">
+                                        {{ ucwords(strtolower($usuariosRt[$i]->apellido ?? '')) }}</span>
+                                </td>
+                                <td class="p-2 border">
+                                    {{ ucwords(strtolower($usuariosMoho[$i]->nombre ?? '')) }}
+
+                                    <span class="text-gray-500">
+                                        {{ ucwords(strtolower($usuariosMoho[$i]->apellido ?? '')) }}</span>
+                                </td>
+                            </tr>
+                        @endfor
+                    </tbody>
+                </table>
             </div>
 
 
+
+
+
         </div>
+
+
+
+        <div style="padding-left: 500px; padding-top: 150px;  ">
+            <strong style=" border-top: 1px solid #000; padding-top: 7px; padding-right: 25px; padding-left: 25px; ">
+                REVISADO </strong>
+        </div>
+
 
 
     </div>

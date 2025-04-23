@@ -23,8 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('calidad_leches', function (Blueprint $table) {
-            //
-            $table->boolean('antibioticos');
+            $table->dropColumn('antibioticos');
         });
     }
 };

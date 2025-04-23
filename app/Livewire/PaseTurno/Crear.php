@@ -10,7 +10,7 @@ class Crear extends ModalComponent
 {
     public $observaciones = "- HTST: \n- UHT: \n- OTROS:";
     public $urgente = "- HTST: \n- UHT: \n- OTROS:";
-    public $R1, $R2, $R3, $MIX1, $MIX2, $MIX3, $MIX4, $TK41, $TK42, $TK10, $TK5, $TKMG, $TKFG, $TKMP, $TKFP, $TKCC, $TKSC,$TK102;
+    public $R1, $R2, $R3, $MIX1, $MIX2, $MIX3, $MIX4, $TK41, $TK42, $TK10, $TK5, $TKMG, $TKFG, $TKMP, $TKFP, $TKCC, $TKSC,$TK11;
     public $volumenes;
     public $area;
 
@@ -77,8 +77,8 @@ class Crear extends ModalComponent
             if ($this->TKMP) {
                 $this->volumenes .= "TKMP: {$this->TKMP} [Litros]";
             }
-            if ($this->TK102) {
-                $this->volumenes .= "TK102: {$this->TK102} [Litros]";
+            if ($this->TK11) {
+                $this->volumenes .= "TK11: {$this->TK11} [Litros]";
             }
 
             PaseTurno::create([

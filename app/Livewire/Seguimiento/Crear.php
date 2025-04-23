@@ -39,16 +39,11 @@ class Crear extends ModalComponent
     }
     private function actualizarOrigens()
     {
-        if ($this->orp_id || $this->orp_id2 || $this->orp_id3) {
-            $this->origens = Origen::whereBetween('id', [27, 33])
-                ->whereHas('estadoPlanta.estadoDetalle', function ($query) {
-                    $query->whereIn('orp_id', array_filter([$this->orp_id, $this->orp_id2, $this->orp_id3])); // Filtrar valores no nulos
-                })
-                ->distinct()
-                ->get();
-        } else {
-            $this->origens = [];
-        }
+
+        $this->origens = Origen::whereBetween('id', [27, 33])
+            ->whereHas('estadoPlanta.estadoDetalle', function ($query) {})
+            ->distinct()
+            ->get();
     }
 
 
@@ -99,7 +94,7 @@ class Crear extends ModalComponent
         })
             ->where('estado', 'Completado')
             ->whereBetween('updated_at', [
-                Carbon::now()->subDays(10)->startOfDay(),
+                Carbon::now()->subDays(100)->startOfDay(),
                 Carbon::now()->endOfDay()
             ])
 

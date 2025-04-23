@@ -33,6 +33,7 @@ class Editar extends ModalComponent
         'TKFP' => null,
         'TKCC' => null,
         'TKSC' => null,
+        'TK11' => null,
     ];
 
     // Método mount para inicializar los valores cuando el componente se monta
@@ -43,7 +44,7 @@ class Editar extends ModalComponent
         $this->observaciones = $paseTurno->observaciones;
         $this->urgente = $paseTurno->urgente;
         $this->area = $paseTurno->area;
-        
+
         // Extraer los volúmenes del campo 'volumenes' en la base de datos
         $this->parseVolumenes($paseTurno->volumenes);
     }

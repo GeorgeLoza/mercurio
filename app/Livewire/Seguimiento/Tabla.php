@@ -18,6 +18,7 @@ use Psy\Command\WhereamiCommand;
 class Tabla extends Component
 {
     use WithPagination;
+    public $fechaSiembra;
 
     public $f_orp = null;
     public $f_prod = null;
@@ -220,4 +221,28 @@ class Tabla extends Component
             $this->dispatch('error_mensaje', mensaje: 'problema' . $th->getMessage());
         }
     }
+
+
+
+
+    public function sembrar($id)
+    {
+        $this->validate([
+            'fechaSiembra' => 'required',
+
+        ]);
+        $microbiologia = Seguimiento::find($id);
+
+        // Verificar si el usuario seleccionó una fecha; si no, usar la fecha actual
+        $microbiologia->fechaSiembra = $this->fechaSiembra ?? now();
+
+        $microbiologia->usuario_siembra = auth()->user()->id;
+        $microbiologia->save();
+
+
+
+        // Limpiar la fecha después de guardar
+        $this->fechaSiembra = null;
+    }
+
 }

@@ -207,7 +207,7 @@
                                 <option value="18">TK FP</option>
                                 <option value="17">TK 10</option>
                                 <option value="19">TK 5</option>
-                                <option value="60">TK 10.2</option>
+                                <option value="60">TK 11</option>
                             </optgroup>
                             <optgroup label="Vasos - Embotelladora">
                                 <option value="22">TK CC</option>

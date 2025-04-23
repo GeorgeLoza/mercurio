@@ -295,6 +295,8 @@
                                                 --
                                         @endif
                                     </div>
+                                    @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 32)->where('permiso_id', 3)->isNotEmpty())
+
                                     <div class="flex gap-1 mr-2 ml-1">
                                         <svg onclick="Livewire.dispatch('openModal', { component: 'seguimiento.editar', arguments: { id: {{ $seguimiento->id }}, id2:1 } })"
                                             xmlns="http://www.w3.org/2000/svg"
@@ -307,6 +309,9 @@
                                         <!-- Si tienes un segundo ícono SVG, lo agregas aquí -->
                                         {{-- <svg> Segundo ícono </svg> --}}
                                     </div>
+
+
+                                    @endif
                                 </div>
                             </td>
 
@@ -330,6 +335,8 @@
                                         @endif
                                     </div>
                                     <div class="flex gap-1 items-center mt-1">
+                                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 32)->where('permiso_id', 3)->isNotEmpty())
+
                                         @if (is_null($seguimiento->moho))
                                             <svg wire:click="mohos1({{ $seguimiento->id }})"
                                                 class="h-4 fill-green-500 cursor-pointer "
@@ -355,6 +362,7 @@
                                                 <path
                                                     d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z" />
                                             </svg>
+                                        @endif
                                         @endif
                                     </div>
                                 </div>
@@ -422,6 +430,33 @@
                                         </svg>
                                     </button>
                                 </td>
+
+                                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 32)->where('permiso_id', 3)->isNotEmpty())
+
+                                <td>
+                                    <form novalidate wire:submit="sembrar({{ $seguimiento->id }})" class="flex">
+
+                                        <div>
+                                            <input type="date" wire:model="fechaSiembra"
+                                                class="border rounded p-1 " />
+                                            @error('fechaSiembra')
+                                                <p class="text-red-500">Debe colocar una fecha</p>
+                                            @enderror
+                                        </div>
+                                        <div class="p-1">
+
+                                            <button class="bg-green-600 fill-white p-1 rounded-md" type="submit">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                                    class="h-4 w-4">
+                                                    <path
+                                                        d="M512 32c0 113.6-84.6 207.5-194.2 222c-7.1-53.4-30.6-101.6-65.3-139.3C290.8 46.3 364 0 448 0h32c17.7 0 32 14.3 32 32zM0 96C0 78.3 14.3 64 32 64H64c123.7 0 224 100.3 224 224v32V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V320C100.3 320 0 219.7 0 96z" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </td>
+                                @endif
+
                             @endif
                         @endif
 
