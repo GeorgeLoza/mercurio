@@ -21,7 +21,6 @@ class SolicitudPlanta extends Component
     public $openCollapse = [];
 
     #[On('actualizar_tabla_solicitudes')]
-
     public function render()
     {
         if (auth()->user()->role->id == 23) {
@@ -116,6 +115,7 @@ class SolicitudPlanta extends Component
         $detalle = DetalleSolicitudPlanta::find($id);
         $detalle->estado = "Observado";
         $detalle->save();
+
     }
     public function pdf_solicitud($id)
     {

@@ -21,6 +21,7 @@ class DetalleSolicitudPlanta extends Model
         'tipo_analisis',
         'otro',
         'estado',
+        'observaciones',
         'user_id',
     ];
 

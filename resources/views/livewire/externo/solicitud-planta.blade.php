@@ -1,4 +1,6 @@
 <div class="overflow-x-auto">
+
+
     <table class="w-full text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr class="text-center">
@@ -18,8 +20,7 @@
                     <td class="flex gap-3 items-center py-1 w-6 mr-4">
 
 
-                        <button wire:click="toggleCollapse({{ $solicitud->id }})"
-                            >
+                        <button wire:click="toggleCollapse({{ $solicitud->id }})">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
                                 class="fill-green-600 h-5 w-5">
                                 <path
@@ -27,10 +28,26 @@
                             </svg>
                         </button>
                         {{ $loop->iteration }}
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 22)->where('permiso_id', 3)->isNotEmpty())
                         @foreach ($solicitud->detalles as $detalle)
                             @if ($detalle->estado == 'Pendiente')
                                 <span
                                     class="flex w-2 h-2 bg-orange-600 rounded-full  flex-shrink-0 mr-2 text-sm"></span>
+                                @break
+                            @endif
+                        @endforeach
+                        @endif
+
+                        @foreach ($solicitud->detalles as $detalle)
+                            @if ($detalle->estado == 'Observado')
+                                <div>
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" class=" fill-yellow-500 h-4 w-4"
+                                        viewBox="0 0 512 512">
+                                        <path
+                                            d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480L40 480c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24l0 112c0 13.3 10.7 24 24 24s24-10.7 24-24l0-112c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z" />
+                                    </svg>
+                                </div>
                                 @break
                             @endif
                         @endforeach
@@ -176,8 +193,7 @@
                                                 <td class="px-1 py-1">{{ $detalle->lote }}</td>
                                                 <td class="px-1 py-1">
                                                     @if ($detalle->fecha_elaboracion)
-
-                                                    {{ \Carbon\Carbon::parse($detalle->fecha_elaboracion)->isoFormat('DD/MM/YYYY') }}
+                                                        {{ \Carbon\Carbon::parse($detalle->fecha_elaboracion)->isoFormat('DD/MM/YYYY') }}
                                                     @endif
                                                 </td>
                                                 <td class="px-1 py-1">
@@ -185,13 +201,12 @@
                                                 </td>
                                                 <td class="px-1 py-1">
                                                     @if ($detalle->fecha_vencimiento)
-
-                                                    {{ \Carbon\Carbon::parse($detalle->fecha_vencimiento)->isoFormat('DD/MM/YYYY') }}
+                                                        {{ \Carbon\Carbon::parse($detalle->fecha_vencimiento)->isoFormat('DD/MM/YYYY') }}
                                                     @endif
                                                 </td>
                                                 <td class="px-1 py-1">{{ $detalle->tipoMuestra->nombre }}</td>
                                                 <td class="px-1 py-1">{{ $detalle->tipo_analisis }}</td>
-                                                <td class="px-1 py-1">
+                                                <td class="px-1 py-1 text-center ">
                                                     @if ($detalle->estado == 'Pendiente')
                                                         <span
                                                             class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">{{ $detalle->estado }}</span>
@@ -214,7 +229,8 @@
                                                     @endif
                                                     @if ($detalle->estado == 'Observado')
                                                         <span
-                                                            class="bg-green-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">{{ $detalle->estado }}</span>
+                                                            class="bg-green-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300 ">{{ $detalle->estado }}</span>
+                                                        <br> {{ $detalle->observaciones }}
                                                     @endif
 
                                                 </td>
@@ -225,17 +241,27 @@
 
                                                         <button wire:click="edit({{ $detalle->id }})"
                                                             class="bg-blue-500 text-white px-2 py-1 m-2 rounded">Editar</button>
-                                                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 32)->where('permiso_id', 4)->isNotEmpty())
-                                                        <button wire:click="eliminar_detalle({{ $detalle->id }})"
-                                                            wire:confirm="Esta seguro de eliminar el elemento?"
-                                                            class="bg-red-500 text-white px-2 py-1 m-2 rounded">Eliminar</button>
-                                                            @endif
+                                                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 32)->where('permiso_id', 4)->isNotEmpty())
+                                                            <button wire:click="eliminar_detalle({{ $detalle->id }})"
+                                                                wire:confirm="Esta seguro de eliminar el elemento?"
+                                                                class="bg-red-500 text-white px-2 py-1 m-2 rounded">Eliminar</button>
+                                                        @endif
 
                                                         <!-- Botones adicionales para cambiar los estados -->
                                                         <button wire:click="confirmar({{ $detalle->id }})"
                                                             class="bg-yellow-500 text-white px-2 py-1 m-2 rounded">Confirmar</button>
-                                                        <button wire:click="observado({{ $detalle->id }})"
+
+
+                                                        <button
+                                                            onclick="Livewire.dispatch('openModal', { component: 'externo.observaciones', arguments: { id: {{ $detalle->id }} } })"
+                                                            {{-- wire:click="observado({{ $detalle->id }})" --}}
                                                             class="bg-green-500 text-white px-2 py-1 m-2 rounded">Observar</button>
+
+
+
+
+
+
                                                     </td>
                                                 @endif
                                             @endif

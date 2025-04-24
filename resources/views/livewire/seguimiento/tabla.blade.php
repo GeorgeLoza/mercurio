@@ -470,4 +470,5 @@
     <div class="mt-4">
         {{ $seguimientos->links() }}
     </div>
+
 </div>
