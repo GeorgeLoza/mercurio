@@ -5,6 +5,7 @@ use App\Http\Controllers\AnalisisLineaController;
 use App\Http\Controllers\CertificadoController;
 use App\Http\Controllers\ContadorController;
 use App\Http\Controllers\DatosController;
+use App\Http\Controllers\DesinfeccionController;
 use App\Http\Controllers\EstadoPlantaController;
 use App\Http\Controllers\ExternoController;
 use App\Http\Controllers\GeneralController;
@@ -180,6 +181,9 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::middleware(['role.permission:28,2'])->group(function () {
         Route::get('/externo/microbiologia', [ExternoController::class, 'microbiologia'])->name('microbiologia.index');
+    });
+    Route::middleware(['role.permission:33,2'])->group(function () {
+        Route::get('/desinfeccion', [DesinfeccionController::class, 'index'])->name('desinfeccion.index');
     });
 
 

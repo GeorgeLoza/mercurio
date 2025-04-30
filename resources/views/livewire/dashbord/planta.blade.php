@@ -1204,7 +1204,7 @@
 
 
             <!--10.2 INICIO-->
-            <div class="relative p-2 mb-2 rounded-lg  border-red-500 hover:bg-gray-100 hover:dark:bg-gray-700 border">
+            <div class="relative p-2 mb-2 rounded-lg  border-gray-500 hover:bg-gray-100 hover:dark:bg-gray-700 border">
                 @if ($TK102)
                     <div class="flex justify-between text-xs" data-popover-trigger="click"
                         data-popover-target="TK102-analizar-popover">
@@ -1377,9 +1377,9 @@
                         @endif
                     </div>
                 @endif
-                <div
+                {{-- <div
                     class="absolute inline-flex items-center justify-center w-auto px-1 h-6 text-2xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-3 -end-2 dark:border-gray-900">
-                    NUEVO</div>
+                    NUEVO</div> --}}
             </div>
 
 

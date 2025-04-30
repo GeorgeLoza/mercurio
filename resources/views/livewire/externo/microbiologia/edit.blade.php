@@ -177,7 +177,7 @@
 
                 <form novalidate wire:submit="dia5">
                     @php
-                        $excluidos = [9, 5,1,17];
+                        $excluidos = [9, 10,1,18];
                     @endphp
                     @if (!in_array($data->detalleSolicitudPlanta->tipoMuestra->id, $excluidos))
                     <div>
