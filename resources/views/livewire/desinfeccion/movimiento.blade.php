@@ -16,28 +16,31 @@
         </div>
 
         <div>
-            <h3 class="text-lg font-semibold mt-4">Detalles del Movimiento</h3>
+            <h3 class="text-lg font-semibold mt-4">Detalles del Movimiento {{ $est }}</h3>
             <div class="flex items-center mt-2 space-x-2">
                 <select wire:model.live="item" class="block w-full p-2 text-sm ...">
                     <option value="">Seleccione un ítem</option>
                     @foreach ($items as $item)
-                        <option value="{{ $item->id }}">{{ $item->codigo }} {{ $item->nombre }}</option>
+                        <option value="{{ $item->id }}">{{ $item->codigo }} {{ $item->nombre }} {{$item->concentracion}}</option>
                     @endforeach
                 </select>
+                @if ($est != 1)
 
-                <select wire:model.live="destino" {{ $item ? '' : 'disabled' }} class="block w-full p-2 text-sm ...">
-                    <option value="">Seleccione un destino</option>
-                    @foreach ($destinos as $destino)
-                        <option value="{{ $destino->id }}">{{ $destino->descripcion }}</option>
-                    @endforeach
-                </select>
+                    <select wire:model.live="destino" {{ $item ? '' : 'disabled' }}
+                        class="block w-full p-2 text-sm ...">
+                        <option value="">Seleccione un destino</option>
+                        @foreach ($destinos as $destino)
+                            <option value="{{ $destino->id }}">{{ $destino->descripcion }}</option>
+                        @endforeach
+                    </select>
+                @endif
 
-                <input type="number"
+                <input type="number" wire:model="cantidad"
                     class="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Cantidad" min="0" />
             </div>
-            {{-- @error('detalles.' . $index . '.item_id')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
-                @error('detalles.' . $index . '.cantidad')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror --}}
+             @error('item')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
+          @error('cantidad')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
 
         </div>
 
@@ -46,7 +49,7 @@
                 class="w-full bg-green-600 text-white rounded-md px-4 py-2">{{ $id ? 'Actualizar' : 'Crear' }}</button>
         </div>
 
-        <div wire:loading>
+        {{-- <div wire:loading>
             <div
                 class="fixed inset-0 flex items-center justify-center bg-gray-50 bg-opacity-75 dark:bg-gray-800 dark:bg-opacity-75 z-50">
                 <div role="status">
@@ -62,6 +65,6 @@
                     </svg>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </form>
 </div>

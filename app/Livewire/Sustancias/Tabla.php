@@ -92,20 +92,7 @@ class Tabla extends Component
         // Refresca la lista de movimientos
     }
 
-    public function cambiarEstado3($movId)
-    {
-        // Busca el movimiento y cambia su estado a 'autorizado'
-        $mov = Mov::find($movId);
 
-        if ($mov) {
-            $mov->estado = 'Entregado';
-            $mov->entregante = auth()->user()->id;
-            dd($mov->entregante);
-            $mov->save();
-        }
-
-        // Refresca la lista de movimientos
-    }
 
 
 

@@ -15,7 +15,7 @@ class itemSolucion extends Model
         'codigo',
         'unidad',
         'concentracion',
-        'unidad',
+
 
     ];
 

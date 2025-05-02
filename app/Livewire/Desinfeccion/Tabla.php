@@ -12,6 +12,8 @@ class Tabla extends Component
 
     public $totalesPorItem = [];
     public $items;
+
+
     #[On('actualizar_movimiento_desinfeccion')]
     public function mount()
     {
@@ -27,53 +29,86 @@ class Tabla extends Component
         $movimientos = movSolucion::orderBy('tiempo', 'desc') // Ordenar por fecha de creación descendente
             ->paginate(10);
 
-        return view('livewire.desinfeccion.tabla',[
+        return view('livewire.desinfeccion.tabla', [
             'movimientos' => $movimientos,
         ]);
     }
 
     public function calcularCantidadActualPorItem()
     {
+        $items = ItemSolucion::with(['movSolucion' => function ($query) {
+            $query->where('estado', 'Entregado');
+        }])->get();
 
-     // Obtener todos los ítems
-     $items = ItemSolucion::all();
+        $this->totalesPorItem = [];
 
-     // Agrupar y calcular movimientos directamente desde movSolucion
-     $movimientos = MovSolucion::where('estado', 'Entregado')
-         ->get()
-         ->groupBy('item_id')
-         ->map(function ($movs) {
-             $ingresos = $movs->where('tipo', 1)->sum('cantidad');
-             $egresos = $movs->where('tipo', 0)->sum('cantidad');
-             $ultimoEgreso = $movs->where('tipo', 0)->sortByDesc('tiempo')->first();
+        foreach ($items as $item) {
+            $movs = $item->movSolucion;
 
-             return [
-                 'ingresos' => $ingresos,
-                 'egresos' => $egresos,
-                 'cantidad_actual' => $ingresos - $egresos,
-                 'ultimo_egreso' => $ultimoEgreso ? [
-                     'cantidad' => $ultimoEgreso->cantidad,
-                     'fecha' => $ultimoEgreso->tiempo,
-                 ] : null,
-             ];
-         });
+            $ingresos = $movs->where('tipo', 1)->sum('cantidad');
+            $egresos = $movs->where('tipo', 0)->sum('cantidad');
+            $cantidad_actual = $ingresos - $egresos;
 
-     // Asociar los datos calculados a los ítems
-     $this->totalesPorItem = $items->map(function ($item) use ($movimientos) {
-         $movimiento = $movimientos->get($item->id, [
-             'ingresos' => 0,
-             'egresos' => 0,
-             'cantidad_actual' => 0,
-             'ultimo_egreso' => null,
-         ]);
+            $ultimoEgreso = $movs->where('tipo', 0)->sortByDesc('tiempo')->first();
 
-         return [
-             'nombre' => $item->nombre,
-             'codigo' => $item->codigo,
-             'unidad' => $item->unidad ?? ' ',
-             'cantidad_actual' => $movimiento['cantidad_actual'],
-             'ultimo_egreso' => $movimiento['ultimo_egreso'],
-         ];
-     })->toArray();
-}
+            $this->totalesPorItem[] = [
+                'nombre' => $item->nombre,
+                'codigo' => $item->codigo,
+                'concentracion' => $item->concentracion,
+                'unidad' => $item->unidad ?? ' ',
+                'cantidad_actual' => $cantidad_actual,
+                'ultimo_egreso' => $ultimoEgreso ? [
+                    'cantidad' => $ultimoEgreso->cantidad,
+                    'fecha' => $ultimoEgreso->tiempo,
+                ] : null,
+            ];
+        }
+    }
+
+
+
+    public function cambiarEstado1($movId)
+    {
+        // Busca el movimiento y cambia su estado a 'autorizado'
+        $mov = movSolucion::find($movId);
+
+        if ($mov) {
+            $mov->estado = 'Autorizado';
+
+            $mov->autorizante = auth()->user()->id;
+            // dd($mov->user_id);
+            $mov->save();
+        }
+
+        // Refresca la lista de movimientos
+    }
+
+    public function cambiarEstado2($movId)
+    {
+        // Busca el movimiento y cambia su estado a 'autorizado'
+        $mov = movSolucion::find($movId);
+
+        if ($mov) {
+            $mov->estado = 'Denegado';
+            $mov->autorizante = auth()->user()->id;
+            $mov->save();
+        }
+
+        // Refresca la lista de movimientos
+    }
+
+    public function cambiarEstado3($movId)
+    {
+        // Busca el movimiento y cambia su estado a 'autorizado'
+        $mov = movSolucion::find($movId);
+
+        if ($mov) {
+            $mov->estado = 'Entregado';
+            $mov->entregante = auth()->user()->id;
+            dd($mov->entregante);
+            $mov->save();
+        }
+
+        // Refresca la lista de movimientos
+    }
 }

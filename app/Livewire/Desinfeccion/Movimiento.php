@@ -13,9 +13,9 @@ class Movimiento extends ModalComponent
 
     public $est;
 
-    public $item;
-public $destino;
-
+    public int $item;
+    public $destino;
+    public $cantidad;
 
     public $id;
     public $items;
@@ -31,18 +31,15 @@ public $destino;
 
         // Si el ID no es nulo, estamos en modo edición
         if ($id) {
-            $this->movimiento = movSolucion::with('detalleMovs')->find($id);
+            $this->movimiento = movSolucion::find($id);
             if ($this->movimiento) {
-
-                // Cargar los detalles del movimiento
-                // $this->detalles = $this->movimiento->detalleMovs->toArray();
+                $this->item = $this->movimiento->item_solucion_id;
+                $this->destino = $this->movimiento->destino_solucion_id;
+                $this->cantidad = $this->movimiento->cantidad;
             }
         }
 
         $this->destinos = DestinoSolucion::all();
-        // echo $this->destinos;
-        // dd($this->destinos);
-
     }
 
     public function render()
@@ -57,9 +54,126 @@ public $destino;
         $this->destino = null; // Reiniciar selección de destino
     }
 
-    // public function updateDestino($value)
-    // {
-    //     $this->destinos = DestinoSolucion::where('item_solucion_id', $value)->get();
-    //     // dd($this->destinos);
-    // }
+    public function save(int $tipo)
+    {
+        if ($tipo == 1) {
+
+            $this->validate([
+                'item' => 'required',
+                'cantidad' => 'required|numeric',
+            ]);
+
+            // dd($this->item);
+            try {
+
+                $ultimoSaldo = movSolucion::where('estado',  'Entregado')
+                    ->where('item_solucion_id', $this->item)
+                    ->latest('id')
+                    ->value('saldo') ?? 0; // Excluir movimientos denegados
+
+                $nuevoSaldo = $ultimoSaldo + ($this->cantidad);
+
+                $this->movimiento = movSolucion::create([
+                    'tiempo' => now(),
+                    'user_id' => auth()->user()->id,
+                    'tipo' => $tipo,
+                    'item_solucion_id' => $this->item,
+
+                    'entregante' => auth()->user()->id,
+                    'autorizante' => auth()->user()->id,
+                    'estado' => 'Entregado',
+                    'cantidad' => $this->cantidad,
+                    'cantidad_mezcla' => $this->cantidad,
+                    'saldo' => $nuevoSaldo,
+                ]);
+
+
+
+                $this->dispatch('actualizar_movimiento_desinfeccion');
+
+                $this->closeModal();
+            } catch (\Throwable $th) {
+                session()->flash('error', 'Ocurrió un error al guardar el movimiento.');
+                // \Log::error($th->getMessage());
+            }
+        }
+
+        if ($tipo == 0) {
+            $this->validate([
+                'item' => 'required',
+                'destino' => 'required',
+                'cantidad' => 'required|numeric',
+            ]);
+
+
+            if ($this->movimiento) {
+
+                try {
+                    $this->movimiento->update([
+
+                        'cantidad' => $this->cantidad,
+                        'estado' => 'Entregado',
+                    ]);
+                    $this->dispatch('actualizar_movimiento_desinfeccion');
+                    $this->closeModal();
+                } catch (\Throwable $th) {
+                    $this->dispatch('error_mensaje', mensaje: 'problema' . $th->getMessage());
+                    // \Log::error($th->getMessage());
+                }
+            } else {
+
+
+                try {
+
+
+                    $ultimoSaldo = movSolucion::where('estado',  'Entregado')
+                        ->where('item_solucion_id', $this->item)
+                        ->latest('id')
+                        ->value('saldo') ?? 0; // Excluir movimientos denegados
+
+
+
+                    $itemModel = itemSolucion::find($this->item);
+                    $destinoModel = DestinoSolucion::find($this->destino);
+
+                    $cantidadPura = ($this->cantidad * $destinoModel->concentracion) / $itemModel->concentracion;
+
+                    $cantidadMAxima = $ultimoSaldo * $itemModel->concentracion / $destinoModel->concentracion;
+                    // Validar que haya suficiente saldo
+                    if ($cantidadPura > $ultimoSaldo) {
+
+                        $this->dispatch('error_mensaje', mensaje: 'La cantidad maxima para solicitar es: ' . $cantidadMAxima);
+                        return;
+                    }
+
+                    // Calcular nuevo saldo
+                    $nuevoSaldo = $ultimoSaldo - $cantidadPura;
+
+                    $this->movimiento = movSolucion::create([
+                        'tiempo' => now(),
+                        'user_id' => auth()->user()->id,
+                        'tipo' => $tipo,
+                        'item_solucion_id' => $this->item,
+                        'destino_solucion_id' => $this->destino,
+
+                        'estado' => 'Solicitado',
+
+                        'cantidad_mezcla' => $this->cantidad,
+
+                        'cantidad' => $cantidadPura,
+
+                        'saldo' => $nuevoSaldo,
+                    ]);
+                    $this->dispatch('actualizar_movimiento_desinfeccion');
+                    $this->closeModal();
+                } catch (\Throwable $th) {
+
+
+                    $this->dispatch('error_mensaje', mensaje: 'problema' . $th->getMessage());
+                    // session()->flash('error', 'Ocurrió un error al guardar el movimiento.');
+                    // \Log::error($th->getMessage());
+                }
+            }
+        }
+    }
 }

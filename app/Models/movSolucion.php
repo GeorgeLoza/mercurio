@@ -18,22 +18,23 @@ class movSolucion extends Model
         'autorizante',
         'entregante',
         'estado',
-        'item_id',
+        'item_solucion_id',
+        'destino_solucion_id',
+        'estado',
+        'confirmacion',
         'cantidad',
         'saldo',
-        'concentracion',
-        'confirmacion',
         'cantidad_mezcla',
         'porcentaje',
         'observacion',
     ];
 
-    public function item()
+    public function itemSolucion()
     {
         return $this->belongsTo(itemSolucion::class);
     }
 
-    public function destino()
+    public function destinoSolucion()
     {
         return $this->belongsTo(DestinoSolucion::class);
     }

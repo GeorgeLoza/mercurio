@@ -20,15 +20,14 @@ return new class extends Migration
             $table->foreignId('autorizante')->nullable()->constrained('users')->onDelete('restrict');
             $table->foreignId('entregante')->nullable()->constrained('users')->onDelete('restrict');
             $table->foreignId('item_solucion_id')->constrained()->onDelete('restrict');
-            $table->foreignId('destino_solucion_id')->constrained()->onDelete('restrict');
+            $table->foreignId('destino_solucion_id')->nullable()->constrained()->onDelete('restrict');
             $table->string('estado');
-            $table->decimal('concentracion', 5, 2);
 
-            $table->decimal('confirmacion', 5, 2);
+            $table->decimal('confirmacion', 5, 2)->nullable();
             $table->decimal('cantidad', 9, 4);
-            $table->decimal('saldo', 10, 4)->default(0);
-            $table->decimal('cantidad_mezcla', 9, 4);
-            $table->decimal('porcentaje', 6, 3);
+            $table->decimal('saldo', 10, 4)->default(0)->nullable();
+            $table->decimal('cantidad_mezcla', 9, 4)->nullable();
+            $table->decimal('porcentaje', 6, 3)->nullable();
             $table->string('observacion')->nullable();
 
             $table->timestamps();
