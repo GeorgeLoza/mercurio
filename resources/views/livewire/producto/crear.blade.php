@@ -90,7 +90,7 @@
                         class="block py-2.5 px-0 w-full text-sm text-gray-600 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
                         <option selected class="bg-gray-100 dark:bg-gray-800">Escoge una opción</option>
                         @foreach ($categoriaProductos as $categoria)
-                        <option value="{{$categoria->id}}" class="bg-gray-100 dark:bg-gray-800">{{$categoria->nombre}}
+                        <option value="{{$categoria->id}}" class="bg-gray-100 dark:bg-gray-800">{{$categoria->grupo}} - {{$categoria->nombre}}
                         </option>
                         @endforeach
 

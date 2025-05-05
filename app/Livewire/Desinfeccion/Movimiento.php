@@ -16,11 +16,13 @@ class Movimiento extends ModalComponent
     public int $item;
     public $destino;
     public $cantidad;
+    public $concentracion;
+    public $confirmacion;
 
     public $id;
     public $items;
     public $destinos;
-
+    public $editar = false;
     public $movimiento;
 
 
@@ -31,11 +33,15 @@ class Movimiento extends ModalComponent
 
         // Si el ID no es nulo, estamos en modo edición
         if ($id) {
+
             $this->movimiento = movSolucion::find($id);
             if ($this->movimiento) {
                 $this->item = $this->movimiento->item_solucion_id;
                 $this->destino = $this->movimiento->destino_solucion_id;
                 $this->cantidad = $this->movimiento->cantidad;
+                $this->concentracion = $this->movimiento->destinoSolucion->concentracion;
+                $this->editar = true;
+
             }
         }
 
@@ -113,6 +119,9 @@ class Movimiento extends ModalComponent
 
                         'cantidad' => $this->cantidad,
                         'estado' => 'Entregado',
+                        'confirmacion' => $this->confirmacion,
+                        'porcentaje' => $this->concentracion,
+                        'entregante' => auth()->user()->id,
                     ]);
                     $this->dispatch('actualizar_movimiento_desinfeccion');
                     $this->closeModal();
@@ -139,6 +148,27 @@ class Movimiento extends ModalComponent
                     $cantidadPura = ($this->cantidad * $destinoModel->concentracion) / $itemModel->concentracion;
 
                     $cantidadMAxima = $ultimoSaldo * $itemModel->concentracion / $destinoModel->concentracion;
+
+                    if ($itemModel->codigo == 'L-5') {
+                        $cantidadPura = ($this->cantidad * $destinoModel->concentracion) / 14.5600;
+
+
+                        $cantidadMAxima = $ultimoSaldo * 14.5600 / $destinoModel->concentracion;
+                    }
+
+                    if ($itemModel->codigo == 'L-6') {
+                        $cantidadPura = ($this->cantidad * $destinoModel->concentracion) / 620;
+
+
+                        $cantidadMAxima = $ultimoSaldo * 620 / $destinoModel->concentracion;
+                    }
+
+                    if ($itemModel->codigo == 'L-4') {
+
+                        $cantidadPura = ($this->cantidad * $destinoModel->concentracion * 1000) / $itemModel->concentracion;
+
+                        $cantidadMAxima = $ultimoSaldo * $itemModel->concentracion / ($destinoModel->concentracion * 1000);
+                    }
                     // Validar que haya suficiente saldo
                     if ($cantidadPura > $ultimoSaldo) {
 
@@ -175,5 +205,10 @@ class Movimiento extends ModalComponent
                 }
             }
         }
+    }
+
+    public function cerrar()
+    {
+        $this->closeModal();
     }
 }

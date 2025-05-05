@@ -189,7 +189,13 @@
                         @foreach ($grupoColumnas as $columna)
                             @php
                                 // Obtener la fecha de vencimiento desde la relación
-                                $fechaVencimiento = \Carbon\Carbon::parse($columna['orp']['fecha_vencimiento1']);
+                                if ($columna['orp']['fecha_vencimiento1'] != null) {
+                                    # code...
+                                    $fechaVencimiento = \Carbon\Carbon::parse($columna['orp']['fecha_vencimiento1']);
+                                }
+                                else {
+                                    $fechaVencimiento= null;
+                                }
                             @endphp
                             <th colspan="8" class="right">
                                 @if ($fechaVencimiento != null)

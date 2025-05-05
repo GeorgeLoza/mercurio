@@ -14,8 +14,10 @@
                             {{ $datos['cantidad_actual'] }} [{{ $datos['unidad'] }}]
                         </span>
                         @if ($datos['cantidad_actual'] <= 0)
-                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-red-500 h-4 w-4 inline" viewBox="0 0 512 512">
-                                <path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z" />
+                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-red-500 h-4 w-4 inline"
+                                viewBox="0 0 512 512">
+                                <path
+                                    d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z" />
                             </svg>
                         @endif
                     </p>
@@ -23,7 +25,8 @@
                     @if ($datos['ultimo_egreso'])
                         <p class="text-gray-600 dark:text-gray-400 text-xs">
                             Último Egreso:
-                            <span class="font-bold">{{ $datos['ultimo_egreso']['cantidad'] }} [{{ $datos['unidad'] }}]</span>
+                            <span class="font-bold">{{ $datos['ultimo_egreso']['cantidad'] }}
+                                [{{ $datos['unidad'] }}]</span>
                             ({{ \Carbon\Carbon::parse($datos['ultimo_egreso']['fecha'])->format('d-m-Y') }})
                         </p>
                     @else
@@ -46,7 +49,8 @@
                 <tr>
                     <th scope="col" class="px-4 py-2">Código</th>
                     <th scope="col" class="px-4 py-2">Item</th>
-                                            <th scope="col" class="px-4 py-2">Cantidad</th>
+                    <th scope="col" class="px-4 py-2">Cantidad</th>
+                    <th scope="col" class="px-4 py-2">Cantidad de reactivo</th>
                     <th scope="col" class="px-4 py-2">Usuario</th>
                     <th scope="col" class="px-4 py-2">Tipo</th>
                     <th scope="col" class="px-4 py-2">Estado</th>
@@ -58,11 +62,23 @@
                 @foreach ($movimientos as $mov)
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <td class="px-4 py-2">SUS-{{ $mov->id }}</td>
-                            <td class="px-4 py-2">
-                                {{ $mov->itemSolucion->codigo }} - {{ $mov->itemSolucion->nombre }}
-                            </td>
-                            <td class="px-4 py-2">{{ $mov->cantidad_mezcla / 1 }}
-                                [{{ $mov->itemSolucion->unidad }}]</td>
+                        <td class="px-4 py-2">
+                            {{ $mov->itemSolucion->codigo }} - {{ $mov->itemSolucion->nombre }}
+                        </td>
+                        <td class="px-4 py-2">{{ $mov->cantidad_mezcla / 1 }}
+                            @php
+                            $unidad = match($mov->itemSolucion->codigo) {
+                                'L-4' => '[ml]',
+                                'L-5' => '[gr]',
+                                default => '[' . $mov->itemSolucion->unidad . ']',
+                            };
+                        @endphp
+
+                        {{ $unidad }}
+                        </td>
+
+                        <td class="px-4 py-2">{{ $mov->cantidad / 1 }}
+                            [{{ $mov->itemSolucion->unidad }}]</td>
 
                         <td class="px-4 py-2">{{ $mov->user->nombre }} {{ $mov->user->apellido }}</td>
 
@@ -76,7 +92,7 @@
                                             d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2 160 448c0 17.7 14.3 32 32 32s32-14.3 32-32l0-306.7L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z" />
                                     </svg>
 
-                                    Entrada
+                                    {{-- Entrada --}}
                                 </div>
                             @else
                                 <div class="flex ">
@@ -86,7 +102,7 @@
                                             d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z" />
                                     </svg>
 
-                                    Salida
+                                    {{-- Salida --}}
                                 </div>
                             @endif
                         </td>
