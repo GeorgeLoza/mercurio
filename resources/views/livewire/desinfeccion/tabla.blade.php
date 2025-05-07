@@ -49,9 +49,10 @@
                 <tr>
                     <th scope="col" class="px-4 py-2">Código</th>
                     <th scope="col" class="px-4 py-2">Item</th>
-                    <th scope="col" class="px-4 py-2">Cantidad</th>
-                    <th scope="col" class="px-4 py-2">Cantidad de reactivo</th>
-                    <th scope="col" class="px-4 py-2">Usuario</th>
+                    <th scope="col" class="px-4 py-2">Vol. Sol. [L]</th>
+                    <th scope="col" class="px-4 py-2">Des. Entregado</th>
+                    <th scope="col" class="px-4 py-2">Solicitante</th>
+                    <th scope="col" class="px-4 py-2">Autorizante</th>
                     <th scope="col" class="px-4 py-2">Tipo</th>
                     <th scope="col" class="px-4 py-2">Estado</th>
                     <th scope="col" class="px-4 py-2">Fecha</th>
@@ -61,26 +62,52 @@
             <tbody>
                 @foreach ($movimientos as $mov)
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <td class="px-4 py-2">SUS-{{ $mov->id }}</td>
+                        <td class="px-4 py-2">DES-{{ $mov->id }}</td>
                         <td class="px-4 py-2">
                             {{ $mov->itemSolucion->codigo }} - {{ $mov->itemSolucion->nombre }}
                         </td>
                         <td class="px-4 py-2">{{ $mov->cantidad_mezcla / 1 }}
-                            @php
-                            $unidad = match($mov->itemSolucion->codigo) {
-                                'L-4' => '[ml]',
-                                'L-5' => '[gr]',
-                                default => '[' . $mov->itemSolucion->unidad . ']',
-                            };
-                        @endphp
 
-                        {{ $unidad }}
+
                         </td>
 
-                        <td class="px-4 py-2">{{ $mov->cantidad / 1 }}
-                            [{{ $mov->itemSolucion->unidad }}]</td>
+                        <td class="px-4 py-2">
+                            @if ($mov->itemSolucion->codigo == ('L-4' || 'L-6'))
+                                {{ $mov->cantidad * 1000 }}
+                            @else
+                                {{ $mov->cantidad / 1 }}
+                            @endif
+                            @php
+                                $unidad = match ($mov->itemSolucion->codigo) {
+                                    'L-4' => '[ml]',
+                                    'L-6' => '[gr]',
+                                    default => '[' . $mov->itemSolucion->unidad . ']',
+                                };
 
-                        <td class="px-4 py-2">{{ $mov->user->nombre }} {{ $mov->user->apellido }}</td>
+                            @endphp
+
+                            {{ $unidad }}
+
+                            {{-- [{{ $mov->itemSolucion->unidad }}] --}}
+                        </td>
+
+                        <td class="px-4 py-2">
+                            {{ substr($mov->user->nombre, 0, 1) .
+                                substr(explode(' ', $mov->user->nombre)[1] ?? '', 0, 1) .
+                                substr($mov->user->apellido, 0, 1) .
+                                substr(explode(' ', $mov->user->apellido)[1] ?? '', 0, 1) }}
+
+                        </td>
+                        <td class="px-4 py-2">
+                            @if ($mov->usuarioAutorizante)
+                                {{ substr($mov->usuarioAutorizante->nombre, 0, 1) .
+                                    substr(explode(' ', $mov->usuarioAutorizante->nombre)[1] ?? '', 0, 1) .
+                                    substr($mov->usuarioAutorizante->apellido, 0, 1) .
+                                    substr(explode(' ', $mov->usuarioAutorizante->apellido)[1] ?? '', 0, 1) }}
+                            @endif
+
+
+                        </td>
 
                         <td class="px-4 py-2">
                             @if ($mov->tipo == 1)
@@ -129,7 +156,7 @@
                             @if ($mov->tipo == 0)
 
 
-                                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 30)->where('permiso_id', 1)->isNotEmpty())
+                                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 33)->where('permiso_id', 3)->isNotEmpty())
                                     @if ($mov->estado != 'Entregado')
                                         @if ($mov->estado != 'Autorizado' && now()->diffInMinutes($mov->created_at) < 1440)
                                             <!-- Botón para autorizado -->
@@ -151,7 +178,7 @@
 
 
                                 @if ($mov->estado == 'Autorizado')
-                                    @if (auth()->user()->role->id == 7 || auth()->user()->role->id == 1)
+                                    @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 33)->where('permiso_id', 3)->isNotEmpty())
                                         <!-- Botón para entregado -->
                                         <button
                                             onclick="Livewire.dispatch('openModal', { component: 'desinfeccion.movimiento', arguments: { id: {{ $mov->id }} } })"

@@ -6,9 +6,11 @@ use App\Models\itemSolucion;
 use App\Models\movSolucion;
 use Livewire\Component;
 use Livewire\Attributes\On;
+use Livewire\WithPagination;
 
 class Tabla extends Component
 {
+    use WithPagination;
 
     public $totalesPorItem = [];
     public $items;

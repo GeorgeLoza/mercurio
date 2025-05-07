@@ -149,6 +149,7 @@ class Movimiento extends ModalComponent
 
                     $cantidadMAxima = $ultimoSaldo * $itemModel->concentracion / $destinoModel->concentracion;
 
+
                     if ($itemModel->codigo == 'L-5') {
                         $cantidadPura = ($this->cantidad * $destinoModel->concentracion) / 14.5600;
 
@@ -163,12 +164,7 @@ class Movimiento extends ModalComponent
                         $cantidadMAxima = $ultimoSaldo * 620 / $destinoModel->concentracion;
                     }
 
-                    if ($itemModel->codigo == 'L-4') {
 
-                        $cantidadPura = ($this->cantidad * $destinoModel->concentracion * 1000) / $itemModel->concentracion;
-
-                        $cantidadMAxima = $ultimoSaldo * $itemModel->concentracion / ($destinoModel->concentracion * 1000);
-                    }
                     // Validar que haya suficiente saldo
                     if ($cantidadPura > $ultimoSaldo) {
 

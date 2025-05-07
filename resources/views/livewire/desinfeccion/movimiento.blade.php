@@ -16,7 +16,7 @@
         </div>
 
         <div>
-            <h3 class="text-lg font-semibold mt-4">Detalles del Movimiento {{ $est }}</h3>
+            <h3 class="text-lg font-semibold mt-4">Detalles del Movimiento </h3>
             <div class="flex items-center mt-2 space-x-2">
                 <select wire:model.live="item" class="block w-full p-2 text-sm ...">
                     <option class="dark:bg-slate-800" value="">Seleccione un ítem</option>
@@ -36,7 +36,7 @@
                         @endforeach
                     </select>
                 @endif
-                <div class="w-full">
+                <div class="w-full mr-2">
                     @if ($est != 1 && $editar == true)
                         <p>
                             Cantidad de reactivo
@@ -46,11 +46,13 @@
 
                     <input type="number" wire:model="cantidad"
                         class="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Cantidad" min="0" />
+                        placeholder="Volumen " min="0" />
 
                 </div>
+                 <div>
+                    [L]
 
-
+                </div>
             </div>
             @error('item')
                 <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -60,25 +62,27 @@
             @enderror
 
             @if ($est != 1 && $editar == true)
-<div class="flex items-center mt-2 space-x-2">
-
-    Concentracion:  <input type="number" wire:model="concentracion"
-         class="block w-full p-2 m-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-         placeholder="Concentracion" min="0" /> %
-</div>
-
-
-
-                    @if ($item ==1 || $item==2 || $item==3)
-<div class="flex items-center mt-2 space-x-2">
-
-    Confirmacion:    <input type="number" wire:model="confirmacion"
-        class="block w-full p-2 m-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="Confirmacion" min="0" />
-</div>
-
-
+                <div class="flex items-center mt-2 space-x-2">
+                    @if ($item == 2)
+                        @php
+                            $concentracion = null;
+                        @endphp
                     @endif
+
+                    Confirmacion: <input type="number" wire:model="concentracion"
+                        class="block w-full p-2 m-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Concentracion" min="0" />
+                    @if ($item == 2)
+                    g/ml
+                    @else
+                        %
+                    @endif
+                </div>
+
+
+
+
+
 
 
             @endif

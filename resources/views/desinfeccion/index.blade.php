@@ -10,13 +10,13 @@
 
 
     {{-- ingresos --}}
-    {{-- @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 30)->where('permiso_id', 1)->isNotEmpty() || auth()->user()->role->id == 7) --}}
+     @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 33)->where('permiso_id', 1)->isNotEmpty() )
 
     <button onclick="Livewire.dispatch('openModal', { component: 'desinfeccion.movimiento', arguments: { est: 1 } })"
         class="rounded bg-green-500 text-white p-2">
         Ingreso de sustancia
     </button>
-    {{-- @endif --}}
+     @endif
 
 
 

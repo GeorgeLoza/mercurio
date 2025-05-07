@@ -39,6 +39,10 @@ class Tabla extends Component
 
     protected $listeners = ['refreshComponent' => '$refresh'];
 
+public function extracto()
+    {
+    }
+
     public function mount()
     {
         $this->checkForPendingAnalisis();
