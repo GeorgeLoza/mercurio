@@ -99,6 +99,9 @@
                             </svg>
                         </button>
                     </th>
+                    <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700" nowrap>
+                        Cabezal
+                    </th>
                     <th scope="col" class="px-1 py-3  sticky top-0 bg-white dark:bg-gray-700">
                         Producto
                     </th>
@@ -108,9 +111,7 @@
                     <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700" nowrap>
                         Numero
                     </th>
-                    <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700" nowrap>
-                        Cabezal
-                    </th>
+
 
 
                     <th scope="col"
@@ -235,6 +236,7 @@
                                 -
                             @endif
                         </td>
+
                         <td class=" px-1 py-1">
                             @if (!empty($seguimiento->orp_ids))
                                 @foreach ($seguimiento->orps() as $orp)
@@ -247,6 +249,7 @@
                                 -
                             @endif
                         </td>
+
                         <td class="px-1 py-1">
                             @if (!empty($seguimiento->orp_ids))
                                 @foreach ($seguimiento->orps() as $orp)
@@ -258,7 +261,7 @@
                                 -
                             @endif
                         </td>
-
+                        <td class=" px-1 py-1">{{ $seguimiento->origen->alias ?? '-' }}</td>
                         <td class="px-1 py-1 max-w-[250px] truncate overflow-hidden text-ellipsis whitespace-nowrap">
 
                             @if (!empty($seguimiento->orp_ids))
@@ -274,7 +277,7 @@
 
                         <td class=" px-1 py-1">{{ $seguimiento->lote ?? '-' }}</td>
                         <td class=" px-1 py-1">{{ $seguimiento->numero ?? '-' }}</td>
-                        <td class=" px-1 py-1">{{ $seguimiento->origen->alias ?? '-' }}</td>
+
 
                         @if (auth()->user()->role->id != 9)
                             <td class="px-1 py-1" nowrap>
@@ -296,21 +299,17 @@
                                         @endif
                                     </div>
                                     @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 32)->where('permiso_id', 3)->isNotEmpty())
-
-                                    <div class="flex gap-1 mr-2 ml-1">
-                                        <svg onclick="Livewire.dispatch('openModal', { component: 'seguimiento.editar', arguments: { id: {{ $seguimiento->id }}, id2:1 } })"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            class="h-4 w-4 fill-blue-600 dark:fill-blue-500 cursor-pointer"
-                                            viewBox="0 0 512 512">
-                                            <path
-                                                d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z" />
-                                        </svg>
-
-                                        <!-- Si tienes un segundo ícono SVG, lo agregas aquí -->
-                                        {{-- <svg> Segundo ícono </svg> --}}
-                                    </div>
+                                        <div class="flex gap-1 mr-2 ml-1">
+                                            <svg onclick="Livewire.dispatch('openModal', { component: 'seguimiento.editar', arguments: { id: {{ $seguimiento->id }}, id2:1 } })"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                class="h-4 w-4 fill-blue-600 dark:fill-blue-500 cursor-pointer"
+                                                viewBox="0 0 512 512">
+                                                <path
+                                                    d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z" />
+                                            </svg>
 
 
+                                        </div>
                                     @endif
                                 </div>
                             </td>
@@ -336,33 +335,32 @@
                                     </div>
                                     <div class="flex gap-1 items-center mt-1">
                                         @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 32)->where('permiso_id', 3)->isNotEmpty())
+                                            @if (is_null($seguimiento->moho))
+                                                <svg wire:click="mohos1({{ $seguimiento->id }})"
+                                                    class="h-4 fill-green-500 cursor-pointer "
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                                    <path
+                                                        d="M512 32c0 113.6-84.6 207.5-194.2 222c-7.1-53.4-30.6-101.6-65.3-139.3C290.8 46.3 364 0 448 0h32c17.7 0 32 14.3 32 32zM0 96C0 78.3 14.3 64 32 64H64c123.7 0 224 100.3 224 224v32V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V320C100.3 320 0 219.7 0 96z" />
+                                                </svg>
+                                            @endif
 
-                                        @if (is_null($seguimiento->moho))
-                                            <svg wire:click="mohos1({{ $seguimiento->id }})"
-                                                class="h-4 fill-green-500 cursor-pointer "
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                                <path
-                                                    d="M512 32c0 113.6-84.6 207.5-194.2 222c-7.1-53.4-30.6-101.6-65.3-139.3C290.8 46.3 364 0 448 0h32c17.7 0 32 14.3 32 32zM0 96C0 78.3 14.3 64 32 64H64c123.7 0 224 100.3 224 224v32V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V320C100.3 320 0 219.7 0 96z" />
-                                            </svg>
-                                        @endif
 
+                                            @if (!is_null($seguimiento->moho))
+                                                <svg wire:click="mohos2({{ $seguimiento->id }})"
+                                                    class="h-4 fill-red-500 cursor-pointer m-1 "
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                                                    <path
+                                                        d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z" />
+                                                </svg>
 
-                                        @if (!is_null($seguimiento->moho))
-                                            <svg wire:click="mohos2({{ $seguimiento->id }})"
-                                                class="h-4 fill-red-500 cursor-pointer m-1 "
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                                <path
-                                                    d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z" />
-                                            </svg>
-
-                                            <svg onclick="Livewire.dispatch('openModal', { component: 'seguimiento.editar', arguments: { id: {{ $seguimiento->id }}, id2:2 } })"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                class="h-4 w-4 fill-blue-600 dark:fill-blue-500 cursor-pointer"
-                                                viewBox="0 0 512 512">
-                                                <path
-                                                    d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z" />
-                                            </svg>
-                                        @endif
+                                                <svg onclick="Livewire.dispatch('openModal', { component: 'seguimiento.editar', arguments: { id: {{ $seguimiento->id }}, id2:2 } })"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    class="h-4 w-4 fill-blue-600 dark:fill-blue-500 cursor-pointer"
+                                                    viewBox="0 0 512 512">
+                                                    <path
+                                                        d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z" />
+                                                </svg>
+                                            @endif
                                         @endif
                                     </div>
                                 </div>
@@ -416,49 +414,51 @@
                                 @else
                                     -
                                 @endif
-                            </td>
-                            <td class=" px-1 py-1">{{ $seguimiento->observaciones_fq ?? '-' }}</td>
-                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 32)->where('permiso_id', 4)->isNotEmpty())
-                                <td>
-                                    <button wire:click="eliminar({{ $seguimiento->id }})"
-                                        wire:confirm="Esta seguro de eliminar el elemento?">
-
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="h-4 w-10 fill-red-600 dark:fill-red-500" viewBox="0 0 448 512">
-                                            <path
-                                                d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z" />
-                                        </svg>
-                                    </button>
-                                </td>
-
-                                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 32)->where('permiso_id', 3)->isNotEmpty())
-
-                                <td>
-                                    <form novalidate wire:submit="sembrar({{ $seguimiento->id }})" class="flex">
-
-                                        <div>
-                                            <input type="date" wire:model="fechaSiembra"
-                                                class="border rounded p-1 " />
-                                            @error('fechaSiembra')
-                                                <p class="text-red-500">Debe colocar una fecha</p>
-                                            @enderror
-                                        </div>
-                                        <div class="p-1">
-
-                                            <button class="bg-green-600 fill-white p-1 rounded-md" type="submit">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
-                                                    class="h-4 w-4">
-                                                    <path
-                                                        d="M512 32c0 113.6-84.6 207.5-194.2 222c-7.1-53.4-30.6-101.6-65.3-139.3C290.8 46.3 364 0 448 0h32c17.7 0 32 14.3 32 32zM0 96C0 78.3 14.3 64 32 64H64c123.7 0 224 100.3 224 224v32V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V320C100.3 320 0 219.7 0 96z" />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </form>
-                                </td>
-                                @endif
-
-                            @endif
                         @endif
+
+                        </td>
+                        <td class=" px-1 py-1">{{ $seguimiento->observaciones_fq ?? '-' }}</td>
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 32)->where('permiso_id', 4)->isNotEmpty() ||
+                                (now()->diffInMinutes($seguimiento->created_at) < 180 && auth()->user()->id == $seguimiento->user1->id))
+                            <td>
+                                <button wire:click="eliminar({{ $seguimiento->id }})"
+                                    wire:confirm="Esta seguro de eliminar el elemento?">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="h-4 w-10 fill-red-600 dark:fill-red-500" viewBox="0 0 448 512">
+                                        <path
+                                            d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z" />
+                                    </svg>
+                                </button>
+                            </td>
+                        @endif
+
+                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 32)->where('permiso_id', 3)->isNotEmpty())
+                            <td>
+                                <form novalidate wire:submit="sembrar({{ $seguimiento->id }})" class="flex">
+
+                                    <div>
+                                        <input type="date" wire:model="fechaSiembra"
+                                            class="border rounded p-1 " />
+                                        @error('fechaSiembra')
+                                            <p class="text-red-500">Debe colocar una fecha</p>
+                                        @enderror
+                                    </div>
+                                    <div class="p-1">
+
+                                        <button class="bg-green-600 fill-white p-1 rounded-md" type="submit">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                                class="h-4 w-4">
+                                                <path
+                                                    d="M512 32c0 113.6-84.6 207.5-194.2 222c-7.1-53.4-30.6-101.6-65.3-139.3C290.8 46.3 364 0 448 0h32c17.7 0 32 14.3 32 32zM0 96C0 78.3 14.3 64 32 64H64c123.7 0 224 100.3 224 224v32V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V320C100.3 320 0 219.7 0 96z" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </form>
+                            </td>
+                        @endif
+
+
 
                     </tr>
                 @endforeach

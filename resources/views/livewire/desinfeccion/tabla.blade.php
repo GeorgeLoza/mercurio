@@ -34,6 +34,8 @@
                             Último Egreso: <span class="italic">No disponible</span>
                         </p>
                     @endif
+
+
                 </div>
             @endforeach
         </div>
@@ -72,7 +74,7 @@
                         </td>
 
                         <td class="px-4 py-2">
-                            @if ($mov->itemSolucion->codigo == ('L-4' || 'L-6'))
+                            @if ($mov->itemSolucion->codigo == 'L-4'|| $mov->itemSolucion->codigo == 'L-6')
                                 {{ $mov->cantidad * 1000 }}
                             @else
                                 {{ $mov->cantidad / 1 }}
@@ -189,8 +191,6 @@
                                 @endif
 
                             @endif
-
-
 
                         </td>
                     </tr>

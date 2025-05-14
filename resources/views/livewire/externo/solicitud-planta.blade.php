@@ -29,13 +29,13 @@
                         </button>
                         {{ $loop->iteration }}
                         @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 22)->where('permiso_id', 3)->isNotEmpty())
-                        @foreach ($solicitud->detalles as $detalle)
-                            @if ($detalle->estado == 'Pendiente')
-                                <span
-                                    class="flex w-2 h-2 bg-orange-600 rounded-full  flex-shrink-0 mr-2 text-sm"></span>
-                                @break
-                            @endif
-                        @endforeach
+                            @foreach ($solicitud->detalles as $detalle)
+                                @if ($detalle->estado == 'Pendiente')
+                                    <span
+                                        class="flex w-2 h-2 bg-orange-600 rounded-full  flex-shrink-0 mr-2 text-sm"></span>
+                                    @break
+                                @endif
+                            @endforeach
                         @endif
 
                         @foreach ($solicitud->detalles as $detalle)
@@ -235,35 +235,36 @@
 
                                                 </td>
 
-                                                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 22)->where('permiso_id', 3)->isNotEmpty())
-                                                    <td class="gap-2">
+
+                                                <td class="gap-2">
 
 
+
+                                                    @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 22)->where('permiso_id', 4)->isNotEmpty())
                                                         <button wire:click="edit({{ $detalle->id }})"
                                                             class="bg-blue-500 text-white px-2 py-1 m-2 rounded">Editar</button>
-                                                        @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 32)->where('permiso_id', 4)->isNotEmpty())
-                                                            <button wire:click="eliminar_detalle({{ $detalle->id }})"
-                                                                wire:confirm="Esta seguro de eliminar el elemento?"
-                                                                class="bg-red-500 text-white px-2 py-1 m-2 rounded">Eliminar</button>
+                                                        <button wire:click="eliminar_detalle({{ $detalle->id }})"
+                                                            wire:confirm="Esta seguro de eliminar el elemento?"
+                                                            class="bg-red-500 text-white px-2 py-1 m-2 rounded">Eliminar</button>
+                                                    @endif
+
+                                                    <!-- Botones adicionales para cambiar los estados -->
+                                                    @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 22)->where('permiso_id', 3)->isNotEmpty())
+                                                        @if (($detalle->tipo_analisis == 'Microbiologico' && auth()->user()->role->id != 9) || ($detalle->tipo_analisis == 'Fisicoquimico' && auth()->user()->role->id != 8))
+                                                            <button wire:click="confirmar({{ $detalle->id }})"
+                                                                class="bg-yellow-500 text-white px-2 py-1 m-2 rounded">Confirmar</button>
+
+
+                                                            <button
+                                                                onclick="Livewire.dispatch('openModal', { component: 'externo.observaciones', arguments: { id: {{ $detalle->id }} } })"
+                                                                {{-- wire:click="observado({{ $detalle->id }})" --}}
+                                                                class="bg-green-500 text-white px-2 py-1 m-2 rounded">Observar</button>
                                                         @endif
-
-                                                        <!-- Botones adicionales para cambiar los estados -->
-                                                        <button wire:click="confirmar({{ $detalle->id }})"
-                                                            class="bg-yellow-500 text-white px-2 py-1 m-2 rounded">Confirmar</button>
-
-
-                                                        <button
-                                                            onclick="Livewire.dispatch('openModal', { component: 'externo.observaciones', arguments: { id: {{ $detalle->id }} } })"
-                                                            {{-- wire:click="observado({{ $detalle->id }})" --}}
-                                                            class="bg-green-500 text-white px-2 py-1 m-2 rounded">Observar</button>
+                                                    @endif
 
 
 
-
-
-
-                                                    </td>
-                                                @endif
+                                                </td>
                                             @endif
                                         </tr>
                                     @endforeach

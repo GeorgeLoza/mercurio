@@ -19,7 +19,10 @@
             <option class="dark:bg-slate-800" value="">Seleccione una ORP</option>
             @foreach ($orps as $orp)
                 <option class="dark:bg-slate-800" value="{{ $orp->id }}">{{ $orp->codigo }} -
-                    {{ $orp->producto->nombre }} -  {{ $orp->fecha_vencimiento1 }} </option>
+                    {{ $orp->producto->nombre }} -
+                      {{ $orp->fecha_vencimiento1 ? \Carbon\Carbon::parse($orp->fecha_vencimiento1)->isoFormat('DD/MM/YY', 0, 'es') : '' }}
+
+                </option>
             @endforeach
         </select>
         @error('orp_id')

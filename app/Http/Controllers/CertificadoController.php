@@ -13,6 +13,7 @@ use App\Models\TipoMuestra;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class CertificadoController extends Controller
 {
@@ -23,6 +24,8 @@ class CertificadoController extends Controller
     }
     public function certificado_micro_pdf($id)
     {
+
+
 
         $datosSolicitud = DetalleSolicitudPlanta::find($id);
 
@@ -35,7 +38,7 @@ class CertificadoController extends Controller
         $pdf = Pdf::loadView('pdf.externo.certificado', compact('datosSolicitud', 'resultados', 'normas'));
         $pdf->setPaper('letter', 'portrait');
 
-        return $pdf->stream('certificado.pdf');
+        return $pdf->stream(($datosSolicitud->subcodigo ?? ' ').' '.($datosSolicitud->productosPlanta->nombre ?? ' ').' '.($datosSolicitud->otro ?? ' ').' '.($datosSolicitud->lote ?? ' ').'.pdf');
     }
 
     public function certificado_micro_pdf2($id)
@@ -51,12 +54,16 @@ class CertificadoController extends Controller
         }
         $pdf = Pdf::loadView('pdf.externo.certificado2', compact('datosSolicitud', 'resultados', 'normas'));
         $pdf->setPaper('letter', 'portrait');
+        return $pdf->stream(($datosSolicitud->subcodigo ?? ' ').' '.($datosSolicitud->productosPlanta->nombre ?? ' ').' '.($datosSolicitud->otro ?? ' ').' '.($datosSolicitud->lote ?? ' ').'.pdf');
 
-        return $pdf->stream('certificado.pdf');
+
+
     }
 
     public function certificado_fisi_pdf($id)
     {
+
+
         $datosSolicitud = DetalleSolicitudPlanta::find($id);
 
 
@@ -82,6 +89,7 @@ class CertificadoController extends Controller
         $pdf = Pdf::loadView('pdf.externo.certificado_fis', compact('datosSolicitud', 'resultados', 'normas'));
         $pdf->setPaper('letter', 'portrait');
 
-        return $pdf->stream('certificado.pdf');
+       return $pdf->stream(($datosSolicitud->subcodigo ?? ' ').' '.($datosSolicitud->productosPlanta->nombre ?? ' ').' '.($datosSolicitud->otro ?? ' ').' '.($datosSolicitud->lote ?? ' ').'.pdf');
+
     }
 }

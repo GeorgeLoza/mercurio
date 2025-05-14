@@ -1,4 +1,4 @@
-<div class="">  
+<div class="">
     <div class="md:flex">
 <!--Preparado-->
     <div id="accordion-open" data-accordion="open" class="md:w-1/3">
@@ -25,7 +25,20 @@
         </h2>
         <div id="accordion-open-body-1" class="hidden" aria-labelledby="accordion-open-preparado">
             <div class="p-5 border border-gray-200 dark:border-gray-700">
-                <p>{{ $pasePreparado->user->nombre }} {{ $pasePreparado->user->apellido }}</p> 
+               <div class="text-2xs border-b-2">
+
+
+                <p>{{ $pasePreparado2->user->nombre }} {{ $pasePreparado2->user->apellido }} - Penultimo Turno</p>
+                <span class="font-bold">Urgente</span>
+                <p class="mb-2 text-gray-500 dark:text-gray-400">@if ($pasePreparado2){{ $pasePreparado2->urgente }}@endif</p>
+
+                <span class="font-bold">Observaciones</span>
+                <p class="mb-2 text-gray-500 dark:text-gray-400">@if ($pasePreparado2){{ $pasePreparado2->observaciones }}@endif</p>
+                <span class="font-bold">Volumenes en Tanque</span>
+                <p class="mb-2 text-gray-500 dark:text-gray-400">@if ($pasePreparado2){{ $pasePreparado2->volumenes }}@endif</p>
+               </div>
+
+                <p>{{ $pasePreparado->user->nombre }} {{ $pasePreparado->user->apellido }} - Ultimo Turno</p>
                 <span class="font-bold">Urgente</span>
                 <p class="mb-2 text-gray-500 dark:text-gray-400">@if ($pasePreparado){{ $pasePreparado->urgente }}@endif</p>
 
@@ -36,9 +49,9 @@
                 <div>
                     @if (auth()->user()->id == $pasePreparado->user->id)
                     <button class="p-2 bg-blue-500 rounded-lg text-white" onclick="Livewire.dispatch('openModal', { component: 'paseTurno.editar', arguments: { id: {{ $pasePreparado->id}}, area: 'Preparado' } })">
-                        Editar</button>    
+                        Editar</button>
                     @endif
-                    
+
                     <button class="p-2 bg-green-500 rounded-lg text-white" onclick="Livewire.dispatch('openModal', { component: 'paseTurno.crear', arguments: { area: 'Preparado' } })">
                         Nuevo reporte de pase de turno</button>
                 </div>
@@ -71,7 +84,20 @@
         </h2>
         <div id="accordion-open-body-2" class="hidden" aria-labelledby="accordion-open-htst">
             <div class="p-5 border border-gray-200 dark:border-gray-700">
-                <p>{{ $paseEnvasadoHTST->user->nombre }} {{ $paseEnvasadoHTST->user->apellido }}</p> 
+                <div class="text-2xs border-b-2">
+
+
+                <p>{{ $paseEnvasadoHTST2->user->nombre }} {{ $paseEnvasadoHTST2->user->apellido }} - Penultimo Turno</p>
+                <span class="font-bold">Urgente</span>
+                <p class="mb-2 text-gray-500 dark:text-gray-400">@if ($paseEnvasadoHTST2){{ $paseEnvasadoHTST2->urgente }}@endif</p>
+
+                <span class="font-bold">Observaciones</span>
+                <p class="mb-2 text-gray-500 dark:text-gray-400">@if ($paseEnvasadoHTST2){{ $paseEnvasadoHTST2->observaciones }}@endif</p>
+                <span class="font-bold">Volumenes en Tanque</span>
+                <p class="mb-2 text-gray-500 dark:text-gray-400">@if ($paseEnvasadoHTST2){{ $paseEnvasadoHTST2->volumenes }}@endif</p>
+               </div>
+
+                <p>{{ $paseEnvasadoHTST->user->nombre }} {{ $paseEnvasadoHTST->user->apellido }} - Ultimo Turno</p>
                 <span class="font-bold">Urgente</span>
                 <p class="mb-2 text-gray-500 dark:text-gray-400">@if ($paseEnvasadoHTST){{ $paseEnvasadoHTST->urgente }}@endif</p>
 
@@ -82,9 +108,9 @@
                 <div>
                     @if (auth()->user()->id == $paseEnvasadoHTST->user->id)
                     <button class="p-2 bg-blue-500 rounded-lg text-white" onclick="Livewire.dispatch('openModal', { component: 'paseTurno.editar', arguments: {id: {{ $paseEnvasadoHTST->id}}, area: 'Envasado HTST' } })">
-                        Editar</button>    
+                        Editar</button>
                     @endif
-                    
+
                     <button class="p-2 bg-green-500 rounded-lg text-white" onclick="Livewire.dispatch('openModal', { component: 'paseTurno.crear',arguments: { area: 'Envasado HTST' } })">
                         Nuevo reporte de pase de turno</button>
                 </div>
@@ -117,7 +143,21 @@
         </h2>
         <div id="accordion-open-body-3" class="hidden" aria-labelledby="accordion-open-uht">
             <div class="p-5 border border-gray-200 dark:border-gray-700">
-                <p>{{ $paseEnvasadoUHT->user->nombre }} {{ $paseEnvasadoUHT->user->apellido }}</p> 
+                 <div class="text-2xs border-b-2">
+
+
+                <p>{{ $paseEnvasadoUHT2->user->nombre }} {{ $paseEnvasadoUHT2->user->apellido }} - Penultimo Turno</p>
+                <span class="font-bold">Urgente</span>
+                <p class="mb-2 text-gray-500 dark:text-gray-400">@if ($paseEnvasadoUHT2){{ $paseEnvasadoUHT2->urgente }}@endif</p>
+
+                <span class="font-bold">Observaciones</span>
+                <p class="mb-2 text-gray-500 dark:text-gray-400">@if ($paseEnvasadoUHT2){{ $paseEnvasadoUHT2->observaciones }}@endif</p>
+                <span class="font-bold">Volumenes en Tanque</span>
+                <p class="mb-2 text-gray-500 dark:text-gray-400">@if ($paseEnvasadoUHT2){{ $paseEnvasadoUHT2->volumenes }}@endif</p>
+               </div>
+
+
+                <p>{{ $paseEnvasadoUHT->user->nombre }} {{ $paseEnvasadoUHT->user->apellido }}</p>
                 <span class="font-bold">Urgente</span>
                 <p class="mb-2 text-gray-500 dark:text-gray-400">@if ($paseEnvasadoUHT){{ $paseEnvasadoUHT->urgente }}@endif</p>
 
@@ -128,9 +168,9 @@
                 <div>
                     @if (auth()->user()->id == $paseEnvasadoUHT->user->id)
                     <button class="p-2 bg-blue-500 rounded-lg text-white" onclick="Livewire.dispatch('openModal', { component: 'paseTurno.editar', arguments: {id: {{ $paseEnvasadoUHT->id}}, area: 'Envasado UHT' } })">
-                        Editar</button>    
+                        Editar</button>
                     @endif
-                    
+
                     <button class="p-2 bg-green-500 rounded-lg text-white" onclick="Livewire.dispatch('openModal', { component: 'paseTurno.crear', arguments: { area: 'Envasado UHT' } })">
                         Nuevo reporte de pase de turno</button>
                 </div>

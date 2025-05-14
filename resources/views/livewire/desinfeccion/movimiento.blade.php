@@ -31,7 +31,8 @@
                         class="block w-full p-2 text-sm ...">
                         <option class="dark:bg-slate-800" value="">Seleccione un destino</option>
                         @foreach ($destinos as $destino)
-                            <option class="dark:bg-slate-800" value="{{ $destino->id }}">{{ $destino->descripcion }}
+                            <option class="dark:bg-slate-800" value="{{ $destino->id }}">{{ $destino->descripcion }} -
+                                {{ $destino->concentracion }} %
                             </option>
                         @endforeach
                     </select>
@@ -72,7 +73,7 @@
                     Confirmacion: <input type="number" wire:model="concentracion"
                         class="block w-full p-2 m-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Concentracion" min="0" />
-                    @if ($item == 2)
+                    @if ($item == 3)
                     g/ml
                     @else
                         %
