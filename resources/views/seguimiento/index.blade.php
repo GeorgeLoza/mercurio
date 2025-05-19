@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('titulo')
-    Seguimiento
+    Seguimiento UHT
 @endsection
 
 @section('contenido')

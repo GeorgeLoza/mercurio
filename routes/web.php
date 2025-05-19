@@ -21,6 +21,7 @@ use App\Http\Controllers\PaseTurnoController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SeguimientoController;
+use App\Http\Controllers\SeguimientoHtstController;
 use App\Http\Controllers\SolicitudAnalisisLineaController;
 use App\Http\Controllers\UsuarioController;
 
@@ -182,9 +183,6 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['role.permission:28,2'])->group(function () {
         Route::get('/externo/microbiologia', [ExternoController::class, 'microbiologia'])->name('microbiologia.index');
     });
-    Route::middleware(['role.permission:33,2'])->group(function () {
-        Route::get('/desinfeccion', [DesinfeccionController::class, 'index'])->name('desinfeccion.index');
-    });
 
 
 
@@ -193,6 +191,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/sustanciasControladas', function () {
             return view('sustanciasControladas.index');
         })->name('sustanciasControladas.index');
+    });
+    Route::middleware(['role.permission:33,2'])->group(function () {
+        Route::get('/desinfeccion', [DesinfeccionController::class, 'index'])->name('desinfeccion.index');
+    });
+
+    Route::middleware(['role.permission:34,2'])->group(function () {
+        Route::get('/seguimientoHtst', [SeguimientoHtstController::class, 'index'])->name('seguimientoHtst.index');
     });
 
 

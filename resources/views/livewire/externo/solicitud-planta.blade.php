@@ -250,7 +250,9 @@
 
                                                     <!-- Botones adicionales para cambiar los estados -->
                                                     @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 22)->where('permiso_id', 3)->isNotEmpty())
-                                                        @if (($detalle->tipo_analisis == 'Microbiologico' && auth()->user()->role->id != 9) || ($detalle->tipo_analisis == 'Fisicoquimico' && auth()->user()->role->id != 8))
+                                                        @if (
+                                                            ($detalle->tipo_analisis == 'Microbiologico' && auth()->user()->role->id != 9) ||
+                                                                ($detalle->tipo_analisis == 'Fisicoquimico' && auth()->user()->role->id != 8))
                                                             <button wire:click="confirmar({{ $detalle->id }})"
                                                                 class="bg-yellow-500 text-white px-2 py-1 m-2 rounded">Confirmar</button>
 

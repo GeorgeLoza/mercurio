@@ -12,7 +12,7 @@ class Seguimiento extends Model
 
     protected $fillable = [
 
-'orp_ids',
+        'orp_ids',
         'fechaSiembra',
         'numero',
         'origen_id',
@@ -44,7 +44,6 @@ class Seguimiento extends Model
     public function origen()
     {
         return $this->belongsTo(Origen::class);
-
     }
     public function user1()
     {
