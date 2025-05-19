@@ -127,7 +127,7 @@
                         </th>
                         <th class="p-1">
                             <input type="text" wire:model.live='f_destino' placeholder="Filtrar por Destino"
-                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
                         </th>
 
@@ -167,7 +167,8 @@
                             </select>
                         </th>
                         <th class="p-1">
-                            <input type="text" wire:model.live='f_updated_at' placeholder="Filtrar por Actualizacion"
+                            <input type="text" wire:model.live='f_updated_at'
+                                placeholder="Filtrar por Actualizacion"
                                 class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         </th>
                         <th class="p-1">
@@ -201,8 +202,7 @@
                         <th scope="row"
                             class="sticky flex py-1  bg-white  p-1 left-0 z-10 px-1  font-medium text-gray-900 whitespace-nowrap dark:text-white dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50  dark:hover:bg-gray-600 rounded-lg">
                             <!--boton reporte ORP-->
-                            <a  href="{{ route('orp.report', ['id' => $orp->id]) }}"
-                                class="rounded-md mr-4">
+                            <a href="{{ route('orp.report', ['id' => $orp->id]) }}" class="rounded-md mr-4">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-5 w-5"
                                     viewBox="0 0 512 512">
                                     <path
@@ -289,10 +289,9 @@
                         </td>
                         <td class="px-2  border-r  ">
                             @if ($orp->updated_at)
-
-                            {{ $orp->updated_at->isoFormat('DD-MM-YY') }}
+                                {{ $orp->updated_at->isoFormat('DD-MM-YY') }}
                             @else
-                            -
+                                -
                             @endif
                         </td>
                         <td class="px-2  hidden ">
@@ -305,38 +304,32 @@
 
                         <td class="flex items-center px-2  gap-1 ">
                             <!--boton para programar-->
-                            @if ($orp->estado == 'Pendiente')
-                                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 11)->where('permiso_id', 1)->isNotEmpty())
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 11)->where('permiso_id', 1)->isNotEmpty())
+                                @if ($orp->estado == 'Pendiente')
                                     <button class="p-2 rounded-md " wire:click="programar({{ $orp->id }})">
                                         <span
                                             class=" text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-purple-300 border">Programar</span>
                                     </button>
                                 @endif
-                            @endif
-                            <!--boton para cancelar-->
-                            @if ($orp->estado != 'Cancelado')
-                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 11)->where('permiso_id', 1)->isNotEmpty())
-                                <button class="p-2 rounded-md whitespace-nowrap"
-                                    wire:click="cancelar({{ $orp->id }})">
-                                    <span
-                                        class=" text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-red-400 border-collapse border border-red-500  ">Cancelar</span>
-                                </button>
-                            @endif
-                            @endif
-                            <!--boton para pendiente-->
-                            @if ($orp->estado != 'Pendiente')
-                                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 11)->where('permiso_id', 1)->isNotEmpty())
+                                <!--boton para cancelar-->
+                                @if ($orp->estado != 'Cancelado')
+                                    <button class="p-2 rounded-md whitespace-nowrap"
+                                        wire:click="cancelar({{ $orp->id }})">
+                                        <span
+                                            class=" text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-red-400 border-collapse border border-red-500  ">Cancelar</span>
+                                    </button>
+                                @endif
+                                <!--boton para pendiente-->
+                                @if ($orp->estado != 'Pendiente')
                                     <button class="p-2 rounded-md whitespace-nowrap"
                                         wire:click="pendiente({{ $orp->id }})">
                                         <span
                                             class=" text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-yellow-300 border">Pendiente</span>
                                     </button>
                                 @endif
-                            @endif
 
-                            <!--boton para cambiar estado en proceso-->
-                            @if ($orp->estado == 'Programado')
-                                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 11)->where('permiso_id', 1)->isNotEmpty())
+                                <!--boton para cambiar estado en proceso-->
+                                @if ($orp->estado == 'Programado')
                                     <button class="p-2 rounded-md whitespace-nowrap"
                                         wire:click="iniciar({{ $orp->id }})">
                                         <span
@@ -344,11 +337,9 @@
                                             Proceso</span>
                                     </button>
                                 @endif
-                            @endif
 
-                            <!--boton para cambiar estado en completado-->
-                            @if ($orp->estado == 'En proceso')
-                                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 11)->where('permiso_id', 1)->isNotEmpty())
+                                <!--boton para cambiar estado en completado-->
+                                @if ($orp->estado == 'En proceso')
                                     <button class="p-2 rounded-md whitespace-nowrap"
                                         wire:click="completar({{ $orp->id }})">
                                         <span
@@ -360,13 +351,9 @@
 
 
 
-
-
-
-
                         </td>
                         <td></td>
-                        <td class="flex" >
+                        <td class="flex">
                             @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 11)->where('permiso_id', 3)->isNotEmpty())
                                 <svg onclick="Livewire.dispatch('openModal', { component: 'orp.editar', arguments: { id: {{ $orp->id }} } })"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -394,9 +381,9 @@
     </div>
 
 
-        <div>
-            {{ $orps->links() }}
-        </div>
+    <div>
+        {{ $orps->links() }}
+    </div>
 
 
 

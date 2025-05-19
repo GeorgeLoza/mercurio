@@ -121,7 +121,7 @@
                     <td>El Alto,
                         {{ \Carbon\Carbon::parse($resultados->tiempo)->isoFormat(
                             'dddd[,] D [de] MMMM [de]
-                                                                        YYYY',
+                                                                                                YYYY',
                             0,
                             'es',
                         ) }}
@@ -248,7 +248,7 @@
                     <th>Fecha de muestreo:</th>
                     <td>{{ \Carbon\Carbon::parse($datosSolicitud->fecha_muestreo)->isoFormat(
                         'dddd[,] D [de] MMMM [de]
-                                                                YYYY',
+                                                                                    YYYY',
                         0,
                         'es',
                     ) }}
@@ -258,7 +258,7 @@
                     <th>Fecha de ingreso:</th>
                     <td>{{ \Carbon\Carbon::parse($datosSolicitud->solicitudPlanta->tiempo)->isoFormat(
                         'dddd[,] D [de] MMMM
-                                                                [de] YYYY',
+                                                                                    [de] YYYY',
                         0,
                         'es',
                     ) }}
@@ -270,7 +270,7 @@
                     <td>
                         {{ \Carbon\Carbon::parse($resultados->tiempo)->isoFormat(
                             'dddd[,] D [de] MMMM [de]
-                                                                    YYYY',
+                                                                                            YYYY',
                             0,
                             'es',
                         ) }}
@@ -412,7 +412,12 @@
                 <tr>
 
                     <th class="capitalize" style="padding: 5px">
-                        T.S. {{ ucwords(strtolower($resultados->user->nombre . ' ' . $resultados->user->apellido)) }}
+                        @if ($datosSolicitud->tipo_muestra_id == 1)
+                            T.S. Helen Jarandilla Calle
+
+                            @else
+                            T.S. {{ ucwords(strtolower($resultados->user->nombre . ' ' . $resultados->user->apellido)) }}
+                        @endif
                     </th>
                 </tr>
 
