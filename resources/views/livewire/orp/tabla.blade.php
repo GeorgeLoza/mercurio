@@ -305,49 +305,51 @@
                         <td class="flex items-center px-2  gap-1 ">
                             <!--boton para programar-->
                             @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 11)->where('permiso_id', 1)->isNotEmpty())
-                                @if ($orp->estado == 'Pendiente')
-                                    <button class="p-2 rounded-md " wire:click="programar({{ $orp->id }})">
-                                        <span
-                                            class=" text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-purple-300 border">Programar</span>
-                                    </button>
-                                @endif
-                                <!--boton para cancelar-->
-                                @if ($orp->estado != 'Cancelado')
-                                    <button class="p-2 rounded-md whitespace-nowrap"
-                                        wire:click="cancelar({{ $orp->id }})">
-                                        <span
-                                            class=" text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-red-400 border-collapse border border-red-500  ">Cancelar</span>
-                                    </button>
-                                @endif
-                                <!--boton para pendiente-->
-                                @if ($orp->estado != 'Pendiente')
-                                    <button class="p-2 rounded-md whitespace-nowrap"
-                                        wire:click="pendiente({{ $orp->id }})">
-                                        <span
-                                            class=" text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-yellow-300 border">Pendiente</span>
-                                    </button>
-                                @endif
+                                @if (($orp->estado == 'Completado' && $orp->updated_at < now()->subDays(1))  && auth()->user()->role->id != 1)
+                                @else
+                                    @if ($orp->estado == 'Pendiente')
+                                        <button class="p-2 rounded-md " wire:click="programar({{ $orp->id }})">
+                                            <span
+                                                class=" text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-purple-300 border">Programar</span>
+                                        </button>
+                                    @endif
+                                    <!--boton para cancelar-->
+                                    @if ($orp->estado != 'Cancelado')
+                                        <button class="p-2 rounded-md whitespace-nowrap"
+                                            wire:click="cancelar({{ $orp->id }})">
+                                            <span
+                                                class=" text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-red-400 border-collapse border border-red-500  ">Cancelar</span>
+                                        </button>
+                                    @endif
+                                    <!--boton para pendiente-->
+                                    @if ($orp->estado != 'Pendiente')
+                                        <button class="p-2 rounded-md whitespace-nowrap"
+                                            wire:click="pendiente({{ $orp->id }})">
+                                            <span
+                                                class=" text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-yellow-300 border">Pendiente</span>
+                                        </button>
+                                    @endif
 
-                                <!--boton para cambiar estado en proceso-->
-                                @if ($orp->estado == 'Programado')
-                                    <button class="p-2 rounded-md whitespace-nowrap"
-                                        wire:click="iniciar({{ $orp->id }})">
-                                        <span
-                                            class=" row text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-blue-300 border">En
-                                            Proceso</span>
-                                    </button>
-                                @endif
+                                    <!--boton para cambiar estado en proceso-->
+                                    @if ($orp->estado == 'Programado')
+                                        <button class="p-2 rounded-md whitespace-nowrap"
+                                            wire:click="iniciar({{ $orp->id }})">
+                                            <span
+                                                class=" row text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-blue-300 border">En
+                                                Proceso</span>
+                                        </button>
+                                    @endif
 
-                                <!--boton para cambiar estado en completado-->
-                                @if ($orp->estado == 'En proceso')
-                                    <button class="p-2 rounded-md whitespace-nowrap"
-                                        wire:click="completar({{ $orp->id }})">
-                                        <span
-                                            class=" text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-green-300 border">Completado</span>
-                                    </button>
+                                    <!--boton para cambiar estado en completado-->
+                                    @if ($orp->estado == 'En proceso')
+                                        <button class="p-2 rounded-md whitespace-nowrap"
+                                            wire:click="completar({{ $orp->id }})">
+                                            <span
+                                                class=" text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded  dark:text-green-300 border">Completado</span>
+                                        </button>
+                                    @endif
                                 @endif
                             @endif
-
 
 
 
