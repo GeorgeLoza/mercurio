@@ -1,13 +1,26 @@
 <div>
     <h2 class="text-2xl mb-4 text-gray-800 dark:text-gray-200 font-bold text-center "> Actualizar Análisis Línea</h2>
     <div class="bg-gray-200 dark:bg-gray-900 p-2 rounded-md mb-4  text-xs">
-        @if($extra->solicitudAnalisisLinea->estadoPlanta->etapa)
-        <p><span class="font-semibold"> Etapa:</span> {{$extra->solicitudAnalisisLinea->estadoPlanta->etapa->nombre}}</p>
+        @if ($extra->solicitudAnalisisLinea->estadoPlanta->etapa)
+            <p><span class="font-semibold"> Etapa:</span>
+                {{ $extra->solicitudAnalisisLinea->estadoPlanta->etapa->nombre }}</p>
         @endif
-        <p><span class="font-semibold"> Origen:</span> {{$extra->solicitudAnalisisLinea->estadoPlanta->origen->alias}}</p>
-       <span class="font-semibold">Produccion:</span> 
+        <p><span class="font-semibold"> Origen:</span> {{ $extra->solicitudAnalisisLinea->estadoPlanta->origen->alias }}
+        </p>
+        <span class="font-semibold">Produccion:</span>
         @foreach ($extra->solicitudAnalisisLinea->estadoPlanta->estadoDetalle as $item)
-           <p class="">{{ $item->orp->producto->nombre }} <span class="font-semibold"> Preparacion:</span>{{ $item->preparacion}}</p> 
+            <p class="">{{ $item->orp->producto->nombre }} <span class="font-semibold">
+                    Preparacion:</span>{{ $item->preparacion }}</p>
+        @endforeach
+
+
+        <span class="font-semibold">Fecha Vencimiento:</span>
+        @foreach ($extra->solicitudAnalisisLinea->estadoPlanta->estadoDetalle as $item)
+            <p class="">
+                @if ($item->orp->fecha_vencimiento1)
+                    {{ \Carbon\Carbon::parse($item->orp->fecha_vencimiento1)->isoFormat('DD/MM/YY', 0, 'es') }}
+                @endif
+            </p>
         @endforeach
 
     </div>
@@ -116,7 +129,6 @@
             @endif
 
             @if (in_array(optional($extra->solicitudAnalisisLinea->estadoPlanta->etapa)->id, ['6', '8']))
-
                 <!--checkboxes color -olor -sabor-->
                 <div class="flex gap-1 justify-around mb-3">
 
