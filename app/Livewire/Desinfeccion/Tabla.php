@@ -4,13 +4,23 @@ namespace App\Livewire\Desinfeccion;
 
 use App\Models\itemSolucion;
 use App\Models\movSolucion;
+use App\Models\User;
+use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
+use Barryvdh\DomPDF\Facade\Pdf;
+
+use Illuminate\Support\Facades\App;
 
 class Tabla extends Component
 {
     use WithPagination;
+
+
+    public $ruta;
+    public $fechaInicio;
+    public $fechaFin;
 
     public $totalesPorItem = [];
     public $items;
@@ -112,5 +122,73 @@ class Tabla extends Component
         }
 
         // Refresca la lista de movimientos
+    }
+
+
+
+    public function PDFDesinfeccion()
+    {
+
+        $this->validate([
+            'fechaInicio' => 'required|date',
+            'ruta' => 'required',
+            'fechaFin' => 'required|date|after_or_equal:fechaInicio',
+
+        ]);
+
+
+        return response()->streamDownload(
+            function () {
+
+                $fechaInicio = Carbon::parse($this->fechaInicio)->startOfDay();
+                $fechaFin = Carbon::parse($this->fechaFin)->endOfDay();
+
+                $query = movSolucion::query()
+                    ->whereBetween('updated_at', [$fechaInicio, $fechaFin])
+                    ->where('estado', 'Entregado');
+
+
+
+                if ($this->ruta) {
+                    $query->whereHas('itemSolucion', function ($subQuery) {
+                        $subQuery->where('nombre', $this->ruta);
+                    });
+                }
+
+
+                $ruta = itemSolucion::query()
+                    ->where('nombre', $this->ruta)
+                    ->get();
+
+
+
+                $userIds = movSolucion::select('user_id')
+                    ->whereNotNull('user_id')
+                    ->distinct()
+                    ->pluck('user_id');
+
+                $autorizantes = movSolucion::select('autorizante')
+                    ->whereNotNull('autorizante')
+                    ->distinct()
+                    ->pluck('autorizante');
+
+                $entregantes = movSolucion::select('entregante')
+                    ->whereNotNull('entregante')
+                    ->distinct()
+                    ->pluck('entregante');
+
+                $todosIds = $userIds->merge($autorizantes)->merge($entregantes)->unique();
+
+                $usuariosUnicos = User::whereIn('id', $todosIds)->get();
+
+
+                $variable = $query->get();
+                $pdf = App::make('dompdf.wrapper');
+                $pdf = Pdf::loadView('pdf.reportes.desinfeccionReporte', compact(['variable', 'fechaInicio', 'fechaFin', 'ruta', 'usuariosUnicos']));
+                $pdf->setPaper('letter', 'portrait');
+                echo $pdf->stream();
+            },
+            "{$this->fechaInicio}_a_{$this->fechaFin}.pdf"
+        );
     }
 }

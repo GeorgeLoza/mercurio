@@ -19,6 +19,7 @@ use App\Http\Controllers\ParametroLecheController;
 use App\Http\Controllers\ParametroLineaController;
 use App\Http\Controllers\PaseTurnoController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\RecepcionMateriaPrimaController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SeguimientoController;
 use App\Http\Controllers\SeguimientoHtstController;
@@ -218,6 +219,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware(['role.permission:32,2'])->group(function () {
         Route::get('/seguimiento', [SeguimientoController::class, 'index'])->name('seguimiento.index');
+    });
+
+
+    Route::middleware(['role.permission:35,2'])->group(function () {
+        Route::get('/recepcionMateriaPrima', [RecepcionMateriaPrimaController::class, 'index'])->name('tabla.index');
     });
 
 

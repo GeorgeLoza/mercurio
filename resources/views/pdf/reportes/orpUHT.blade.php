@@ -263,7 +263,7 @@
             <td colspan="3"
                 style="text-align: center; padding: 0.6rem;  font-weight:bold; text-transform: uppercase">
                 Control de
-                calidad en proceso - Linea Ulta Pasteurizado UHT</td>
+                calidad en proceso - Linea Ultra Pasteurizado UHT</td>
         </tr>
     </table>
 </header>

@@ -1,11 +1,6 @@
 <div>
     <div class="flex justify-end mb-2 gap-2">
-
-
-
     </div>
-
-
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg  overflow-y-auto h-[28rem] overflow-hidden">
         <table class="w-full text-2xs text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
             <thead class="text-2xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -21,7 +16,6 @@
                         wire:click="sortBy('tiempo_elaboracion')">
                         fecha
                     </th>
-                    {{--  --}}
                     <th scope="col" nowrap class="px-2 py-1 sticky top-0 bg-white dark:bg-gray-700">
                         Código
                     </th>
@@ -68,8 +62,6 @@
                         wire:click="sortBy('fecha_vencimiento2')">
                         Fecha Vencimiento 2
                     </th>
-
-
 
                 </tr>
             </thead>
@@ -266,7 +258,7 @@
     </div>
 
         <div>
-            {{ $orps->links('pagination::tailwind') }}
+            {{ $orps->links() }}
         </div>
 
 

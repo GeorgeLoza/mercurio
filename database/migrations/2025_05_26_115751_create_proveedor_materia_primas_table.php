@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('destino_solucions', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('item_solucion_id')->constrained()->onDelete('restrict');
-            $table->decimal('concentracion', 6, 4);
-            $table->string('descripcion');
-            $table->string('codigo')->nullable();
+        Schema::create('proveedor_materia_primas', function (Blueprint $table) {
+             $table->id();
+            $table->string('nombre');
+            $table->string('descripcion')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('destino_solucions');
+        Schema::dropIfExists('proveedor_materia_primas');
     }
 };

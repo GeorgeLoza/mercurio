@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ asset('build/assets/app-da32ce76.css') }}">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-d137b268.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-47d58937.css') }}">
 
     <script src="{{ asset('build/assets/app-56df689c.js') }}" defer></script>
     <script src="{{ asset('js/app.js') }}"></script>
@@ -41,7 +41,114 @@
                         <span
                             class="flex self-center text-base font-semibold sm:text-base whitespace-nowrap dark:text-white">SOALPRO
                             <span class="hidden md:flex ml-1">- PLANTA LÁCTEOS</span></span>
+
+
+
+
+                        {{-- <div class=" flex  flex-col border border-pink-500 bg-pink-200 items-center px-1 py-0">
+                            <div class="items-start text-2xs w-full px-0 dark:text-black">27</div>
+                            <div class="py-0 text-xs dark:text-black">Má</div>
+                            <div class="text-2xs dark:text-black px-1">Mamá</div>
+
+                        </div> --}}
                     </a>
+
+
+
+@php
+    $hoy = now(); // Usa Carbon
+    $mama = $hoy->month == 5 && $hoy->day >= 27;
+@endphp
+
+@if($mama)
+  <div>
+
+    <!-- Botón con SVG pequeño -->
+                    <div class="inline-block cursor-pointer" onclick="showBigSVG()">
+                        <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none">
+                            <circle cx="70" cy="60" r="20" fill="#f9c5d1" />
+                            <circle cx="110" cy="80" r="14" fill="#fcddec" />
+                            <path d="M50 80 C30 130, 80 160, 70 190 Q90 170, 110 150 C130 130, 90 100, 70 90"
+                                fill="#f9c5d1" />
+                            <path d="M60 100 Q40 130, 80 140" stroke="#d88ca4" stroke-width="5" fill="none" />
+                            <path d="M90 100 Q120 120, 100 140" stroke="#d88ca4" stroke-width="5" fill="none" />
+                            <path
+                                d="M140 50 C140 40, 160 40, 160 50 C160 60, 140 70, 140 80 C140 70, 120 60, 120 50 C120 40, 140 40, 140 50Z"
+                                fill="#f7749b" />
+                            <text x="100" y="225" text-anchor="middle" font-family="Verdana" font-size="48"
+                                fill="#d15678">¡Feliz Día!</text>
+                        </svg>
+                    </div>
+
+                    <!-- Modal SVG grande con brillitos -->
+                    <div id="svgModal"
+                        class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center"
+                        onclick="hideBigSVG()">
+                        <div class="relative" onclick="event.stopPropagation()">
+                            <!-- Brillitos decorativos -->
+                            <div class="absolute inset-0 pointer-events-none animate-pulse">
+                                <div class="absolute top-0 left-0 text-yellow-300 text-3xl animate-spin-slow">✨</div>
+                                <div class="absolute top-0 right-0 text-pink-300 text-2xl animate-spin">✨</div>
+                                <div class="absolute bottom-0 left-10 text-purple-300 text-2xl animate-ping">✨</div>
+                                <div class="absolute bottom-0 right-10 text-blue-300 text-3xl animate-bounce">✨</div>
+                            </div>
+
+                            <!-- SVG en grande -->
+                            <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" class="h-[400px] w-[600px]"
+                                fill="none">
+                                <circle cx="70" cy="60" r="20" fill="#f9c5d1" />
+                                <circle cx="110" cy="80" r="14" fill="#fcddec" />
+                                <path d="M50 80 C30 130, 80 160, 70 190 Q90 170, 110 150 C130 130, 90 100, 70 90"
+                                    fill="#f9c5d1" />
+                                <path d="M60 100 Q40 130, 80 140" stroke="#d88ca4" stroke-width="5" fill="none" />
+                                <path d="M90 100 Q120 120, 100 140" stroke="#d88ca4" stroke-width="5" fill="none" />
+                                <path
+                                    d="M140 50 C140 40, 160 40, 160 50 C160 60, 140 70, 140 80 C140 70, 120 60, 120 50 C120 40, 140 40, 140 50Z"
+                                    fill="#f7749b" />
+                                <text x="100" y="225" text-anchor="middle" font-family="Verdana" font-size="48"
+                                    fill="#d15678">¡Feliz Día Mamá!</text>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Tailwind animaciones personalizadas -->
+                    <style>
+                        @keyframes spin-slow {
+                            0% {
+                                transform: rotate(0deg);
+                            }
+
+                            100% {
+                                transform: rotate(360deg);
+                            }
+                        }
+
+                        .animate-spin-slow {
+                            animation: spin-slow 8s linear infinite;
+                        }
+                    </style>
+
+                    <!-- Script para abrir/cerrar -->
+                    <script>
+                        function showBigSVG() {
+                            const modal = document.getElementById('svgModal');
+                            modal.classList.remove('hidden');
+                            modal.classList.add('flex');
+                        }
+
+                        function hideBigSVG() {
+                            const modal = document.getElementById('svgModal');
+                            modal.classList.remove('flex');
+                            modal.classList.add('hidden');
+                        }
+                    </script>
+  </div>
+@endif
+
+
+
+
+
                 </div>
                 <div class="flex gap-1 text-sm ">
 
@@ -78,7 +185,8 @@
                                 </svg><span class="sr-only">Show information</span></button>
                             <div data-popover id="popover-description" role="tooltip"
                                 class="absolute z-10 invisible inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 w-72 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400">
-                                <h3 class="font-semibold text-gray-900 dark:text-white">Para soporte, o reporte de fallo
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Para soporte, o reporte de
+                                    fallo
                                     comunicarse con el siguiente numero</h3>
                                 <p class="flex "><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
                                         class="w-4 h-4 mx-1 fill-gray-400 hover:fill-gray-500">

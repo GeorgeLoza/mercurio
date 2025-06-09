@@ -22,9 +22,9 @@
                         </th>
 
                         @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
-                        <th scope="col" class="px-1 py-0">
-                            Fecha siembra
-                        </th>
+                            <th scope="col" class="px-1 py-0">
+                                Fecha siembra
+                            </th>
                         @endif
                         <th scope="col" class="px-1 py-0">
                             Producto
@@ -66,7 +66,7 @@
                         <th></th>
 
                         @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
-                        <th></th>
+                            <th></th>
                         @endif
 
                         <th scope="col" class="px-1 py-0">
@@ -85,8 +85,8 @@
                         @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
                             <th scope="col" class="px-1 py-0">
                                 <input type="text" id="" wire:model.live='f_planta'
-                                class="w-24 bg-gray-50 border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="">
+                                    class="w-24 bg-gray-50 border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="">
                             </th>
                             <th scope="col" class="px-1 py-0">
 
@@ -124,16 +124,16 @@
 
                             </td>
                             @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
-                            <td scope="row"
-                                class="px-1 py-0 font-medium text-gray-900 whitespace-nowrap dark:text-white" nowrap>
-                                @if ($micro->fecha_sembrado)
+                                <td scope="row"
+                                    class="px-1 py-0 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                    nowrap>
+                                    @if ($micro->fecha_sembrado)
+                                        {{ \Carbon\Carbon::parse($micro->fecha_sembrado)->isoFormat('DD-MM-YY', 0, 'es') }}
+                                    @else
+                                        -
+                                    @endif
 
-                                {{ \Carbon\Carbon::parse($micro->fecha_sembrado)->isoFormat('DD-MM-YY', 0, 'es') }}
-                                @else
-                                -
-                                @endif
-
-                            </td>
+                                </td>
                             @endif
                             <td class="px-1 py-0 ">
                                 @if ($micro->detalleSolicitudPlanta->productosPlanta)
@@ -148,7 +148,6 @@
                             </td>
 
                             @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
-
                                 <td class="px-1 py-0" nowrap>
                                     {{ $micro->detalleSolicitudPlanta->user->planta->nombre }}
                                 </td>
@@ -194,7 +193,6 @@
                                 <td class="px-1 py-0 ">
                                     @if ($micro->col_tot >= 1000000)
                                         MNPC
-
                                     @elseif ($micro->col_tot < 1000000 && $micro->col_tot >= 10)
                                         <p>
                                             {{ $micro->col_tot < 1
@@ -317,9 +315,7 @@
                                     <!--boton para emitir certificado-->
                                     <button class="p-1 rounded-md "
                                         wire:click="cambiar_estado({{ $micro->detalleSolicitudPlanta->id }})"
-                                        {{-- borra la siguiente linea si no funciona en externos --}}
-                                        {{-- onclick="window.location.reload();" --}}
-                                        >
+                                        {{-- borra la siguiente linea si no funciona en externos --}} {{-- onclick="window.location.reload();" --}}>
                                         <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-5 w-5"
                                             viewBox="0 0 512 512">
 
@@ -330,25 +326,22 @@
                                 @endif
                                 <!--boton para el PDF-->
                                 @if ($micro->detalleSolicitudPlanta->estado == 'Terminado')
-
                                     @if ($micro->detalleSolicitudPlanta->user->planta->nombre != 'Carsa')
-
-
-                                    <a class="p-1"
-                                        @if (
-                                            $micro->detalleSolicitudPlanta->solicitudPlanta->user->id == 49 &&
-                                                $micro->detalleSolicitudPlanta->tipoMuestra->id == 8) href="{{ route('certificado.pdf_cer2', $micro->detalleSolicitudPlanta->id) }}"
+                                        <a class="p-1"
+                                            @if (
+                                                $micro->detalleSolicitudPlanta->solicitudPlanta->user->id == 49 &&
+                                                    $micro->detalleSolicitudPlanta->tipoMuestra->id == 8) href="{{ route('certificado.pdf_cer2', $micro->detalleSolicitudPlanta->id) }}"
                                 @else
                                 href="{{ route('certificado.pdf_cer', $micro->detalleSolicitudPlanta->id) }}" @endif>
-                                    <button class="p-1 rounded-md bg-red-600">
+                                            <button class="p-1 rounded-md bg-red-600">
 
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-white h-4 w-4"
-                                                viewBox="0 0 384 512">
-                                                <path
-                                                    d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM112 256H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z" />
-                                            </svg>
-                                        </button>
-                                    </a>
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-white h-4 w-4"
+                                                    viewBox="0 0 384 512">
+                                                    <path
+                                                        d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM112 256H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z" />
+                                                </svg>
+                                            </button>
+                                        </a>
                                     @endif
                                 @endif
                             </td>
@@ -360,9 +353,9 @@
 
             </table>
 
-                <div>
-                    {{ $micros->links() }}
-                </div>
+            <div>
+                {{ $micros->links() }}
+            </div>
 
 
 
@@ -370,51 +363,57 @@
     </div>
     @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
 
-    <div class="p-4">
+        <div class="p-4">
 
-        <button wire:click="generarTabla" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700">
-            Generar Tabla
-        </button>
+            <button wire:click="generarTabla" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                Generar Tabla
+            </button>
 
-        @if (!empty($solicitudes))
-        <table class="w-full border-collapse border border-gray-300 mt-4">
-            <thead class="bg-gray-200">
-                <tr>
-                    <th class="border border-gray-300 px-4 py-2">Subcódigo</th>
-                    <th class="border border-gray-300 px-4 py-2">Tipo Análisis</th>
-                    <th class="border border-gray-300 px-4 py-2">Usuario</th>
-                    <th class="border border-gray-300 px-4 py-2">Tipo Muestra</th>
-                    <th class="border border-gray-300 px-4 py-2">Producto / Otro</th> {{-- Nueva columna combinada --}}
-                    <th class="border border-gray-300 px-4 py-2">Lote</th>
-                    <th class="border border-gray-300 px-4 py-2">Fecha Elaboración</th>
-                    <th class="border border-gray-300 px-4 py-2">Fecha Vencimiento</th>
-                    <th class="border border-gray-300 px-4 py-2">Fecha Muestreo</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($solicitudes as $solicitud)
-                    <tr class="text-center">
-                        <td class="border border-gray-300 px-4 py-2">{{ $solicitud['subcodigo'] }}</td>
-                        <td class="border border-gray-300 px-4 py-2">{{ $solicitud['tipo_analisis'] }}</td>
-                        <td class="border border-gray-300 px-4 py-2">{{ $solicitud['usuario'] }}</td>
-                        <td class="border border-gray-300 px-4 py-2">{{ $solicitud['tipo_muestra'] }}</td>
-                        <td class="border border-gray-300 px-4 py-2">
-                            {{ $solicitud['nombre_producto'] }}
-                            @if (!empty($solicitud['otro']))
-                                ({{ $solicitud['otro'] }})
-                            @endif
-                        </td>
-                        <td class="border border-gray-300 px-4 py-2">{{ $solicitud['lote'] }}</td>
-                        <td class="border border-gray-300 px-4 py-2">{{ $solicitud['fecha_elaboracion'] }}</td>
-                        <td class="border border-gray-300 px-4 py-2">{{ $solicitud['fecha_vencimiento'] }}</td>
-                        <td class="border border-gray-300 px-4 py-2">{{ $solicitud['fecha_muestreo'] }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+            @if (!empty($solicitudes))
+                <table class="w-full border-collapse border border-gray-300 mt-4">
+                    <thead class="bg-gray-200">
+                        <tr>
+                            <th class="border border-gray-300 px-4 py-2">Subcódigo</th>
+                            <th class="border border-gray-300 px-4 py-2">Fecha Solicitud</th>
+                            <th class="border border-gray-300 px-4 py-2">Fecha siembra</th>
+                            <th class="border border-gray-300 px-4 py-2">Tipo Análisis</th>
+                            <th class="border border-gray-300 px-4 py-2">Usuario</th>
+                            <th class="border border-gray-300 px-4 py-2">Tipo Muestra</th>
+                            <th class="border border-gray-300 px-4 py-2">Producto / Otro</th> {{-- Nueva columna combinada --}}
+                            <th class="border border-gray-300 px-4 py-2">Lote</th>
+                            <th class="border border-gray-300 px-4 py-2">Fecha Elaboración</th>
+                            <th class="border border-gray-300 px-4 py-2">Fecha Vencimiento</th>
+                            <th class="border border-gray-300 px-4 py-2">Fecha Muestreo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($solicitudes as $solicitud)
+                            <tr class="text-center">
+                                <td class="border border-gray-300 px-4 py-2">{{ $solicitud['subcodigo'] }}</td>
+                                <td class="border border-gray-300 px-4 py-2">{{ $solicitud['tiempo'] }}</td>
+                                <td class="border border-gray-300 px-4 py-2">{{ $solicitud['fecha_sembrado'] }}</td>
+                                <td class="border border-gray-300 px-4 py-2">{{ $solicitud['tipo_analisis'] }}</td>
+                                <td class="border border-gray-300 px-4 py-2">{{ $solicitud['usuario'] }}</td>
+                                <td class="border border-gray-300 px-4 py-2">{{ $solicitud['tipo_muestra'] }}</td>
+                                <td class="border border-gray-300 px-4 py-2">
+                                    {{ $solicitud['nombre_producto'] }}
+                                    @if (!empty($solicitud['otro']))
+                                        ({{ $solicitud['otro'] }})
+                                    @endif
+                                </td>
+                                <td class="border border-gray-300 px-4 py-2">{{ $solicitud['lote'] }}</td>
+                                <td class="border border-gray-300 px-4 py-2">{{ $solicitud['fecha_elaboracion'] }}
+                                </td>
+                                <td class="border border-gray-300 px-4 py-2">{{ $solicitud['fecha_vencimiento'] }}
+                                </td>
+                                <td class="border border-gray-300 px-4 py-2">{{ $solicitud['fecha_muestreo'] }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
 
-        @endif
-    </div>
+            @endif
+        </div>
     @endif
 
 </div>

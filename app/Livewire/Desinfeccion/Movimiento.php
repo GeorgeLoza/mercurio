@@ -24,6 +24,7 @@ class Movimiento extends ModalComponent
     public $destinos;
     public $editar = false;
     public $movimiento;
+    public $observaciones;
 
 
 
@@ -40,6 +41,7 @@ class Movimiento extends ModalComponent
                 $this->destino = $this->movimiento->destino_solucion_id;
                 $this->cantidad = $this->movimiento->cantidad;
                 $this->concentracion = $this->movimiento->destinoSolucion->concentracion;
+                $this->observaciones = $this->movimiento->observacion;
                 $this->editar = true;
 
             }
@@ -91,6 +93,7 @@ class Movimiento extends ModalComponent
                     'cantidad' => $this->cantidad,
                     'cantidad_mezcla' => $this->cantidad,
                     'saldo' => $nuevoSaldo,
+                    'observacion' => $this->observaciones,
                 ]);
 
 
@@ -122,6 +125,8 @@ class Movimiento extends ModalComponent
                         'confirmacion' => $this->confirmacion,
                         'porcentaje' => $this->concentracion,
                         'entregante' => auth()->user()->id,
+                        'observacion' => $this->observaciones,
+
                     ]);
                     $this->dispatch('actualizar_movimiento_desinfeccion');
                     $this->closeModal();
@@ -149,12 +154,23 @@ class Movimiento extends ModalComponent
 
                     $cantidadMAxima = $ultimoSaldo * $itemModel->concentracion / $destinoModel->concentracion;
 
-
                     if ($itemModel->codigo == 'L-5') {
-                        $cantidadPura = ($this->cantidad * $destinoModel->concentracion) / 14.5600;
+
+                        if($destinoModel->id == 12){
+                            $cantidadPura = ($this->cantidad * $destinoModel->concentracion) / 17.325;
+                            $cantidadMAxima = $ultimoSaldo * 17.325 / $destinoModel->concentracion;
+                            // dd($cantidadPura, $cantidadMAxima);
+}
+                            else{
+                                $cantidadPura = ($this->cantidad * $destinoModel->concentracion) * 57.72/1000;
+                        $cantidadMAxima = $ultimoSaldo / ((57.72/1000) * $destinoModel->concentracion);
+// dd($destinoModel);
+// dd($cantidadPura, $cantidadMAxima);
+                            }
 
 
-                        $cantidadMAxima = $ultimoSaldo * 14.5600 / $destinoModel->concentracion;
+
+
                     }
 
                     if ($itemModel->codigo == 'L-6') {
@@ -187,6 +203,7 @@ class Movimiento extends ModalComponent
                         'cantidad_mezcla' => $this->cantidad,
 
                         'cantidad' => $cantidadPura,
+                        'observacion' => $this->observaciones,
 
                         'saldo' => $nuevoSaldo,
                     ]);

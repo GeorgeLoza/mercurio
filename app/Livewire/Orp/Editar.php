@@ -12,6 +12,7 @@ use LivewireUI\Modal\ModalComponent;
 
 class Editar extends ModalComponent
 {
+     public $buscador_producto = '';
     public $id;
     //input
     public $codigo;
@@ -21,14 +22,14 @@ class Editar extends ModalComponent
     public $tiempo_elaboracion;
     public $fecha_vencimiento1;
     public $fecha_vencimiento2;
-    
+
     //valores para cargar selects
     public $productos;
 
     public function mount()
     {
 
-        
+
         $this->productos = Producto::all();
 
         $orp = Orp::where('id', $this->id)->first();
@@ -40,7 +41,20 @@ class Editar extends ModalComponent
         $this->fecha_vencimiento1 = $orp->fecha_vencimiento1;
         $this->fecha_vencimiento2 = $orp->fecha_vencimiento2;
     }
-   
+
+    public function updatedBuscadorProducto()
+    {
+        // Si el campo buscador tiene texto, filtramos los productos
+        if ($this->buscador_producto != '') {
+            $this->productos = Producto::where('nombre', 'like', '%' . $this->buscador_producto . '%')
+                ->orWhere('codigo', 'like', '%' . $this->buscador_producto . '%')
+                ->get();
+        } else {
+            // Si no hay texto, mostramos todos los productos
+            $this->productos = Producto::all();
+        }
+    }
+
     public function render()
     {
         return view('livewire.orp.editar');
@@ -56,12 +70,12 @@ class Editar extends ModalComponent
         try {
 
             $orp = Orp::find($this->id);
-            $orp->codigo =$this->codigo;
-            $orp->producto_id =$this->producto_id;
-            $orp->lote =$this->lote;
-            $orp->tiempo_elaboracion =$this->tiempo_elaboracion;
-            $orp->fecha_vencimiento1 =$this->fecha_vencimiento1;
-            $orp->fecha_vencimiento2 =$this->fecha_vencimiento2;
+            $orp->codigo = $this->codigo;
+            $orp->producto_id = $this->producto_id;
+            $orp->lote = $this->lote;
+            $orp->tiempo_elaboracion = $this->tiempo_elaboracion;
+            $orp->fecha_vencimiento1 = $this->fecha_vencimiento1;
+            $orp->fecha_vencimiento2 = $this->fecha_vencimiento2;
             $orp->save();
 
             $this->dispatch('actualizar_tabla_orps');
@@ -70,9 +84,7 @@ class Editar extends ModalComponent
         } catch (\Throwable $th) {
             $this->closeModal();
 
-            $this->dispatch('error_mensaje', mensaje: 'problema'.$th->getMessage());
+            $this->dispatch('error_mensaje', mensaje: 'problema' . $th->getMessage());
         }
     }
-
-   
 }

@@ -9,6 +9,4 @@
 
                 @livewire('seguimientoHtst.tabla')
 
-
-@livewire('dashboard.seguimientoProduccion')
 @endsection

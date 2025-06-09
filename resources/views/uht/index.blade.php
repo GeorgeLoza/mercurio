@@ -5,6 +5,10 @@
 @endsection
 
 @section('contenido')
+
+
+@livewire('dashboard.seguimientoProduccion')
+
     <div class="md:flex gap-2 ">
         <div class="md:w-1/3 flex flex-col ">
             <div class="md:w-full flex justify-center mb-2 font-bold">

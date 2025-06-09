@@ -49,8 +49,10 @@
                         class="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Volumen " min="0" />
 
+
                 </div>
-                 <div>
+
+                <div>
                     [L]
 
                 </div>
@@ -74,7 +76,7 @@
                         class="block w-full p-2 m-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Concentracion" min="0" />
                     @if ($item == 3)
-                    g/ml
+                        g/ml
                     @else
                         %
                     @endif
@@ -87,7 +89,13 @@
 
 
             @endif
+            <p>
+                Observaciones
 
+            </p>
+            <input type="text" wire:model="observaciones"
+                class="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Observaciones " min="0" />
         </div>
 
         <div class="mt-4">

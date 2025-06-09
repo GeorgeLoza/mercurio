@@ -19,7 +19,7 @@ class Editar extends ModalComponent
     public $moho;
     public $observaciones;
     public $usuario_siembra;
-
+public $datos;
 
 
 
@@ -28,12 +28,12 @@ class Editar extends ModalComponent
     public function mount()
     {
 
-        $datos = SeguimientoHtst::findOrFail($this->id);
-        $this->rt = $datos->rt;
-        $this->col = $datos->col;
-        $this->moho = $datos->moho;
-        $this->observaciones = $datos->observaciones;
-        $this->usuario_siembra = $datos->usuario_siembra;
+        $this->datos = SeguimientoHtst::findOrFail($this->id);
+        $this->rt = $this->datos->rt;
+        $this->col = $this->datos->col;
+        $this->moho = $this->datos->moho;
+        $this->observaciones = $this->datos->observaciones;
+        $this->usuario_siembra = $this->datos->usuario_siembra;
     }
 
 
@@ -42,15 +42,15 @@ class Editar extends ModalComponent
     {
 
         try {
-            $datos = SeguimientoHtst::find($this->id);
+            $this->datos = SeguimientoHtst::find($this->id);
             // Verificación para todas las variables antes de asignarlas al modelo
 
-            $datos->rt = $this->rt !== '' ? $this->rt : null;
-            $datos->col = $this->col !== '' ? $this->col : null;
+            $this->datos->rt = $this->rt !== '' ? $this->rt : null;
+            $this->datos->col = $this->col !== '' ? $this->col : null;
 
-            $datos->observaciones = $this->observaciones !== '' ? $this->observaciones : null;
-            $datos->usuario_dia2 = auth()->user()->id;
-            $datos->save();
+            $this->datos->observaciones = $this->observaciones !== '' ? $this->observaciones : null;
+            $this->datos->usuario_dia2 = auth()->user()->id;
+            $this->datos->save();
 
             $this->dispatch('actualizar_tabla_seguimiento_htst');
             $this->closeModal();
@@ -66,13 +66,13 @@ class Editar extends ModalComponent
     {
 
         try {
-            $datos = SeguimientoHtst::find($this->id);
+            $this->datos = SeguimientoHtst::find($this->id);
             // Verificación para todas las variables antes de asignarlas al modelo
 
-            $datos->moho = $this->moho !== '' ? $this->moho : null;
-            $datos->observaciones = $this->observaciones !== '' ? $this->observaciones : null;
-            $datos->usuario_dia5 = auth()->user()->id;
-            $datos->save();
+            $this->datos->moho = $this->moho !== '' ? $this->moho : null;
+            $this->datos->observaciones = $this->observaciones !== '' ? $this->observaciones : null;
+            $this->datos->usuario_dia5 = auth()->user()->id;
+            $this->datos->save();
 
             $this->dispatch('actualizar_tabla_seguimiento_htst');
 

@@ -56,9 +56,9 @@ class EstadoOrp extends ModalComponent
 
             DB::beginTransaction();
 
-            // $registro = Orp::findOrFail($id);
-            // $registro->estado = 'Completado';
-            // $registro->save();
+             $registro = Orp::findOrFail($id);
+             $registro->estado = 'Completado';
+             $registro->save();
             try {
                 // DB::table('colors')
                 //     ->where('orp_id', $id)

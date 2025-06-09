@@ -1,15 +1,18 @@
-@if ($seguimiento->coli >= 1000000)
-                                            MNPC
-                                        @elseif ($seguimiento->coli < 1000000 && $seguimiento->coli >= 10)
-                                            {{ $seguimiento->coli < 1
-                                                ? $seguimiento->coli * 10 ** (strlen(floor($seguimiento->coli)) - 1)
-                                                : $seguimiento->coli / 10 ** (strlen(floor($seguimiento->coli)) - 1) }}
-                                            x 10<sup>{{ strlen(floor($seguimiento->coli)) - 1 }}</sup>
-                                        @elseif ($seguimiento->coli > 0)
-                                            {{ $seguimiento->coli }}
+INSERT INTO `destino_solucions` (`id`, `item_solucion_id`, `concentracion`, `descripcion`) VALUES
 
-                                            @elseif (is_null($seguimiento->coli))
-                                                --
-                                            @elseif ($seguimiento->moho == 0)
-                                                < 1 x 10<sup>1</sup>
-                                        @endif
+(1, 1, '96', 'Solicitud externa'),
+(2, 1, '83', 'Centros de acopio'),
+(3, 1, '75', 'Desinfección General'),
+(4, 1, '65', 'Desinfección de manos'),
+(5, 2, '83', 'Para centros de acopio'),
+(6, 3, '32', 'Para Elecster UHT'),
+(7, 4, '0.0035', 'Desinfección de Botellas'),
+(8, 4, '0.01', 'Desinfección de máquinas y equipos'),
+(9, 4, '0.02', 'Desinfección de superficies'),
+(10, 4, '0.1', 'Desinfección de Sanitarios'),
+(11, 4, '8', 'Cloro concentrado'),
+(12, 5, '0.03', 'Para Desinfección de tanques'),
+(13, 5, '0.012', 'Para desinfección de equipos'),
+(14, 6, '0.0035', 'Desinfección de Botellas'),
+(15, 6, '0.01', 'Desinfección de máquinas y equipos'),
+(16, 6, '0.02', 'Desinfección de superficies');
