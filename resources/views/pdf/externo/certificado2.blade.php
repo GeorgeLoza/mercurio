@@ -436,7 +436,7 @@
                 </tr>
                 <tr>
                     <th style="text-align:right; padding-right:10px">m:</th>
-                    <td>Valor del parámetro microbiológico para el cual o por debajo del cual el alimento no representa
+                    <td>Valor del parámetro microbiológico por debajo del cual el alimento no representa
                         un riesgo para la salud.</td>
                 </tr>
                 <tr>

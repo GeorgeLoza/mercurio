@@ -2,7 +2,7 @@
     <div class="md:flex gap-2 mb-2">
         <div class="flex">
             <span class="flex items-center text-xs font-medium "><span
-                    class="flex w-2.5 h-2.5 bg-green-500 rounded-full  flex-shrink-0 mr-2 text-sm"></span>Produccion</span>
+                    class="flex w-2.5 h-2.5 bg-green-500 rounded-full  flex-shrink-0 mr-2 text-sm"></span>Producción</span>
             <span class="flex items-center text-xs font-medium "><span
                     class="flex w-2.5 h-2.5 bg-white rounded-full  flex-shrink-0 mr-2 text-sm"></span>Limpieza</span>
         </div>

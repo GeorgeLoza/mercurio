@@ -223,7 +223,7 @@
                         <td class="flex items-center justify-center px-1 py-2 gap-1 " nowrap>
                             {{-- @if ($analisis->solicitudAnalisisLinea->estadoPlanta->etapa == 'Envasado' || $analisis->solicitudAnalisisLinea->estadoPlanta->etapa == 'Pasteurizado' || $analisis->solicitudAnalisisLinea->estadoPlanta->etapa == 'Inoculación' || auth()->user()->division->nombre == 'Calidad' || auth()->user()->division->nombre == 'Calidad') --}}
 
-                            @if (now()->diffInMinutes($analisis->created_at) < 2400 ||
+                            @if (now()->diffInMinutes($analisis->created_at) < 240 &&
                                     auth()->user()->role->rolModuloPermisos->where('modulo_id', 15)->where('permiso_id', 3)->isNotEmpty())
                                 <svg onclick="Livewire.dispatch('openModal', { component: 'analisis-linea.analisis.editar', arguments: { id: {{ $analisis->id }} } })"
                                     xmlns="http://www.w3.org/2000/svg"

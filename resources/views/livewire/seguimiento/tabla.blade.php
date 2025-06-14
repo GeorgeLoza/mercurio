@@ -243,7 +243,7 @@
                         <td class=" px-1 py-1">
                             @if (!empty($seguimiento->orp_ids))
                                 @foreach ($seguimiento->orps() as $orp)
-                                    {{ \Carbon\Carbon::parse($orp->fecha_vencimiento1)->isoFormat('DD-MM', 0, 'es') }}
+                                    {{ \Carbon\Carbon::parse($orp->fecha_vencimiento1)->isoFormat('DD-MM-YY', 0, 'es') }}
                                     @if (!$loop->last)
                                         <br>
                                     @endif

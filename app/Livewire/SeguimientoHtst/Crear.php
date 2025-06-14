@@ -97,9 +97,9 @@ class Crear extends ModalComponent
         $orps = Orp::whereHas('producto.categoriaProducto', function ($query) {
             $query->where('grupo', 'HTST');
         })
-            ->where('estado', 'Completado')
+
             ->whereBetween('updated_at', [
-                Carbon::now()->subDays(100)->startOfDay(),
+                Carbon::now()->subDays(40)->startOfDay(),
                 Carbon::now()->endOfDay()
             ])
 

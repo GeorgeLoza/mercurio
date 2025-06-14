@@ -18,7 +18,7 @@
         <div>
             <h3 class="text-lg font-semibold mt-4">Detalles del Movimiento </h3>
             <div class="flex items-center mt-2 space-x-2">
-                <select wire:model.live="item" class="block w-full p-2 text-sm ...">
+                <select wire:model.live="item" {{ !$editar ? '' : 'disabled' }} class="block w-full p-2 text-sm ...">
                     <option class="dark:bg-slate-800" value="">Seleccione un ítem</option>
                     @foreach ($items as $itemOption)
                         <option class="dark:bg-slate-800" value="{{ $itemOption->id }}">{{ $itemOption->codigo }}
@@ -27,9 +27,10 @@
                 </select>
                 @if ($est != 1)
 
-                    <select wire:model.live="destino" {{ $item ? '' : 'disabled' }}
+                    <select wire:model.live="destino" {{ $item ? '' : 'disabled' }} {{ !$editar ? '' : 'disabled' }}
                         class="block w-full p-2 text-sm ...">
-                        <option class="dark:bg-slate-800" value="">Seleccione un destino</option>
+                        <option class="dark:bg-slate-800" @if ($editar == true) disabled @endif
+                            value="">Seleccione un destino</option>
                         @foreach ($destinos as $destino)
                             <option class="dark:bg-slate-800" value="{{ $destino->id }}">{{ $destino->descripcion }} -
                                 {{ $destino->concentracion }} %
@@ -45,6 +46,7 @@
                         </p>
                     @endif
 
+
                     <input type="number" wire:model="cantidad"
                         class="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Volumen " min="0" />
@@ -53,7 +55,9 @@
                 </div>
 
                 <div>
-                    [L]
+
+                    {{ $unidad }}
+
 
                 </div>
             </div>

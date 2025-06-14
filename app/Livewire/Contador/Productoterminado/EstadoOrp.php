@@ -21,27 +21,26 @@ class EstadoOrp extends ModalComponent
     public $estado;
 
     public function render()
-{
-    $orps = Contador::select('contadors.orp_id', DB::raw('SUM(cantidad) as cantidad_total'))
-        ->whereIn('tipo', ['Total por Turno'])
-        ->groupBy('contadors.orp_id')
-        ->join('orps', 'contadors.orp_id', '=', 'orps.id')
-        ->whereNotExists(function ($query) {
-            $query->select(DB::raw(1))
-                  ->from('contadors as c')
-                  ->whereColumn('c.orp_id', 'contadors.orp_id')
-                  ->where('c.tipo', 'Total'); // Excluir ORP si tiene un tipo 'Total'
-        })
-        ->where(function ($query) {
-            $query->where('orps.id', $this->id);
+    {
+        $orps = Contador::select('contadors.orp_id', DB::raw('SUM(cantidad) as cantidad_total'))
+            ->whereIn('tipo', ['Total por Turno'])
+            ->groupBy('contadors.orp_id')
+            ->join('orps', 'contadors.orp_id', '=', 'orps.id')
+            ->whereNotExists(function ($query) {
+                $query->select(DB::raw(1))
+                    ->from('contadors as c')
+                    ->whereColumn('c.orp_id', 'contadors.orp_id')
+                    ->where('c.tipo', 'Total'); // Excluir ORP si tiene un tipo 'Total'
+            })
+            ->where(function ($query) {
+                $query->where('orps.id', $this->id);
+            })
+            ->get();
 
-        })
-        ->get();
-
-    return view('livewire.contador.productoterminado.estado-orp', [
-        'orps' => $orps
-    ]);
-}
+        return view('livewire.contador.productoterminado.estado-orp', [
+            'orps' => $orps
+        ]);
+    }
 
     public function concluir($id)
     {
@@ -56,9 +55,18 @@ class EstadoOrp extends ModalComponent
 
             DB::beginTransaction();
 
-             $registro = Orp::findOrFail($id);
-             $registro->estado = 'Completado';
-             $registro->save();
+            $registro = Orp::findOrFail($id);
+            $registro->estado = 'Completado';
+            $registro->save();
+
+            try {
+                DB::table('colors')
+                    ->where('orp_id', $id)
+                    ->update(['orp_id' => null]);
+            } catch (\Throwable $th) {
+                // Manejo de error: puedes registrar el error si es necesario
+                // Log::error('Error al actualizar colors: ' . $th->getMessage());
+            }
             try {
                 // DB::table('colors')
                 //     ->where('orp_id', $id)

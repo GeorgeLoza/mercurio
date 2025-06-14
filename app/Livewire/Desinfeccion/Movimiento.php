@@ -18,6 +18,7 @@ class Movimiento extends ModalComponent
     public $cantidad;
     public $concentracion;
     public $confirmacion;
+    public $unidad;
 
     public $id;
     public $items;
@@ -43,8 +44,15 @@ class Movimiento extends ModalComponent
                 $this->concentracion = $this->movimiento->destinoSolucion->concentracion;
                 $this->observaciones = $this->movimiento->observacion;
                 $this->editar = true;
-
             }
+
+
+            if ($this->item == 3 || $this->item==6) {
+            $this->unidad = '[K]';
+        }  else {
+            $this->unidad = '[L]';
+        }
+
         }
 
         $this->destinos = DestinoSolucion::all();
@@ -58,9 +66,35 @@ class Movimiento extends ModalComponent
 
     public function updatedItem($value)
     {
+        if ($value == 3 || $value==6) {
+            $this->unidad = '[K]';
+        }  else {
+            $this->unidad = '[L]';
+        }
+
+
         $this->destinos = DestinoSolucion::where('item_solucion_id', $value)->get();
         $this->destino = null; // Reiniciar selección de destino
     }
+
+    public function updatedDestino($value)
+    {
+
+
+        if ($value == 7) {
+
+            $this->cantidad = 400;
+        }
+        if ($value == 17) {
+
+            $this->cantidad = 1300;
+        }
+        if ($value != 17 && $value != 7) {
+            $this->cantidad = null; // Reiniciar cantidad si no hay destino seleccionado
+        }
+    }
+
+
 
     public function save(int $tipo)
     {
@@ -116,7 +150,10 @@ class Movimiento extends ModalComponent
 
 
             if ($this->movimiento) {
-
+                $ultimoSaldo = movSolucion::where('estado',  'Entregado')
+                    ->where('item_solucion_id', $this->item)
+                    ->latest('id')
+                    ->value('saldo') ?? 0;
                 try {
                     $this->movimiento->update([
 
@@ -126,6 +163,8 @@ class Movimiento extends ModalComponent
                         'porcentaje' => $this->concentracion,
                         'entregante' => auth()->user()->id,
                         'observacion' => $this->observaciones,
+
+                        'saldo' => $ultimoSaldo - $this->cantidad,
 
                     ]);
                     $this->dispatch('actualizar_movimiento_desinfeccion');
@@ -156,21 +195,16 @@ class Movimiento extends ModalComponent
 
                     if ($itemModel->codigo == 'L-5') {
 
-                        if($destinoModel->id == 12){
+                        if ($destinoModel->id == 12) {
                             $cantidadPura = ($this->cantidad * $destinoModel->concentracion) / 17.325;
                             $cantidadMAxima = $ultimoSaldo * 17.325 / $destinoModel->concentracion;
                             // dd($cantidadPura, $cantidadMAxima);
-}
-                            else{
-                                $cantidadPura = ($this->cantidad * $destinoModel->concentracion) * 57.72/1000;
-                        $cantidadMAxima = $ultimoSaldo / ((57.72/1000) * $destinoModel->concentracion);
-// dd($destinoModel);
-// dd($cantidadPura, $cantidadMAxima);
-                            }
-
-
-
-
+                        } else {
+                            $cantidadPura = ($this->cantidad * $destinoModel->concentracion) * 57.72 / 1000;
+                            $cantidadMAxima = $ultimoSaldo / ((57.72 / 1000) * $destinoModel->concentracion);
+                            // dd($destinoModel);
+                            // dd($cantidadPura, $cantidadMAxima);
+                        }
                     }
 
                     if ($itemModel->codigo == 'L-6') {
@@ -188,8 +222,7 @@ class Movimiento extends ModalComponent
                         return;
                     }
 
-                    // Calcular nuevo saldo
-                    $nuevoSaldo = $ultimoSaldo - $cantidadPura;
+
 
                     $this->movimiento = movSolucion::create([
                         'tiempo' => now(),
@@ -205,7 +238,6 @@ class Movimiento extends ModalComponent
                         'cantidad' => $cantidadPura,
                         'observacion' => $this->observaciones,
 
-                        'saldo' => $nuevoSaldo,
                     ]);
                     $this->dispatch('actualizar_movimiento_desinfeccion');
                     $this->closeModal();

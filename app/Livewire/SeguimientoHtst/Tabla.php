@@ -238,4 +238,40 @@ class Tabla extends Component
         // Limpiar la fecha después de guardar
         $this->fechaSiembra = null;
     }
+
+
+    public function dia2($id)
+    {
+        try {
+            $microbiologia = SeguimientoHtst::find($id);
+               $microbiologia->rt = 0;
+
+               $microbiologia->col = 0;
+
+
+
+
+            $microbiologia->usuario_dia2 = auth()->user()->id;
+            $microbiologia->save();
+            $this->dispatch('success', mensaje: 'Analisis realizado exitosamente.');
+        } catch (\Throwable $th) {
+            $this->dispatch('error_mensaje', mensaje: 'problema' . $th->getMessage());
+        }
+    }
+
+    public function dia5($id)
+    {
+        try {
+            $microbiologia = SeguimientoHtst::find($id);
+            $microbiologia->moho = 0;
+
+             $microbiologia->usuario_dia5 = auth()->user()->id;
+
+            $microbiologia->save();
+
+            $this->dispatch('success', mensaje: 'Analisis realizado exitosamente.');
+        } catch (\Throwable $th) {
+            $this->dispatch('error_mensaje', mensaje: 'problema' . $th->getMessage());
+        }
+    }
 }

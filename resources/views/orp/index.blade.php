@@ -7,6 +7,7 @@
 @section('contenido')
     <!-- Botón para alternar entre vistas -->
 
+@livewire('dashboard.seguimientoProduccion')
     <a href="{{ route('orp.kanban') }}">
         @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 11)->where('permiso_id', 1)->isNotEmpty())
 
