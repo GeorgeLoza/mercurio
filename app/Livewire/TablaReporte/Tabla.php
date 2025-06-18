@@ -12,10 +12,12 @@ use Livewire\Attributes\On;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\DatosExport;
+use App\Exports\MicrobiologiaHtst;
 use App\Exports\SeguimientoExport;
 use App\Models\Contador;
 use App\Models\Orp;
 use App\Models\Seguimiento;
+use App\Models\SeguimientoHtst;
 use Livewire\WithPagination;
 
 
@@ -128,7 +130,6 @@ class Tabla extends Component
         $nombreArchivo = "{$nombreMes}-{$this->anio}.csv";
         // Utiliza el paquete maatwebsite/excel para exportar los datos a un archivo Excel
         return Excel::download(new SeguimientoExport($seguimientos), $nombreArchivo, \Maatwebsite\Excel\Excel::CSV);
-
     }
 
     public function exportarExcelContadores()
@@ -240,4 +241,36 @@ class Tabla extends Component
     {
         return $this->f_orp || $this->f_producto || $this->f_tiempo || $this->f_user || $this->f_preparacion || $this->f_origen || $this->f_estado || $this->f_etapa;
     }
+
+
+
+    public function exportarExcelSeguimientoMicrobiologicoHtst()
+    {
+
+           ini_set('max_execution_time', 300);
+        ini_set('memory_limit', '512M');
+        $this->validate();
+
+        $contadores = SeguimientoHtst::when($this->anio, function ($query) {
+            return $query->whereYear('created_at', $this->anio);
+        })
+            ->when($this->mes, function ($query) {
+                return $query->whereMonth('created_at', $this->mes);
+            })
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+
+
+        $nombreMes = Carbon::createFromFormat('m', $this->mes)->translatedFormat('F'); // 'F' da el nombre completo del mes
+        $nombreArchivo = "{$nombreMes}-{$this->anio}.csv";
+        // Utiliza el paquete maatwebsite/excel para exportar los datos a un archivo Excel
+        return Excel::download(new MicrobiologiaHtst($contadores), $nombreArchivo, \Maatwebsite\Excel\Excel::CSV);
+
+
+
+
+
+
+        }
 }

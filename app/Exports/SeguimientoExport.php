@@ -22,6 +22,8 @@ class SeguimientoExport implements FromCollection, WithHeadings, WithCustomCsvSe
             return [
                 'ID' => $item->id,
                 'Fecha de Siembra' => $item->fechaSiembra,
+                'ORP' => is_array($item->orps()) ? implode(', ', $item->orps()) : '',
+
                 'Numero' => $item->numero,
                 'RT' => $item->rt,
                 'Moho' => $item->moho,
@@ -44,6 +46,7 @@ class SeguimientoExport implements FromCollection, WithHeadings, WithCustomCsvSe
         return [
             'ID',
             'Fecha de Siembra',
+            'ORP',
             'Numero',
             'RT',
             'Moho',

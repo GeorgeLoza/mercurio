@@ -166,13 +166,13 @@ class Tabla extends Component
             });
         }
 
-        $orp = $query->get();
+        $datos = $query->get();
 
         // Crear nombre del archivo con las fechas seleccionadas
         $nombreArchivo = "Reporte_{$this->fechaInicio}_a_{$this->fechaFin}.xlsx";
 
         // Exportar datos
-        return Excel::download(new AnalisisLeche($orp), $nombreArchivo);
+        return Excel::download(new AnalisisLeche($datos), $nombreArchivo);
     }
 
 
