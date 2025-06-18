@@ -22,8 +22,10 @@ class SeguimientoExport implements FromCollection, WithHeadings, WithCustomCsvSe
             return [
                 'ID' => $item->id,
                 'Fecha de Siembra' => $item->fechaSiembra,
-                'ORP' => is_array($item->orps()) ? implode(', ', $item->orps()) : '',
-
+                'ORP' => $item->orps()->pluck('codigo')->implode(', '),
+                'Producto' => $item->orps()->map(function ($orp) {
+                    return $orp->producto->nombre ?? 'Sin producto';
+                })->implode(', '),
                 'Numero' => $item->numero,
                 'RT' => $item->rt,
                 'Moho' => $item->moho,
@@ -47,6 +49,7 @@ class SeguimientoExport implements FromCollection, WithHeadings, WithCustomCsvSe
             'ID',
             'Fecha de Siembra',
             'ORP',
+            'Producto',
             'Numero',
             'RT',
             'Moho',
@@ -63,9 +66,9 @@ class SeguimientoExport implements FromCollection, WithHeadings, WithCustomCsvSe
         ];
     }
     public function getCsvSettings(): array
-     {
+    {
         return [
-             'delimiter' => ';', // Cambia a ',' si prefieres el delimitador estándar
-         ];
-     }
+            'delimiter' => ';', // Cambia a ',' si prefieres el delimitador estándar
+        ];
+    }
 }
