@@ -239,6 +239,24 @@
                             -
                             @endif
                         </td>
+
+                        <td class="{{ $orp->revisado ? 'text-green-500' : 'text-red-500' }}">
+
+                            {{ $orp->revisado ? 'Revisado' : 'No Revisado' }}
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 11)->where('permiso_id', 5)->isNotEmpty())
+                                @if ($orp->estado == 'Completado' && !$orp->revisado)
+                                    <button wire:click="revisar({{ $orp->id }})"
+                                        wire:confirm="Se reviso el ORP {{ $orp->codigo }}?">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="h-4 w-10 fill-green-600 dark:fill-green-500" viewBox="0 0 448 512">
+                                            <path
+                                                d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
+                                        </svg>
+                                    </button>
+                                @endif
+                            @endif
+
+                        </td>
                         <td class="px-2  hidden ">
                             {{ $orp->tiempo_elaboracion }}
                         </td>

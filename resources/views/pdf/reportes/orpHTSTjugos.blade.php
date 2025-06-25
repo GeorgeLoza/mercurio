@@ -277,6 +277,8 @@
 </header>
 <footer>
     SOALPRO SRL - Planta Lácteos - Reporte generado el {{ date('d/m/Y') }}
+
+    Revisado por {{ $informacion->revisor->nombre }}  {{ $informacion->revisor->apellido }}
     <div class="page-number"></div>
 </footer>
 
@@ -896,7 +898,7 @@
             <div style="padding-left: 500px; ">
                 <strong
                     style=" border-top: 1px solid #000; padding-top: 7px; padding-right: 25px; padding-left: 25px; ">
-                    REVISADO </strong>
+                    VERIFICADO </strong>
             </div>
 
 

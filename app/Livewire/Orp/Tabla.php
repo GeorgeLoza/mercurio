@@ -60,7 +60,16 @@ class Tabla extends Component
     }
 
 
+    public function revisar($id)
+    {
+        $registro = Orp::find($id);
+        $registro->revisado = true;
+        $registro->revisor_id = auth()->user()->id;
+        $registro->fecha_revision = now();
+        $registro->save();
 
+
+    }
     public function sortBy($field)
     {
         if ($this->sortField === $field) {
@@ -85,9 +94,6 @@ class Tabla extends Component
             $colorDisponible->orp_id = $id;
             $colorDisponible->save();
         }
-
-
-
     }
 
     public function cancelar($id)
@@ -95,7 +101,6 @@ class Tabla extends Component
         $registro = Orp::find($id);
         $registro->estado = 'Cancelado';
         $registro->save();
-
     }
 
     public function pendiente($id)
@@ -126,17 +131,12 @@ class Tabla extends Component
             // Manejo de error: puedes registrar el error si es necesario
             // Log::error('Error al actualizar colors: ' . $th->getMessage());
         }
-
-
     }
 
     public function mount()
     {
         $this->sortField = 'created_at';
         $this->sortAsc = false;
-
-
-
     }
 
 
@@ -175,7 +175,7 @@ class Tabla extends Component
             ->when($this->f_lote, function ($query) {
                 return $query->where('lote', 'like', '%' . $this->f_lote . '%');
             })
-            ->when($this->f_updated_at , function ($query) {
+            ->when($this->f_updated_at, function ($query) {
                 return $query->where('updated_at', 'like', '%' . $this->f_updated_at . '%');
             })
             ->when($this->f_estado, function ($query) {
@@ -184,10 +184,10 @@ class Tabla extends Component
             ->when($this->f_tiempoElaboracion, function ($query) {
                 return $query->where('tiempo_elaboracion', 'like', '%' . $this->f_tiempoElaboracion . '%');
             })
-                ->when($this->f_fechaVencimiento1, function ($query) {
+            ->when($this->f_fechaVencimiento1, function ($query) {
 
-                    return $query->where('fecha_vencimiento1', 'like', '%' . $this->f_fechaVencimiento1 . '%');
-                })
+                return $query->where('fecha_vencimiento1', 'like', '%' . $this->f_fechaVencimiento1 . '%');
+            })
             ->when($this->f_fechaVencimiento2, function ($query) {
                 return $query->where('fecha_vencimiento2', 'like', '%' . $this->f_fechaVencimiento2 . '%');
             })
@@ -217,7 +217,7 @@ class Tabla extends Component
     }
     public function limpiarFiltros()
     {
-        $this->reset(['f_codigo', 'f_codigoProducto', 'f_nombreProducto', 'f_lote', 'f_estado', 'f_tiempoElaboracion', 'f_fechaVencimiento1', 'f_fechaVencimiento2', 'f_productoCodigo','f_grupo']);
+        $this->reset(['f_codigo', 'f_codigoProducto', 'f_nombreProducto', 'f_lote', 'f_estado', 'f_tiempoElaboracion', 'f_fechaVencimiento1', 'f_fechaVencimiento2', 'f_productoCodigo', 'f_grupo']);
 
         // Refresca el componente
         $this->js('window.location.reload()');
@@ -230,104 +230,102 @@ class Tabla extends Component
 
 
     public function exportarExcel()
-{
-    // Asegúrate de que $this->fecha esté correctamente definido
-    // Extraer año, mes y día de la fecha seleccionada
-    $anio = Carbon::parse($this->fecha)->year;
-    $mes = Carbon::parse($this->fecha)->month;
-    $dia = Carbon::parse($this->fecha)->day;
-     $cat= $this->cat ;
+    {
+        // Asegúrate de que $this->fecha esté correctamente definido
+        // Extraer año, mes y día de la fecha seleccionada
+        $anio = Carbon::parse($this->fecha)->year;
+        $mes = Carbon::parse($this->fecha)->month;
+        $dia = Carbon::parse($this->fecha)->day;
+        $cat = $this->cat;
 
 
-     $estadoDetalles = EstadoDetalle::select('orp_id', 'preparacion')
-    ->distinct() // Asegura que no se repitan las combinaciones de orp_id y preparacion
+        $estadoDetalles = EstadoDetalle::select('orp_id', 'preparacion')
+            ->distinct() // Asegura que no se repitan las combinaciones de orp_id y preparacion
 
 
-    ->when($anio, function ($query) use ($anio) {
-        $query->whereHas('orp', function ($q) use ($anio) {
-            $q->whereYear('tiempo_elaboracion', $anio);
-        });
-    })
-    ->when($mes, function ($query) use ($mes) {
-        $query->whereHas('orp', function ($q) use ($mes) {
-            $q->whereMonth('tiempo_elaboracion', $mes);
-        });
-    })
-    ->when($dia, function ($query) use ($dia) {
-        $query->whereHas('orp', function ($q) use ($dia) {
-            $q->whereDay('tiempo_elaboracion', $dia);
-        });
-    })
-    ->when($cat, function ($query) use ($cat) {
+            ->when($anio, function ($query) use ($anio) {
+                $query->whereHas('orp', function ($q) use ($anio) {
+                    $q->whereYear('tiempo_elaboracion', $anio);
+                });
+            })
+            ->when($mes, function ($query) use ($mes) {
+                $query->whereHas('orp', function ($q) use ($mes) {
+                    $q->whereMonth('tiempo_elaboracion', $mes);
+                });
+            })
+            ->when($dia, function ($query) use ($dia) {
+                $query->whereHas('orp', function ($q) use ($dia) {
+                    $q->whereDay('tiempo_elaboracion', $dia);
+                });
+            })
+            ->when($cat, function ($query) use ($cat) {
                 $query->whereHas('orp.producto.categoriaProducto', function ($q) use ($cat) {
                     $q->where('grupo', $cat);
-                 });
-             })
-    ->get();
-
-
-    // Consultar registros basados en la fecha completa
-
-
-
-    // Crear nombre del archivo con la fecha seleccionada
-    $nombreMes = Carbon::createFromFormat('m', $mes)->translatedFormat('F'); // Obtener el nombre del mes
-    $nombreArchivo = "{$dia}-{$nombreMes}-{$anio}.csv";
-
-    // Exportar datos usando el paquete maatwebsite/excel
-    return Excel::download(new MuestrasExport($estadoDetalles), $nombreArchivo, \Maatwebsite\Excel\Excel::CSV);
-}
-
-
-public function generatePDFsegimiento()
-{
-    // Obtener la fecha y el nombre del mes en español
-    $fecha = Carbon::parse($this->fecha);
-    $nombreMes = $fecha->locale('es')->translatedFormat('F');
-
-    // Construir el nombre del archivo
-    $nombreArchivo = "{$fecha->day} {$nombreMes} {$fecha->year}.pdf";
-
-    return response()->streamDownload(
-        function () use ($fecha) {
-            $estadoDetalles = EstadoDetalle::select('orp_id', 'preparacion')
-                ->with('orp.producto.destinoProducto')
-                ->distinct()
-                ->whereHas('orp.producto', function ($q) {
-                    $q->whereNotNull('destino_producto_id');
-                })
-                ->whereHas('orp', function ($q) use ($fecha) {
-                    $q->whereDate('updated_at', $fecha)
-                      ->where('estado', 'Completado');
-                })
-                ->whereHas('orp.producto.categoriaProducto', function ($q) {
-                    $q->where('grupo', 'HTST');
                 });
+            })
+            ->get();
 
-            // Aplicar filtro de destinoProducto según $this->cat
-            if (!is_null($this->cat)) {
-                if ($this->cat == 1) {
-                    $estadoDetalles->whereHas('orp.producto.destinoProducto', function ($q) {
-                        $q->where('id', 1);
+
+        // Consultar registros basados en la fecha completa
+
+
+
+        // Crear nombre del archivo con la fecha seleccionada
+        $nombreMes = Carbon::createFromFormat('m', $mes)->translatedFormat('F'); // Obtener el nombre del mes
+        $nombreArchivo = "{$dia}-{$nombreMes}-{$anio}.csv";
+
+        // Exportar datos usando el paquete maatwebsite/excel
+        return Excel::download(new MuestrasExport($estadoDetalles), $nombreArchivo, \Maatwebsite\Excel\Excel::CSV);
+    }
+
+
+    public function generatePDFsegimiento()
+    {
+        // Obtener la fecha y el nombre del mes en español
+        $fecha = Carbon::parse($this->fecha);
+        $nombreMes = $fecha->locale('es')->translatedFormat('F');
+
+        // Construir el nombre del archivo
+        $nombreArchivo = "{$fecha->day} {$nombreMes} {$fecha->year}.pdf";
+
+        return response()->streamDownload(
+            function () use ($fecha) {
+                $estadoDetalles = EstadoDetalle::select('orp_id', 'preparacion')
+                    ->with('orp.producto.destinoProducto')
+                    ->distinct()
+                    ->whereHas('orp.producto', function ($q) {
+                        $q->whereNotNull('destino_producto_id');
+                    })
+                    ->whereHas('orp', function ($q) use ($fecha) {
+                        $q->whereDate('updated_at', $fecha)
+                            ->where('estado', 'Completado');
+                    })
+                    ->whereHas('orp.producto.categoriaProducto', function ($q) {
+                        $q->where('grupo', 'HTST');
                     });
-                } elseif ($this->cat == 2) {
-                    $estadoDetalles->whereHas('orp.producto.destinoProducto', function ($q) {
-                        $q->where('id', '!=', 1);
-                    });
+
+                // Aplicar filtro de destinoProducto según $this->cat
+                if (!is_null($this->cat)) {
+                    if ($this->cat == 1) {
+                        $estadoDetalles->whereHas('orp.producto.destinoProducto', function ($q) {
+                            $q->where('id', 1);
+                        });
+                    } elseif ($this->cat == 2) {
+                        $estadoDetalles->whereHas('orp.producto.destinoProducto', function ($q) {
+                            $q->where('id', '!=', 1);
+                        });
+                    }
                 }
-            }
 
-            $estadoDetalles = $estadoDetalles->get();
+                $estadoDetalles = $estadoDetalles->get();
 
-            // Generar PDF
-            $pdf = Pdf::loadView('pdf.reportes.seguimientoProductoTerminado', compact('estadoDetalles','fecha'));
-            $pdf->setPaper('letter', 'portrait');
+                // Generar PDF
+                $pdf = Pdf::loadView('pdf.reportes.seguimientoProductoTerminado', compact('estadoDetalles', 'fecha'));
+                $pdf->setPaper('letter', 'portrait');
 
-            echo $pdf->stream();
-        },
-        $nombreArchivo
-    );
-}
-
-
+                echo $pdf->stream();
+            },
+            $nombreArchivo
+        );
+    }
 }

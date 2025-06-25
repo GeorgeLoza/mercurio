@@ -9,6 +9,7 @@ use App\Http\Controllers\DesinfeccionController;
 use App\Http\Controllers\EstadoPlantaController;
 use App\Http\Controllers\ExternoController;
 use App\Http\Controllers\GeneralController;
+use App\Http\Controllers\HisopadoController;
 use App\Http\Controllers\LecheController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
@@ -111,6 +112,8 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/descargar-pdfYog/{id}', [OrpController::class, 'generateYog'])->name('descargarYog.pdf');
         Route::get('/descargar-pdfJugo/{id}', [OrpController::class, 'generateJugo'])->name('descargarJugo.pdf');
+
+        Route::post('/revisar-orp/{id}', [OrpController::class, 'revisar'])->name('orp.revisar');
     });
     Route::middleware(['role.permission:12,2'])->group(function () {
         Route::get('/uht', function () {
@@ -228,6 +231,11 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+
+
+    Route::middleware(['role.permission:36,2'])->group(function () {
+        Route::get('/hisopado', [HisopadoController::class, 'index'])->name('hisopado.index');
+    });
 
 
 });

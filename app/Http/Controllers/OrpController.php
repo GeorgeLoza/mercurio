@@ -43,6 +43,16 @@ class OrpController extends Controller
 
 
 
+    public function revisar($id)
+{
+    $registro = Orp::find($id);
+    $registro->revisado = true;
+    $registro->revisor_id = auth()->user()->id;
+    $registro->fechaRevision = now();
+    $registro->save();
+
+    return redirect()->back()->with('mensaje', 'ORP revisado correctamente');
+}
 
     public function generateUHT($id)
     {
@@ -53,9 +63,9 @@ class OrpController extends Controller
 
 
         $origens = Origen::whereBetween('id', [27, 33])
-        ->whereHas('estadoPlanta.estadoDetalle', function ($query) use ($id) {
-            $query->where('orp_id', $id);
-        })->get();
+            ->whereHas('estadoPlanta.estadoDetalle', function ($query) use ($id) {
+                $query->where('orp_id', $id);
+            })->get();
 
 
         $userIdsFromSolicitudAnalisis = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) use ($orpId) {
@@ -142,7 +152,7 @@ class OrpController extends Controller
         $informacion = $reporte;
 
         // Crear el PDF
-        $pdf = Pdf::loadView('pdf.reportes.orpUHT', compact(['data', 'informacion', 'usuariosInvolucrados', 'mezclas', 'envasados', 'obs', 'orpId','origens']));
+        $pdf = Pdf::loadView('pdf.reportes.orpUHT', compact(['data', 'informacion', 'usuariosInvolucrados', 'mezclas', 'envasados', 'obs', 'orpId', 'origens']));
         $pdf->setPaper('letter', 'portrait');
 
         // Descargar el PDF con un nombre basado en el reporte
@@ -163,177 +173,177 @@ class OrpController extends Controller
 
 
 
-                // Consulta con filtro de orp_id y etapa_id = 1
-                $mezclas = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) {
-                    $query->where('etapa_id', 1); // Filtra registros con etapa_id = 1
-                })
-                    ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) use ($orpId) {
-                        $query->where('orp_id', $orpId); // Filtra siempre por orp_id
-                    })
-
-                    ->with(['solicitudAnalisisLinea.estadoPlanta.estadoDetalle']) // Trae la relación para acceder a 'preparacion'
-                    ->get()
-                    ->groupBy(function ($item) {
-                        // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
-                        return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
-                    })
-                    ->map(function ($group) {
-                        // Ordena por 'tiempo' y toma el último registro
-                        return $group->sortByDesc('tiempo')->first();
-                    })
-                    ->values(); // Reindexa la colección para eliminar claves asociativas
-
-
-                // ->get();
-
-
-                $inoculaciones = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) {
-                    $query->where('etapa_id', 3); // Filtra registros con etapa_id = 1
-                })
-                    ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) use ($orpId) {
-                        $query->where('orp_id', $orpId); // Filtra siempre por orp_id
-                    })
-                    ->with(['solicitudAnalisisLinea.estadoPlanta.estadoDetalle']) // Trae la relación para acceder a 'preparacion'
-                    ->get()
-                    ->groupBy(function ($item) {
-                        // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
-                        return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
-                    })
-                    ->map(function ($group) {
-                        // Ordena por 'tiempo' y toma el último registro
-                        return $group->sortByDesc('tiempo')->first();
-                    })
-                    ->values(); // Reindexa la colección para eliminar claves asociativas
-
-
-
-                // ->get();
-
-                $Acortes = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) {
-                    $query->where('etapa_id', 4); // Filtra registros con etapa_id = 4
-                })
-                    ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) use ($orpId) {
-                        $query->where('orp_id', $orpId); // Filtra siempre por orp_id
-                    })
-                    ->with(['solicitudAnalisisLinea.estadoPlanta.estadoDetalle']) // Trae la relación para acceder a 'preparacion'
-                    ->get()
-                    ->groupBy(function ($item) {
-                        // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
-                        return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
-                    })
-                    ->map(function ($group) {
-                        // Ordena por 'tiempo' y toma el último registro
-                        return $group->sortByDesc('tiempo')->first();
-                    })
-                    ->values(); // Reindexa la colección para eliminar claves asociativas
+        // Consulta con filtro de orp_id y etapa_id = 1
+        $mezclas = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) {
+            $query->where('etapa_id', 1); // Filtra registros con etapa_id = 1
+        })
+            ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) use ($orpId) {
+                $query->where('orp_id', $orpId); // Filtra siempre por orp_id
+            })
+
+            ->with(['solicitudAnalisisLinea.estadoPlanta.estadoDetalle']) // Trae la relación para acceder a 'preparacion'
+            ->get()
+            ->groupBy(function ($item) {
+                // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
+                return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
+            })
+            ->map(function ($group) {
+                // Ordena por 'tiempo' y toma el último registro
+                return $group->sortByDesc('tiempo')->first();
+            })
+            ->values(); // Reindexa la colección para eliminar claves asociativas
+
+
+        // ->get();
+
+
+        $inoculaciones = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) {
+            $query->where('etapa_id', 3); // Filtra registros con etapa_id = 1
+        })
+            ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) use ($orpId) {
+                $query->where('orp_id', $orpId); // Filtra siempre por orp_id
+            })
+            ->with(['solicitudAnalisisLinea.estadoPlanta.estadoDetalle']) // Trae la relación para acceder a 'preparacion'
+            ->get()
+            ->groupBy(function ($item) {
+                // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
+                return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
+            })
+            ->map(function ($group) {
+                // Ordena por 'tiempo' y toma el último registro
+                return $group->sortByDesc('tiempo')->first();
+            })
+            ->values(); // Reindexa la colección para eliminar claves asociativas
+
+
+
+        // ->get();
+
+        $Acortes = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) {
+            $query->where('etapa_id', 4); // Filtra registros con etapa_id = 4
+        })
+            ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) use ($orpId) {
+                $query->where('orp_id', $orpId); // Filtra siempre por orp_id
+            })
+            ->with(['solicitudAnalisisLinea.estadoPlanta.estadoDetalle']) // Trae la relación para acceder a 'preparacion'
+            ->get()
+            ->groupBy(function ($item) {
+                // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
+                return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
+            })
+            ->map(function ($group) {
+                // Ordena por 'tiempo' y toma el último registro
+                return $group->sortByDesc('tiempo')->first();
+            })
+            ->values(); // Reindexa la colección para eliminar claves asociativas
 
 
-                $Dcortes = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) {
-                    $query->where('etapa_id', 5); // Filtra registros con etapa_id = 1
-                })
-                    ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) use ($orpId) {
-                        $query->where('orp_id', $orpId); // Filtra siempre por orp_id
-                    })
+        $Dcortes = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) {
+            $query->where('etapa_id', 5); // Filtra registros con etapa_id = 1
+        })
+            ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) use ($orpId) {
+                $query->where('orp_id', $orpId); // Filtra siempre por orp_id
+            })
 
-                    ->with(['solicitudAnalisisLinea.estadoPlanta.estadoDetalle']) // Trae la relación para acceder a 'preparacion'
-                    ->get()
-                    ->groupBy(function ($item) {
-                        // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
-                        return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
-                    })
-                    ->map(function ($group) {
-                        // Ordena por 'tiempo' y toma el último registro
-                        return $group->sortByDesc('tiempo')->first();
-                    })
-                    ->values(); // Reindexa la colección para eliminar claves asociativas
+            ->with(['solicitudAnalisisLinea.estadoPlanta.estadoDetalle']) // Trae la relación para acceder a 'preparacion'
+            ->get()
+            ->groupBy(function ($item) {
+                // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
+                return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
+            })
+            ->map(function ($group) {
+                // Ordena por 'tiempo' y toma el último registro
+                return $group->sortByDesc('tiempo')->first();
+            })
+            ->values(); // Reindexa la colección para eliminar claves asociativas
 
 
 
-                // ->get();
+        // ->get();
 
-                $saborizaciones = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) {
-                    $query->where('etapa_id', 6); // Filtra registros con etapa_id = 1
-                })
-                    ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) use ($orpId) {
-                        $query->where('orp_id', $orpId); // Filtra siempre por orp_id
-                    })
+        $saborizaciones = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) {
+            $query->where('etapa_id', 6); // Filtra registros con etapa_id = 1
+        })
+            ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) use ($orpId) {
+                $query->where('orp_id', $orpId); // Filtra siempre por orp_id
+            })
 
-                    ->with(['solicitudAnalisisLinea.estadoPlanta.estadoDetalle']) // Trae la relación para acceder a 'preparacion'
-                    ->get()
-                    ->groupBy(function ($item) {
-                        // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
-                        return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
-                    })
-                    ->map(function ($group) {
-                        // Ordena por 'tiempo' y toma el último registro
-                        return $group->sortByDesc('tiempo')->first();
-                    })
-                    ->values(); // Reindexa la colección para eliminar claves asociativas
+            ->with(['solicitudAnalisisLinea.estadoPlanta.estadoDetalle']) // Trae la relación para acceder a 'preparacion'
+            ->get()
+            ->groupBy(function ($item) {
+                // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
+                return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
+            })
+            ->map(function ($group) {
+                // Ordena por 'tiempo' y toma el último registro
+                return $group->sortByDesc('tiempo')->first();
+            })
+            ->values(); // Reindexa la colección para eliminar claves asociativas
 
 
 
-                // ->get();
+        // ->get();
 
 
 
-                $envasados = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) {
-                    $query->where('etapa_id', 8); // Filtra registros con etapa_id = 8
-                })
-                    ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) use ($orpId) {
-                        $query->where('orp_id', $orpId); // Filtra siempre por orp_id
-                    })
-                    ->join('solicitud_analisis_lineas', 'analisis_lineas.solicitud_analisis_linea_id', '=', 'solicitud_analisis_lineas.id')
-                    ->orderBy('solicitud_analisis_lineas.tiempo') // Ordena por tiempo en SolicitudAnalisisLinea
-                    ->select('analisis_lineas.*') // Ensure only AnalisisLinea columns are selected
-                    ->get();
+        $envasados = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) {
+            $query->where('etapa_id', 8); // Filtra registros con etapa_id = 8
+        })
+            ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) use ($orpId) {
+                $query->where('orp_id', $orpId); // Filtra siempre por orp_id
+            })
+            ->join('solicitud_analisis_lineas', 'analisis_lineas.solicitud_analisis_linea_id', '=', 'solicitud_analisis_lineas.id')
+            ->orderBy('solicitud_analisis_lineas.tiempo') // Ordena por tiempo en SolicitudAnalisisLinea
+            ->select('analisis_lineas.*') // Ensure only AnalisisLinea columns are selected
+            ->get();
 
 
 
 
 
-                $obs = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) use ($orpId) {
-                    $query->whereHas('estadoDetalle', function ($query) use ($orpId) {
-                        $query->where('orp_id', $orpId);
-                    });
-                })->get();
+        $obs = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) use ($orpId) {
+            $query->whereHas('estadoDetalle', function ($query) use ($orpId) {
+                $query->where('orp_id', $orpId);
+            });
+        })->get();
 
 
 
-                $userIdsFromSolicitudAnalisis = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) use ($orpId) {
-                    $query->where('orp_id', $orpId);
-                })
+        $userIdsFromSolicitudAnalisis = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) use ($orpId) {
+            $query->where('orp_id', $orpId);
+        })
 
 
 
-                    ->with(['solicitudAnalisisLinea.estadoPlanta.estadoDetalle']) // Trae la relación para acceder a 'preparacion'
-                    ->get()
+            ->with(['solicitudAnalisisLinea.estadoPlanta.estadoDetalle']) // Trae la relación para acceder a 'preparacion'
+            ->get()
 
-                    ->values() // Reindexa la colección para eliminar claves asociativas
-                    ->pluck('solicitudAnalisisLinea.user_id');
+            ->values() // Reindexa la colección para eliminar claves asociativas
+            ->pluck('solicitudAnalisisLinea.user_id');
 
 
 
 
 
-                $userIdsFromAnalisisLinea = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) use ($orpId) {
-                    $query->where('orp_id', $orpId);
-                })
+        $userIdsFromAnalisisLinea = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) use ($orpId) {
+            $query->where('orp_id', $orpId);
+        })
 
-                    ->with(['solicitudAnalisisLinea.estadoPlanta.estadoDetalle']) // Trae la relación para acceder a 'preparacion'
-                    ->get()
-                    ->groupBy(function ($item) {
-                        // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
-                        return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
-                    })
+            ->with(['solicitudAnalisisLinea.estadoPlanta.estadoDetalle']) // Trae la relación para acceder a 'preparacion'
+            ->get()
+            ->groupBy(function ($item) {
+                // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
+                return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
+            })
 
-                    ->map(function ($group) {
-                        // Ordena por 'tiempo' y toma el último registro
-                        return $group->sortByDesc('tiempo')->first();
-                    })
-                    ->values() // Reindexa la colección para eliminar claves asociativas
-                    ->pluck('user_id')
+            ->map(function ($group) {
+                // Ordena por 'tiempo' y toma el último registro
+                return $group->sortByDesc('tiempo')->first();
+            })
+            ->values() // Reindexa la colección para eliminar claves asociativas
+            ->pluck('user_id')
 
-                    ->unique();
+            ->unique();
 
 
 
@@ -341,30 +351,30 @@ class OrpController extends Controller
 
 
 
-                $allUserIds = $userIdsFromSolicitudAnalisis
+        $allUserIds = $userIdsFromSolicitudAnalisis
 
-                    ->merge($userIdsFromAnalisisLinea)
-                    ->unique();
+            ->merge($userIdsFromAnalisisLinea)
+            ->unique();
 
-                // Recuperar los detalles de los usuarios
-                $usuariosInvolucrados = User::whereIn('id', $allUserIds)->get();
+        // Recuperar los detalles de los usuarios
+        $usuariosInvolucrados = User::whereIn('id', $allUserIds)->get();
 
 
 
 
 
 
-                $data = $this->resultados_agrupados;
-                $informacion = $reporte;
+        $data = $this->resultados_agrupados;
+        $informacion = $reporte;
 
 
 
 
 
-                $pdf = Pdf::loadView('pdf.reportes.orpHTST', compact(['data', 'informacion', 'usuariosInvolucrados', 'mezclas', 'inoculaciones', 'Acortes', 'Dcortes', 'envasados', 'obs', 'orpId']));
-                $pdf->setPaper('letter', 'portrait');
+        $pdf = Pdf::loadView('pdf.reportes.orpHTST', compact(['data', 'informacion', 'usuariosInvolucrados', 'mezclas', 'inoculaciones', 'Acortes', 'Dcortes', 'envasados', 'obs', 'orpId']));
+        $pdf->setPaper('letter', 'portrait');
 
-                return $pdf->stream(str_replace(['/', '\\'], '-', "{$reporte->codigo} {$reporte->producto->nombre}.pdf"));
+        return $pdf->stream(str_replace(['/', '\\'], '-', "{$reporte->codigo} {$reporte->producto->nombre}.pdf"));
     }
 
 
@@ -431,142 +441,136 @@ class OrpController extends Controller
 
 
 
-                // Consulta con filtro de orp_id y etapa_id = 1
-                $mezclas = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) {
-                    $query->where('etapa_id', 1); // Filtra registros con etapa_id = 1
-                })
-                    ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) use ($orpId) {
-                        $query->where('orp_id', $orpId); // Filtra siempre por orp_id
-                    })
+        // Consulta con filtro de orp_id y etapa_id = 1
+        $mezclas = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) {
+            $query->where('etapa_id', 1); // Filtra registros con etapa_id = 1
+        })
+            ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) use ($orpId) {
+                $query->where('orp_id', $orpId); // Filtra siempre por orp_id
+            })
 
-                    ->with(['solicitudAnalisisLinea.estadoPlanta.estadoDetalle']) // Trae la relación para acceder a 'preparacion'
-                    ->get()
-                    ->groupBy(function ($item) {
-                        // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
-                        return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
-                    })
-                    ->map(function ($group) {
-                        // Ordena por 'tiempo' y toma el último registro
-                        return $group->sortByDesc('tiempo')->first();
-                    })
-                    ->values(); // Reindexa la colección para eliminar claves asociativas
-
-
-                // ->get();
+            ->with(['solicitudAnalisisLinea.estadoPlanta.estadoDetalle']) // Trae la relación para acceder a 'preparacion'
+            ->get()
+            ->groupBy(function ($item) {
+                // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
+                return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
+            })
+            ->map(function ($group) {
+                // Ordena por 'tiempo' y toma el último registro
+                return $group->sortByDesc('tiempo')->first();
+            })
+            ->values(); // Reindexa la colección para eliminar claves asociativas
 
 
-
-
-
-
-                $Acortes = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) {
-                    $query->where('etapa_id', 4); // Filtra registros con etapa_id = 4
-                })
-                    ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) use ($orpId) {
-                        $query->where('orp_id', $orpId); // Filtra siempre por orp_id
-                    })
-                    ->with(['solicitudAnalisisLinea.estadoPlanta.estadoDetalle']) // Trae la relación para acceder a 'preparacion'
-                    ->get()
-                    ->groupBy(function ($item) {
-                        // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
-                        return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
-                    })
-                    ->map(function ($group) {
-                        // Ordena por 'tiempo' y toma el último registro
-                        return $group->sortByDesc('tiempo')->first();
-                    })
-                    ->values(); // Reindexa la colección para eliminar claves asociativas
-
-
-                $Dcortes = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) {
-                    $query->where('etapa_id', 5); // Filtra registros con etapa_id = 1
-                })
-                    ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) use ($orpId) {
-                        $query->where('orp_id', $orpId); // Filtra siempre por orp_id
-                    })
-
-                    ->with(['solicitudAnalisisLinea.estadoPlanta.estadoDetalle']) // Trae la relación para acceder a 'preparacion'
-                    ->get()
-                    ->groupBy(function ($item) {
-                        // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
-                        return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
-                    })
-                    ->map(function ($group) {
-                        // Ordena por 'tiempo' y toma el último registro
-                        return $group->sortByDesc('tiempo')->first();
-                    })
-                    ->values(); // Reindexa la colección para eliminar claves asociativas
-
-
-
-                // ->get();
-
-                $saborizaciones = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) {
-                    $query->where('etapa_id', 6); // Filtra registros con etapa_id = 1
-                })
-                    ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) use ($orpId) {
-                        $query->where('orp_id', $orpId); // Filtra siempre por orp_id
-                    })
-
-                    ->with(['solicitudAnalisisLinea.estadoPlanta.estadoDetalle']) // Trae la relación para acceder a 'preparacion'
-                    ->get()
-                    ->groupBy(function ($item) {
-                        // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
-                        return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
-                    })
-                    ->map(function ($group) {
-                        // Ordena por 'tiempo' y toma el último registro
-                        return $group->sortByDesc('tiempo')->first();
-                    })
-                    ->values(); // Reindexa la colección para eliminar claves asociativas
-
-
-
-                // ->get();
-
-
-
-                $envasados = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) {
-                    $query->where('etapa_id', 8); // Filtra registros con etapa_id = 8
-                })
-                    ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) use ($orpId) {
-                        $query->where('orp_id', $orpId); // Filtra siempre por orp_id
-                    })
-                    ->join('solicitud_analisis_lineas', 'analisis_lineas.solicitud_analisis_linea_id', '=', 'solicitud_analisis_lineas.id')
-                    ->orderBy('solicitud_analisis_lineas.tiempo') // Ordena por tiempo en SolicitudAnalisisLinea
-                    ->select('analisis_lineas.*') // Ensure only AnalisisLinea columns are selected
-                    ->get();
+        // ->get();
 
 
 
 
 
 
-                $obs = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) use ($orpId) {
-                    $query->whereHas('estadoDetalle', function ($query) use ($orpId) {
-                        $query->where('orp_id', $orpId);
-                    });
-                })->get();
+        $Acortes = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) {
+            $query->where('etapa_id', 4); // Filtra registros con etapa_id = 4
+        })
+            ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) use ($orpId) {
+                $query->where('orp_id', $orpId); // Filtra siempre por orp_id
+            })
+            ->with(['solicitudAnalisisLinea.estadoPlanta.estadoDetalle']) // Trae la relación para acceder a 'preparacion'
+            ->get()
+            ->groupBy(function ($item) {
+                // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
+                return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
+            })
+            ->map(function ($group) {
+                // Ordena por 'tiempo' y toma el último registro
+                return $group->sortByDesc('tiempo')->first();
+            })
+            ->values(); // Reindexa la colección para eliminar claves asociativas
+
+
+        $Dcortes = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) {
+            $query->where('etapa_id', 5); // Filtra registros con etapa_id = 1
+        })
+            ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) use ($orpId) {
+                $query->where('orp_id', $orpId); // Filtra siempre por orp_id
+            })
+
+            ->with(['solicitudAnalisisLinea.estadoPlanta.estadoDetalle']) // Trae la relación para acceder a 'preparacion'
+            ->get()
+            ->groupBy(function ($item) {
+                // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
+                return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
+            })
+            ->map(function ($group) {
+                // Ordena por 'tiempo' y toma el último registro
+                return $group->sortByDesc('tiempo')->first();
+            })
+            ->values(); // Reindexa la colección para eliminar claves asociativas
+
+
+
+        // ->get();
+
+        $saborizaciones = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) {
+            $query->where('etapa_id', 6); // Filtra registros con etapa_id = 1
+        })
+            ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) use ($orpId) {
+                $query->where('orp_id', $orpId); // Filtra siempre por orp_id
+            })
+
+            ->with(['solicitudAnalisisLinea.estadoPlanta.estadoDetalle']) // Trae la relación para acceder a 'preparacion'
+            ->get()
+            ->groupBy(function ($item) {
+                // Agrupa por el campo 'preparacion' de la tabla 'estadoDetalle'
+                return $item->solicitudAnalisisLinea->estadoPlanta->estadoDetalle;
+            })
+            ->map(function ($group) {
+                // Ordena por 'tiempo' y toma el último registro
+                return $group->sortByDesc('tiempo')->first();
+            })
+            ->values(); // Reindexa la colección para eliminar claves asociativas
+
+
+
+        // ->get();
+
+
+
+        $envasados = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) {
+            $query->where('etapa_id', 8); // Filtra registros con etapa_id = 8
+        })
+            ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) use ($orpId) {
+                $query->where('orp_id', $orpId); // Filtra siempre por orp_id
+            })
+            ->join('solicitud_analisis_lineas', 'analisis_lineas.solicitud_analisis_linea_id', '=', 'solicitud_analisis_lineas.id')
+            ->orderBy('solicitud_analisis_lineas.tiempo') // Ordena por tiempo en SolicitudAnalisisLinea
+            ->select('analisis_lineas.*') // Ensure only AnalisisLinea columns are selected
+            ->get();
 
 
 
 
 
-                $data = $this->resultados_agrupados;
-                $informacion = $reporte;
+
+        $obs = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) use ($orpId) {
+            $query->whereHas('estadoDetalle', function ($query) use ($orpId) {
+                $query->where('orp_id', $orpId);
+            });
+        })->get();
 
 
-                $pdf = Pdf::loadView('pdf.reportes.orpHTSTjugos', compact(['data', 'informacion', 'usuariosInvolucrados', 'mezclas', 'saborizaciones', 'envasados', 'obs', 'orpId']));
-                $pdf->setPaper('letter', 'portrait');
+
+
+
+        $data = $this->resultados_agrupados;
+        $informacion = $reporte;
+
+
+        $pdf = Pdf::loadView('pdf.reportes.orpHTSTjugos', compact(['data', 'informacion', 'usuariosInvolucrados', 'mezclas', 'saborizaciones', 'envasados', 'obs', 'orpId']));
+        $pdf->setPaper('letter', 'portrait');
 
         // Descargar el PDF con un nombre basado en el reporte
         return $pdf->stream(str_replace(['/', '\\'], '-', "{$reporte->codigo} {$reporte->producto->nombre}.pdf"));
-
-
-
-
-
-
     }
 
     public function generateLac($id)

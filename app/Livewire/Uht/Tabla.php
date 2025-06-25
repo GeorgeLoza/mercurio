@@ -82,9 +82,9 @@ class Tabla extends Component
     {
         $this->aplicandoFiltros = $this->hayFiltrosActivos();
         $query = Orp::query()
-        ->whereHas('producto.categoriaProducto', function ($query) {
-            $query->where('grupo', 'UHT');
-        })
+            ->whereHas('producto.categoriaProducto', function ($query) {
+                $query->where('grupo', 'UHT');
+            })
 
 
             ->when($this->f_codigo, function ($query) {
@@ -111,7 +111,7 @@ class Tabla extends Component
             ->when($this->f_lote, function ($query) {
                 return $query->where('lote', 'like', '%' . $this->f_lote . '%');
             })
-            ->when($this->f_updated_at , function ($query) {
+            ->when($this->f_updated_at, function ($query) {
                 return $query->where('updated_at', 'like', '%' . $this->f_updated_at . '%');
             })
             ->when($this->f_estado, function ($query) {
@@ -135,8 +135,7 @@ class Tabla extends Component
 
             ->when($this->sortField, function ($query) {
                 $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
-            })
-            ;
+            });
 
         $orps =  $query->paginate(50);
 
@@ -145,7 +144,14 @@ class Tabla extends Component
             'orps' => $orps
         ]);
     }
-
+    public function revisar($id)
+    {
+        $registro = Orp::find($id);
+        $registro->revisado = true;
+        $registro->revisor_id = auth()->user()->id;
+        $registro->fechaRevision = now();
+        $registro->save();
+    }
     public function aplicarFiltros()
     {
         $this->aplicandoFiltros = true;
@@ -153,7 +159,7 @@ class Tabla extends Component
     }
     public function limpiarFiltros()
     {
-        $this->reset(['f_codigo', 'f_codigoProducto', 'f_nombreProducto', 'f_lote', 'f_estado', 'f_tiempoElaboracion', 'f_fechaVencimiento1', 'f_fechaVencimiento2', 'f_productoCodigo','f_grupo']);
+        $this->reset(['f_codigo', 'f_codigoProducto', 'f_nombreProducto', 'f_lote', 'f_estado', 'f_tiempoElaboracion', 'f_fechaVencimiento1', 'f_fechaVencimiento2', 'f_productoCodigo', 'f_grupo']);
 
         // Refresca el componente
         $this->js('window.location.reload()');
@@ -162,15 +168,4 @@ class Tabla extends Component
     {
         return $this->f_codigo || $this->f_codigoProducto || $this->f_nombreProducto || $this->f_lote || $this->f_estado || $this->f_tiempoElaboracion || $this->f_fechaVencimiento1 || $this->f_fechaVencimiento2 || $this->f_productoCodigo || $this->f_grupo;
     }
-
-
-
-
-
-
-
-
-
-
-
 }

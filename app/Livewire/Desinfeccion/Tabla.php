@@ -191,4 +191,12 @@ class Tabla extends Component
             "{$this->fechaInicio}_a_{$this->fechaFin}.pdf"
         );
     }
+
+
+
+    public function eliminar($id)
+    {
+        $microbiologia = movSolucion::findOrFail($id);
+        $microbiologia->delete();
+    }
 }

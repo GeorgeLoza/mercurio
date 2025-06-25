@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ asset('build/assets/app-da32ce76.css') }}">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-47d58937.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-0371d629.css') }}">
 
     <script src="{{ asset('build/assets/app-56df689c.js') }}" defer></script>
     <script src="{{ asset('js/app.js') }}"></script>
@@ -55,63 +55,111 @@
 
 
 
-@php
-    $hoy = now(); // Usa Carbon
-    $mama = $hoy->month == 5 && $hoy->day >= 27;
-@endphp
+                    @php
+                        use Carbon\Carbon;
+                        $hoy = Carbon::now();
+                        $mama = $hoy->month == 5 && $hoy->day >= 27;
+                        $juan = $hoy->month == 6 && $hoy->day >= 23 && $hoy->day <= 24;
+                    @endphp
 
-@if($mama)
-  <div>
-
-    <!-- Botón con SVG pequeño -->
-                    <div class="inline-block cursor-pointer" onclick="showBigSVG()">
-                        <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none">
-                            <circle cx="70" cy="60" r="20" fill="#f9c5d1" />
-                            <circle cx="110" cy="80" r="14" fill="#fcddec" />
-                            <path d="M50 80 C30 130, 80 160, 70 190 Q90 170, 110 150 C130 130, 90 100, 70 90"
-                                fill="#f9c5d1" />
-                            <path d="M60 100 Q40 130, 80 140" stroke="#d88ca4" stroke-width="5" fill="none" />
-                            <path d="M90 100 Q120 120, 100 140" stroke="#d88ca4" stroke-width="5" fill="none" />
-                            <path
-                                d="M140 50 C140 40, 160 40, 160 50 C160 60, 140 70, 140 80 C140 70, 120 60, 120 50 C120 40, 140 40, 140 50Z"
-                                fill="#f7749b" />
-                            <text x="100" y="225" text-anchor="middle" font-family="Verdana" font-size="48"
-                                fill="#d15678">¡Feliz Día!</text>
-                        </svg>
-                    </div>
-
-                    <!-- Modal SVG grande con brillitos -->
-                    <div id="svgModal"
-                        class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center"
-                        onclick="hideBigSVG()">
-                        <div class="relative" onclick="event.stopPropagation()">
-                            <!-- Brillitos decorativos -->
-                            <div class="absolute inset-0 pointer-events-none animate-pulse">
-                                <div class="absolute top-0 left-0 text-yellow-300 text-3xl animate-spin-slow">✨</div>
-                                <div class="absolute top-0 right-0 text-pink-300 text-2xl animate-spin">✨</div>
-                                <div class="absolute bottom-0 left-10 text-purple-300 text-2xl animate-ping">✨</div>
-                                <div class="absolute bottom-0 right-10 text-blue-300 text-3xl animate-bounce">✨</div>
+                    @if ($mama)
+                        <div>
+                            <!-- Botón con SVG pequeño -->
+                            <div class="inline-block cursor-pointer" onclick="showBigSVG('svgModalMama')">
+                                <!-- Pequeño SVG para el día de la madre -->
+                                <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" class="h-10 w-10"
+                                    fill="none">
+                                    <circle cx="70" cy="60" r="20" fill="#f9c5d1" />
+                                    <circle cx="110" cy="80" r="14" fill="#fcddec" />
+                                    <path d="M50 80 C30 130, 80 160, 70 190 Q90 170, 110 150 C130 130, 90 100, 70 90"
+                                        fill="#f9c5d1" />
+                                    <path d="M60 100 Q40 130, 80 140" stroke="#d88ca4" stroke-width="5"
+                                        fill="none" />
+                                    <path d="M90 100 Q120 120, 100 140" stroke="#d88ca4" stroke-width="5"
+                                        fill="none" />
+                                    <path
+                                        d="M140 50 C140 40, 160 40, 160 50 C160 60, 140 70, 140 80 C140 70, 120 60, 120 50 C120 40, 140 40, 140 50Z"
+                                        fill="#f7749b" />
+                                    <text x="100" y="225" text-anchor="middle" font-family="Verdana" font-size="48"
+                                        fill="#d15678">¡Feliz Día!</text>
+                                </svg>
                             </div>
 
-                            <!-- SVG en grande -->
-                            <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" class="h-[400px] w-[600px]"
-                                fill="none">
-                                <circle cx="70" cy="60" r="20" fill="#f9c5d1" />
-                                <circle cx="110" cy="80" r="14" fill="#fcddec" />
-                                <path d="M50 80 C30 130, 80 160, 70 190 Q90 170, 110 150 C130 130, 90 100, 70 90"
-                                    fill="#f9c5d1" />
-                                <path d="M60 100 Q40 130, 80 140" stroke="#d88ca4" stroke-width="5" fill="none" />
-                                <path d="M90 100 Q120 120, 100 140" stroke="#d88ca4" stroke-width="5" fill="none" />
-                                <path
-                                    d="M140 50 C140 40, 160 40, 160 50 C160 60, 140 70, 140 80 C140 70, 120 60, 120 50 C120 40, 140 40, 140 50Z"
-                                    fill="#f7749b" />
-                                <text x="100" y="225" text-anchor="middle" font-family="Verdana" font-size="48"
-                                    fill="#d15678">¡Feliz Día Mamá!</text>
-                            </svg>
+                            <!-- Modal grande -->
+                            <div id="svgModalMama"
+                                class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center"
+                                onclick="hideBigSVG('svgModalMama')">
+                                <div class="relative" onclick="event.stopPropagation()">
+                                    <div class="absolute inset-0 pointer-events-none animate-pulse">
+                                        <div class="absolute top-0 left-0 text-yellow-300 text-3xl animate-spin-slow">✨
+                                        </div>
+                                        <div class="absolute top-0 right-0 text-pink-300 text-2xl animate-spin">✨</div>
+                                        <div class="absolute bottom-0 left-10 text-purple-300 text-2xl animate-ping">✨
+                                        </div>
+                                        <div class="absolute bottom-0 right-10 text-blue-300 text-3xl animate-bounce">✨
+                                        </div>
+                                    </div>
+                                    <!-- SVG Grande -->
+                                    <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg"
+                                        class="h-[400px] w-[600px]" fill="none">
+                                        <circle cx="70" cy="60" r="20" fill="#f9c5d1" />
+                                        <circle cx="110" cy="80" r="14" fill="#fcddec" />
+                                        <path
+                                            d="M50 80 C30 130, 80 160, 70 190 Q90 170, 110 150 C130 130, 90 100, 70 90"
+                                            fill="#f9c5d1" />
+                                        <path d="M60 100 Q40 130, 80 140" stroke="#d88ca4" stroke-width="5"
+                                            fill="none" />
+                                        <path d="M90 100 Q120 120, 100 140" stroke="#d88ca4" stroke-width="5"
+                                            fill="none" />
+                                        <path
+                                            d="M140 50 C140 40, 160 40, 160 50 C160 60, 140 70, 140 80 C140 70, 120 60, 120 50 C120 40, 140 40, 140 50Z"
+                                            fill="#f7749b" />
+                                        <text x="100" y="225" text-anchor="middle" font-family="Verdana" font-size="48"
+                                            fill="#d15678">¡Feliz Día Mamá!</text>
+                                    </svg>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    @endif
 
-                    <!-- Tailwind animaciones personalizadas -->
+                    @if ($juan)
+                        <div class="h-10 w-10">
+                            <div class="inline-block cursor-pointer" onclick="showBigSVG('svgModalJuan')">
+                                <!-- Icono pequeño para San Juan -->
+
+                                <div class="h-10 w-10  flex items-center justify-center">
+                                    🌭
+                                </div>
+
+                            </div>
+
+                            <div id="svgModalJuan"
+                                class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center"
+                                onclick="hideBigSVG('svgModalJuan')">
+                                <div class="relative" onclick="event.stopPropagation()">
+                                    <div class="absolute inset-0 pointer-events-none animate-pulse">
+                                        <div class="absolute top-0 left-0 text-yellow-300 text-3xl animate-spin-slow">✨
+                                        </div>
+                                        <div class="absolute top-0 right-0 text-pink-300 text-2xl animate-spin">✨</div>
+                                        <div class="absolute bottom-0 left-10 text-purple-300 text-2xl animate-ping">✨
+                                        </div>
+                                        <div class="absolute bottom-0 right-10 text-blue-300 text-3xl animate-bounce">✨
+                                        </div>
+                                    </div>
+                                    <!-- SVG grande para San Juan -->
+                                    <div class="h-[400px] w-[600px]  flex flex-col items-center justify-center">
+                                        <p class="text-[350px]">
+                                            🌭
+                                        </p>
+
+                                        <p class="text-[60px] font-bold">¡Feliz San <span class="font-extrabold"> Juan</span>!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    <!-- Animaciones personalizadas y scripts generales -->
                     <style>
                         @keyframes spin-slow {
                             0% {
@@ -128,23 +176,19 @@
                         }
                     </style>
 
-                    <!-- Script para abrir/cerrar -->
                     <script>
-                        function showBigSVG() {
-                            const modal = document.getElementById('svgModal');
+                        function showBigSVG(id) {
+                            const modal = document.getElementById(id);
                             modal.classList.remove('hidden');
                             modal.classList.add('flex');
                         }
 
-                        function hideBigSVG() {
-                            const modal = document.getElementById('svgModal');
+                        function hideBigSVG(id) {
+                            const modal = document.getElementById(id);
                             modal.classList.remove('flex');
                             modal.classList.add('hidden');
                         }
                     </script>
-  </div>
-@endif
-
 
 
 

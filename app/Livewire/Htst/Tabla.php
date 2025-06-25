@@ -173,7 +173,14 @@ class Tabla extends Component
 
 
 
-
+public function revisar($id)
+    {
+        $registro = Orp::find($id);
+        $registro->revisado = true;
+        $registro->revisor_id = auth()->user()->id;
+        $registro->fechaRevision = now();
+        $registro->save();
+    }
 
 
 

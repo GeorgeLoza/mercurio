@@ -38,7 +38,7 @@
                             <tr class="">
                                 <td class="px-2 py-2">{{ $solicitud->estadoPlanta->origen->alias }}</td>
                                 <td class="px-2 py-2">{{ $solicitud->estadoPlanta->etapa->nombre }}</td>
-                                <td class="px-2 py-2">{{ \Carbon\Carbon::parse($solicitud->tiempo)->isoFormat('HH:mm') }}</td>
+                                <td class="px-2 py-2">{{ \Carbon\Carbon::parse($solicitud->tiempo)->isoFormat('DD-MM-YY HH:mm') }}</td>
                                 <td class="px-2 py-2">
                                     {{ optional($solicitud->analisisLinea)->tiempo ? \Carbon\Carbon::parse($solicitud->analisisLinea->tiempo)->isoFormat('HH:mm') : '-' }}
                                 </td>

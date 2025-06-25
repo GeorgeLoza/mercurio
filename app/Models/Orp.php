@@ -16,6 +16,9 @@ class Orp extends Model
         'tiempo_elaboracion',
         'fecha_vencimiento1',
         'fecha_vencimiento2',
+        'revisado',
+        'revisor_id',
+        'fecha_revision',
     ];
     public function producto()
     {
@@ -36,6 +39,10 @@ class Orp extends Model
     public function seguimiento()
     {
         return $this->hasMany(Seguimiento::class);
+    }
+    public function revisor()
+    {
+        return $this->belongsTo(User::class, 'revisor_id');
     }
 
 }

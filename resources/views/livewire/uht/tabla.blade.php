@@ -98,7 +98,7 @@
                         </th>
                         <th class="p-1">
                             <input type="text" wire:model.live='f_destino' placeholder="Filtrar por Destino"
-                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
 
                         </th>
@@ -157,7 +157,8 @@
                         <th scope="row"
                             class="sticky flex py-1  bg-white  p-1 left-0 z-10 px-1  font-medium text-gray-900 whitespace-nowrap dark:text-white dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50  dark:hover:bg-gray-600 rounded-lg">
                             <!--boton reporte ORP-->
-                            <a target="_blank" href="{{ route('orp.report', ['id' => $orp->id]) }}" class="rounded-md mr-4">
+                            <a target="_blank" href="{{ route('orp.report', ['id' => $orp->id]) }}"
+                                class="rounded-md mr-4">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-5 w-5"
                                     viewBox="0 0 512 512">
                                     <path
@@ -168,9 +169,8 @@
                         </th>
 
                         <td class="px-0 overflow-x-auto" nowrap>
-                            @if ($orp->tiempo_elaboracion )
-
-                            {{ \Carbon\Carbon::parse($orp->tiempo_elaboracion)->isoFormat('DD-MM-YY HH:mm  ') }}
+                            @if ($orp->tiempo_elaboracion)
+                                {{ \Carbon\Carbon::parse($orp->tiempo_elaboracion)->isoFormat('DD-MM-YY HH:mm  ') }}
                             @endif
                         </td>
 
@@ -197,15 +197,15 @@
                         <td class="px-2   ">
 
 
-                            @if ($orp->fecha_vencimiento1 )
-
-                            {{ \Carbon\Carbon::parse($orp->fecha_vencimiento1)->isoFormat('DD-MM-YY') }}
+                            @if ($orp->fecha_vencimiento1)
+                                {{ \Carbon\Carbon::parse($orp->fecha_vencimiento1)->isoFormat('DD-MM-YY') }}
                             @endif
                         </td>
                         <td class="px-2  " nowrap>
 
                             @if ($orp->estado == 'Pendiente')
-                                <span class="flex items-center text-sm font-medium me-3 text-yellow-500 uppercase"><span
+                                <span
+                                    class="flex items-center text-sm font-medium me-3 text-yellow-500 uppercase"><span
                                         class="flex w-2.5 h-2.5 bg-yellow-500  rounded-full me-1.5 flex-shrink-0 text-2xs"></span>{{ $orp->estado }}</span>
                             @endif
 
@@ -215,7 +215,8 @@
                             @endif
 
                             @if ($orp->estado == 'Completado')
-                                <span class="flex items-center text-sm font-medium me-3 text-green-500 uppercase "><span
+                                <span
+                                    class="flex items-center text-sm font-medium me-3 text-green-500 uppercase "><span
                                         class="flex w-2.5 h-2.5 bg-green-500 rounded-full me-1.5 flex-shrink-0"></span>{{ $orp->estado }}</span>
                             @endif
 
@@ -229,17 +230,34 @@
                                         class="flex w-2.5 h-2.5 bg-red-600 rounded-full me-1.5 flex-shrink-0"></span>{{ $orp->estado }}</span>
                             @endif
                             @if ($orp->estado == 'Programado')
-                                <span class="flex items-center text-sm font-medium me-3 text-purple-500 uppercase"><span
+                                <span
+                                    class="flex items-center text-sm font-medium me-3 text-purple-500 uppercase"><span
                                         class="flex w-2.5 h-2.5 bg-purple-600  rounded-full me-1.5 flex-shrink-0"></span>{{ $orp->estado }}</span>
                             @endif
                         </td>
                         <td class="px-2  border-r  ">
                             @if ($orp->updated_at)
-
-                            {{ $orp->updated_at->isoFormat('DD-MM-YY') }}
+                                {{ $orp->updated_at->isoFormat('DD-MM-YY') }}
                             @else
-                            -
+                                -
                             @endif
+                        </td>
+                        <td class="{{ $orp->revisado ? 'text-green-500' : 'text-red-500' }}">
+
+                            {{ $orp->revisado ? 'Revisado' : 'No Revisado' }}
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 11)->where('permiso_id', 5)->isNotEmpty())
+                                @if ($orp->estado == 'Completado' && !$orp->revisado)
+                                    <button wire:click="revisar({{ $orp->id }})"
+                                        wire:confirm="Se reviso el ORP {{ $orp->codigo }}?">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="h-4 w-10 fill-green-600 dark:fill-green-500" viewBox="0 0 448 512">
+                                            <path
+                                                d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
+                                        </svg>
+                                    </button>
+                                @endif
+                            @endif
+
                         </td>
                         <td class="px-2  hidden ">
                             {{ $orp->tiempo_elaboracion }}
@@ -259,9 +277,9 @@
         </table>
     </div>
 
-        <div>
-            {{ $orps->links() }}
-        </div>
+    <div>
+        {{ $orps->links() }}
+    </div>
 
 
 
