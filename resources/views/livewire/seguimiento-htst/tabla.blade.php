@@ -12,7 +12,7 @@
     </div>
     <div>
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
-            <thead class="text-xs text-gray-700 capitalize bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-center">
+            <thead class="text-xs text-gray-700 capitalize bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-center sticky top-10  shadow z-10">
                 <tr>
                     <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700" nowrap>
                         Cod.
@@ -47,6 +47,9 @@
                     </th>
                     <th scope="col" class="px-1 py-3  sticky top-0 bg-white dark:bg-gray-700">
                         Producto
+                    </th>
+                    <th scope="col" class="px-1 py-3  sticky top-0 bg-white dark:bg-gray-700">
+                        Fecha de Produccion
                     </th>
 
                     <th scope="col" class="  gap-1 px-1 py-3 sticky top-0 bg-white dark:bg-gray-700 ">
@@ -168,8 +171,15 @@
                         </td>
                         <td class=" px-1 py-1">{{ $seguimiento->lote ?? '-' }}</td>
                         <td class=" px-1 py-1">{{ $seguimiento->preparacion ?? '-' }}</td>
-                        <td class="px-1 py-1 max-w-[200px] truncate text-ellipsis whitespace-nowrap text-2xs">
+                        <td class="px-1 py-1  truncate text-ellipsis  text-2xs">
                             {{ $seguimiento->orp->producto->nombre ?? '-' }}
+                        </td>
+                        <td class="px-1 py-1 ">
+                            @if ($seguimiento->orp->tiempo_elaboracion)
+                                {{ \Carbon\Carbon::parse($seguimiento->orp->tiempo_elaboracion)->isoFormat('DD-MM-YY', 0, 'es') }}
+                            @else
+                                -
+                            @endif
                         </td>
 
 

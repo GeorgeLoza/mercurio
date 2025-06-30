@@ -68,17 +68,20 @@ class Orp extends Component
                 //     ->unique()
                 //     ->values(); // reindexa
 
-                $ids_siembra = Seguimiento::whereNotNull('usuario_siembra')
+                $ids_siembra = Seguimiento::whereJsonContains('orp_ids', (int) $this->orp_id)
+                    ->whereNotNull('usuario_siembra')
                     ->pluck('usuario_siembra')
                     ->unique()
                     ->values();
 
-                $ids_rt = Seguimiento::whereNotNull('usuario_rt')
+                $ids_rt = Seguimiento::whereJsonContains('orp_ids', (int) $this->orp_id)
+                    ->whereNotNull('usuario_siembra')
                     ->pluck('usuario_rt')
                     ->unique()
                     ->values();
 
-                $ids_moho = Seguimiento::whereNotNull('usuario_moho')
+                $ids_moho = Seguimiento::whereJsonContains('orp_ids', (int) $this->orp_id)
+                    ->whereNotNull('usuario_siembra')
                     ->pluck('usuario_moho')
                     ->unique()
                     ->values();
@@ -86,13 +89,13 @@ class Orp extends Component
 
                 // Resultado: colección de IDs únicos
 
-                $usuariosSiembra= User::whereIn('id', $ids_siembra)->get();
-                $usuariosRt= User::whereIn('id', $ids_rt)->get();
-                $usuariosMoho= User::whereIn('id', $ids_moho)->get();
+                $usuariosSiembra = User::whereIn('id', $ids_siembra)->get();
+                $usuariosRt = User::whereIn('id', $ids_rt)->get();
+                $usuariosMoho = User::whereIn('id', $ids_moho)->get();
 
 
                 $pdf = App::make('dompdf.wrapper');
-                $pdf = Pdf::loadView('pdf.reportes.seguimientoUHT', compact(['seguimientos', 'orps', 'origenes', 'conteoPorOrigen', 'usuariosSiembra','usuariosRt','usuariosMoho']));
+                $pdf = Pdf::loadView('pdf.reportes.seguimientoUHT', compact(['seguimientos', 'orps', 'origenes', 'conteoPorOrigen', 'usuariosSiembra', 'usuariosRt', 'usuariosMoho']));
                 $pdf->setPaper('letter', 'portrait');
                 echo $pdf->stream();
             },

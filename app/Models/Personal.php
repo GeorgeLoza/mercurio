@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Personal extends Model
 {
+
     use HasFactory;
     protected $fillable = [
         'codigo',
@@ -15,4 +16,6 @@ class Personal extends Model
         'cargo',
         'area',
     ];
+
+
 }

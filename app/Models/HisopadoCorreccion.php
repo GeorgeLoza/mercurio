@@ -13,4 +13,9 @@ class HisopadoCorreccion extends Model
         'fechaCapacitacion',
         'user_id',
     ];
+
+    public function hisopado()
+    {
+        return $this->belongsTo(Hisopado::class);
+    }
 }

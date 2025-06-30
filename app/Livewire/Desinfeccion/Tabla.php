@@ -41,6 +41,15 @@ class Tabla extends Component
         $movimientos = movSolucion::orderBy('tiempo', 'desc') // Ordenar por fecha de creación descendente
             ->paginate(10);
 
+
+
+        if (auth()->user()->planta->id != 1) {
+            $movimientos = movSolucion::whereHas('user', function ($query) {
+                $query->where('planta_id', auth()->user()->planta_id);
+            })
+                ->orderBy('tiempo', 'desc')
+                ->paginate(10);
+        }
         return view('livewire.desinfeccion.tabla', [
             'movimientos' => $movimientos,
         ]);

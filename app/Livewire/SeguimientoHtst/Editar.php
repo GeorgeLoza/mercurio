@@ -19,7 +19,7 @@ class Editar extends ModalComponent
     public $moho;
     public $observaciones;
     public $usuario_siembra;
-public $datos;
+    public $datos;
 
 
 
@@ -55,8 +55,6 @@ public $datos;
             $this->dispatch('actualizar_tabla_seguimiento_htst');
             $this->closeModal();
             $this->dispatch('success', mensaje: 'Analisis realizado exitosamente.');
-
-
         } catch (\Throwable $th) {
             $this->closeModal();
             $this->dispatch('error_mensaje', mensaje: 'problema' . $th->getMessage());

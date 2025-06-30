@@ -13,6 +13,8 @@ use Ramsey\Uuid\Type\Integer;
 class Crear extends ModalComponent
 {
     public $buscar_orp = '';
+    public $buscar_orp2 = '';
+    public $buscar_orp3= '';
     public $orp_id;
     public $orp_id2;
     public $orp_id3;
@@ -104,8 +106,48 @@ class Crear extends ModalComponent
             ->orderBy('id', 'desc')
 
             ->get();
+
+
+
+            $orps2 = Orp::whereHas('producto.categoriaProducto', function ($query) {
+            $query->where('grupo', 'UHT');
+        })
+            ->where('estado', 'Completado')
+            ->whereBetween('updated_at', [
+                Carbon::now()->subDays(100)->startOfDay(),
+                Carbon::now()->endOfDay()
+            ])
+
+            ->when($this->buscar_orp, function ($query) {
+                $query->where('codigo', 'like', '%' . $this->buscar_orp2 . '%');
+            })
+            ->orderBy('id', 'desc')
+
+            ->get();
+
+
+            $orps3 = Orp::whereHas('producto.categoriaProducto', function ($query) {
+            $query->where('grupo', 'UHT');
+        })
+            ->where('estado', 'Completado')
+            ->whereBetween('updated_at', [
+                Carbon::now()->subDays(100)->startOfDay(),
+                Carbon::now()->endOfDay()
+            ])
+
+            ->when($this->buscar_orp, function ($query) {
+                $query->where('codigo', 'like', '%' . $this->buscar_orp3 . '%');
+            })
+            ->orderBy('id', 'desc')
+
+            ->get();
+
+
+
         return view('livewire.seguimiento.crear', [
             'orps' => $orps, // Cargar todas las ORP
+            'orps2' => $orps2, // Cargar todas las ORP
+            'orps3' => $orps3, // Cargar todas las ORP
         ]);
     }
 }

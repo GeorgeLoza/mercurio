@@ -3,7 +3,7 @@
 
 @section('contenido')
     <div class="flex justify-end m-1">
-        @if ($reporte->revisado)
+        @if ($reporte->revisado || in_array(auth()->user()->role->id, [1, 2, 3, 4]))
             {{-- yogurt --}}
             @if ($reporte->producto->categoriaProducto->tipo == 'yogurts')
                 <a href="{{ route('descargarYog.pdf', ['id' => $id]) }}" class=" text-white font-bold py-2 px-4 rounded">

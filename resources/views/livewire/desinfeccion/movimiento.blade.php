@@ -21,8 +21,15 @@
                 <select wire:model.live="item" {{ !$editar ? '' : 'disabled' }} class="block w-full p-2 text-sm ...">
                     <option class="dark:bg-slate-800" value="">Seleccione un ítem</option>
                     @foreach ($items as $itemOption)
-                        <option class="dark:bg-slate-800" value="{{ $itemOption->id }}">{{ $itemOption->codigo }}
-                            {{ $itemOption->nombre }} {{ $itemOption->concentracion }}</option>
+                        @if (auth()->user()->planta->id == 1)
+                            <option class="dark:bg-slate-800" value="{{ $itemOption->id }}">{{ $itemOption->codigo }}
+                                {{ $itemOption->nombre }} {{ $itemOption->concentracion }}</option>
+                        @else
+                            @if ($itemOption->id == 1 || $itemOption->id == 4)
+                                <option class="dark:bg-slate-800" value="{{ $itemOption->id }}">{{ $itemOption->codigo }}
+                                    {{ $itemOption->nombre }} {{ $itemOption->concentracion }}</option>
+                            @endif
+                        @endif
                     @endforeach
                 </select>
                 @if ($est != 1)

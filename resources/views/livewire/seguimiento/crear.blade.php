@@ -14,8 +14,9 @@
             <option class="dark:bg-slate-800" value="">Seleccione una ORP</option>
             @foreach ($orps as $orp)
                 <option class="dark:bg-slate-800" value="{{ $orp->id }}">{{ $orp->codigo }} -
-                    {{ $orp->producto->nombre }} -      {{ $orp->fecha_vencimiento1 ? \Carbon\Carbon::parse($orp->fecha_vencimiento1)->isoFormat('DD/MM/YY', 0, 'es') : '' }}
-</option>
+                    {{ $orp->producto->nombre }} -
+                    {{ $orp->fecha_vencimiento1 ? \Carbon\Carbon::parse($orp->fecha_vencimiento1)->isoFormat('DD/MM/YY', 0, 'es') : '' }}
+                </option>
             @endforeach
         </select>
         @error('orp_id')
@@ -23,32 +24,45 @@
         @enderror
     </div>
 
+
+
+    <div class="mb-2">
+        <label for="buscar_orp2" class="block text-sm font-medium">Buscar ORP por código</label>
+        <input type="text" wire:model.live.debounce.500ms="buscar_orp2" id="buscar_orp2" placeholder="Escribe el código..."
+            class="w-full border border-gray-500 rounded p-2 dark:bg-slate-800" />
+    </div>
     <div class="mb-2">
         <label for="orp_id2" class="block text-sm font-medium">ORP 2</label>
         <select wire:model.live="orp_id2" id="orp_id2" class="w-full border border-gray-500 rounded p-2">
             <option class="dark:bg-slate-800" value="">Seleccione una ORP</option>
-            @foreach ($orps as $orp)
+            @foreach ($orps2 as $orp)
                 <option class="dark:bg-slate-800" value="{{ $orp->id }}">{{ $orp->codigo }} -
                     {{ $orp->producto->nombre }} -
-                      {{ $orp->fecha_vencimiento1 ? \Carbon\Carbon::parse($orp->fecha_vencimiento1)->isoFormat('DD/MM/YY', 0, 'es') : '' }}
+                    {{ $orp->fecha_vencimiento1 ? \Carbon\Carbon::parse($orp->fecha_vencimiento1)->isoFormat('DD/MM/YY', 0, 'es') : '' }}
 
-                    </option>
+                </option>
             @endforeach
         </select>
         @error('orp_id2')
             <span class="text-red-500 text-sm">{{ $message }}</span>
         @enderror
     </div>
+
+    <div class="mb-2">
+        <label for="buscar_orp3" class="block text-sm font-medium">Buscar ORP por código</label>
+        <input type="text" wire:model.live.debounce.500ms="buscar_orp3" id="buscar_orp3" placeholder="Escribe el código..."
+            class="w-full border border-gray-500 rounded p-2 dark:bg-slate-800" />
+    </div>
     <div class="mb-2">
         <label for="orp_id3" class="block text-sm font-medium">ORP 2</label>
         <select wire:model.live="orp_id3" id="orp_id3" class="w-full border border-gray-500 rounded p-2">
             <option class="dark:bg-slate-800" value="">Seleccione una ORP</option>
-            @foreach ($orps as $orp)
+            @foreach ($orps3 as $orp)
                 <option class="dark:bg-slate-800" value="{{ $orp->id }}">{{ $orp->codigo }} -
                     {{ $orp->producto->nombre }} -
-                     {{ $orp->fecha_vencimiento1 ? \Carbon\Carbon::parse($orp->fecha_vencimiento1)->isoFormat('DD/MM/YY', 0, 'es') : '' }}
+                    {{ $orp->fecha_vencimiento1 ? \Carbon\Carbon::parse($orp->fecha_vencimiento1)->isoFormat('DD/MM/YY', 0, 'es') : '' }}
 
-                    </option>
+                </option>
             @endforeach
         </select>
         @error('orp_id3')
