@@ -227,6 +227,9 @@
             <button @click="tab = 'componenteC'"
                 :class="{ 'bg-white dark:bg-slate-800 dark:text-white   ': tab === 'componenteC' }"
                 class="px-4 py-1 border-white dark:border-gray-500 dark:bg-slate-700  border-t border-r border-l rounded-t-md m-0 text-gray-500">Cronologico</button>
+            <button @click="tab = 'componenteD'"
+                :class="{ 'bg-white dark:bg-slate-800 dark:text-white   ': tab === 'componenteD' }"
+                class="px-4 py-1 border-white dark:border-gray-500 dark:bg-slate-700  border-t border-r border-l rounded-t-md m-0 text-gray-500">Vista Previa</button>
         </div>
 
         <!-- Mostrar componente según la pestaña seleccionada -->
@@ -245,6 +248,11 @@
             <template x-if="tab === 'componenteC'">
 
                 @livewire('dashbord.orp-reporte-cronologico', ['orpId' => $id])
+
+            </template>
+            <template x-if="tab === 'componenteD'">
+
+                @livewire('dashbord.orp-pdf', ['orpId' => $id])
 
             </template>
         </div>

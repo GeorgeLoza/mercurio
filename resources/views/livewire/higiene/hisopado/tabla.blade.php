@@ -19,6 +19,7 @@
                         <tr class="text-2xs">
                             <th>Fecha <br> Muestra</th>
                             <th>Usuario <br> Muestra</th>
+                            <th>Codigo</th>
                             <th>Personal</th>
                             <th>Usuario <br> Siembra</th>
                             <th>Fecha <br> Siembra</th>
@@ -43,6 +44,7 @@
                                             substr(explode(' ', $hisopado->usuarioMuestrero->apellido)[1] ?? '', 0, 1) }}
                                     @endif
                                 </td>
+                                <td nowrap>{{ $hisopado->personal->codigo }}</td>
                                 <td nowrap>{{ $hisopado->personal->nombre }}</td>
                                 <td>
                                     @if ($hisopado->Siembra)

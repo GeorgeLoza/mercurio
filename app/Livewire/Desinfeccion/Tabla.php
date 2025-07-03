@@ -140,7 +140,7 @@ class Tabla extends Component
 
         $this->validate([
             'fechaInicio' => 'required|date',
-            'ruta' => 'required',
+            // 'ruta' => 'required',
             'fechaFin' => 'required|date|after_or_equal:fechaInicio',
 
         ]);
@@ -157,34 +157,73 @@ class Tabla extends Component
                     ->where('estado', 'Entregado');
 
 
-
+// dd('usuariosUnicos');
                 if ($this->ruta) {
                     $query->whereHas('itemSolucion', function ($subQuery) {
                         $subQuery->where('nombre', $this->ruta);
                     });
-                }
 
-
-                $ruta = itemSolucion::query()
+                    $ruta = itemSolucion::query()
                     ->where('nombre', $this->ruta)
                     ->get();
 
 
+                }else {
+                        $ruta = null;
+                    }
 
-                $userIds = movSolucion::select('user_id')
-                    ->whereNotNull('user_id')
+
+
+
+
+
+                $query1 = movSolucion::select('user_id')
+                    ->whereBetween('updated_at', [$fechaInicio, $fechaFin])
+                    ->where('estado', 'Entregado');
+
+                if ($this->ruta) {
+                    $query1->whereHas('itemSolucion', function ($subQuery) {
+                        $subQuery->where('nombre', $this->ruta);
+                    });
+                }
+
+                $userIds = $query->whereNotNull('user_id')
                     ->distinct()
                     ->pluck('user_id');
 
-                $autorizantes = movSolucion::select('autorizante')
-                    ->whereNotNull('autorizante')
+
+
+
+                $query2 = movSolucion::select('autorizante')
+                    ->whereBetween('updated_at', [$fechaInicio, $fechaFin])
+                    ->where('estado', 'Entregado');
+
+                if ($this->ruta) {
+                    $query2->whereHas('itemSolucion', function ($subQuery) {
+                        $subQuery->where('nombre', $this->ruta);
+                    });
+                }
+
+                $autorizantes = $query->whereNotNull('autorizante')
                     ->distinct()
                     ->pluck('autorizante');
 
-                $entregantes = movSolucion::select('entregante')
-                    ->whereNotNull('entregante')
+
+
+                $query3 = movSolucion::select('entregante')
+                    ->whereBetween('updated_at', [$fechaInicio, $fechaFin])
+                    ->where('estado', 'Entregado');
+
+                if ($this->ruta) {
+                    $query3->whereHas('itemSolucion', function ($subQuery) {
+                        $subQuery->where('nombre', $this->ruta);
+                    });
+                }
+
+                $entregantes = $query->whereNotNull('entregante')
                     ->distinct()
                     ->pluck('entregante');
+
 
                 $todosIds = $userIds->merge($autorizantes)->merge($entregantes)->unique();
 

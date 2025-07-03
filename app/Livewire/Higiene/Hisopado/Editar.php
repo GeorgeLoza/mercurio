@@ -51,11 +51,9 @@ class Editar extends ModalComponent
                     'hisopado_id' => $hisopado->id,
                 ]);
 
-
                 $personal = Personal::find($hisopado->personal_id);
                 $personal->hisopado = 'Correcion';
                 $personal->save();
-
 
                 $conteo = HisopadoCorreccion::whereHas('hisopado.personal', function ($query) use ($hisopado) {
                     $query->where('id', 'like', '%' . $hisopado->personal->id . '%');
@@ -70,9 +68,6 @@ class Editar extends ModalComponent
                         $personal->hisopado = 'Memorandum';
                         $personal->save();
                     }
-
-
-
 
             } else {
 

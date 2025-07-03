@@ -110,7 +110,7 @@ class Movimiento extends ModalComponent
 
                 $ultimoSaldo = movSolucion::where('estado',  'Entregado')
                     ->where('item_solucion_id', $this->item)
-                    ->latest('id')
+                    ->latest('updated_at')
                     ->value('saldo') ?? 0; // Excluir movimientos denegados
 
                 $nuevoSaldo = $ultimoSaldo + ($this->cantidad);
@@ -152,7 +152,7 @@ class Movimiento extends ModalComponent
             if ($this->movimiento) {
                 $ultimoSaldo = movSolucion::where('estado',  'Entregado')
                     ->where('item_solucion_id', $this->item)
-                    ->latest('id')
+                    ->latest('updated_at')
                     ->value('saldo') ?? 0;
                 try {
                     $this->movimiento->update([
@@ -181,7 +181,7 @@ class Movimiento extends ModalComponent
 
                     $ultimoSaldo = movSolucion::where('estado',  'Entregado')
                         ->where('item_solucion_id', $this->item)
-                        ->latest('id')
+                        ->latest('updated_at')
                         ->value('saldo') ?? 0; // Excluir movimientos denegados
 
 

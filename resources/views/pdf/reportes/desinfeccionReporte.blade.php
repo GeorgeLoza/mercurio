@@ -244,12 +244,17 @@
                         <th class="justify-between">
                         <td>
                             PRODUCTO:
-                            {{ $ruta[0]->nombre }}
+                            @if ($ruta != null)
+                                {{ $ruta[0]->nombre }}
+                            @endif
 
                         </td>
                         <td>
+@if ($ruta != null)
+                         CODIGO: {{ $ruta[0]->codigo }}
 
-                            CODIGO: {{ $ruta[0]->codigo }}
+@endif
+
 
                         </td>
                         </th>
@@ -270,7 +275,12 @@
                         <th>Destino</th>
                         <th>Ingresos
 
-                            <p>[{{ $ruta[0]->unidad }}]</p>
+                            <p>
+                                @if ($ruta != null)
+
+                                [{{ $ruta[0]->unidad }}]
+                                @endif
+                            </p>
 
                         </th>
 
@@ -278,14 +288,18 @@
                             Consumo
                             <p>
 
-                                [{{ $ruta[0]->unidad }}]
+ @if ($ruta != null)
 
+                                [{{ $ruta[0]->unidad }}]
+                                @endif
                             </p>
                         <th>Saldo
                             <p>
 
-                                [{{ $ruta[0]->unidad }}]
+ @if ($ruta != null)
 
+                                [{{ $ruta[0]->unidad }}]
+                                @endif
                             </p>
                         </th>
                         <th>
@@ -349,7 +363,7 @@
 
                             <th>
 
-{{$variables->observacion}}
+                                {{ $variables->observacion }}
 
                             </th>
 

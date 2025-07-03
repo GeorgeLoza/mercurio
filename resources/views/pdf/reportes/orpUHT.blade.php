@@ -269,8 +269,10 @@
 </header>
 <footer>
     SOALPRO SRL - Planta Lácteos - Reporte generado el {{ date('d/m/Y') }}
+@if ($informacion->revisor)
 
-    Revisado por {{ $informacion->revisor->nombre }}  {{ $informacion->revisor->apellido }}
+Revisado por {{ $informacion->revisor->nombre }}  {{ $informacion->revisor->apellido }}
+@endif
     <div class="page-number"></div>
 </footer>
 

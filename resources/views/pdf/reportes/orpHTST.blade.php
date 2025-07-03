@@ -231,7 +231,7 @@
             white-space: nowrap;
         }
     </style>
-     <style>
+    <style>
         .capitalize {
             text-transform: capitalize;
         }
@@ -275,22 +275,27 @@
         <tr>
             <th class="cel-img" style="width: 25%;"><img src="img/logo/logocompleto.png" alt=""></th>
             <th style="width: 50%;">REGISTRO</th>
-            <th style="width: 25%; font-size: 0.8rem">PLL-REG-035 <br> Versión 002 <br>  <div class="page-number"></div> </th>
+            <th style="width: 25%; font-size: 0.8rem">PLL-REG-035 <br> Versión 002 <br>
+                <div class="page-number"></div>
+            </th>
         </tr>
         <tr>
             <td colspan="3"
-            style="text-align: center; padding: 0.6rem;  font-weight:bold; text-transform: uppercase">
-            Control de
-            calidad en proceso - Linea HTST</td>
+                style="text-align: center; padding: 0.6rem;  font-weight:bold; text-transform: uppercase">
+                Control de
+                calidad en proceso - Linea HTST</td>
         </tr>
     </table>
 </header>
 <footer>
     SOALPRO SRL - Planta Lácteos - Reporte generado el {{ date('d/m/Y') }}
 
-    Revisado por {{ $informacion->revisor->nombre }}  {{ $informacion->revisor->apellido }}
+    @if ($informacion->revisor)
+        Revisado por {{ $informacion->revisor->nombre }} {{ $informacion->revisor->apellido }}
+    @endif
     <div class="page-number"></div>
 </footer>
+
 <body>
 
     <div class="page">
@@ -321,9 +326,9 @@
                             </p>
                             <p>Preparacion: {{ $informacion->lote / 1 }} </p>
                             @if ($informacion->producto->destinoProducto)
-                            <p>Destino:
-                                {{ $informacion->producto->destinoProducto->nombre }}
-                            </p>
+                                <p>Destino:
+                                    {{ $informacion->producto->destinoProducto->nombre }}
+                                </p>
                             @endif
                         </td>
                     </tr>
@@ -979,16 +984,16 @@
                                 @endif
 
                                 @if ($dato->solicitudAnalisisLinea)
-                                @php
-                                    $analisis = $dato->solicitudAnalisisLinea->analisisLinea;
-                                @endphp
+                                    @php
+                                        $analisis = $dato->solicitudAnalisisLinea->analisisLinea;
+                                    @endphp
                                 @endif
                                 {{-- peso --}}
                                 @if ($analisis->peso)
-                                <th>{{ $analisis->peso /1}}</th>
-                            @else
-                                <th>-</th>
-                            @endif
+                                    <th>{{ $analisis->peso / 1 }}</th>
+                                @else
+                                    <th>-</th>
+                                @endif
                                 @php
 
                                     $fecha = new DateTime($dato->solicitudAnalisisLinea->tiempo);
@@ -1161,7 +1166,7 @@
         </main>
     </div>
 
-    <div >
+    <div>
         <div style=" display: flex; justify-content: flex-end;  page-break-inside: avoid; ">
 
 
@@ -1190,9 +1195,9 @@
 
             <div style="padding-left: 500px; ">
                 <strong
-                        style=" border-top: 1px solid #000; padding-top: 7px; padding-right: 25px; padding-left: 25px; ">
-                        VERIFICADO </strong>
-                </div>
+                    style=" border-top: 1px solid #000; padding-top: 7px; padding-right: 25px; padding-left: 25px; ">
+                    VERIFICADO </strong>
+            </div>
 
 
         </div>

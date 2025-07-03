@@ -80,7 +80,7 @@
     </div>
     <div>
 
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 text-2xs ">
             <thead class="text-xs text-gray-700 capitalize bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-center sticky top-10  shadow z-10">
                 <tr>
                     <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700" nowrap>
@@ -176,7 +176,7 @@
 
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="text-2xs">
                 @if ($filtro == true)
                     <!-- fila de filtros -->
                     <tr class="bg-white border-b dark:bg-gray-700 dark:border-gray-700  z-20 top-6">
@@ -243,7 +243,10 @@
                         <td class=" px-1 py-1">
                             @if (!empty($seguimiento->orp_ids))
                                 @foreach ($seguimiento->orps() as $orp)
+
+                                    @if ($orp->fecha_vencimiento1)
                                     {{ \Carbon\Carbon::parse($orp->fecha_vencimiento1)->isoFormat('DD-MM-YY', 0, 'es') }}
+                                    @endif
                                     @if (!$loop->last)
                                         <br>
                                     @endif
@@ -268,7 +271,8 @@
                          <td class=" px-1 py-1">{{ $seguimiento->numero ?? '-' }}</td>
 
 
-                        <td class="px-1 py-1 max-w-[250px] truncate overflow-hidden text-ellipsis whitespace-nowrap">
+                        <td class="px-1 py-1  truncate  text-ellipsis" nowrap>
+                            {{-- Mostrar productos de la ORP --}}
 
                             @if (!empty($seguimiento->orp_ids))
                                 @foreach ($seguimiento->orps() as $orp)
