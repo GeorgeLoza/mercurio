@@ -10,6 +10,7 @@ use Livewire\Component;
 class OrpPdf extends Component
 {
     public $orpId;
+    public $contador = 0;
     public $id;
     public $mezclas;
     public $inoculaciones;
@@ -20,6 +21,7 @@ class OrpPdf extends Component
     public $obs;
     public $usuariosInvolucrados;
     public $reporte;
+    public $mezclasuht;
 
 
 
@@ -69,6 +71,16 @@ class OrpPdf extends Component
 
 
         // ->get();
+
+
+
+        $this->mezclasuht = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) {
+            $query->where('etapa_id', 1); // Etapa 1: Mezcla
+        })
+            ->whereHas('solicitudAnalisisLinea.estadoPlanta.estadoDetalle', function ($query) use ($orpId) {
+                $query->where('orp_id', $orpId); // Filtro por orp_id
+            })
+            ->get();
 
 
         $this->inoculaciones = AnalisisLinea::whereHas('solicitudAnalisisLinea.estadoPlanta', function ($query) {
@@ -267,4 +279,7 @@ class OrpPdf extends Component
 
         return view('livewire.dashbord.orp-pdf');
     }
+
+
+
 }

@@ -1,4 +1,4 @@
-<div>
+<div wire:poll.10s>
     <div class="flex justify-end mb-2 gap-2">
 
 

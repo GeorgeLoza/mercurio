@@ -1,4 +1,4 @@
-<div>
+<div wire:poll.10s>
     <div class="flex justify-end mb-2 gap-2">
     </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg  overflow-y-auto h-[28rem] overflow-hidden">
