@@ -85,9 +85,9 @@ class Tabla extends Component
     {
         $this->aplicandoFiltros = $this->hayFiltrosActivos();
         $query = Orp::query()
-        ->whereHas('producto.categoriaProducto', function ($query) {
-            $query->where('grupo', 'HTST');
-        })
+            ->whereHas('producto.categoriaProducto', function ($query) {
+                $query->where('grupo', 'HTST');
+            })
 
 
             ->when($this->f_codigo, function ($query) {
@@ -114,7 +114,7 @@ class Tabla extends Component
             ->when($this->f_lote, function ($query) {
                 return $query->where('lote', 'like', '%' . $this->f_lote . '%');
             })
-            ->when($this->f_updated_at , function ($query) {
+            ->when($this->f_updated_at, function ($query) {
                 return $query->where('updated_at', 'like', '%' . $this->f_updated_at . '%');
             })
             ->when($this->f_estado, function ($query) {
@@ -138,8 +138,7 @@ class Tabla extends Component
 
             ->when($this->sortField, function ($query) {
                 $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
-            })
-            ;
+            });
 
         $orps =  $query->paginate(50);
 
@@ -156,7 +155,7 @@ class Tabla extends Component
     }
     public function limpiarFiltros()
     {
-        $this->reset(['f_codigo', 'f_codigoProducto', 'f_nombreProducto', 'f_lote', 'f_estado', 'f_tiempoElaboracion', 'f_fechaVencimiento1', 'f_fechaVencimiento2', 'f_productoCodigo','f_grupo']);
+        $this->reset(['f_codigo', 'f_codigoProducto', 'f_nombreProducto', 'f_lote', 'f_estado', 'f_tiempoElaboracion', 'f_fechaVencimiento1', 'f_fechaVencimiento2', 'f_productoCodigo', 'f_grupo']);
 
         // Refresca el componente
         $this->js('window.location.reload()');
@@ -173,15 +172,14 @@ class Tabla extends Component
 
 
 
-public function revisar($id)
+    public function revisar($id)
     {
         $registro = Orp::find($id);
+
+        $registro->timestamps = false;
         $registro->revisado = true;
         $registro->revisor_id = auth()->user()->id;
         $registro->fechaRevision = now();
         $registro->save();
     }
-
-
-
 }

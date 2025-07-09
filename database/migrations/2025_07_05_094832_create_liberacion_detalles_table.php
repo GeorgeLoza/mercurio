@@ -14,6 +14,21 @@ return new class extends Migration
         Schema::create('liberacion_detalles', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->foreignId('liberacion_id')->nullable()->constrained()->onDelete('restrict');
+            $table->foreignId('origen_id')->nullable()->constrained()->onDelete('restrict');
+            $table->time('hora_sachet')->nullable();
+            $table->decimal('peso', 6, 2)->nullable();
+            $table->decimal('temperatura', 5, 2)->nullable();
+            $table->decimal('ph', 4, 2)->nullable();
+            $table->decimal('brix', 4, 2)->nullable();
+            $table->decimal('acidez', 4, 3)->nullable();
+            $table->decimal('viscosidad', 5, 2)->nullable();
+            $table->boolean('color')->nullable();
+            $table->boolean('olor')->nullable();
+            $table->boolean('sabor')->nullable();
+            $table->string('observaciones')->nullable();
+
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('restrict');
         });
     }
 

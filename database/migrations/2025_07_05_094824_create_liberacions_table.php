@@ -15,8 +15,7 @@ return new class extends Migration
 
             $table->id();
             $table->timestamps();
-            $table->string('numero_liberacion')->unique();
-            $table->date('fecha_liberacion');
+            $table->foreignId('orp_id')->nullable()->constrained()->onDelete('restrict');
         });
     }
 

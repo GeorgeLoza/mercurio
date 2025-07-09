@@ -11,6 +11,7 @@ use App\Http\Controllers\ExternoController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\HisopadoController;
 use App\Http\Controllers\LecheController;
+use App\Http\Controllers\LiberacionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
@@ -235,6 +236,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware(['role.permission:36,2'])->group(function () {
         Route::get('/hisopado', [HisopadoController::class, 'index'])->name('hisopado.index');
+    });
+
+    Route::middleware(['role.permission:37,2'])->group(function () {
+        Route::get('/liberacion', [LiberacionController::class, 'index'])->name('liberacion.index');
     });
 
 

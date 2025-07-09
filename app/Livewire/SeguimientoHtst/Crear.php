@@ -84,7 +84,9 @@ class Crear extends ModalComponent
 
             $this->dispatch('actualizar_tabla_seguimiento_htst');
             $this->closeModal();
-            session()->flash('success', 'Seguimientos creados correctamente.');
+
+            $this->dispatch('success', mensaje: 'Seguimientos creados correctamente.');
+
             $this->reset();
         } catch (\Throwable $th) {
         }

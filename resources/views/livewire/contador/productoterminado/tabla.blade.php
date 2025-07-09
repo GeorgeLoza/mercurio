@@ -123,7 +123,7 @@
 
                     @if (isset($orpExpandida[$orpId]))
                         <tr>
-                            <td colspan="4" class="p-3 ">
+                            <td colspan="5" class="py-2 ">
                                 <table
                                     class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
                                     <thead>

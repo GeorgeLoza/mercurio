@@ -28,9 +28,23 @@ class Importar extends ModalComponent
             'archivoCsv' => 'required|mimes:csv,txt'
         ]);
 
-        // Leer y procesar el archivo CSV
-        $csv = Reader::createFromPath($this->archivoCsv->getRealPath(), 'r');
-        $csv->setDelimiter(';'); // Configurar el delimitador como punto y coma
+
+        // Obtener el contenido del archivo
+        $path = $this->archivoCsv->getRealPath();
+        $firstLine = fgets(fopen($path, 'r'));
+
+        // Detectar delimitador
+        if (substr_count($firstLine, ';') > substr_count($firstLine, '|')) {
+            $delimiter = ';';
+        } else {
+            $delimiter = '|';
+        }
+
+        // Leer el archivo con el delimitador detectado
+        $csv = Reader::createFromPath($path, 'r');
+        $csv->setDelimiter($delimiter);
+
+
 
         $csv->setHeaderOffset(0); // Opcional: si el CSV tiene una fila de encabezado
         $contador = 0;
@@ -49,8 +63,8 @@ class Importar extends ModalComponent
                 if ($registroExistente) {
                     // Si el código ya existe, muestra un error y omite la creación del nuevo registro
                     // Mostrar mensaje de éxito
-                    
-                     $this->dispatch('warning', mensaje: 'El archivo contiene ORPs repetidas');
+
+                    $this->dispatch('warning', mensaje: 'El archivo contiene ORPs repetidas');
 
                     continue;
                 }
@@ -82,16 +96,15 @@ class Importar extends ModalComponent
                     $this->dispatch('actualizar_tabla_orps');
                     $this->closeModal();
                     // Toaster::success('Orp created!' . $contador);
-                     $this->dispatch('success', mensaje: 'Importacion realizada exitosamente cantidad de orps registradas:   ' . $contador);
-
+                    $this->dispatch('success', mensaje: 'Importacion realizada exitosamente cantidad de orps registradas:   ' . $contador);
                 } catch (\Throwable $th) {
                     $this->closeModal();
-                    
+
                     $this->dispatch('error_mensaje', mensaje: 'problema' . $th->getMessage());
                 }
             } else {
-                
-                 $this->dispatch('alert', mensaje: 'Importacion realizada exitosamente cantidad de orps registradas:   ' . $contador);
+
+                $this->dispatch('alert', mensaje: 'Importacion realizada exitosamente cantidad de orps registradas:   ' . $contador);
             }
         }
         // Toaster::success('analisis completo del archivo, orps subidas:' . $contador);

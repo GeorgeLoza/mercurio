@@ -17,6 +17,7 @@
                 <table class="w-full text-center ">
                     <thead class="dark:bg-slate-700">
                         <tr class="text-2xs">
+                            <th>Codigo </th>
                             <th>Fecha <br> Muestra</th>
                             <th>Usuario <br> Muestra</th>
                             <th>Codigo</th>
@@ -32,6 +33,10 @@
                     <tbody class="text-2xs dark:bg-gray-900 ">
                         @foreach ($hisopados as $hisopado)
                             <tr>
+                                <td class="p-1">
+
+                                    {{ $hisopado->id }}
+                                </td>
                                 <td class="p-1">
 
                                     {{ \Carbon\Carbon::parse($hisopado->fechaMuestra)->isoFormat('DD-MM-YY   ') }}
