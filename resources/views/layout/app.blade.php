@@ -863,6 +863,51 @@
                     </li>
                 @endif
 
+                <!--dispositivos de Medicion-->
+                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 8)->where('permiso_id', 2)->isNotEmpty())
+                    <li>
+                        <button type="button"
+                            class="flex items-center w-full p-2 text-xs text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                            aria-controls="dropdown-dispositivos" data-collapse-toggle="dropdown-dispositivos">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 512 512"
+                                class="w-4 h-4 fill-gray-500 transition duration-75 dark:fill-gray-400 group-hover:fill-gray-900 dark:group-hover:fill-white">
+                                <path
+                                    d="M469.3 19.3l23.4 23.4c25 25 25 65.5 0 90.5l-56.4 56.4L322.3 75.7l56.4-56.4c25-25 65.5-25 90.5 0zM44.9 353.2L299.7 98.3 413.7 212.3 158.8 467.1c-6.7 6.7-15.1 11.6-24.2 14.2l-104 29.7c-8.4 2.4-17.4 .1-23.6-6.1s-8.5-15.2-6.1-23.6l29.7-104c2.6-9.2 7.5-17.5 14.2-24.2zM249.4 103.4L103.4 249.4 16 161.9c-18.7-18.7-18.7-49.1 0-67.9L94.1 16c18.7-18.7 49.1-18.7 67.9 0l19.8 19.8c-.3 .3-.7 .6-1 .9l-64 64c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l64-64c.3-.3 .6-.7 .9-1l45.1 45.1zM408.6 262.6l45.1 45.1c-.3 .3-.7 .6-1 .9l-64 64c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l64-64c.3-.3 .6-.7 .9-1L496 350.1c18.7 18.7 18.7 49.1 0 67.9L417.9 496c-18.7 18.7-49.1 18.7-67.9 0l-87.4-87.4L408.6 262.6z" />
+                            </svg>
+
+                            <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Dispositivos de
+                                medición</span>
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 4 4 4-4" />
+                            </svg>
+                        </button>
+
+                        <ul id="dropdown-dispositivos" class="hidden py-2 space-y-2">
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 9)->where('permiso_id', 2)->isNotEmpty())
+                                <li>
+                                    <a href="{{ route('dispositivosMedicion.index') }}"
+                                        class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Administracion</a>
+
+                                </li>
+                            @endif
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 10)->where('permiso_id', 2)->isNotEmpty())
+                                <li>
+                                    <a href="{{ route('parametroLeche.indexLeche') }}"
+                                        class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Mediciones</a>
+                                </li>
+                            @endif
+
+                            <li class="hidden">
+                                <a href="#"
+                                    class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Seguimientos</a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+
 
 
                 <!--liberacion-->

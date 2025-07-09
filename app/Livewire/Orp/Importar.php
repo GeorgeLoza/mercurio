@@ -10,6 +10,7 @@ use Livewire\WithFileUploads;
 use Masmerise\Toaster\Toaster;
 use PhpParser\Node\Stmt\TryCatch;
 use LivewireUI\Modal\ModalComponent;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Importar extends ModalComponent
 {
@@ -22,96 +23,78 @@ class Importar extends ModalComponent
         return view('livewire.orp.importar');
     }
     public function importarRegistros()
-    {
-        // Validar el archivo CSV
-        $this->validate([
-            'archivoCsv' => 'required|mimes:csv,txt'
-        ]);
+{
+    $this->validate([
+        'archivoCsv' => 'required|mimes:csv,txt,xlsx,xls'
+    ]);
 
+    $extension = $this->archivoCsv->getClientOriginalExtension();
 
-        // Obtener el contenido del archivo
-        $path = $this->archivoCsv->getRealPath();
-        $firstLine = fgets(fopen($path, 'r'));
+    $registros = [];
 
-        // Detectar delimitador
-        if (substr_count($firstLine, ';') > substr_count($firstLine, '|')) {
-            $delimiter = ';';
-        } else {
-            $delimiter = '|';
-        }
-
-        // Leer el archivo con el delimitador detectado
-        $csv = Reader::createFromPath($path, 'r');
-        $csv->setDelimiter($delimiter);
-
-
-
-        $csv->setHeaderOffset(0); // Opcional: si el CSV tiene una fila de encabezado
-        $contador = 0;
-        foreach ($csv as $registro) {
-            $codigoProducto = $registro['ITEM'];
-
-            // Buscar el producto por su código en el archivo CSV
-            $producto = Producto::where('codigo', $codigoProducto)->first();
-
-            if ($producto) {
-                $contador  = $contador + 1;
-                // Crear un nuevo registro en la tabla ORP con el ID del producto
-                // Validar si ya existe un registro con el mismo código en la tabla ORP
-
-                $registroExistente = Orp::where('codigo', $registro['ORP'])->first();
-                if ($registroExistente) {
-                    // Si el código ya existe, muestra un error y omite la creación del nuevo registro
-                    // Mostrar mensaje de éxito
-
-                    $this->dispatch('warning', mensaje: 'El archivo contiene ORPs repetidas');
-
-                    continue;
-                }
-
-
-                // Extraer el número de lotes de los comentarios
-                $comentarios = $registro['Comentarios'];
-
-                if (preg_match('/(\d+(?:\.\d+)?)\s*(?:LOTE|LOTES|Lote|Lotes)\b/', $comentarios, $matches)) {
-                    // Si se encuentra "LOTE" o "LOTES", se asigna el valor directamente
-                    $lotes = $matches[1];
-                } elseif (preg_match('/(\d+(?:\.\d+)?)\s*(?:MIX|mix|Mix)\b/', $comentarios, $matches)) {
-                    // Si se encuentra "MIX" o variantes, se convierte a lotes (1 lote = 270 mix)
-                    $lotes = $matches[1] * 0.108;
-                } else {
-                    // En caso de no encontrar "LOTE" o "MIX", asignar null
-                    $lotes = null;
-                }
-
-                try {
-                    Orp::create([
-                        'codigo' => $registro['ORP'],
-                        'producto_id' => $producto->id,
-                        'estado' => 'Pendiente',
-                        'lote' => $lotes,
-                    ]);
-
-                    // Toaster::success('User created!');
-                    $this->dispatch('actualizar_tabla_orps');
-                    $this->closeModal();
-                    // Toaster::success('Orp created!' . $contador);
-                    $this->dispatch('success', mensaje: 'Importacion realizada exitosamente cantidad de orps registradas:   ' . $contador);
-                } catch (\Throwable $th) {
-                    $this->closeModal();
-
-                    $this->dispatch('error_mensaje', mensaje: 'problema' . $th->getMessage());
-                }
-            } else {
-
-                $this->dispatch('alert', mensaje: 'Importacion realizada exitosamente cantidad de orps registradas:   ' . $contador);
-            }
-        }
-        // Toaster::success('analisis completo del archivo, orps subidas:' . $contador);
-        // $this->dispatch('success', mensaje:'analisis completo del archivo, orps subidas:' . $contador);
-        // Limpiar el campo del archivo CSV
-        $this->archivoCsv = '';
-        // Mostrar un mensaje de éxito si no hay errores
-
+    if (in_array($extension, ['csv', 'txt'])) {
+        // Leer como CSV
+        $contenido = file_get_contents($this->archivoCsv->getRealPath());
+        $delimitador = substr_count($contenido, '|') > substr_count($contenido, ';') ? '|' : ';';
+        $csv = \League\Csv\Reader::createFromString($contenido);
+        $csv->setDelimiter($delimitador);
+        $csv->setHeaderOffset(0);
+        $registros = iterator_to_array($csv->getRecords());
+    } else {
+        // Leer como Excel
+        $registros = Excel::toCollection(null, $this->archivoCsv)[0]; // Primera hoja
+        // Convertir a array asociativo si tiene cabecera
+        $cabecera = $registros->first();
+        $registros = $registros->skip(1)->map(function ($fila) use ($cabecera) {
+            return $cabecera->combine($fila);
+        })->toArray();
     }
+
+    // A partir de aquí, tu lógica actual sigue igual
+    $contador = 0;
+    foreach ($registros as $registro) {
+        $codigoProducto = $registro['ITEM'];
+
+        $producto = Producto::where('codigo', $codigoProducto)->first();
+
+        if ($producto) {
+            $contador++;
+
+            $registroExistente = Orp::where('codigo', $registro['ORP'])->first();
+            if ($registroExistente) {
+                $this->dispatch('warning', mensaje: 'El archivo contiene ORPs repetidas');
+                continue;
+            }
+
+            $comentarios = $registro['Comentarios'];
+            if (preg_match('/(\d+(?:\.\d+)?)\s*(?:LOTE|LOTES|Lote|Lotes)\b/', $comentarios, $matches)) {
+                $lotes = $matches[1];
+            } elseif (preg_match('/(\d+(?:\.\d+)?)\s*(?:MIX|mix|Mix)\b/', $comentarios, $matches)) {
+                $lotes = $matches[1] * 0.108;
+            } else {
+                $lotes = null;
+            }
+
+            try {
+                Orp::create([
+                    'codigo' => $registro['ORP'],
+                    'producto_id' => $producto->id,
+                    'estado' => 'Pendiente',
+                    'lote' => $lotes,
+                ]);
+
+                $this->dispatch('actualizar_tabla_orps');
+                $this->closeModal();
+                $this->dispatch('success', mensaje: 'Importacion realizada exitosamente cantidad de orps registradas:   ' . $contador);
+            } catch (\Throwable $th) {
+                $this->closeModal();
+                $this->dispatch('error_mensaje', mensaje: 'problema' . $th->getMessage());
+            }
+        } else {
+            $this->dispatch('alert', mensaje: 'Importacion realizada exitosamente cantidad de orps registradas:   ' . $contador);
+        }
+    }
+
+    $this->archivoCsv = '';
+}
 }

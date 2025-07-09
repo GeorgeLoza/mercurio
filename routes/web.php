@@ -27,6 +27,7 @@ use App\Http\Controllers\SeguimientoController;
 use App\Http\Controllers\SeguimientoHtstController;
 use App\Http\Controllers\SolicitudAnalisisLineaController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\DispositivosMedicionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -205,6 +206,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/seguimientoHtst', [SeguimientoHtstController::class, 'index'])->name('seguimientoHtst.index');
     });
 
+    Route::middleware(['role.permission:2,2'])->group(function () {
+        Route::get('/dispositivosMedicion', [DispositivosMedicionController::class, 'index'])->name('dispositivosMedicion.index');
+    });
 
 
 
