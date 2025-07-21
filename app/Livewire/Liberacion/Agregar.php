@@ -28,34 +28,35 @@ class Agregar extends ModalComponent
     public $olor = true;
     public $sabor = true;
     public $observaciones;
+    public $numero;
 
-    public function mount()
-    {
-        $this->liberacion = Liberacion::find($this->id);
+    // public function mount()
+    // {
+    //     $this->liberacion = Liberacion::find($this->id);
 
-        if ($this->id2 != null) {
+    //     if ($this->id2 != null) {
 
-            $this->liberacionDetalle = LiberacionDetalle::find($this->id2);
-            $this->origen_id = $this->liberacionDetalle->origen_id;
-            $this->hora_sachet = $this->liberacionDetalle->hora_sachet;
-            $this->peso = $this->liberacionDetalle->peso;
-            $this->temperatura = $this->liberacionDetalle->temperatura;
-            $this->ph = $this->liberacionDetalle->ph;
-            $this->brix = $this->liberacionDetalle->brix;
-            $this->acidez = $this->liberacionDetalle->acidez;
-            $this->viscosidad = $this->liberacionDetalle->viscosidad;
-            $this->color = (bool) $this->liberacionDetalle->color;
-            $this->olor = (bool) $this->liberacionDetalle->olor;
-            $this->sabor = (bool) $this->liberacionDetalle->sabor;
-            $this->observaciones = $this->liberacionDetalle->observaciones;
-        }
+    //         $this->liberacionDetalle = LiberacionDetalle::find($this->id2);
+    //         $this->origen_id = $this->liberacionDetalle->origen_id;
+    //         $this->hora_sachet = $this->liberacionDetalle->hora_sachet;
+    //         $this->peso = $this->liberacionDetalle->peso;
+    //         $this->temperatura = $this->liberacionDetalle->temperatura;
+    //         $this->ph = $this->liberacionDetalle->ph;
+    //         $this->brix = $this->liberacionDetalle->brix;
+    //         $this->acidez = $this->liberacionDetalle->acidez;
+    //         $this->viscosidad = $this->liberacionDetalle->viscosidad;
+    //         $this->color = (bool) $this->liberacionDetalle->color;
+    //         $this->olor = (bool) $this->liberacionDetalle->olor;
+    //         $this->sabor = (bool) $this->liberacionDetalle->sabor;
+    //         $this->observaciones = $this->liberacionDetalle->observaciones;
+    //     }
 
-        $this->origens = Origen::whereHas('estadoPlanta.estadoDetalle', function ($query) {
-            $query->where('orp_id', $this->liberacion->orp_id);
-        })
-            ->where('descripcion', 'like', '%ENVASADORA%')
-            ->get();
-    }
+    //     $this->origens = Origen::whereHas('estadoPlanta.estadoDetalle', function ($query) {
+    //         $query->where('orp_id', $this->liberacion->orp_id);
+    //     })
+    //         ->where('descripcion', 'like', '%ENVASADORA%')
+    //         ->get();
+    // }
     public function render()
     {
         return view('livewire.liberacion.agregar');
@@ -64,38 +65,68 @@ class Agregar extends ModalComponent
 
 
 
+    // public function save()
+    // {
+    //     $this->validate([
+    //         'origen_id' => 'required',
+    //     ]);
+
+    //     try {
+    //         if ($this->id2) {
+    //             // Modo edición
+    //             $detalle = LiberacionDetalle::find($this->id2);
+    //         } else {
+    //             // Modo creación
+    //             $detalle = new LiberacionDetalle();
+    //             $detalle->liberacion_id = $this->liberacion->id;
+    //             $detalle->user_id = auth()->user()->id;
+    //         }
+
+    //         // Asignación común
+    //         $detalle->origen_id = $this->origen_id;
+    //         $detalle->hora_sachet = $this->hora_sachet;
+    //         $detalle->peso = $this->peso;
+    //         $detalle->temperatura = $this->temperatura;
+    //         $detalle->ph = $this->ph;
+    //         $detalle->brix = $this->brix;
+    //         $detalle->acidez = $this->acidez;
+    //         $detalle->viscosidad = $this->viscosidad;
+    //         $detalle->color = $this->color;
+    //         $detalle->olor = $this->olor;
+    //         $detalle->sabor = $this->sabor;
+    //         $detalle->observaciones = $this->observaciones;
+
+    //         $detalle->save();
+
+    //         $this->dispatch('actualizar_tabla_liberacion');
+    //         $this->closeModal();
+    //         $this->dispatch('success', mensaje: $this->id2 ? 'Detalle actualizado correctamente' : 'Conteo registrado exitosamente');
+    //     } catch (\Throwable $th) {
+    //         $this->closeModal();
+    //         $this->dispatch('error_mensaje', mensaje: 'Problema: ' . $th->getMessage());
+    //     }
+    // }
+
+
+
     public function save()
     {
         $this->validate([
-            'origen_id' => 'required',
+            'numero' => 'required|integer|min:1|max:1000', // puedes ajustar el límite
         ]);
-
         try {
-            if ($this->id2) {
-                // Modo edición
-                $detalle = LiberacionDetalle::find($this->id2);
-            } else {
-                // Modo creación
-                $detalle = new LiberacionDetalle();
-                $detalle->liberacion_id = $this->liberacion->id;
-                $detalle->user_id = auth()->user()->id;
+
+
+
+            for ($i = 0; $i < $this->numero; $i++) {
+                LiberacionDetalle::create([
+                    // Aquí defines los campos que se llenarán por defecto
+                    'liberacion_id' => $this->id,
+                    'user_id' => auth()->user()->id
+
+                ]);
             }
 
-            // Asignación común
-            $detalle->origen_id = $this->origen_id;
-            $detalle->hora_sachet = $this->hora_sachet;
-            $detalle->peso = $this->peso;
-            $detalle->temperatura = $this->temperatura;
-            $detalle->ph = $this->ph;
-            $detalle->brix = $this->brix;
-            $detalle->acidez = $this->acidez;
-            $detalle->viscosidad = $this->viscosidad;
-            $detalle->color = $this->color;
-            $detalle->olor = $this->olor;
-            $detalle->sabor = $this->sabor;
-            $detalle->observaciones = $this->observaciones;
-
-            $detalle->save();
 
             $this->dispatch('actualizar_tabla_liberacion');
             $this->closeModal();

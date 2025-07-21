@@ -86,7 +86,8 @@
                                     @foreach ($liberacion->detalles as $detalle)
                                         <tr
                                             class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                            <td class="p-1">{{ $detalle->origen->alias }}</td>
+                                            <td class="p-1">{{ optional($detalle->origen)->alias }}</td>
+
                                             <td class="p-1">{{ $detalle->hora_sachet }}</td>
                                             <td class="p-1">{{ $detalle->peso }}</td>
                                             <td class="p-1">{{ $detalle->temperatura }}</td>

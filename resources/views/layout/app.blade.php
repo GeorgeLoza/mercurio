@@ -788,9 +788,12 @@
                             <span class="ms-3">Sustancias Quimicas</span>
                         </a>
                     </li>
+                @endif
 
-                    <!--dispositivos de Medicion-->
+                <!--dispositivos de Medicion-->
 
+
+                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 38)->where('permiso_id', 2)->isNotEmpty())
                     <li>
                         <button type="button"
                             class="flex items-center w-full p-2 text-xs text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
@@ -811,14 +814,14 @@
                         </button>
 
                         <ul id="dropdown-permisos" class="hidden py-2 space-y-2">
-                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 9)->where('permiso_id', 2)->isNotEmpty())
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 38)->where('permiso_id', 2)->isNotEmpty())
                                 <li>
                                     <a href="{{ route('dispositivosMedicion.index') }}"
                                         class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Administracion</a>
 
                                 </li>
                             @endif
-                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 10)->where('permiso_id', 2)->isNotEmpty())
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 38)->where('permiso_id', 2)->isNotEmpty())
                                 <li>
                                     <a href="{{ route('VerificacionAjuste.index') }}"
                                         class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Verificacion</a>
@@ -965,7 +968,7 @@
 
     @livewire('wire-elements-modal')
 
-@stack('scripts')
+    @stack('scripts')
 
 
 </body>
