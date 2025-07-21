@@ -25,7 +25,7 @@ class Pesos extends Component
     {
         $this->resultados = AnalisisLinea::where(function ($query) {
             $query->whereNull('peso')
-            ->orWhere('updated_at', '>=', Carbon::now()->subMinutes(5));
+            ->orWhere('updated_at', '>=', Carbon::now()->subMinutes(60));
         })
             ->whereHas('solicitudAnalisisLinea.estadoPlanta.origen', function ($query) {
                 $query->where('descripcion', 'like', '%ENVASADORA%');

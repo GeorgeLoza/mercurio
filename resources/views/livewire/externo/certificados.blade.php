@@ -71,8 +71,8 @@
                             </th>
                             <th scope="col" class="px-1 py-0">
                                 <input type="text" id="" wire:model.live='f_planta'
-                                class="w-24 bg-gray-50 border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="">
+                                    class="w-24 bg-gray-50 border border-gray-300 text-gray-600 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="">
                             </th>
                             <th scope="col" class="px-1 py-0">
 
@@ -114,8 +114,8 @@
 
                                 @if ($fis->productosPlanta)
                                     {{ $fis->productosPlanta->nombre }}
-                                    @else
-                                {{ $fis->otro }}
+                                @else
+                                    {{ $fis->otro }}
                                 @endif
 
                             </td>
@@ -132,13 +132,61 @@
                                         pH:{{ $fis->ph }},Dure:{{ $fis->dureza }},Clor:{{ $fis->cloruros }},Cond:{{ $fis->conductividad }}
                                     </td>
                                 @else
+                                    @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
+                                        @if ($fis->tipo_muestra_id == 1)
+                                            <td class="px-1 py-0 text-2xs" colspan="3" nowrap>
+                                                pH:{{ $fis->ph }},Dure:{{ $fis->dureza }},Clor:{{ $fis->cloruros }},Cond:{{ $fis->conductividad }}
+                                            </td>
+                                        @else
+                                            <!-- Columna Temperatura -->
+                                            <td class="px-1 py-0" nowrap>
+                                                @if ($editandoId === $fis->id && $campoEditando === 'temperatura')
+                                                    <input type="text" wire:model="valorTemporal" autofocus
+                                                        class="w-12 p-0 text-center border border-blue-300 rounded"
+                                                        wire:keydown.enter="guardarEdicion"
+                                                        wire:keydown.escape="cancelarEdicion"
+                                                        @keydown="handleKeydown(event, {{ $fis->id }}, 'temperatura')">
+                                                @else
+                                                    <p class="p-0 cursor-pointer"
+                                                        wire:click="iniciarEdicion({{ $fis->id }}, 'temperatura', '{{ $fis->actividadAgua->temperatura ?? '' }}')">
+                                                        {{ $fis->actividadAgua->temperatura ?? '-' }}
+                                                    </p>
+                                                @endif
+                                            </td>
 
-                                    <td class="px-1 py-0" nowrap>
+                                            <!-- Columna %Hr -->
+                                            <td class="px-1 py-0" nowrap>
+                                                @if ($editandoId === $fis->id && $campoEditando === 'por_hum_rel')
+                                                    <input type="text" wire:model="valorTemporal" autofocus
+                                                        class="w-12 p-0 text-center border border-blue-300 rounded"
+                                                        wire:keydown.enter="guardarEdicion"
+                                                        wire:keydown.escape="cancelarEdicion"
+                                                        @keydown="handleKeydown(event, {{ $fis->id }}, 'por_hum_rel')">
+                                                @else
+                                                    <p class="p-0 cursor-pointer"
+                                                        wire:click="iniciarEdicion({{ $fis->id }}, 'por_hum_rel', '{{ $fis->actividadAgua->por_hum_rel ?? '' }}')">
+                                                        {{ $fis->actividadAgua->por_hum_rel ?? '-' }}
+                                                    </p>
+                                                @endif
+                                            </td>
 
-                                        {{ $fis->actividadAgua->temperatura ?? '-'  }}
-                                    </td>
-                                    <td class="px-1 py-0" nowrap>{{ $fis->actividadAgua->por_hum_rel ?? '-' }}</td>
-                                    <td class="px-1 py-0" nowrap>{{ $fis->actividadAgua->act_agua ?? '-' }}</td>
+                                            <!-- Columna Aw -->
+                                            <td class="px-1 py-0" nowrap>
+                                                @if ($editandoId === $fis->id && $campoEditando === 'act_agua')
+                                                    <input type="text" wire:model="valorTemporal" autofocus
+                                                        class="w-12 p-0 text-center border border-blue-300 rounded"
+                                                        wire:keydown.enter="guardarEdicion"
+                                                        wire:keydown.escape="cancelarEdicion"
+                                                        @keydown="handleKeydown(event, {{ $fis->id }}, 'act_agua')">
+                                                @else
+                                                    <p class="p-0 cursor-pointer"
+                                                        wire:click="iniciarEdicion({{ $fis->id }}, 'act_agua', '{{ $fis->actividadAgua->act_agua ?? '' }}')">
+                                                        {{ $fis->actividadAgua->act_agua ?? '-' }}
+                                                    </p>
+                                                @endif
+                                            </td>
+                                        @endif
+                                    @endif
                                 @endif
                             @endif
                             <td class="px-1 py-0" nowrap>
@@ -164,8 +212,7 @@
                             <td class="px-1 py-0 flex" nowrap>
                                 @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 24)->where('permiso_id', 3)->isNotEmpty())
                                     <!--boton para cancelar-->
-                                    <button class="p-1 rounded-md "
-                                        wire:click="cancelar({{ $fis->id }})">
+                                    <button class="p-1 rounded-md " wire:click="cancelar({{ $fis->id }})">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="fill-red-500 h-5 w-5"
                                             viewBox="0 0 512 512">
                                             <path
@@ -173,8 +220,7 @@
                                         </svg>
                                     </button>
                                     <!--boton para emitir certificado-->
-                                    <button class="p-1 rounded-md "
-                                        wire:click="cambiar_estado({{ $fis->id }})">
+                                    <button class="p-1 rounded-md " wire:click="cambiar_estado({{ $fis->id }})">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="fill-green-600 h-5 w-5"
                                             viewBox="0 0 512 512">
 
@@ -186,11 +232,8 @@
                                 <!--boton de obtener pdf de certificado-->
                                 @if ($fis->estado == 'Terminado')
                                     @if ($fis->user->planta->nombre != 'Carsa')
-
-
-                                    <a class="p-1"
-                                        href="{{ route('certificado_fis.pdf_cer', $fis->id) }}">
-                                        <button class="p-1 rounded-md bg-red-600">
+                                        <a class="p-1" href="{{ route('certificado_fis.pdf_cer', $fis->id) }}">
+                                            <button class="p-1 rounded-md bg-red-600">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="fill-white h-4 w-4"
                                                     viewBox="0 0 384 512">
                                                     <path
@@ -198,8 +241,6 @@
                                                 </svg>
                                             </button>
                                         </a>
-
-
                                     @endif
                                 @endif
                             </td>
@@ -211,9 +252,9 @@
 
             </table>
 
-                <div>
-                    {{ $fisicos->links() }}
-                </div>
+            <div>
+                {{ $fisicos->links() }}
+            </div>
 
 
 
@@ -225,3 +266,16 @@
     </div>
 
 </div>
+@script
+<script>
+    function handleKeydown(event, id, campo) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            Livewire.dispatch('guardarEdicion');
+        }
+        if (event.key === 'Escape') {
+            Livewire.dispatch('cancelarEdicion');
+        }
+    }
+</script>
+@endscript

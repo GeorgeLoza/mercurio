@@ -14,6 +14,7 @@ class Edit extends ModalComponent
     public $temperatura;
     public $por_hum_rel;
     public $act_agua;
+    public $observaciones;
 
     public function mount()
     {
@@ -21,6 +22,7 @@ class Edit extends ModalComponent
         $this->temperatura = $actividadAgua->temperatura;
         $this->por_hum_rel = $actividadAgua->por_hum_rel;
         $this->act_agua = $actividadAgua->act_agua;
+        $this->observaciones = $actividadAgua->observaciones;
     }
     public function render()
     {
@@ -41,6 +43,7 @@ class Edit extends ModalComponent
             $actividadAgua->por_hum_rel = $this->por_hum_rel;
             $actividadAgua->act_agua = $this->act_agua;
             $actividadAgua->estado = "Analizado";
+            $actividadAgua->observaciones = $this->observaciones;
             if (is_null($actividadAgua->tiempo)) {
                 $actividadAgua->tiempo = now();
             }

@@ -8,8 +8,8 @@ use Livewire\Component;
 class Tabla extends Component
 {
     //variables para filtros-busqueda
-    public $f_dispositivo = null;
     public $f_codigo = null;
+    public $f_dispositivo = null;
     public $f_marca = null;
     public $f_modelo = null;
     public $f_areaUso = null;
@@ -38,9 +38,6 @@ class Tabla extends Component
         })
         ->when($this->f_responsable, function ($query) {
             return $query->where('responsable', 'like', '%' . $this->f_responsable . '%');
-        })
-        ->when($this->sortField, function($query){
-            $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
         })
         ->get();
         return view('livewire.dispositivos-medicion.tabla', compact('dispositivos'));

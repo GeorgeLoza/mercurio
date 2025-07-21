@@ -2,33 +2,31 @@
 
 namespace App\Livewire\Externo;
 
-use App\Models\ActividadAgua;
-use App\Models\AguaFisico;
 use App\Models\DetalleSolicitudPlanta;
 use App\Models\MicrobiologiaExterno;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Pagination\LengthAwarePaginator;
-
-
 
 class CertificadosMicrobiologia extends Component
 {
     use WithPagination;
-    public $page = 1; // Propiedad para almacenar la página actual
+    public $page = 1;
 
-    public $selectedOption = 'micro';
-
+    // Propiedades para filtros
     public $f_codigo;
     public $f_producto;
     public $f_lote;
     public $f_estado;
     public $f_planta;
     public $solicitudes;
-
     public $aplicandoFiltros = false;
     public $filtro = false;
+
+    // Propiedades para edición
+    public $editandoId = null;
+    public $campoEditando = null;
+    public $indiceEditando = 1; // 1 o 2 para valores primarios/secundarios
+    public $valorTemporal = '';
 
     public function show_filtro()
     {
@@ -81,28 +79,20 @@ class CertificadosMicrobiologia extends Component
                     $query->where('planta_id', auth()->user()->planta_id);
                 });
             })
-            ->orderBy('id', 'desc'); // Ordenar de manera descendente según el id;
+            ->orderBy('id', 'desc');
 
         $micros = $query->paginate(100)->withQueryString();
 
-
         return view('livewire.externo.certificados-microbiologia', [
             'micros' => $micros,
-
         ]);
     }
 
     public function cambiar_estado($id)
     {
-        // Guardar la página actual antes de realizar la acción
-        //    $this->page = $this->micros->currentPage();
-
         $registro = DetalleSolicitudPlanta::find($id);
         $registro->estado = 'Terminado';
         $registro->save();
-
-        // Redirigir a la página actual después de guardar
-        // $this->gotoPage($this->page);
     }
 
     public function cancelar($id)
@@ -114,27 +104,77 @@ class CertificadosMicrobiologia extends Component
 
     public function generarTabla()
     {
-       $this->solicitudes = DetalleSolicitudPlanta::select(
-        'detalle_solicitud_plantas.subcodigo',
-        'detalle_solicitud_plantas.tipo_analisis',
-        'detalle_solicitud_plantas.otro',
-        'users.nombre as usuario',
-        'tipo_muestras.nombre as tipo_muestra',
-        'productos_plantas.nombre as nombre_producto',
-        'detalle_solicitud_plantas.lote',
-        'detalle_solicitud_plantas.fecha_elaboracion',
-        'detalle_solicitud_plantas.fecha_vencimiento',
-        'detalle_solicitud_plantas.fecha_muestreo',
-        'microbiologia_externos.fecha_sembrado',
-        'solicitud_plantas.tiempo'
-    )
-    ->leftJoin('solicitud_plantas', 'detalle_solicitud_plantas.solicitud_planta_id', '=', 'solicitud_plantas.id')
-    ->leftJoin('users', 'solicitud_plantas.user_id', '=', 'users.id')
-    ->leftJoin('tipo_muestras', 'detalle_solicitud_plantas.tipo_muestra_id', '=', 'tipo_muestras.id')
-    ->leftJoin('productos_plantas', 'detalle_solicitud_plantas.productos_planta_id', '=', 'productos_plantas.id')
-    ->leftJoin('microbiologia_externos', 'detalle_solicitud_plantas.id', '=', 'microbiologia_externos.detalle_solicitud_planta_id') // Ajusta esta relación según tu estructura real
-    ->where('users.nombre', 'Rosa')
-    ->get()
-            ->toArray();
+        $this->solicitudes = DetalleSolicitudPlanta::select(
+            'detalle_solicitud_plantas.subcodigo',
+            'detalle_solicitud_plantas.tipo_analisis',
+            'detalle_solicitud_plantas.otro',
+            'users.nombre as usuario',
+            'tipo_muestras.nombre as tipo_muestra',
+            'productos_plantas.nombre as nombre_producto',
+            'detalle_solicitud_plantas.lote',
+            'detalle_solicitud_plantas.fecha_elaboracion',
+            'detalle_solicitud_plantas.fecha_vencimiento',
+            'detalle_solicitud_plantas.fecha_muestreo',
+            'microbiologia_externos.fecha_sembrado',
+            'solicitud_plantas.tiempo'
+        )
+        ->leftJoin('solicitud_plantas', 'detalle_solicitud_plantas.solicitud_planta_id', '=', 'solicitud_plantas.id')
+        ->leftJoin('users', 'solicitud_plantas.user_id', '=', 'users.id')
+        ->leftJoin('tipo_muestras', 'detalle_solicitud_plantas.tipo_muestra_id', '=', 'tipo_muestras.id')
+        ->leftJoin('productos_plantas', 'detalle_solicitud_plantas.productos_planta_id', '=', 'productos_plantas.id')
+        ->leftJoin('microbiologia_externos', 'detalle_solicitud_plantas.id', '=', 'microbiologia_externos.detalle_solicitud_planta_id')
+        ->where('users.nombre', 'Rosa')
+        ->get()
+        ->toArray();
+    }
+
+    // Métodos para edición
+    public function iniciarEdicion($id, $campo, $indice = 1, $valorActual = null)
+    {
+        $this->editandoId = $id;
+        $this->campoEditando = $campo;
+        $this->indiceEditando = $indice;
+        $this->valorTemporal = ($valorActual === null || $valorActual === 'null') ? '' : $valorActual;
+    }
+
+    public function guardarEdicion()
+    {
+        if ($this->editandoId && $this->campoEditando) {
+            $micro = MicrobiologiaExterno::find($this->editandoId);
+            
+            // Determinar el campo real (ej: aer_mes o aer_mes2)
+            $campoReal = $this->indiceEditando == 2 
+                ? $this->campoEditando . '2' 
+                : $this->campoEditando;
+            
+            // Convertir y guardar el valor
+            $value = trim($this->valorTemporal);
+            
+            if ($value === 'MNPC') {
+                $micro->$campoReal = 1000000;
+            } elseif ($value === '' || $value === '--') {
+                $micro->$campoReal = null;
+            } else {
+                // Convertir valores numéricos
+                $micro->$campoReal = (int)$value;
+            }
+            
+            $micro->save();
+            
+            // Preparar para siguiente campo
+            $this->dispatch('focusNextField', [
+                'campo' => $this->campoEditando,
+                'indice' => $this->indiceEditando,
+                'currentId' => $this->editandoId
+            ]);
+            
+            // Resetear estado de edición
+            $this->reset(['editandoId', 'campoEditando', 'indiceEditando', 'valorTemporal']);
+        }
+    }
+
+    public function cancelarEdicion()
+    {
+        $this->reset(['editandoId', 'campoEditando', 'indiceEditando', 'valorTemporal']);
     }
 }

@@ -28,6 +28,7 @@ use App\Http\Controllers\SeguimientoHtstController;
 use App\Http\Controllers\SolicitudAnalisisLineaController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\DispositivosMedicionController;
+use App\Http\Controllers\VerificacionDispositivoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -210,7 +211,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/dispositivosMedicion', [DispositivosMedicionController::class, 'index'])->name('dispositivosMedicion.index');
     });
 
+    Route::get('/verificacionAjuste', [VerificacionDispositivoController::class, 'index'])->name('VerificacionAjuste.index');
 
+    Route::get('/asignacionPermisos', [UsuarioController::class, 'asignacionPermisos'])->name('asignacionPermisos.index');
 
 
     /*Rutas de salida login */

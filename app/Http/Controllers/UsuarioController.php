@@ -20,4 +20,8 @@ class UsuarioController extends Controller
     public function perfil(){
         return view('usuario.perfil');   
     }
-   }
+
+    public function asignacionPermisos(){
+        return view('usuario.asignacionPermisos');
+    }
+}

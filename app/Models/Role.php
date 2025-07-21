@@ -25,5 +25,8 @@ class Role extends Model
         return $this->hasMany(RolModuloPermiso::class, 'rol_id');
     }
 
-
+    public function calendarioActividades()
+    {
+        return $this->belongsToMany(calendarioActividades::class, 'calendario_actividad_rols', 'role_id', 'calendario_actividad_id');
+    }
 }

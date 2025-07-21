@@ -4,17 +4,32 @@
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
 
-                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
-                        wire:click="sortBy('alias')">
-                        alias
+                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
+                        codigo
                     </th>
-                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
-                        wire:click="sortBy('descripcion')">
-                        descripción
+                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
+                        dispositivo
                     </th>
-                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700"
-                        wire:click="sortBy('codigo_maquina')">
-                        máquina
+                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
+                        marca
+                    </th>
+                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
+                        modelo
+                    </th>
+                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
+                        area de uso
+                    </th>
+                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
+                        capacidad
+                    </th>
+                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
+                        rango de uso
+                    </th>
+                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
+                        baja
+                    </th>
+                    <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
+                        responsable
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
                         opciones
@@ -27,36 +42,70 @@
                 <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
 
                     <th class="p-1">
-                        <input type="text" wire:model.live='f_alias' placeholder="Filtrar por alias"
+                        <input type="text" wire:model.live='f_dispositivo' placeholder="Filtrar por dispositivo"
                             class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     </th>
                     <th class="p-1">
-                        <input type="text" wire:model.live='f_descripcion' placeholder="Filtrar por descripción"
+                        <input type="text" wire:model.live='f_codigo' placeholder="Filtrar por código"
                             class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     </th>
                     <th class="p-1">
-                        <input type="text" wire:model.live='f_codigo_maquina' placeholder="Filtrar por máquina"
+                        <input type="text" wire:model.live='f_marca' placeholder="Filtrar por marca"
                             class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     </th>
+                    <th class="p-1">
+                        <input type="text" wire:model.live='f_modelo' placeholder="Filtrar por modelo"
+                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    </th>
+                    <th class="p-1">
+                        <input type="text" wire:model.live='f_areaUso' placeholder="Filtrar por área de uso"
+                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    </th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th class="p-1">
+                        <input type="text" wire:model.live='f_responsable' placeholder="Filtrar por responsable"
+                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    </th>
+                    <th></th>
 
                 </tr>
-                @foreach ($origens as $origen)
+                @foreach ($dispositivos as $dispositivo)
                     <tr
                         class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <th scope="row"
                             class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $origen->alias }}
+                            {{ $dispositivo->codigo }}
                         </th>
                         <td class="px-6 py-2">
-                            {{ $origen->descripcion }}
+                            {{ $dispositivo->dispositivo }}
+                        </td>
+                        <td class="px-6 py-2">
+                            {{ $dispositivo->marca }}
+                        </td>
+                        <td class="px-6 py-2">
+                            {{ $dispositivo->modelo }}
+                        </td>
+                        <td class="px-6 py-2">
+                            {{ $dispositivo->areaUso }}
+                        </td>
+                        <td class="px-6 py-2">
+                            {{ $dispositivo->capacidadMedicion }}
+                        </td>
+                        <td class="px-6 py-2">
+                            {{ $dispositivo->rangoUso }}
+                        </td>
+                        <td class="px-6 py-2">
+                            {{ $dispositivo->baja }}
+                        </td>
+                        <td class="px-6 py-2">
+                            {{ $dispositivo->responsable }}
                         </td>
 
-                        <td class="px-6 py-2">
-                            {{ $origen->codigo_maquina }}
-                        </td>
                         <td class="flex items-center px-6 py-2 gap-2">
 
-                            <svg onclick="Livewire.dispatch('openModal', { component: 'origen.editar', arguments: { id: {{ $origen->id }} } })"
+                            <svg onclick="Livewire.dispatch('openModal', { component: 'dispositivo.editar', arguments: { id: {{ $dispositivo->id }} } })"
                                 xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-blue-600 dark:fill-blue-500"
                                 viewBox="0 0 512 512">
                                 <path
@@ -64,7 +113,7 @@
                             </svg>
 
 
-                            <svg onclick="Livewire.dispatch('openModal', { component: 'origen.eliminar', arguments: { id: {{ $origen->id }} } })"
+                            <svg onclick="Livewire.dispatch('openModal', { component: 'dispositivo.eliminar', arguments: { id: {{ $dispositivo->id }} } })"
                                 xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-red-600 dark:fill-red-500"
                                 viewBox="0 0 448 512">
                                 <path

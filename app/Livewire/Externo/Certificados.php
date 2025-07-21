@@ -100,4 +100,45 @@ class Certificados extends Component
         $registro->estado = 'Cancelado';
         $registro->save();
     }
+     // Nuevas propiedades para edición
+    public $editandoId = null;
+    public $campoEditando = null;
+    public $valorTemporal = '';
+
+    // ... (métodos existentes)
+
+    // Métodos para edición
+    public function iniciarEdicion($id, $campo, $valorActual = '')
+    {
+        $this->editandoId = $id;
+        $this->campoEditando = $campo;
+        $this->valorTemporal = $valorActual;
+    }
+
+    public function guardarEdicion()
+    {
+        if ($this->editandoId && $this->campoEditando) {
+            $detalle = DetalleSolicitudPlanta::find($this->editandoId);
+            
+            // Crear relación si no existe
+            if (!$detalle->actividadAgua) {
+                $actividadAgua = new ActividadAgua();
+                $actividadAgua->detalle_solicitud_planta_id = $detalle->id;
+                $actividadAgua->save();
+                $detalle->refresh();
+            }
+            
+            // Actualizar el valor
+            $detalle->actividadAgua->{$this->campoEditando} = $this->valorTemporal;
+            $detalle->actividadAgua->save();
+            
+            // Resetear estado de edición
+            $this->cancelarEdicion();
+        }
+    }
+
+    public function cancelarEdicion()
+    {
+        $this->reset(['editandoId', 'campoEditando', 'valorTemporal']);
+    }
 }

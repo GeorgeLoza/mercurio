@@ -17,7 +17,8 @@ class ActividadAgua extends Model
         'user_id',
         'verificacion_equipo_id',
         'detalle_solicitud_planta_id',
-        
+        'observaciones'
+
     ];
 
     public function user()

@@ -269,10 +269,9 @@
 </header>
 <footer>
     SOALPRO SRL - Planta Lácteos - Reporte generado el {{ date('d/m/Y') }}
-@if ($informacion->revisor)
-
-Revisado por {{ $informacion->revisor->nombre }}  {{ $informacion->revisor->apellido }}
-@endif
+    @if ($informacion->revisor)
+        Revisado por {{ $informacion->revisor->nombre }} {{ $informacion->revisor->apellido }}
+    @endif
     <div class="page-number"></div>
 </footer>
 
@@ -525,6 +524,7 @@ Revisado por {{ $informacion->revisor->nombre }}  {{ $informacion->revisor->apel
                         <th>Color</th>
                         <th>Olor</th>
                         <th>Sabor</th>
+                        <th>Cond.</th>
                         <th>Peso [g]</th>
 
 
@@ -626,6 +626,9 @@ Revisado por {{ $informacion->revisor->nombre }}  {{ $informacion->revisor->apel
                                         <th>N.C.</th>
                                     @endif
                                 @endif
+
+                                {{-- onductividad --}}
+                                <th>C.</th>
                                 {{-- peso --}}
                                 @if ($analisis->peso)
                                     <th>{{ $analisis->peso }}</th>

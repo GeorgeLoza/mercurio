@@ -152,129 +152,184 @@
                                     {{ $micro->detalleSolicitudPlanta->user->planta->nombre }}
                                 </td>
                                 <td class="px-1 py-0">
-                                    <p class="p-0">
-                                        @if ($micro->aer_mes >= 1000000)
-                                            MNPC
-                                        @elseif ($micro->aer_mes < 1000000 && $micro->aer_mes >= 10)
-                                            {{ $micro->aer_mes < 1
-                                                ? $micro->aer_mes * 10 ** (strlen(floor($micro->aer_mes)) - 1)
-                                                : $micro->aer_mes / 10 ** (strlen(floor($micro->aer_mes)) - 1) }}
-                                            x 10<sup>{{ strlen(floor($micro->aer_mes)) - 1 }}</sup>
-                                        @elseif ($micro->aer_mes > 0)
-                                            {{ $micro->aer_mes }}
-                                        @elseif ($micro->aer_mes === 0)
-                                            < 1 x 10<sup>1</sup>
-                                            @elseif (is_null($micro->aer_mes))
-                                                --
-                                        @endif
-
-                                    </p>
-                                    @if ($micro->aer_mes2 === null)
+                                    <!-- Primer valor -->
+                                    @if ($editandoId === $micro->id && $campoEditando === 'aer_mes' && $indiceEditando === 1)
+                                        <input type="text" wire:model="valorTemporal" autofocus
+                                            class="w-16 p-0 text-center border border-blue-300 rounded"
+                                            wire:keydown.enter="guardarEdicion" wire:keydown.escape="cancelarEdicion"
+                                            data-micro-id="{{ $micro->id }}" data-campo="aer_mes" data-indice="1"
+                                            @keydown="handleKeydown(event, {{ $micro->id }}, 'aer_mes', 1)">
                                     @else
-                                        <p class="p-0">
-
-                                            @if ($micro->aer_mes2 >= 1000000)
+                                        <p class="p-0 cursor-pointer"
+                                            wire:click="iniciarEdicion({{ $micro->id }}, 'aer_mes', 1, {{ $micro->aer_mes ?? 'null' }})">
+                                            @if ($micro->aer_mes >= 1000000)
                                                 MNPC
-                                            @elseif ($micro->aer_mes2 < 1000000 && $micro->aer_mes2 >= 10)
-                                                {{ $micro->aer_mes2 < 1
-                                                    ? $micro->aer_mes2 * 10 ** (strlen(floor($micro->aer_mes2)) - 1)
-                                                    : $micro->aer_mes2 / 10 ** (strlen(floor($micro->aer_mes2)) - 1) }}
-                                                x 10<sup>{{ strlen(floor($micro->aer_mes2)) - 1 }}</sup>
-                                            @elseif ($micro->aer_mes2 > 0)
-                                                {{ $micro->aer_mes2 }}
-                                            @elseif ($micro->aer_mes2 === 0)
+                                            @elseif ($micro->aer_mes < 1000000 && $micro->aer_mes >= 10)
+                                                {{ $micro->aer_mes < 1
+                                                    ? $micro->aer_mes * 10 ** (strlen(floor($micro->aer_mes)) - 1)
+                                                    : $micro->aer_mes / 10 ** (strlen(floor($micro->aer_mes)) - 1) }}
+                                                x 10<sup>{{ strlen(floor($micro->aer_mes)) - 1 }}</sup>
+                                            @elseif ($micro->aer_mes > 0)
+                                                {{ $micro->aer_mes }}
+                                            @elseif ($micro->aer_mes === 0)
                                                 < 1 x 10<sup>1</sup>
-                                                @elseif (is_null($micro->aer_mes2))
+                                                @else
                                                     --
                                             @endif
                                         </p>
                                     @endif
+
+                                    <!-- Segundo valor -->
+                                    @if ($micro->aer_mes2 !== null)
+                                        @if ($editandoId === $micro->id && $campoEditando === 'aer_mes' && $indiceEditando === 2)
+                                            <input type="text" wire:model="valorTemporal" autofocus
+                                                class="w-16 p-0 text-center border border-blue-300 rounded"
+                                                wire:keydown.enter="guardarEdicion"
+                                                wire:keydown.escape="cancelarEdicion"
+                                                data-micro-id="{{ $micro->id }}" data-campo="aer_mes"
+                                                data-indice="2"
+                                                @keydown="handleKeydown(event, {{ $micro->id }}, 'aer_mes', 2)">
+                                        @else
+                                            <p class="p-0 cursor-pointer"
+                                                wire:click="iniciarEdicion({{ $micro->id }}, 'aer_mes', 2, {{ $micro->aer_mes2 ?? 'null' }})">
+                                                @if ($micro->aer_mes2 >= 1000000)
+                                                    MNPC
+                                                @elseif ($micro->aer_mes2 < 1000000 && $micro->aer_mes2 >= 10)
+                                                    {{ $micro->aer_mes2 < 1
+                                                        ? $micro->aer_mes2 * 10 ** (strlen(floor($micro->aer_mes2)) - 1)
+                                                        : $micro->aer_mes2 / 10 ** (strlen(floor($micro->aer_mes2)) - 1) }}
+                                                    x 10<sup>{{ strlen(floor($micro->aer_mes2)) - 1 }}</sup>
+                                                @elseif ($micro->aer_mes2 > 0)
+                                                    {{ $micro->aer_mes2 }}
+                                                @elseif ($micro->aer_mes2 === 0)
+                                                    < 1 x 10<sup>1</sup>
+                                                    @else
+                                                        --
+                                                @endif
+                                            </p>
+                                        @endif
+                                    @endif
                                 </td>
-                                <td class="px-1 py-0 ">
-                                    @if ($micro->col_tot >= 1000000)
-                                        MNPC
-                                    @elseif ($micro->col_tot < 1000000 && $micro->col_tot >= 10)
-                                        <p>
-                                            {{ $micro->col_tot < 1
-                                                ? $micro->col_tot * 10 ** (strlen(floor($micro->col_tot)) - 1)
-                                                : $micro->col_tot / 10 ** (strlen(floor($micro->col_tot)) - 1) }}
-                                            x 10<sup>{{ strlen(floor($micro->col_tot)) - 1 }}</sup>
-                                        @elseif ($micro->col_tot > 0)
-                                            {{ $micro->col_tot }}
+
+                                <!-- Columna Coliformes -->
+                                <td class="px-1 py-0">
+                                    <!-- Primer valor -->
+                                    @if ($editandoId === $micro->id && $campoEditando === 'col_tot' && $indiceEditando === 1)
+                                        <input type="text" wire:model="valorTemporal" autofocus
+                                            class="w-16 p-0 text-center border border-blue-300 rounded"
+                                            wire:keydown.enter="guardarEdicion" wire:keydown.escape="cancelarEdicion"
+                                            data-micro-id="{{ $micro->id }}" data-campo="col_tot" data-indice="1"
+                                            @keydown="handleKeydown(event, {{ $micro->id }}, 'col_tot', 1)">
+                                    @else
+                                        <p class="p-0 cursor-pointer"
+                                            wire:click="iniciarEdicion({{ $micro->id }}, 'col_tot', 1, {{ $micro->col_tot ?? 'null' }})">
+                                            @if ($micro->col_tot >= 1000000)
+                                                MNPC
+                                            @elseif ($micro->col_tot < 1000000 && $micro->col_tot >= 10)
+                                                {{ $micro->col_tot < 1
+                                                    ? $micro->col_tot * 10 ** (strlen(floor($micro->col_tot)) - 1)
+                                                    : $micro->col_tot / 10 ** (strlen(floor($micro->col_tot)) - 1) }}
+                                                x 10<sup>{{ strlen(floor($micro->col_tot)) - 1 }}</sup>
+                                            @elseif ($micro->col_tot > 0)
+                                                {{ $micro->col_tot }}
+                                            @elseif ($micro->col_tot === 0)
+                                                < 1 x 10<sup>1</sup>
+                                                @else
+                                                    --
+                                            @endif
                                         </p>
                                     @endif
 
-
-                                    @if ($micro->col_tot === null)
-                                        <p>
-                                            --
-                                        </p>
-                                    @endif
-                                    @if ($micro->col_tot === 0)
-                                        <p>
-
-                                            < 1 x 10<sup>1</sup>
-                                        </p>
-                                    @endif
-
+                                    <!-- Segundo valor -->
                                     @if ($micro->col_tot2 !== null)
-                                        @if ($micro->col_tot2 >= 1000000)
-                                            MNPC
-                                        @endif
-                                        @if ($micro->col_tot2 < 1000000 && $micro->col_tot2 >= 10)
-                                            {{ $micro->col_tot2 < 1
-                                                ? $micro->col_tot2 * 10 ** (strlen(floor($micro->col_tot2)) - 1)
-                                                : $micro->col_tot2 / 10 ** (strlen(floor($micro->col_tot2)) - 1) }}
-                                            x 10<sup>{{ strlen(floor($micro->col_tot2)) - 1 }}</sup>
-                                        @elseif ($micro->col_tot2 > 0)
-                                            {{ $micro->col_tot2 }}
-                                        @endif
-
-                                        @if ($micro->col_tot2 === null)
-                                            --
-                                        @endif
-                                        @if ($micro->col_tot === 0)
-                                            < 1 x 10<sup>1</sup>
+                                        @if ($editandoId === $micro->id && $campoEditando === 'col_tot' && $indiceEditando === 2)
+                                            <input type="text" wire:model="valorTemporal" autofocus
+                                                class="w-16 p-0 text-center border border-blue-300 rounded"
+                                                wire:keydown.enter="guardarEdicion"
+                                                wire:keydown.escape="cancelarEdicion"
+                                                data-micro-id="{{ $micro->id }}" data-campo="col_tot"
+                                                data-indice="2"
+                                                @keydown="handleKeydown(event, {{ $micro->id }}, 'col_tot', 2)">
+                                        @else
+                                            <p class="p-0 cursor-pointer"
+                                                wire:click="iniciarEdicion({{ $micro->id }}, 'col_tot', 2, {{ $micro->col_tot2 ?? 'null' }})">
+                                                @if ($micro->col_tot2 >= 1000000)
+                                                    MNPC
+                                                @elseif ($micro->col_tot2 < 1000000 && $micro->col_tot2 >= 10)
+                                                    {{ $micro->col_tot2 < 1
+                                                        ? $micro->col_tot2 * 10 ** (strlen(floor($micro->col_tot2)) - 1)
+                                                        : $micro->col_tot2 / 10 ** (strlen(floor($micro->col_tot2)) - 1) }}
+                                                    x 10<sup>{{ strlen(floor($micro->col_tot2)) - 1 }}</sup>
+                                                @elseif ($micro->col_tot2 > 0)
+                                                    {{ $micro->col_tot2 }}
+                                                @elseif ($micro->col_tot2 === 0)
+                                                    < 1 x 10<sup>1</sup>
+                                                    @else
+                                                        --
+                                                @endif
+                                            </p>
                                         @endif
                                     @endif
-
                                 </td>
-                                <td class="px-1 py-0 ">
 
-                                    @if ($micro->moh_lev >= 1000000)
-                                        MNPC
-                                    @elseif ($micro->moh_lev < 1000000 && $micro->moh_lev >= 10)
-                                        {{ $micro->moh_lev < 1
-                                            ? $micro->moh_lev * 10 ** (strlen(floor($micro->moh_lev)) - 1)
-                                            : $micro->moh_lev / 10 ** (strlen(floor($micro->moh_lev)) - 1) }}
-                                        x 10<sup>{{ strlen(floor($micro->moh_lev)) - 1 }}</sup>
-                                    @elseif ($micro->moh_lev > 0)
-                                        {{ $micro->moh_lev }}
-                                    @elseif ($micro->moh_lev === 0)
-                                        < 1 x 10<sup>1</sup>
-                                        @elseif (is_null($micro->moh_lev))
-                                            --
-                                    @endif
-                                    </p>
-                                    @if ($micro->moh_lev2 === null)
+                                <!-- Columna Mohos y Levaduras -->
+                                <td class="px-1 py-0">
+                                    <!-- Primer valor -->
+                                    @if ($editandoId === $micro->id && $campoEditando === 'moh_lev' && $indiceEditando === 1)
+                                        <input type="text" wire:model="valorTemporal" autofocus
+                                            class="w-16 p-0 text-center border border-blue-300 rounded"
+                                            wire:keydown.enter="guardarEdicion" wire:keydown.escape="cancelarEdicion"
+                                            data-micro-id="{{ $micro->id }}" data-campo="moh_lev" data-indice="1"
+                                            @keydown="handleKeydown(event, {{ $micro->id }}, 'moh_lev', 1)">
                                     @else
-                                        <p class="p-0">
-
-                                            @if ($micro->moh_lev2 >= 1000000)
+                                        <p class="p-0 cursor-pointer"
+                                            wire:click="iniciarEdicion({{ $micro->id }}, 'moh_lev', 1, {{ $micro->moh_lev ?? 'null' }})">
+                                            @if ($micro->moh_lev >= 1000000)
                                                 MNPC
-                                            @elseif ($micro->moh_lev2 < 1000000 && $micro->moh_lev2 >= 10)
-                                                {{ $micro->moh_lev2 < 1
-                                                    ? $micro->moh_lev2 * 10 ** (strlen(floor($micro->moh_lev2)) - 1)
-                                                    : $micro->moh_lev2 / 10 ** (strlen(floor($micro->moh_lev2)) - 1) }}
-                                                x 10<sup>{{ strlen(floor($micro->moh_lev2)) - 1 }}</sup>
-                                            @elseif ($micro->moh_lev2 > 0)
-                                                {{ $micro->moh_lev2 }}
-                                            @elseif ($micro->moh_lev2 === 0)
+                                            @elseif ($micro->moh_lev < 1000000 && $micro->moh_lev >= 10)
+                                                {{ $micro->moh_lev < 1
+                                                    ? $micro->moh_lev * 10 ** (strlen(floor($micro->moh_lev)) - 1)
+                                                    : $micro->moh_lev / 10 ** (strlen(floor($micro->moh_lev)) - 1) }}
+                                                x 10<sup>{{ strlen(floor($micro->moh_lev)) - 1 }}</sup>
+                                            @elseif ($micro->moh_lev > 0)
+                                                {{ $micro->moh_lev }}
+                                            @elseif ($micro->moh_lev === 0)
                                                 < 1 x 10<sup>1</sup>
-                                                @elseif (is_null($micro->moh_lev2))
+                                                @else
                                                     --
                                             @endif
                                         </p>
+                                    @endif
+
+                                    <!-- Segundo valor -->
+                                    @if ($micro->moh_lev2 !== null)
+                                        @if ($editandoId === $micro->id && $campoEditando === 'moh_lev' && $indiceEditando === 2)
+                                            <input type="text" wire:model="valorTemporal" autofocus
+                                                class="w-16 p-0 text-center border border-blue-300 rounded"
+                                                wire:keydown.enter="guardarEdicion"
+                                                wire:keydown.escape="cancelarEdicion"
+                                                data-micro-id="{{ $micro->id }}" data-campo="moh_lev"
+                                                data-indice="2"
+                                                @keydown="handleKeydown(event, {{ $micro->id }}, 'moh_lev', 2)">
+                                        @else
+                                            <p class="p-0 cursor-pointer"
+                                                wire:click="iniciarEdicion({{ $micro->id }}, 'moh_lev', 2, {{ $micro->moh_lev2 ?? 'null' }})">
+                                                @if ($micro->moh_lev2 >= 1000000)
+                                                    MNPC
+                                                @elseif ($micro->moh_lev2 < 1000000 && $micro->moh_lev2 >= 10)
+                                                    {{ $micro->moh_lev2 < 1
+                                                        ? $micro->moh_lev2 * 10 ** (strlen(floor($micro->moh_lev2)) - 1)
+                                                        : $micro->moh_lev2 / 10 ** (strlen(floor($micro->moh_lev2)) - 1) }}
+                                                    x 10<sup>{{ strlen(floor($micro->moh_lev2)) - 1 }}</sup>
+                                                @elseif ($micro->moh_lev2 > 0)
+                                                    {{ $micro->moh_lev2 }}
+                                                @elseif ($micro->moh_lev2 === 0)
+                                                    < 1 x 10<sup>1</sup>
+                                                    @else
+                                                        --
+                                                @endif
+                                            </p>
+                                        @endif
                                     @endif
                                 </td>
                             @endif
@@ -381,6 +436,9 @@
                             <th class="border border-gray-300 px-4 py-2">Tipo Muestra</th>
                             <th class="border border-gray-300 px-4 py-2">Producto / Otro</th> {{-- Nueva columna combinada --}}
                             <th class="border border-gray-300 px-4 py-2">Lote</th>
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque enim facere id et ducimus
+                            deserunt debitis voluptatem, dolore doloremque dicta fugiat doloribus, rerum inventore
+                            corrupti iste. Cum, illum facilis? Quibusdam!
                             <th class="border border-gray-300 px-4 py-2">Fecha Elaboración</th>
                             <th class="border border-gray-300 px-4 py-2">Fecha Vencimiento</th>
                             <th class="border border-gray-300 px-4 py-2">Fecha Muestreo</th>
@@ -417,3 +475,31 @@
     @endif
 
 </div>
+@script
+    <script>
+        function handleKeydown(event, id, campo, indice) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                Livewire.dispatch('guardarEdicion');
+            }
+            if (event.key === 'Escape') {
+                Livewire.dispatch('cancelarEdicion');
+            }
+        }
+
+        document.addEventListener('livewire:initialized', () => {
+            Livewire.on('focusNextField', (data) => {
+                setTimeout(() => {
+                    const selector =
+                        `[data-micro-id][data-campo="${data.campo}"][data-indice="${data.indice}"]`;
+                    const nextField = document.querySelector(selector);
+
+                    if (nextField) {
+                        nextField.focus();
+                        nextField.select();
+                    }
+                }, 50);
+            });
+        });
+    </script>
+@endscript

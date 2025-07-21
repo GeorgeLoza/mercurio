@@ -21,4 +21,16 @@ class DispositivosMedicion extends Model
         'baja',
         'observaciones',
     ];
+    public function dispositivoRefractometro()
+    {
+        return $this->hasMany(DispositivoRefractometro::class, 'dispositivos_medicion_id');
+    }
+    public function dispositivoPhmetro()
+    {
+        return $this->hasMany(DispositivoPhmetro::class, 'dispositivos_medicion_id');
+    }
+    public function dispositivoTemperatura()
+    {
+        return $this->hasMany(DispositivoTemperatura::class, 'dispositivos_medicion_id');
+    }
 }

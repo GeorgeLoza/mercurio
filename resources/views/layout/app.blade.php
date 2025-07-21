@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ asset('build/assets/app-da32ce76.css') }}">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-64a78070.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-114a1ab6.css ') }}">
 
     <script src="{{ asset('build/assets/app-56df689c.js') }}" defer></script>
     <script src="{{ asset('js/app.js') }}"></script>
@@ -16,6 +16,8 @@
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
     @livewireScripts
+    @stack('scripts')
+
 
 </head>
 
@@ -382,6 +384,18 @@
                             <span class="ms-3">
 
                                 Configuración</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('asignacionPermisos.index') }}"
+                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"
+                                class="w-4 h-4 fill-gray-500 transition duration-75 dark:fill-gray-400 group-hover:fill-gray-900 dark:group-hover:fill-white">
+                                <path
+                                    d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l362.8 0c-5.4-9.4-8.6-20.3-8.6-32l0-128c0-2.1 .1-4.2 .3-6.3c-31-26-71-41.7-114.6-41.7l-91.4 0zM528 240c17.7 0 32 14.3 32 32l0 48-64 0 0-48c0-17.7 14.3-32 32-32zm-80 32l0 48c-17.7 0-32 14.3-32 32l0 128c0 17.7 14.3 32 32 32l160 0c17.7 0 32-14.3 32-32l0-128c0-17.7-14.3-32-32-32l0-48c0-44.2-35.8-80-80-80s-80 35.8-80 80z" />
+                            </svg>
+                            <span class="ms-3">Administracion de
+                                permisos</span>
                         </a>
                     </li>
                 @endif
@@ -774,6 +788,50 @@
                             <span class="ms-3">Sustancias Quimicas</span>
                         </a>
                     </li>
+
+                    <!--dispositivos de Medicion-->
+
+                    <li>
+                        <button type="button"
+                            class="flex items-center w-full p-2 text-xs text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                            aria-controls="dropdown-permisos" data-collapse-toggle="dropdown-permisos">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                class="w-4 h-4 fill-gray-500 transition duration-75 dark:fill-gray-400 group-hover:fill-gray-900 dark:group-hover:fill-white">
+                                <path
+                                    d="M469.3 19.3l23.4 23.4c25 25 25 65.5 0 90.5l-56.4 56.4L322.3 75.7l56.4-56.4c25-25 65.5-25 90.5 0zM44.9 353.2L299.7 98.3 413.7 212.3 158.8 467.1c-6.7 6.7-15.1 11.6-24.2 14.2l-104 29.7c-8.4 2.4-17.4 .1-23.6-6.1s-8.5-15.2-6.1-23.6l29.7-104c2.6-9.2 7.5-17.5 14.2-24.2zM249.4 103.4L103.4 249.4 16 161.9c-18.7-18.7-18.7-49.1 0-67.9L94.1 16c18.7-18.7 49.1-18.7 67.9 0l19.8 19.8c-.3 .3-.7 .6-1 .9l-64 64c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l64-64c.3-.3 .6-.7 .9-1l45.1 45.1zM408.6 262.6l45.1 45.1c-.3 .3-.7 .6-1 .9l-64 64c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l64-64c.3-.3 .6-.7 .9-1L496 350.1c18.7 18.7 18.7 49.1 0 67.9L417.9 496c-18.7 18.7-49.1 18.7-67.9 0l-87.4-87.4L408.6 262.6z" />
+                            </svg>
+
+                            <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Dispositivos de
+                                medición</span>
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 4 4 4-4" />
+                            </svg>
+                        </button>
+
+                        <ul id="dropdown-permisos" class="hidden py-2 space-y-2">
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 9)->where('permiso_id', 2)->isNotEmpty())
+                                <li>
+                                    <a href="{{ route('dispositivosMedicion.index') }}"
+                                        class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Administracion</a>
+
+                                </li>
+                            @endif
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 10)->where('permiso_id', 2)->isNotEmpty())
+                                <li>
+                                    <a href="{{ route('VerificacionAjuste.index') }}"
+                                        class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Verificacion</a>
+                                </li>
+                            @endif
+
+                            <li class="hidden">
+                                <a href="#"
+                                    class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Seguimientos</a>
+                            </li>
+                        </ul>
+                    </li>
+
                 @endif
 
                 <!--seguimiento-->
@@ -863,65 +921,14 @@
                     </li>
                 @endif
 
-                <!--dispositivos de Medicion-->
-                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 8)->where('permiso_id', 2)->isNotEmpty())
-                    <li>
-                        <button type="button"
-                            class="flex items-center w-full p-2 text-xs text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                            aria-controls="dropdown-dispositivos" data-collapse-toggle="dropdown-dispositivos">
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 512 512"
-                                class="w-4 h-4 fill-gray-500 transition duration-75 dark:fill-gray-400 group-hover:fill-gray-900 dark:group-hover:fill-white">
-                                <path
-                                    d="M469.3 19.3l23.4 23.4c25 25 25 65.5 0 90.5l-56.4 56.4L322.3 75.7l56.4-56.4c25-25 65.5-25 90.5 0zM44.9 353.2L299.7 98.3 413.7 212.3 158.8 467.1c-6.7 6.7-15.1 11.6-24.2 14.2l-104 29.7c-8.4 2.4-17.4 .1-23.6-6.1s-8.5-15.2-6.1-23.6l29.7-104c2.6-9.2 7.5-17.5 14.2-24.2zM249.4 103.4L103.4 249.4 16 161.9c-18.7-18.7-18.7-49.1 0-67.9L94.1 16c18.7-18.7 49.1-18.7 67.9 0l19.8 19.8c-.3 .3-.7 .6-1 .9l-64 64c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l64-64c.3-.3 .6-.7 .9-1l45.1 45.1zM408.6 262.6l45.1 45.1c-.3 .3-.7 .6-1 .9l-64 64c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l64-64c.3-.3 .6-.7 .9-1L496 350.1c18.7 18.7 18.7 49.1 0 67.9L417.9 496c-18.7 18.7-49.1 18.7-67.9 0l-87.4-87.4L408.6 262.6z" />
-                            </svg>
-
-                            <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Dispositivos de
-                                medición</span>
-                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="none" viewBox="0 0 10 6">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="m1 1 4 4 4-4" />
-                            </svg>
-                        </button>
-
-                        <ul id="dropdown-dispositivos" class="hidden py-2 space-y-2">
-                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 9)->where('permiso_id', 2)->isNotEmpty())
-                                <li>
-                                    <a href="{{ route('dispositivosMedicion.index') }}"
-                                        class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Administracion</a>
-
-                                </li>
-                            @endif
-                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 10)->where('permiso_id', 2)->isNotEmpty())
-                                <li>
-                                    <a href="{{ route('parametroLeche.indexLeche') }}"
-                                        class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Mediciones</a>
-                                </li>
-                            @endif
-
-                            <li class="hidden">
-                                <a href="#"
-                                    class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Seguimientos</a>
-                            </li>
-                        </ul>
-                    </li>
-                @endif
-
-
 
                 <!--liberacion-->
                 @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 37)->where('permiso_id', 2)->isNotEmpty())
                     <li>
                         <a href="{{ route('liberacion.index') }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-
-
-
-
                             <svg class="w-4 h-4 fill-gray-500 transition duration-75 dark:fill-gray-400 group-hover:fill-gray-900 dark:group-hover:fill-white"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 576 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                                 <path
                                     d="M96 80c0-26.5 21.5-48 48-48l288 0c26.5 0 48 21.5 48 48l0 304L96 384 96 80zm313 47c-9.4-9.4-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L409 161c9.4-9.4 9.4-24.6 0-33.9zM0 336c0-26.5 21.5-48 48-48l16 0 0 128 448 0 0-128 16 0c26.5 0 48 21.5 48 48l0 96c0 26.5-21.5 48-48 48L48 480c-26.5 0-48-21.5-48-48l0-96z" />
                             </svg>
@@ -941,13 +948,13 @@
 
 
         <div class="">
-            <div class=" flex justify-between  mt-12 md:mt-8 text-2xl text-center font-bold p-3 uppercase ">
+            <div class=" flex justify-between  mt-12 md:mt-8 text-xl text-center font-bold p-2 uppercase ">
                 <div></div>
                 @yield('titulo')
 
                 @livewire('PaginaFunciones')
             </div>
-            <div class=" md:px-5">
+            <div class=" md:px-2">
                 @yield('contenido')
             </div>
 
@@ -958,6 +965,7 @@
 
     @livewire('wire-elements-modal')
 
+@stack('scripts')
 
 
 </body>
