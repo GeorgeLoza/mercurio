@@ -89,7 +89,7 @@
                     <th scope="col" class="px-1 py-2 sticky top-0 bg-white dark:bg-gray-700">
                         Antibioticos [+/-]
                     </th>
-                    <th scope="col" class="px-1 py-2 sticky top-0 bg-white dark:bg-gray-700"
+                    {{-- <th scope="col" class="px-1 py-2 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('tram_inicio')" nowrap>
                         TRAM início
                     </th>
@@ -100,7 +100,7 @@
                     <th scope="col" class="px-1 py-2 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('tram_lapso')" nowrap>
                         TRAM lapso
-                    </th>
+                    </th> --}}
                     <th scope="col" class="px-1 py-2 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('user')">
                         Solicitante
@@ -117,10 +117,10 @@
                         wire:click="sortBy('user')">
                         Lectura MB
                     </th>
-                    <th scope="col" class="px-1 py-2 sticky top-0 bg-white dark:bg-gray-700"
+                    {{-- <th scope="col" class="px-1 py-2 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('user')">
                         usuario TRAM
-                    </th>
+                    </th> --}}
                 </tr>
             </thead>
             <tbody class="text-center">
@@ -164,7 +164,7 @@
                         <th class="p-1">
                             <!--contenido grado-->
                         </th>
-                        <th class="p-1">
+                        {{-- <th class="p-1">
                             <!--tram inicio-->
                         </th>
                         <th class="p-1">
@@ -172,7 +172,7 @@
                         </th>
                         <th class="p-1">
                             <!--tram lapso-->
-                        </th>
+                        </th> --}}
                         <th class="p-1">
                             <!--temperatura congelacion-->
                         </th>
@@ -266,7 +266,7 @@
 
 
                             @endif
-                            @if ($registro->tiempo_sembrado != null && (auth()->user()->role->rolModuloPermisos->where('modulo_id', 20)->where('permiso_id', 3)->isNotEmpty()|| auth()->user()->role->rolModuloPermisos->where('modulo_id', 20)->where('permiso_id', 1)->isNotEmpty() ))
+                            {{-- @if ($registro->tiempo_sembrado != null && (auth()->user()->role->rolModuloPermisos->where('modulo_id', 20)->where('permiso_id', 3)->isNotEmpty()|| auth()->user()->role->rolModuloPermisos->where('modulo_id', 20)->where('permiso_id', 1)->isNotEmpty() ))
 
                             <button class=" bg-blue-400 rounded p-1 py-0 text-gray-700 "
                             onclick="Livewire.dispatch('openModal', { component: 'leche-cruda.analisis.editar', arguments: { id: {{ $registro->id }} , id2: 2 } })">
@@ -275,7 +275,7 @@
                             </button>
 
 
-                            @endif
+                            @endif --}}
 
                             @if ($registro->tiempo_sembrado != null && auth()->user()->role->rolModuloPermisos->where('modulo_id', 20)->where('permiso_id', 1)->isNotEmpty() )
                             @if (now()->diffInMinutes($registro->tiempo_sembrado)<4500)
@@ -392,7 +392,7 @@
 
                         </td>
 
-                        <td class="px-1 py-1 text-center" nowrap>
+                        {{-- <td class="px-1 py-1 text-center" nowrap>
                             @if ($registro->tram_inicio )
                             {{ \Carbon\Carbon::parse($registro->tram_inicio)->isoFormat('HH:mm  ') }}
                             @endif
@@ -409,7 +409,7 @@
                             @if ($registro->tram_lapso)
                                 {{ \Carbon\Carbon::parse('1970-01-01 ' . $registro->tram_lapso)->isoFormat('HH:mm') }}
                             @endif
-                        </td>
+                        </td> --}}
 
 
 
@@ -454,7 +454,7 @@
 
                             @endif
                         </td>
-                        <td class="px-1 py-1" nowrap>
+                        {{-- <td class="px-1 py-1" nowrap>
                             @if ($registro->utram)
                             {{ substr($registro->utram->nombre, 0, 1) .
                                 substr(explode(' ', $registro->utram->nombre)[1] ?? '', 0, 1) .
@@ -462,7 +462,7 @@
                                 substr(explode(' ', $registro->utram->apellido)[1] ?? '', 0, 1) }}
 
                             @endif
-                        </td>
+                        </td> --}}
 
 
                     </tr>
