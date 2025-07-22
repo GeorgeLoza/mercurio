@@ -50,7 +50,8 @@
 
         <!-- Tablas -->
         <div x-show="tab === 'admi'">
-            @livewire('asignacion-permisos.admi')
+            {{-- @livewire('asignacion-permisos.admi') --}}
+            @livewire('asignar-permisos')
         </div>
         <div x-show="tab === 'roles'">
             @livewire('asignacion-permisos.rol')
