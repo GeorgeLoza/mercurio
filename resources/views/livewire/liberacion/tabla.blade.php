@@ -86,18 +86,165 @@
                                     @foreach ($liberacion->detalles as $detalle)
                                         <tr
                                             class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                            <td class="p-1">{{ optional($detalle->origen)->alias }}</td>
+                                            <td class="p-1">
+                                                @if ($editing && $editing[0] == $detalle->id && $editing[1] == 'origen_id')
+                                                    <select wire:model="editedValue" wire:keydown.enter="saveCell"
+                                                        class="w-full">
+                                                        <!-- Opciones de orígenes -->
+                                                    </select>
+                                                @else
+                                                    <span
+                                                        wire:click="editCell({{ $detalle->id }}, 'origen_id', '{{ $detalle->origen_id }}')"
+                                                        class="cursor-pointer block w-full py-1 px-2">
+                                                        {{ optional($detalle->origen)->alias }}
+                                                    </span>
+                                                @endif
+                                            </td>
 
-                                            <td class="p-1">{{ $detalle->hora_sachet }}</td>
-                                            <td class="p-1">{{ $detalle->peso }}</td>
-                                            <td class="p-1">{{ $detalle->temperatura }}</td>
-                                            <td class="p-1">{{ $detalle->ph }}</td>
-                                            <td class="p-1">{{ $detalle->brix }}</td>
-                                            <td class="p-1">{{ $detalle->acidez }}</td>
-                                            <td class="p-1">{{ $detalle->viscosidad }}</td>
-                                            <td class="p-1">{{ $detalle->color }}</td>
-                                            <td class="p-1">{{ $detalle->olor }}</td>
-                                            <td class="p-1">{{ $detalle->sabor }}</td>
+                                            <!-- Hora -->
+                                            <td class="p-1">
+                                                @if ($editing && $editing[0] == $detalle->id && $editing[1] == 'hora_sachet')
+                                                    <input type="time" wire:model="editedValue"
+                                                        wire:keydown.enter="saveCell" class="w-full p-1 border rounded">
+                                                @else
+                                                    <span
+                                                        wire:click="editCell({{ $detalle->id }}, 'hora_sachet', '{{ $detalle->hora_sachet }}')"
+                                                        class="cursor-pointer block w-full py-1 px-2">
+                                                        {{ $detalle->hora_sachet }}
+                                                    </span>
+                                                @endif
+                                            </td>
+
+                                            <!-- Peso -->
+                                            <td class="p-1">
+                                                @if ($editing && $editing[0] == $detalle->id && $editing[1] == 'peso')
+                                                    <input type="number" step="0.01" wire:model="editedValue"
+                                                        wire:keydown.enter="saveCell" class="w-full p-1 border rounded">
+                                                @else
+                                                    <span
+                                                        wire:click="editCell({{ $detalle->id }}, 'peso', '{{ $detalle->peso }}')"
+                                                        class="cursor-pointer block w-full py-1 px-2">
+                                                        {{ $detalle->peso }}
+                                                    </span>
+                                                @endif
+                                            </td>
+
+                                            <!-- Temperatura -->
+                                            <td class="p-1">
+                                                @if ($editing && $editing[0] == $detalle->id && $editing[1] == 'temperatura')
+                                                    <input type="number" step="0.01" wire:model="editedValue"
+                                                        wire:keydown.enter="saveCell" class="w-full p-1 border rounded">
+                                                @else
+                                                    <span
+                                                        wire:click="editCell({{ $detalle->id }}, 'temperatura', '{{ $detalle->temperatura }}')"
+                                                        class="cursor-pointer block w-full py-1 px-2">
+                                                        {{ $detalle->temperatura }}
+                                                    </span>
+                                                @endif
+                                            </td>
+
+                                            <!-- pH -->
+                                            <td class="p-1">
+                                                @if ($editing && $editing[0] == $detalle->id && $editing[1] == 'ph')
+                                                    <input type="number" step="0.01" wire:model="editedValue"
+                                                        wire:keydown.enter="saveCell" class="w-full p-1 border rounded">
+                                                @else
+                                                    <span
+                                                        wire:click="editCell({{ $detalle->id }}, 'ph', '{{ $detalle->ph }}')"
+                                                        class="cursor-pointer block w-full py-1 px-2">
+                                                        {{ $detalle->ph }}
+                                                    </span>
+                                                @endif
+                                            </td>
+                                            <!-- Brix -->
+                                            <td class="p-1">
+                                                @if ($editing && $editing[0] == $detalle->id && $editing[1] == 'brix')
+                                                    <input type="number" step="0.01" wire:model="editedValue"
+                                                        wire:keydown.enter="saveCell" class="w-full p-1 border rounded">
+                                                @else
+                                                    <span
+                                                        wire:click="editCell({{ $detalle->id }}, 'brix', '{{ $detalle->brix }}')"
+                                                        class="cursor-pointer block w-full py-1 px-2">
+                                                        {{ $detalle->brix }}
+                                                    </span>
+                                                @endif
+                                            </td>
+                                            <!-- Acidez -->
+                                            <td class="p-1">
+                                                @if ($editing && $editing[0] == $detalle->id && $editing[1] == 'acidez')
+                                                    <input type="number" step="0.01" wire:model="editedValue"
+                                                        wire:keydown.enter="saveCell"
+                                                        class="w-full p-1 border rounded">
+                                                @else
+                                                    <span
+                                                        wire:click="editCell({{ $detalle->id }}, 'acidez', '{{ $detalle->acidez }}')"
+                                                        class="cursor-pointer block w-full py-1 px-2">
+                                                        {{ $detalle->acidez }}
+                                                    </span>
+                                                @endif
+                                            </td>
+                                            <!-- Viscosidad -->
+                                            <td class="p-1">
+                                                @if ($editing && $editing[0] == $detalle->id && $editing[1] == 'viscosidad')
+                                                    <input type="number" step="0.01" wire:model="editedValue"
+                                                        wire:keydown.enter="saveCell"
+                                                        class="w-full p-1 border rounded">
+                                                @else
+                                                    <span
+                                                        wire:click="editCell({{ $detalle->id }}, 'viscosidad', '{{ $detalle->viscosidad }}')"
+                                                        class="cursor-pointer block w-full py-1 px-2">
+                                                        {{ $detalle->viscosidad }}
+                                                    </span>
+                                                @endif
+                                            </td>
+                                            {{-- booleano para color --}}
+                                            <td class="p-1">
+                                                @if ($editing && $editing[0] == $detalle->id && $editing[1] == 'color')
+                                                    <select wire:model="editedValue" wire:keydown.enter="saveCell"
+                                                        class="w-full">
+                                                        <option value="1">Sí</option>
+                                                        <option value="0">No</option>
+                                                    </select>
+                                                @else
+                                                    <span
+                                                        wire:click="editCell({{ $detalle->id }}, 'color', '{{ $detalle->color }}')"
+                                                        class="cursor-pointer block w-full py-1 px-2">
+                                                        {{ $detalle->color ? 'Sí' : 'No' }}
+                                                    </span>
+                                                @endif
+                                            </td>
+                                            {{-- booleano para olor --}}
+                                            <td class="p-1">
+                                                @if ($editing && $editing[0] == $detalle->id && $editing[1] == 'olor')
+                                                    <select wire:model="editedValue" wire:keydown.enter="saveCell"
+                                                        class="w-full">
+                                                        <option value="1">Sí</option>
+                                                        <option value="0">No</option>
+                                                    </select>
+                                                @else
+                                                    <span
+                                                        wire:click="editCell({{ $detalle->id }}, 'olor', '{{ $detalle->olor }}')"
+                                                        class="cursor-pointer block w-full py-1 px-2">
+                                                        {{ $detalle->olor ? 'Sí' : 'No' }}
+                                                    </span>
+                                                @endif
+                                            </td>
+                                            {{-- booleano para sabor --}}
+                                            <td class="p-1">
+                                                @if ($editing && $editing[0] == $detalle->id && $editing[1] == 'sabor')
+                                                    <select wire:model="editedValue" wire:keydown.enter="saveCell"
+                                                        class="w-full">
+                                                        <option value="1">Sí</option>
+                                                        <option value="0">No</option>
+                                                    </select>
+                                                @else
+                                                    <span
+                                                        wire:click="editCell({{ $detalle->id }}, 'sabor', '{{ $detalle->sabor }}')"
+                                                        class="cursor-pointer block w-full py-1 px-2">
+                                                        {{ $detalle->sabor ? 'Sí' : 'No' }}
+                                                    </span>
+                                                @endif
+                                            </td>
                                             <td class="p-1">{{ $detalle->user->nombre }}</td>
                                             <td class="p-1">{{ $detalle->observaciones }}</td>
                                             <td class="p-1">
