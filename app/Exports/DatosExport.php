@@ -26,7 +26,8 @@ use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
                      'hora S' => $analisis->solicitudAnalisisLinea->tiempo,
                      'hora R' => $analisis->tiempo,
                      'ORP' => $detalle->orp->codigo,
-                     'CAT' => $detalle->orp->producto->categoriaProducto->grupo,
+                     'CAT' => optional($detalle->orp->producto->categoriaProducto)->grupo,
+                     'Categoria' => optional($detalle->orp->producto->categoriaProducto)->nombre,
                      'PT' => $detalle->orp->producto->codigo,
                      'Producto' => $detalle->orp->producto->nombre,
                      'preparacion' => $detalle->preparacion,
@@ -54,7 +55,7 @@ use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
      public function headings(): array
      {
          return [
-             'fecha', 'hora S', 'hora R', 'ORP', 'CAT', 'PT', 'Producto',
+             'fecha', 'hora S', 'hora R', 'ORP', 'CAT', 'Categoria', 'PT', 'Producto',
              'preparacion', 'origen', 'etapa', 't', 'ph', 'ac', 'brix',
              'vis', 'dens', 'c', 'o', 's','solicitante','analista'
          ];

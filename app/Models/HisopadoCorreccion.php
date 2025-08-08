@@ -18,4 +18,8 @@ class HisopadoCorreccion extends Model
     {
         return $this->belongsTo(Hisopado::class);
     }
+   public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

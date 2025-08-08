@@ -2,9 +2,6 @@
     <div class="flex h-[calc(100vh-20%)] ">
         <!-- Lado izquierdo -->
 
-
-
-
         <div
             class="w-2/3 bg-white dark:bg-slate-700 relative shadow-md sm:rounded-lg h-[calc(100vh-20%)] m-1  flex flex-col">
 
@@ -153,6 +150,7 @@
                             <tr>
                                 <th class="w-1/5">Codigo</th>
                                 <th>Nombre</th>
+                                <th>Supervisor</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -162,6 +160,8 @@
                                 <tr class="">
                                     <td class="px-2 py-1">{{ $personal->codigo }}</td>
                                     <td>{{ $personal->nombre }}</td>
+                                    <td>{{ optional(optional($personal->hisopados()->latest()->first())->hisopadoCorreccions[0]->user)->nombre }}
+</td>
                                     <td>
 
                                         @if ($personal->hisopado == 'Capacitado')

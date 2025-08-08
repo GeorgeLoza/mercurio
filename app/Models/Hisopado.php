@@ -31,25 +31,28 @@ class Hisopado extends Model
         return $this->belongsTo(Personal::class);
     }
 
-   public function usuarioMuestrero()
-{
-    return $this->belongsTo(User::class, 'muestrero');
-}
-   public function Lectura()
-{
-    return $this->belongsTo(User::class, 'usuarioLectura');
-}
-   public function Siembra()
-{
-    return $this->belongsTo(User::class, 'usuarioSiembra');
-}
-  public function observacionLectura()
-{
-    return $this->belongsTo(User::class, 'usuarioObservacionesLectura');
-}
-   public function observacionSiembra()
-{
-    return $this->belongsTo(User::class, 'usuarioObservacionesSiembra');
-}
-
+    public function hisopadoCorreccions()
+    {
+        return $this->hasMany(HisopadoCorreccion::class);
+    }
+    public function usuarioMuestrero()
+    {
+        return $this->belongsTo(User::class, 'muestrero');
+    }
+    public function Lectura()
+    {
+        return $this->belongsTo(User::class, 'usuarioLectura');
+    }
+    public function Siembra()
+    {
+        return $this->belongsTo(User::class, 'usuarioSiembra');
+    }
+    public function observacionLectura()
+    {
+        return $this->belongsTo(User::class, 'usuarioObservacionesLectura');
+    }
+    public function observacionSiembra()
+    {
+        return $this->belongsTo(User::class, 'usuarioObservacionesSiembra');
+    }
 }

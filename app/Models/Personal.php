@@ -17,5 +17,9 @@ class Personal extends Model
         'area',
     ];
 
+    public function hisopados()
+    {
+        return $this->hasMany(Hisopado::class);
+    }
 
 }

@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('proveedor_materia_primas', function (Blueprint $table) {
+        Schema::create('almacenero_materia_primas', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('descripcion')->nullable();
-            $table->foreignId('categoria_materia_prima_id')->constrained();
-
-
             $table->timestamps();
         });
     }
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('proveedor_materia_primas');
+        Schema::dropIfExists('almacenero_materia_primas');
     }
 };

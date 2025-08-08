@@ -69,6 +69,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware(['role.permission:5,2'])->group(function () {
         Route::get('/general', [GeneralController::class, 'index'])->name('general.index');
+        Route::get('/asignacionPermisos', [UsuarioController::class, 'asignacionPermisos'])->name('asignacionPermisos.index');
     });
 
     Route::get('/usuario/perfil', [UsuarioController::class, 'perfil'])->name('usuario.perfil');
@@ -207,13 +208,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/seguimientoHtst', [SeguimientoHtstController::class, 'index'])->name('seguimientoHtst.index');
     });
 
-    Route::middleware(['role.permission:2,2'])->group(function () {
+
+
+
+    Route::middleware(['role.permission:38,2'])->group(function () {
         Route::get('/dispositivosMedicion', [DispositivosMedicionController::class, 'index'])->name('dispositivosMedicion.index');
+        Route::get('/verificacionAjuste', [VerificacionDispositivoController::class, 'index'])->name('VerificacionAjuste.index');
     });
 
-    Route::get('/verificacionAjuste', [VerificacionDispositivoController::class, 'index'])->name('VerificacionAjuste.index');
-
-    Route::get('/asignacionPermisos', [UsuarioController::class, 'asignacionPermisos'])->name('asignacionPermisos.index');
 
 
     /*Rutas de salida login */
@@ -234,7 +236,7 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::middleware(['role.permission:35,2'])->group(function () {
-        Route::get('/recepcionMateriaPrima', [RecepcionMateriaPrimaController::class, 'index'])->name('tabla.index');
+        Route::get('/recepcionMateriaPrima', [RecepcionMateriaPrimaController::class, 'index'])->name('recepcionMP.index');
     });
 
 
@@ -248,8 +250,6 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['role.permission:37,2'])->group(function () {
         Route::get('/liberacion', [LiberacionController::class, 'index'])->name('liberacion.index');
     });
-
-
 });
 
 

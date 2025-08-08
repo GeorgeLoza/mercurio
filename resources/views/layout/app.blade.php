@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ asset('build/assets/app-da32ce76.css') }}">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-114a1ab6.css ') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-db485d46.css') }}">
 
     <script src="{{ asset('build/assets/app-56df689c.js') }}" defer></script>
     <script src="{{ asset('js/app.js') }}"></script>
@@ -938,6 +938,47 @@
 
                             <span class="ms-3">Liberacion</span>
                         </a>
+                    </li>
+                @endif
+
+
+
+
+                 <!--materia prima-->
+                @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 35)->where('permiso_id', 2)->isNotEmpty())
+
+                    <li>
+                        <button type="button"
+                            class="flex items-center w-full p-2 text-xs text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                            aria-controls="dropdown-mp" data-collapse-toggle="dropdown-mp">
+
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="w-4 h-4 fill-gray-500 transition duration-75 dark:fill-gray-400 group-hover:fill-gray-900 dark:group-hover:fill-white"
+                                viewBox="0 0 640 512">
+
+                                <path d="M288 64L288 128C288 136.8 295.2 144 304 144L336 144C344.8 144 352 136.8 352 128L352 64L384 64C419.3 64 448 92.7 448 128L448 256C448 261.5 447.3 266.9 446 272L194 272C192.7 266.9 192 261.5 192 256L192 128C192 92.7 220.7 64 256 64L288 64zM384 576C372.8 576 362.2 573.1 353 568C362.5 551.5 368 532.4 368 512L368 384C368 363.6 362.5 344.5 353 328C362.2 322.9 372.7 320 384 320L416 320L416 384C416 392.8 423.2 400 432 400L464 400C472.8 400 480 392.8 480 384L480 320L512 320C547.3 320 576 348.7 576 384L576 512C576 547.3 547.3 576 512 576L384 576zM64 384C64 348.7 92.7 320 128 320L160 320L160 384C160 392.8 167.2 400 176 400L208 400C216.8 400 224 392.8 224 384L224 320L256 320C291.3 320 320 348.7 320 384L320 512C320 547.3 291.3 576 256 576L128 576C92.7 576 64 547.3 64 512L64 384z" />
+                            </svg>
+
+
+                            <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Materia Prima</span>
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 4 4 4-4" />
+                            </svg>
+                        </button>
+
+                        <ul id="dropdown-mp" class="hidden py-2 space-y-2">
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 35)->where('permiso_id', 2)->isNotEmpty())
+                                <li>
+                                    <a href="{{ route('recepcionMP.index') }}"
+                                        class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                                        Recepción de Materia Prima</a>
+                                </li>
+                            @endif
+
+
+                        </ul>
                     </li>
                 @endif
 

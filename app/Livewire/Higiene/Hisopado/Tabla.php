@@ -5,9 +5,12 @@ namespace App\Livewire\Higiene\Hisopado;
 use App\Models\Hisopado;
 use App\Models\HisopadoCorreccion;
 use App\Models\Personal;
+use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\App;
 use Livewire\WithPagination;
 
 class Tabla extends Component
@@ -17,6 +20,10 @@ class Tabla extends Component
     public $f_codigo = null;
     public $f_nombre = null;
     public $f_turno = null;
+    public $fechaInicio;
+    public $fechaFin;
+
+    public $usuariosInvolucrados = [];
 
     public $filtro = false;
     #[On('actualizar_tabla_hisopado')]
@@ -63,6 +70,8 @@ class Tabla extends Component
         Hisopado::create([
             'personal_id' => $id,
             'fechaMuestra' => now(),
+            'fechaSiembra' => now(),
+            'usuarioSiembra' => auth()->user()->id,
             'muestrero' => auth()->user()->id,
         ]);
         $personal = Personal::find($id);
@@ -145,4 +154,69 @@ class Tabla extends Component
     {
         $this->filtro = !$this->filtro;
     }
+
+     public function generatePDFHisopados()
+    {
+
+        $this->validate([
+            'fechaInicio' => 'required|date',
+            'fechaFin' => 'required|date|after_or_equal:fechaInicio',
+        ]);
+
+        return response()->streamDownload(
+            function () {
+
+                $fechaInicio = Carbon::parse($this->fechaInicio)->startOfDay();
+                $fechaFin = Carbon::parse($this->fechaFin)->endOfDay();
+
+                // Consultar registros basados en el rango de fechas y la ruta seleccionada
+                $query = Hisopado::query()
+                    ->whereBetween('tiempo', [$fechaInicio, $fechaFin]);
+
+
+
+
+
+
+
+
+
+                $analistasidfq = $query->get()->pluck('user_id')
+                    ->unique();
+
+
+
+
+
+                $allUserIds = $analistasidfq
+
+                    ->unique();
+
+
+                $this->usuariosInvolucrados = User::whereIn('id', $allUserIds)->get();
+
+
+
+
+
+
+
+
+                $usuariosInvolucrados = $this->usuariosInvolucrados;
+
+                $variable = $query->get();
+                $pdf = App::make('dompdf.wrapper');
+                $pdf = Pdf::loadView('pdf.reportes.hisopado', compact(['variable', 'usuariosInvolucrados', 'fechaInicio', 'fechaFin']));
+                $pdf->setPaper('letter', 'landscape');
+
+                echo $pdf->stream();
+
+
+
+            },
+            "{$this->fechaInicio}_a_{$this->fechaFin}.pdf"
+        );
+
+    }
+
 }

@@ -1,214 +1,215 @@
-<div>
+<div class="p-4 md:p-6 bg-white dark:bg-gray-900 rounded-lg shadow-lg space-y-4">
 
-    <div>
+    <!-- Título -->
+    <h2 class="text-xl md:text-2xl text-gray-800 dark:text-gray-200 font-bold text-center">
+        Nueva Recepción de Materia Prima
+    </h2>
 
-        <h2 class="text-2xl mb-4 text-gray-800 dark:text-gray-200 font-bold  text-center ">
-            Nueva Recepción de Materia Prima
-        </h2>
-
-
-    </div>
-
-    <div class="flex gap-2">
-
-        <div class="mb-2">
-            <label for="categoria" class="block text-sm font-medium">Categoria</label>
-            <select wire:model.live="categoria" id="categoria" class="w-full border border-gray-500 rounded p-2">
-                <option class="dark:bg-slate-800" value="">Seleccione una categoria</option>
-
-                <option class="dark:bg-slate-800" value="1"> categoria
-                </option>
-
+    <!-- CATEGORÍA & MATERIA PRIMA -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div>
+            <label for="categoria" class="block text-xs md:text-sm font-semibold mb-1 text-gray-700 dark:text-gray-300">
+                Categoría
+            </label>
+            <select wire:model.live="categoria" id="categoria"
+                class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm dark:bg-slate-800 focus:ring focus:ring-blue-300">
+                <option value="">Seleccione una categoría</option>
+                @foreach ($categorias as $categoria)
+                    <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
+                @endforeach
             </select>
             @error('categoria')
-                <span class="text-red-500 text-sm">{{ $message }}</span>
-            @enderror
-        </div>
-        <div class="mb-2 w-full">
-            <label for="item" class="block text-sm font-medium">Materia Prima</label>
-            <select wire:model.live="item" id="item" class="w-full border border-gray-500 rounded p-2">
-                <option class="dark:bg-slate-800" value="">Seleccione una MP</option>
-
-                <option class="dark:bg-slate-800" value="1"> Materia Prima
-                </option>
-
-            </select>
-            @error('item')
-                <span class="text-red-500 text-sm">{{ $message }}</span>
-            @enderror
-        </div>
-    </div>
-
-
-    <div class="flex gap-2">
-        <div>
-            <label class="block text-sm font-medium  ">Unidades</label>
-            <input wire:model="undiades" type="number" min="0"
-                class="w-full border rounded p-2 mb-2 dark:bg-slate-800 border-gray-500">
-            @error('unidades')
-                <span class="text-red-500 text-sm">{{ $message }}</span>
+                <span class="text-red-500 text-xs">{{ $message }}</span>
             @enderror
         </div>
 
         <div>
-            <label class="block text-sm font-medium  ">Cantidad</label>
-            <input wire:model="cantidad" type="number" min="0"
-                class="w-full border rounded p-2 mb-2 dark:bg-slate-800 border-gray-500">
-            @error('cantidad')
-                <span class="text-red-500 text-sm">{{ $message }}</span>
-            @enderror
+            <label for="item" class="block text-xs md:text-sm font-semibold mb-1 text-gray-700 dark:text-gray-300">
+                Materia Prima
+            </label>
+            <div class="flex items- space-x-2">
+
+
+                <select wire:model.live="item" id="item"
+                    class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm dark:bg-slate-800 focus:ring focus:ring-blue-300">
+                    <option value="">Seleccione una Materia Prima</option>
+                    @foreach ($items as $item)
+                        <option value="{{ $item->id }}">{{ $item->descripcion }}</option>
+                    @endforeach
+                </select>
+                @error('item')
+                    <span class="text-red-500 text-xs">{{ $message }}</span>
+                @enderror
+
+                <button class="bg-green-500 rounded-md text-white  py-1.5 px-2 text-lg mb-2"
+                    onclick="Livewire.dispatch('openModal', { component: 'materiaPrima.items.crear' })">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-5 fill-white" viewBox="0 0 448 512">
+                        <path
+                            d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+                    </svg>
+                </button>
+            </div>
         </div>
+
+
     </div>
-    <div class="flex gap-2">
 
-        <div class="mb-2">
-            <label for="proveedor" class="block text-sm font-medium ">Proveedores</label>
-            <select wire:model.live="proveedor" id="proveedor" class="w-full border border-gray-500 rounded p-2">
-                <option class="dark:bg-slate-800" value="">Seleccione Proveedor</option>
+    <!-- DATOS BÁSICOS -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        @foreach (['unidad' => 'Unidades', 'cantidad' => 'Cantidad', 'marca' => 'Marca', 'lote' => 'Lote'] as $field => $label)
+            <div>
+                <label class="block text-xs md:text-sm font-semibold mb-1">{{ $label }}</label>
+                <input wire:model="{{ $field }}"
+                    type="{{ in_array($field, ['marca', 'lote']) ? 'text' : 'number' }}"
+                    class="w-full border rounded px-2 py-1.5 text-sm dark:bg-slate-800 border-gray-300 focus:ring focus:ring-blue-300">
+                @error($field)
+                    <span class="text-red-500 text-xs">{{ $message }}</span>
+                @enderror
+            </div>
+        @endforeach
+    </div>
 
-                <option class="dark:bg-slate-800" value="1"> Ubicacion 1
-                </option>
+    <!-- PROVEEDOR / UBICACIÓN / ALMACENERO -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <!-- Proveedor -->
+        <div class="flex items-end">
+            <div>
 
-            </select>
-            @error('proveedor')
-                <span class="text-red-500 text-sm">{{ $message }}</span>
-            @enderror
+                <label for="proveedor" class="block text-xs md:text-sm font-semibold mb-1">Proveedor</label>
+                <select wire:model.live="proveedor" id="proveedor"
+                    class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm dark:bg-slate-800 focus:ring focus:ring-blue-300">
+                    <option value="">Seleccione Proveedor</option>
+                    @foreach ($proveedores as $proveedor)
+                        <option value="{{ $proveedor->id }}">{{ $proveedor->nombre }}</option>
+                    @endforeach
+                </select>
+                @error('proveedor')
+                    <span class="text-red-500 text-xs">{{ $message }}</span>
+                @enderror
+
+            </div>
+            <div>
+                <button class="bg-green-500 rounded-md text-white  py-1.5 px-2 text-lg ml-1"
+                    onclick="Livewire.dispatch('openModal', { component: 'materiaPrima.proveedor.crear' })">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-5 fill-white" viewBox="0 0 448 512">
+                        <path
+                            d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+                    </svg>
+                </button>
+            </div>
         </div>
+
+        <!-- Ubicación -->
         <div>
-            <label class="block text-sm font-medium  ">Marca</label>
-            <input wire:model="marca" type="text" min="0"
-                class="w-full border rounded p-2 mb-2 dark:bg-slate-800 border-gray-500">
-            @error('marca')
-                <span class="text-red-500 text-sm">{{ $message }}</span>
-            @enderror
-        </div>
-
-        <div>
-        <label class="block text-sm font-medium  ">Lote</label>
-        <input wire:model="lote" type="number" min="0"
-            class="w-full border rounded p-2 mb-2 dark:bg-slate-800 border-gray-500">
-        @error('lote')
-            <span class="text-red-500 text-sm">{{ $message }}</span>
-        @enderror
-    </div>
-    </div>
-
-
-    <div class="flex gap-2">
-        <div class="mb-2">
-            <label for="ubicacion" class="block text-sm font-medium">Ubicacion</label>
-            <select wire:model.live="ubicacion" id="ubicacion" class="w-full border border-gray-500 rounded p-2">
-                <option class="dark:bg-slate-800" value="">Seleccione una Ubicacion</option>
-
-                <option class="dark:bg-slate-800" value="1"> Ubicacion 1
-                </option>
-
+            <label for="ubicacion" class="block text-xs md:text-sm font-semibold mb-1">Ubicación</label>
+            <select wire:model.live="ubicacion" id="ubicacion"
+                class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm dark:bg-slate-800 focus:ring focus:ring-blue-300">
+                <option value="">Seleccione Ubicación</option>
+                <option value="SOALPRO">SOALPRO</option>
+                <option value="CARSA">CARSA</option>
+                <option value="CASCADA">CASCADA</option>
             </select>
             @error('ubicacion')
-                <span class="text-red-500 text-sm">{{ $message }}</span>
+                <span class="text-red-500 text-xs">{{ $message }}</span>
             @enderror
         </div>
-        <div class="mb-2">
-            <label for="almacenero" class="block text-sm font-medium">Alacenero</label>
-            <select wire:model.live="almacenero" id="almacenero" class="w-full border border-gray-500 rounded p-2">
-                <option class="dark:bg-slate-800" value="">Seleccione una Almacenero</option>
 
-                <option class="dark:bg-slate-800" value="1"> almacenero
-                </option>
-
-            </select>
-            @error('item')
-                <span class="text-red-500 text-sm">{{ $message }}</span>
-            @enderror
+        <!-- Almacenero -->
+        <div class="flex items-end">
+            <div >
+                <label for="almacenero" class="block text-xs md:text-sm font-semibold mb-1">Almacenero</label>
+                <select wire:model.live="almacenero" id="almacenero"
+                    class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm dark:bg-slate-800 focus:ring focus:ring-blue-300">
+                    <option value="">Seleccione Almacenero</option>
+                    @foreach ($almaceneros as $almacenero)
+                        <option value="{{ $almacenero->id }}">{{ $almacenero->nombre }}</option>
+                    @endforeach
+                </select>
+                @error('almacenero')
+                    <span class="text-red-500 text-xs">{{ $message }}</span>
+                @enderror
+            </div>
+            <div>
+                <button class="bg-green-500 rounded-md text-white  py-1.5 px-2 text-lg ml-1"
+                    onclick="Livewire.dispatch('openModal', { component: 'materiaPrima.almacenero.crear' })">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-5 fill-white" viewBox="0 0 448 512">
+                        <path
+                            d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+                    </svg>
+                </button>
+            </div>
         </div>
 
 
 
     </div>
 
-    <div class="w-full flex  gap-2 justify-around ">
+
+    <!-- FECHAS -->
+    <div class="grid grid-cols-2 md:grid-cols-2 gap-3">
         <div>
-            <p>Fecha De Elaboracion</p>
-            <input type="date" wire:model="fechaElaboracion" class="border rounded p-1  dark:bg-slate-800" />
+            <label class="block text-xs md:text-sm font-semibold mb-1">F. Elaboración</label>
+            <input type="date" wire:model="fechaElaboracion"
+                class="w-full border rounded px-2 py-1.5 text-sm dark:bg-slate-800 border-gray-300 focus:ring focus:ring-blue-300" />
             @error('fechaElaboracion')
-                <p class="text-red-500">Debe colocar una fecha</p>
+                <p class="text-red-500 text-xs">Debe colocar una fecha</p>
             @enderror
         </div>
+
         <div>
-            <p>Fecha De Vencimiento</p>
-            <input type="date" wire:model="fechaVencimiento" class="border rounded p-1 dark:bg-slate-800" />
+            <label class="block text-xs md:text-sm font-semibold mb-1">F. Vencimiento</label>
+            <input type="date" wire:model="fechaVencimiento"
+                class="w-full border rounded px-2 py-1.5 text-sm dark:bg-slate-800 border-gray-300 focus:ring focus:ring-blue-300" />
             @error('fechaVencimiento')
-                <p class="text-red-500">Debe colocar una fecha</p>
+                <p class="text-red-500 text-xs">Debe colocar una fecha</p>
             @enderror
         </div>
-
-    </div>
-<div class="grid grid-cols-2 gap-2  m-2  ">
-
-    <div class="flex items-center">
-        <input id="limpiezaTransporte" wire:model="limpiezaTransporte" type="checkbox"
-            class=" w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-        <label for="limpiezaTransporte" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Limpieza de
-            Transporte </label>
-    </div>
-    <div class="flex items-center">
-        <input id="sinElementos" wire:model="sinElementos" type="checkbox"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-        <label for="sinElementos" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sin Elementos
-            Extraños </label>
-    </div>
-    <div class="flex items-center">
-        <input id="cerrado" wire:model="cerrado" type="checkbox"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-        <label for="cerrado" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Cerrado</label>
-    </div>
-    <div class="flex items-center">
-        <input id="nit" wire:model="nit" type="checkbox"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-        <label for="nit" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">NIT</label>
-    </div>
-    <div class="flex items-center">
-        <input id="rs" wire:model="rs" type="checkbox"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-        <label for="rs" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">RS</label>
-
-    </div>
-    <div class="flex items-center">
-        <input id="certificado" wire:model="certificado" type="checkbox"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-        <label for="certificado" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Certificado</label>
-
     </div>
 
-</div>
-
-
-    <div>
-        <label class="block text-sm font-medium  ">Observaciones</label>
-        <input wire:model="observacion" type="text"
-            class="w-full border rounded p-2 mb-2 dark:bg-slate-800 border-gray-500">
-        @error('observacion')
-            <span class="text-red-500 text-sm">{{ $message }}</span>
-        @enderror
+    <!-- CHECKBOXES -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+        @foreach (['limpiezaTransporte' => 'Limp. Trans.', 'sinElementos' => 'Sin Elem. Ext.', 'cerrado' => 'Cerrado', 'nit' => 'NIT', 'rs' => 'RS', 'certificado' => 'Certificado'] as $key => $label)
+            <label class="flex items-center text-xs md:text-sm space-x-2">
+                <input id="{{ $key }}" wire:model.live="{{ $key }}" type="checkbox"
+                    class="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500">
+                <span>{{ $label }}</span>
+            </label>
+        @endforeach
     </div>
 
-    <div>
-        <label class="block text-sm font-medium  ">Correcciones</label>
-        <input wire:model="correccion" type="text"
-            class="w-full border rounded p-2 mb-2 dark:bg-slate-800 border-gray-500">
-        @error('correccion')
-            <span class="text-red-500 text-sm">{{ $message }}</span>
-        @enderror
-    </div>
-    <div class="flex justify-end space-x-2 mt-4">
-        <button wire:click="guardar" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+    <!-- OBSERVACIONES & CORRECCIONES -->
+    @foreach (['observacion' => 'Observaciones', 'correccion' => 'Correcciones'] as $field => $label)
+        <div>
+            <label class="block text-xs md:text-sm font-semibold mb-1">{{ $label }}</label>
+            <input wire:model="{{ $field }}" type="text"
+                class="w-full border rounded px-2 py-1.5 text-sm dark:bg-slate-800 border-gray-300 focus:ring focus:ring-blue-300">
+            @error($field)
+                <span class="text-red-500 text-xs">{{ $message }}</span>
+            @enderror
+        </div>
+    @endforeach
+
+    @if ($certificado != false)
+        <div>
+            <label class="block text-xs md:text-sm font-semibold mb-1">Código de Certificado</label>
+            <input wire:model="codigo_certificado" type="text"
+                class="w-full border rounded px-2 py-1.5 text-sm dark:bg-slate-800 border-gray-300 focus:ring focus:ring-blue-300">
+            @error('codigo_certificado')
+                <span class="text-red-500 text-xs">{{ $message }}</span>
+            @enderror
+        </div>
+    @endif
+
+    <!-- BOTONES -->
+    <div class="flex justify-end space-x-2 pt-4 border-t border-gray-300">
+        <button wire:click="guardar"
+            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm md:text-base shadow transition">
             Guardar
         </button>
-        <button wire:click="$dispatch('closeModal')" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">
+        <button wire:click="$dispatch('closeModal')"
+            class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded text-sm md:text-base shadow transition">
             Cancelar
         </button>
-
     </div>
-
 
 </div>
