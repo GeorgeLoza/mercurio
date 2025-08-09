@@ -6,12 +6,17 @@ use App\Exports\MicrobiologiaHtst;
 use App\Models\DestinoProducto;
 use App\Models\Orp;
 use App\Models\SeguimientoHtst;
+use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\App;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Models\Orp as ModelsOrp;
 
 use Maatwebsite\Excel\Facades\Excel;
+
 class Tabla extends Component
 {
 
@@ -21,6 +26,7 @@ class Tabla extends Component
     public $fechaSiembra;
     public $destinoProductos;
 
+    public $usuariosInvolucrados;
     public $f_orp = null;
     public $f_prod = null;
     public $f_cabezal = null;
@@ -43,6 +49,12 @@ class Tabla extends Component
     public $fechaInicio;
     public $fechaFin;
 
+
+    public $buscar_orp = '';
+    public $orp_id;
+    public $orps;
+
+
     public function show_filtro()
     {
         $this->filtro = !$this->filtro;
@@ -60,6 +72,21 @@ class Tabla extends Component
     #[On('actualizar_tabla_seguimiento_htst')]
     public function render()
     {
+
+        $this->orps = ModelsOrp::whereHas('producto.categoriaProducto', function ($query) {
+            $query->where('grupo', 'HTST');
+        })
+
+            ->whereDate('created_at', '>=', Carbon::parse('2025-03-23'))
+            ->when($this->buscar_orp, function ($query) {
+                $query->where('codigo', 'like', '%' . $this->buscar_orp . '%');
+            })
+            ->orderBy('id', 'desc')
+            ->get();
+
+
+
+
         $this->destinoProductos = DestinoProducto::all();
         $seguimientos = SeguimientoHtst::orderBy('id', 'desc')
             ->when(!empty($this->f_orp), function ($query) {
@@ -250,9 +277,9 @@ class Tabla extends Component
     {
         try {
             $microbiologia = SeguimientoHtst::find($id);
-               $microbiologia->rt = 0;
+            $microbiologia->rt = 0;
 
-               $microbiologia->col = 0;
+            $microbiologia->col = 0;
 
 
 
@@ -271,7 +298,7 @@ class Tabla extends Component
             $microbiologia = SeguimientoHtst::find($id);
             $microbiologia->moho = 0;
 
-             $microbiologia->usuario_dia5 = auth()->user()->id;
+            $microbiologia->usuario_dia5 = auth()->user()->id;
 
             $microbiologia->save();
 
@@ -313,94 +340,94 @@ class Tabla extends Component
 
 
 
+    public function generatePDFSeguimientoHTST()
+    {
 
-    // public function generatePDF6()
-    // {
+        $this->validate([
+            'fechaInicio' => 'required|date',
+            'fechaFin' => 'required|date|after_or_equal:fechaInicio',
+        ]);
 
-    //     $this->validate([
-    //         'fechaInicio' => 'required|date',
-    //         'fechaFin' => 'required|date|after_or_equal:fechaInicio',
-    //     ]);
+        return response()->streamDownload(
+            function () {
 
-    //     return response()->streamDownload(
-    //         function () {
+                $fechaInicio = Carbon::parse($this->fechaInicio)->startOfDay();
+                $fechaFin = Carbon::parse($this->fechaFin)->endOfDay();
 
-    //             $fechaInicio = Carbon::parse($this->fechaInicio)->startOfDay();
-    //             $fechaFin = Carbon::parse($this->fechaFin)->endOfDay();
+                // Consultar registros basados en el rango de fechas y la ruta seleccionada
+                $query = SeguimientoHtst::query()
+                    ->whereBetween('tiempo', [$fechaInicio, $fechaFin]);
 
-    //             // Consultar registros basados en el rango de fechas y la ruta seleccionada
-    //             $query = CalidadLeche::query()
-    //                 ->whereBetween('tiempo', [$fechaInicio, $fechaFin]);
+                $analistamuestra = $query->get()->pluck('usuario_siembra')
+                    ->unique();
 
-    //             if ($this->ruta) {
-    //                 $query->whereHas('recepcion_leche.subruta_acopio.ruta_acopio', function ($subQuery) {
-    //                     $subQuery->where('nombre', $this->ruta);
-    //                 });
-    //             }
+                $analistasiembra = $query->get()->pluck('usuario_dia2')
+                    ->unique();
+                $analistalectura = $query->get()->pluck('usuario_dia5')
+                    ->unique();
 
+                $allUserIds = $analistamuestra
+                    ->merge($analistasiembra)
+                    ->merge($analistalectura)
+                    ->unique();
 
-    //             $query2 = RecepcionLeche::query()
-    //                 ->whereBetween('tiempo', [$fechaInicio, $fechaFin])
-    //                 ->whereHas('calidad_leche', function ($query) {
-    //                     $query->whereNot('user_id',NULL);
-    //                 });
-    //             if ($this->ruta) {
-    //                 $query2->whereHas('subruta_acopio.ruta_acopio', function ($subQuery) {
-    //                     $subQuery->where('nombre', $this->ruta);
-    //                 });
-    //             }
+                $this->usuariosInvolucrados = User::whereIn('id', $allUserIds)->get();
 
+                $usuariosInvolucrados = $this->usuariosInvolucrados;
 
+                $variable = $query->get();
+                $pdf = App::make('dompdf.wrapper');
+                $pdf = Pdf::loadView('pdf.reportes.seguimientoHTST', compact(['variable', 'usuariosInvolucrados', 'fechaInicio', 'fechaFin']));
+                $pdf->setPaper('letter', 'landscape');
 
+                echo $pdf->stream();
+            },
+            "seguimientoHTST{$this->fechaInicio}_a_{$this->fechaFin}.pdf"
+        );
+    }
 
-    //             $analistasidfq = $query->get()->pluck('user_id')
-    //                 ->unique();
+    public function generatePDFSeguimientoHTSTORP()
+    {
 
-    //                 $analistasidlec = $query->get()->pluck('usuarioTram')
-    //                 ->unique();
-    //                 $analistasidsi = $query->get()->pluck('usuarioSiembra')
-    //                 ->unique();
-    //                 $analistasidtr = $query->get()->pluck('usuarioLectura')
-    //                 ->unique();
+        $this->validate([
+            'orp_id' => 'required',
+         ]);
 
-    //             $solicitantesid = $query2->get()->pluck('user_id')
-    //                 ->unique();
+        return response()->streamDownload(
+            function () {
+                $orps = ModelsOrp::findOrFail($this->orp_id);
 
-    //             $allUserIds = $analistasidfq
-    //                 ->merge($solicitantesid)
-    //                 ->merge($analistasidlec)
-    //                 ->merge($analistasidsi)
-    //                 ->merge($analistasidtr)
-    //                 ->unique();
+                // Consultar registros basados en el rango de fechas y la ruta seleccionada
 
-
-    //             $this->usuariosInvolucrados = User::whereIn('id', $allUserIds)->get();
-
-
-    //             $this->analistasInvolucrados = User::whereIn('id', $analistasidfq)->get();
-    //             $this->solicitantesInvolucrados = User::whereIn('id', $solicitantesid)->get();
+                $query =  SeguimientoHtst::with(['origen'])
+                    ->where('orp_id', (int) $this->orp_id);
 
 
+                $analistamuestra = $query->get()->pluck('usuario_siembra')
+                    ->unique();
 
+                $analistasiembra = $query->get()->pluck('usuario_dia2')
+                    ->unique();
+                $analistalectura = $query->get()->pluck('usuario_dia5')
+                    ->unique();
 
+                $allUserIds = $analistamuestra
+                    ->merge($analistasiembra)
+                    ->merge($analistalectura)
+                    ->unique();
 
+                $this->usuariosInvolucrados = User::whereIn('id', $allUserIds)->get();
 
-    //             $usuariosInvolucrados = $this->usuariosInvolucrados;
-    //             $analistasInvolucrados = $this->analistasInvolucrados;
-    //             $solicitantesInvolucrados = $this->solicitantesInvolucrados;
+                $usuariosInvolucrados = $this->usuariosInvolucrados;
 
-    //             $variable = $query->get();
-    //             $pdf = App::make('dompdf.wrapper');
-    //             $pdf = Pdf::loadView('pdf.reportes.analisisLeche', compact(['variable', 'usuariosInvolucrados', 'fechaInicio', 'fechaFin', 'analistasInvolucrados', 'solicitantesInvolucrados']));
-    //             $pdf->setPaper('letter', 'landscape');
+                $variable = $query->get();
+                $pdf = App::make('dompdf.wrapper');
+                $pdf = Pdf::loadView('pdf.reportes.seguimientoHTSTORP', compact(['variable', 'usuariosInvolucrados']));
+                $pdf->setPaper('letter', 'landscape');
 
-    //             echo $pdf->stream();
-
-
-
-    //         },
-    //         "{$this->fechaInicio}_a_{$this->fechaFin}.pdf"
-    //     );
-
-    // }
+                echo $pdf->stream();
+            },
+            "seguimientoHTST{$this->fechaInicio}_a_{$this->fechaFin}.pdf"
+        );
+    }
 }

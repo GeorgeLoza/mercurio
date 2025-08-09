@@ -114,7 +114,7 @@
                             text-red-500 @endif">
                             <span class="uppercase font-bold">
 
-                                {{ $recepcion->almacenero }}
+                                {{ $recepcion->almacenero ?? '' }}
                             </span>
                             @if ($recepcion->almacenero == 'Pendiente')
                                 <button wire:click="aceptado({{ $recepcion->id }})"
@@ -171,4 +171,9 @@
             </tbody>
         </table>
     </div>
+
+
+
+
+
 </div>

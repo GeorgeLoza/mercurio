@@ -155,7 +155,7 @@ class Tabla extends Component
         $this->filtro = !$this->filtro;
     }
 
-     public function generatePDFHisopados()
+    public function generatePDFHisopados()
     {
 
         $this->validate([
@@ -171,7 +171,7 @@ class Tabla extends Component
 
                 // Consultar registros basados en el rango de fechas y la ruta seleccionada
                 $query = Hisopado::query()
-                    ->whereBetween('tiempo', [$fechaInicio, $fechaFin]);
+                    ->whereBetween('fechaMuestra', [$fechaInicio, $fechaFin]);
 
 
 
@@ -181,14 +181,19 @@ class Tabla extends Component
 
 
 
-                $analistasidfq = $query->get()->pluck('user_id')
+                $analistamuestra = $query->get()->pluck('muestrero')
+                    ->unique();
+
+                $analistasiembra = $query->get()->pluck('usuarioSiembra')
+                    ->unique();
+                $analistalectura = $query->get()->pluck('usuarioLectura')
                     ->unique();
 
 
 
-
-
-                $allUserIds = $analistasidfq
+                $allUserIds = $analistamuestra
+                    ->merge($analistasiembra)
+                    ->merge($analistalectura)
 
                     ->unique();
 
@@ -207,16 +212,11 @@ class Tabla extends Component
                 $variable = $query->get();
                 $pdf = App::make('dompdf.wrapper');
                 $pdf = Pdf::loadView('pdf.reportes.hisopado', compact(['variable', 'usuariosInvolucrados', 'fechaInicio', 'fechaFin']));
-                $pdf->setPaper('letter', 'landscape');
+                $pdf->setPaper('letter', 'portrait');
 
                 echo $pdf->stream();
-
-
-
             },
-            "{$this->fechaInicio}_a_{$this->fechaFin}.pdf"
+            "hisopados_{$this->fechaInicio}_a_{$this->fechaFin}.pdf"
         );
-
     }
-
 }
