@@ -3,6 +3,7 @@
 namespace App\Livewire\DispositivoPhmetro;
 
 use App\Models\DispositivoPhmetro;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -30,6 +31,20 @@ class Tabla extends Component
         return view('livewire.dispositivo-phmetro.tabla', [
             'phmetros' => $phmetros,
         ]);
+    }
+    
+    public function pdf()
+    {
+        $phmetros = DispositivoPhmetro::all();
+
+        return response()->streamDownload(
+            function () use ($phmetros) {
+                $pdf = Pdf::loadView('pdf.reportes.phmetro', compact('phmetros'));
+                $pdf->setPaper('letter', 'portrait');
+                echo $pdf->stream();
+            },
+            'phmetroReporte.pdf'
+        );
     }
     
 }

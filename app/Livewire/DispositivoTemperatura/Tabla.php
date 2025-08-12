@@ -3,6 +3,7 @@
 namespace App\Livewire\DispositivoTemperatura;
 
 use App\Models\DispositivoTemperatura;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -30,5 +31,19 @@ class Tabla extends Component
         return view('livewire.dispositivo-temperatura.tabla', [
             'temperaturas' => $temperaturas,
         ]);
+    }
+
+    public function pdf()
+    {
+        $temperaturas = DispositivoTemperatura::all();
+
+        return response()->streamDownload(
+            function () use ($temperaturas) {
+                $pdf = Pdf::loadView('pdf.reportes.temperatura', compact('temperaturas'));
+                $pdf->setPaper('letter', 'portrait');
+                echo $pdf->stream();
+            },
+            'temperaturaReporte.pdf'
+        );
     }
 }

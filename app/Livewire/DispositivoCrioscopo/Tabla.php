@@ -3,6 +3,7 @@
 namespace App\Livewire\DispositivoCrioscopo;
 
 use App\Models\DispositivoCrioscopo;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -16,7 +17,7 @@ class Tabla extends Component
 
     #[On('actualizar_dispositivo_crioscopo')]
     public function render()
-    {
+    { 
         $crioscopos = DispositivoCrioscopo::query()
             ->when($this->f_fecha_hora, function ($query) {
                 return $query->where('fecha_hora', 'like', '%' . $this->f_fecha_hora . '%');
@@ -31,5 +32,18 @@ class Tabla extends Component
             'crioscopos' => $crioscopos,
         ]);
     }
-    
+
+    public function pdf()
+    {
+        $crioscopos = DispositivoCrioscopo::all();
+
+        return response()->streamDownload(
+            function () use ($crioscopos) {
+                $pdf = Pdf::loadView('pdf.reportes.crioscopo', compact('crioscopos'));
+                $pdf->setPaper('letter', 'portrait');
+                echo $pdf->stream();
+            },
+            'crioscopoReporte.pdf'
+        );
+    }
 }

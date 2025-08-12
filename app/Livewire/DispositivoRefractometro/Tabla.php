@@ -3,6 +3,7 @@
 namespace App\Livewire\DispositivoRefractometro;
 
 use App\Models\DispositivoRefractometro;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -31,6 +32,20 @@ class Tabla extends Component
         return view('livewire.dispositivo-refractometro.tabla', [
             'refractometros' => $refractometros,
         ]);
+    }
+
+    public function pdf()
+    {
+        $refractometros = DispositivoRefractometro::all();
+
+        return response()->streamDownload(
+            function () use ($refractometros) {
+                $pdf = Pdf::loadView('pdf.reportes.refractometro', compact('refractometros'));
+                $pdf->setPaper('letter', 'portrait');
+                echo $pdf->stream();
+            },
+            'refractometroReporte.pdf'
+        );
     }
     
 }

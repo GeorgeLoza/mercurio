@@ -25,10 +25,10 @@ class ActividadAgua extends Model
     {
         return $this->belongsto(User::class);
     }
-    public function verificacionEquipo()
-    {
-        return $this->belongsto(verificacionEquipo::class);
-    }
+    // public function verificacionEquipo()
+    // {
+    //     return $this->belongsto(verificacionEquipo::class);
+    // }
     public function detalleSolicitudPlanta()
     {
         return $this->belongsto(DetalleSolicitudPlanta::class);
