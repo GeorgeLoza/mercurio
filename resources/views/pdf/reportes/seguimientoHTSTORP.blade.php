@@ -247,9 +247,10 @@
 
             /* Borde inferior más grueso para las cabeceras */
         }
+
         th {
-        text-transform: uppercase;
-    }
+            text-transform: uppercase;
+        }
     </style>
 </head>
 <header>
@@ -262,7 +263,8 @@
             </th>
         </tr>
         <tr>
-            <td colspan="3" style="text-align: center; padding: 0.6rem;  font-weight:bold;">CONTROL MICROBIOLOGICO - PRODUCTO TERMINADO (HTST)</td>
+            <td colspan="3" style="text-align: center; padding: 0.6rem;  font-weight:bold;">CONTROL MICROBIOLOGICO -
+                PRODUCTO TERMINADO (HTST)</td>
         </tr>
     </table>
 </header>
@@ -280,15 +282,34 @@
     <div class="page">
 
         <fieldset>
-            <legend style="font-weight:bold;"></legend>
-            <div class="cont_div">
+             <div class="cont_div">
                 <table class="general">
                     <tr>
-                        <th>FECHA: Del
-                            {{ \Carbon\Carbon::parse($fechaInicio)->isoFormat('DD [de] MMMM [del] YYYY', 0, 'es') }} Al
-                            {{ \Carbon\Carbon::parse($fechaFin)->isoFormat('DD [de] MMMM [del] YYYY', 0, 'es') }}</th>
+                        <td>
+                            <p>Fecha de Producción:
+                                {{ \Carbon\Carbon::parse($variable[0]->orp->tiempo_elaboracion)->isoFormat('DD MMM YYYY', 0, 'es') }}
+                            </p>
+                            <p>ORP: <span>{{ $variable[0]->orp->codigo }}</span></p>
+                            <p>Producto: {{ $variable[0]->orp->producto->nombre }}</p>
+                        </td>
+                        <td>
 
+                            <p>Fecha(s) de Vencimiento:
+                                @if ($variable[0]->orp->fecha_vencimiento1)
+                                    {{ \Carbon\Carbon::parse($variable[0]->orp->fecha_vencimiento1)->isoFormat('DD MMM YYYY', 0, 'es') }}
+                                @endif
 
+                                @if ($variable[0]->orp->fecha_vencimiento2)
+                                    -
+                                    {{ \Carbon\Carbon::parse($variable[0]->orp->fecha_vencimiento2)->isoFormat('DD MMM YYYY', 0, 'es') }}
+                                @endif
+
+                            </p>
+                            <p>Preparacion: {{ $variable[0]->orp->lote / 1 }} </p>
+
+                            <p>Destino: {{ $variable[0]->orp->producto->destinoProducto->nombre }}</p>
+
+                        </td>
                     </tr>
 
                 </table>
@@ -299,53 +320,69 @@
 
         <main>
             <table class="table-container  " style="  font-wheight:0 ">
-                <thead >
+                <thead>
 
-                    <tr >
-                        <th >Fecha de
-Análisis </th>
+                    <tr>
+                        <th>Fecha de
+                            Análisis </th>
 
                         <th>Analista de
-Siembra </th>
-                        <th>
+                            Siembra </th>
+                        {{-- <th>
                             Producto
                         </th>
                         <th>Fecha de
-Vencimiento
- </th>
-                        <th>
-                           ORP
+                            Vencimiento
                         </th>
+                        <th>
+                            ORP
+                        </th> --}}
                         <th>
                             Lote
                         </th>
                         <th>
 
-                           Aerobios
-Mesófilos
-Totales
-[UFC/ml]
+                            Aerobios
+                            Mesófilos
+                            Totales
+                            <p>
+
+                                [UFC/ml]
+                            </p>
                         </th>
                         <th>
                             coliformes
-Totales
-[UFC/ml]
+                            Totales
+
+                            <p>
+
+                                [UFC/ml]
+                            </p>
                         </th>
                         <th>
                             Encargado
-de Lectura 2
-días
+                            <p>
+                                Lectura 2
+                                días
+                            </p>
                         </th>
-                         <th>
-                           Mohos y
-Levaduras
-[UFC/ml]
+                        <th>
+                            Mohos y
+                            Levaduras
+                            <p>
+
+                                [UFC/ml]
+                            </p>
 
                         </th>
                         <th>
                             Encargado
-de Lectura 5
-días
+
+                            <p>
+
+                                Lectura 5
+                                días
+                            </p>
                         </th>
                         <th>Observaciones</th>
 
@@ -361,65 +398,69 @@ días
 
 
 
-                            <th>{{ $variables->usuarioSiembra->codigo ?? '-' }}</th>
-                            <th nowrap style="font-size: 8px;">{{ $variables->orp->producto->nombre ?? '-' }}</th>
-                            <th nowrap >
-                                @if ($variables->orp->fecha_vencimiento1 )
+                           <th>{{ $variables->usuarioSiembra->codigo ?? '-' }}</th>
+                        {{--      <th nowrap style="font-size: 8px;">{{ $variables->orp->producto->nombre ?? '-' }}</th>
+                            <th nowrap>
+                                @if ($variables->orp->fecha_vencimiento1)
+                                    {{ \Carbon\Carbon::parse($variables->orp->fecha_vencimiento1)->isoFormat('DD-MM-YY', 0, 'es') }}
+                            </th>
+                    @endif
+                    <th nowrap>{{ $variables->orp->codigo ?? '-' }}</th> --}}
+                    <th nowrap>{{ $variables->orp->lote / 1 ?? '-' }}</th>
 
 
-                                    {{ \Carbon\Carbon::parse( $variables->orp->fecha_vencimiento1)->isoFormat('DD-MM-YY', 0, 'es') }}</th>
-                                @endif
-                            <th nowrap >{{ $variables->orp->codigo ?? '-' }}</th>
-                            <th nowrap >{{ $variables->orp->lote/1 ?? '-' }}</th>
+                    <th>
+                        @if ($variables->rt >= 1000000)
+                            MNPC
+                        @elseif ($variables->rt > 0 && $variables->rt <= 10)
+                            {{ $variables->rt }}
+                        @elseif ($variables->rt != 0)
+                            {{ $variables->rt < 1
+                                ? $variables->rt * 10 ** (strlen(floor($variables->rt)) - 1)
+                                : $variables->rt / 10 ** (strlen(floor($variables->rt)) - 1) }}
+                            x 10
+                            <sup>{{ strlen(floor($variables->rt)) - 1 }}</sup>
+                        @else
+                            &lt; 1 x 10<sup>1</sup>
+                        @endif
+                    </th>
+                    <th>
+                        @if ($variables->col >= 1000000)
+                            MNPC
+                        @elseif ($variables->col > 0 && $variables->col <= 10)
+                            {{ $variables->col }}
+                        @elseif ($variables->col != 0)
+                            {{ $variables->col < 1
+                                ? $variables->col * 10 ** (strlen(floor($variables->col)) - 1)
+                                : $variables->col / 10 ** (strlen(floor($variables->col)) - 1) }}
+                            x 10
+                            <sup>{{ strlen(floor($variables->col)) - 1 }}</sup>
+                        @else
+                            &lt; 1 x 10<sup>1</sup>
+                        @endif
+                    </th>
+                    <th>{{ $variables->usuarioDia2->codigo ?? '-' }}</th>
+                    <th>
+                        @if ($variables->moho >= 1000000)
+                            MNPC
+                        @elseif ($variables->moho > 0 && $variables->moho <= 10)
+                            {{ $variables->moho }}
+                        @elseif ($variables->moho != 0)
+                            {{ $variables->moho < 1
+                                ? $variables->moho * 10 ** (strlen(floor($variables->moho)) - 1)
+                                : $variables->moho / 10 ** (strlen(floor($variables->moho)) - 1) }}
+                            x 10
+                            <sup>{{ strlen(floor($variables->moho)) - 1 }}</sup>
+                        @else
+                            &lt; 1 x 10<sup>1</sup>
+                        @endif
+                    </th>
+                    <th>{{ $variables->usuarioDia5->codigo ?? '-' }}</th>
+                    <th>{{ $variables->observaciones ?? '-' }}</th>
 
 
-                            <th > @if ($variables->rt >= 1000000)
-                                MNPC
-                            @elseif ($variables->rt > 0 && $variables->rt <= 10)
-                                {{ $variables->rt }}
-                            @elseif ($variables->rt != 0)
-                                {{ $variables->rt < 1
-                                    ? $variables->rt * 10 ** (strlen(floor($variables->rt)) - 1)
-                                    : $variables->rt / 10 ** (strlen(floor($variables->rt)) - 1) }}
-                                x 10
-                                <sup>{{ strlen(floor($variables->rt)) - 1 }}</sup>
-                            @else
-                                &lt; 1 x 10<sup>1</sup>
-                            @endif</th>
-                            <th > @if ($variables->col >= 1000000)
-                                MNPC
-                            @elseif ($variables->col > 0 && $variables->col <= 10)
-                                {{ $variables->col }}
-                            @elseif ($variables->col != 0)
-                                {{ $variables->col < 1
-                                    ? $variables->col * 10 ** (strlen(floor($variables->col)) - 1)
-                                    : $variables->col / 10 ** (strlen(floor($variables->col)) - 1) }}
-                                x 10
-                                <sup>{{ strlen(floor($variables->col)) - 1 }}</sup>
-                            @else
-                                &lt; 1 x 10<sup>1</sup>
-                            @endif</th>
 
-                            <th>{{ $variables->usuarioDia2->codigo ?? '-' }}</th>
-                             <th > @if ($variables->moho >= 1000000)
-                                MNPC
-                            @elseif ($variables->moho > 0 && $variables->moho <= 10)
-                                {{ $variables->moho }}
-                            @elseif ($variables->moho != 0)
-                                {{ $variables->moho < 1
-                                    ? $variables->moho * 10 ** (strlen(floor($variables->moho)) - 1)
-                                    : $variables->moho / 10 ** (strlen(floor($variables->moho)) - 1) }}
-                                x 10
-                                <sup>{{ strlen(floor($variables->moho)) - 1 }}</sup>
-                            @else
-                                &lt; 1 x 10<sup>1</sup>
-                            @endif</th>
-                            <th>{{ $variables->usuarioDia5->codigo ?? '-' }}</th>
-                            <th>{{ $variables->observaciones ?? '-' }}</th>
-
-
-
-                        </tr>
+                    </tr>
                     @endforeach
                 </tbody>
 
@@ -431,11 +472,11 @@ días
 
 
 
-            {{-- <div class="justify-end" style="padding-top: 2px">
-                <p align="right">Referencias: 0: Negativo </p>
-                <p align="right">1: Positivo &nbsp;</p>
+            <div class="justify-end" style="padding-top: 5px">
+                {{-- <p align="right">Referencias: 0: Negativo </p>
+                <p align="right">1: Positivo &nbsp;</p> --}}
             </div>
- --}}
+
 
 
         </main>
