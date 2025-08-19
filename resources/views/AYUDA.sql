@@ -290,3 +290,36 @@ INSERT INTO `proveedor_materia_primas` (`id`, `nombre`) VALUES
 (73, 'UNAGRO'),
 (74, 'VERY QUIMIC'),
 (75, 'WET CHEMICAL');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+UPDATE mov_solucions AS t
+JOIN (
+    SELECT
+        id,
+        SUM(
+            CASE
+                WHEN tipo = '1' THEN cantidad
+                WHEN tipo = '0' THEN -cantidad
+                ELSE 0
+            END
+        ) OVER (
+            PARTITION BY item_solucion_id
+            ORDER BY updated_at, id
+            ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+        ) AS saldo
+    FROM mov_solucions
+) AS c ON t.id = c.id
+SET t.saldo = c.saldo;

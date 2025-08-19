@@ -154,23 +154,22 @@ class Tabla extends Component
 
                 $query = movSolucion::query()
                     ->whereBetween('updated_at', [$fechaInicio, $fechaFin])
-                    ->where('estado', 'Entregado');
+                    ->where('estado', 'Entregado')
+                    ->orderBy('updated_at', 'asc');
 
 
-// dd('usuariosUnicos');
+
                 if ($this->ruta) {
                     $query->whereHas('itemSolucion', function ($subQuery) {
                         $subQuery->where('nombre', $this->ruta);
                     });
 
                     $ruta = itemSolucion::query()
-                    ->where('nombre', $this->ruta)
-                    ->get();
-
-
-                }else {
-                        $ruta = null;
-                    }
+                        ->where('nombre', $this->ruta)
+                        ->get();
+                } else {
+                    $ruta = null;
+                }
 
 
 
@@ -187,10 +186,11 @@ class Tabla extends Component
                     });
                 }
 
-                $userIds = $query->whereNotNull('user_id')
+                $userIds = (clone $query)
+                    ->select('user_id', 'updated_at')  // Añadimos updated_at al SELECT
+                    ->whereNotNull('user_id')
                     ->distinct()
                     ->pluck('user_id');
-
 
 
 
@@ -204,9 +204,11 @@ class Tabla extends Component
                     });
                 }
 
-                $autorizantes = $query->whereNotNull('autorizante')
-                    ->distinct()
-                    ->pluck('autorizante');
+                $autorizantes = (clone $query)
+    ->select('autorizante', 'updated_at')  // Añadimos updated_at
+    ->whereNotNull('autorizante')
+    ->distinct()
+    ->pluck('autorizante');
 
 
 
@@ -220,9 +222,11 @@ class Tabla extends Component
                     });
                 }
 
-                $entregantes = $query->whereNotNull('entregante')
-                    ->distinct()
-                    ->pluck('entregante');
+           $entregantes = (clone $query)
+    ->select('entregante', 'updated_at')  // Añadimos updated_at
+    ->whereNotNull('entregante')
+    ->distinct()
+    ->pluck('entregante');
 
 
                 $todosIds = $userIds->merge($autorizantes)->merge($entregantes)->unique();

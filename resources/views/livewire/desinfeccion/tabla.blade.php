@@ -12,7 +12,10 @@
                     <div class="border rounded-lg shadow p-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
                         <h4 class="text-lg font-semibold">
                             {{ $datos['codigo'] }} <br>{{ $datos['nombre'] }}
-                            {{ $datos['concentracion'] }}%
+
+                            @if ($datos['codigo'] != 'L-7')
+                                {{ $datos['concentracion'] }}%
+                            @endif
                         </h4>
                         <p class="text-gray-600 dark:text-gray-400">
                             Cantidad Actual:
@@ -84,6 +87,10 @@
                                 @endif
                             </td>
                             <td class="px-4 py-2">{{ $mov->cantidad_mezcla / 1 }}
+                                @if ($mov->itemSolucion->codigo == 'L-7' )
+                                    [g]
+
+                                @endif
 
 
                             </td>
@@ -288,7 +295,5 @@
             </select>
         </div>
     @else
-
-
     @endif
 </div>

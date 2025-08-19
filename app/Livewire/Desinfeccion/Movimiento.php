@@ -47,12 +47,13 @@ class Movimiento extends ModalComponent
             }
 
 
-            if ($this->item == 3 || $this->item==6) {
-            $this->unidad = '[K]';
-        }  else {
-            $this->unidad = '[L]';
-        }
-
+            if ($this->item == 3 || $this->item == 6) {
+                $this->unidad = '[K]';
+            } else if ($this->item == 7) {
+                $this->unidad = '[G]';
+            } else {
+                $this->unidad = '[L]';
+            }
         }
 
         $this->destinos = DestinoSolucion::all();
@@ -66,9 +67,11 @@ class Movimiento extends ModalComponent
 
     public function updatedItem($value)
     {
-        if ($value == 3 || $value==6) {
+        if ($value == 3 || $value == 6) {
             $this->unidad = '[K]';
-        }  else {
+        } else  if ($this->item == 7) {
+            $this->unidad = '[G]';
+        } else {
             $this->unidad = '[L]';
         }
 

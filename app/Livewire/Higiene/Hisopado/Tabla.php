@@ -104,7 +104,6 @@ class Tabla extends Component
         }
     }
 
-
     public function dia5($id)
     {
         try {
@@ -219,4 +218,5 @@ class Tabla extends Component
             "hisopados_{$this->fechaInicio}_a_{$this->fechaFin}.pdf"
         );
     }
+
 }

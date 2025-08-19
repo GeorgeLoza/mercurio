@@ -257,7 +257,7 @@
         <tr>
             <th class="cel-img" style="width: 25%;"><img src="img/logo/logocompleto.png" alt=""></th>
             <th style="width: 50%;">REGISTRO</th>
-            <th style="width: 25%; font-size: 0.8rem">PLL-REG-008 <br> Versión 004 <br>
+            <th style="width: 25%; font-size: 0.8rem">PLL-REG-020 <br> Versión 002 <br>
                 <div class="page-number"></div>
             </th>
         </tr>
