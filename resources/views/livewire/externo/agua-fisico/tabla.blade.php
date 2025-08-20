@@ -8,7 +8,7 @@
                         #
                     </th>
                     <th scope="col" class="px-2 py-1 sticky left-8 z-10 bg-gray-50 dark:bg-gray-700">
-                        Codigo Muestra
+                        Código Muestra
                     </th>
                     <th scope="col" class="px-2 py-1 sticky left-28 z-10 bg-gray-50 dark:bg-gray-700">
                         Producto / Servicio
@@ -18,7 +18,7 @@
                     </th>
 
                     <th scope="col" class="px-2 py-1">
-                        Fecha Analisis
+                        Fecha Análisis
                     </th>
                     <th scope="col" class="px-2 py-1">
                         pH

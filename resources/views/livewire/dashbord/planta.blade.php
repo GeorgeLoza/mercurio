@@ -10,10 +10,10 @@
             <span class="flex items-center text-xs font-medium "><span
                     class="flex w-2.5 h-2.5 bg-blue-500 rounded-full  flex-shrink-0 mr-2 text-sm"></span>Mantenimiento</span>
             <span class="flex items-center text-xs font-medium "><span
-                    class="flex w-2.5 h-2.5 bg-gray-500 rounded-full  flex-shrink-0 mr-2 text-sm"></span>Vacio</span>
+                    class="flex w-2.5 h-2.5 bg-gray-500 rounded-full  flex-shrink-0 mr-2 text-sm"></span>Vacío</span>
         </div>
         <span class="flex items-center text-xs font-medium    "><span
-                class="flex w-2.5 h-2.5 bg-orange-600 rounded-full  flex-shrink-0 mr-2 text-sm"></span>Almacen </span>
+                class="flex w-2.5 h-2.5 bg-orange-600 rounded-full  flex-shrink-0 mr-2 text-sm"></span>Almacén </span>
     </div>
     <div
         class="grid border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 md:mb-12 md:grid-cols-2 bg-white dark:bg-gray-800">

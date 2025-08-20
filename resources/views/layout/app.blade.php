@@ -394,7 +394,7 @@
                                 <path
                                     d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l362.8 0c-5.4-9.4-8.6-20.3-8.6-32l0-128c0-2.1 .1-4.2 .3-6.3c-31-26-71-41.7-114.6-41.7l-91.4 0zM528 240c17.7 0 32 14.3 32 32l0 48-64 0 0-48c0-17.7 14.3-32 32-32zm-80 32l0 48c-17.7 0-32 14.3-32 32l0 128c0 17.7 14.3 32 32 32l160 0c17.7 0 32-14.3 32-32l0-128c0-17.7-14.3-32-32-32l0-48c0-44.2-35.8-80-80-80s-80 35.8-80 80z" />
                             </svg>
-                            <span class="ms-3">Administracion de
+                            <span class="ms-3">Administración de
                                 permisos</span>
                         </a>
                     </li>
@@ -410,7 +410,7 @@
                                 <path
                                     d="M256 0c17.7 0 32 14.3 32 32V66.7C368.4 80.1 431.9 143.6 445.3 224H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H445.3C431.9 368.4 368.4 431.9 288 445.3V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V445.3C143.6 431.9 80.1 368.4 66.7 288H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H66.7C80.1 143.6 143.6 80.1 224 66.7V32c0-17.7 14.3-32 32-32zM128 256a128 128 0 1 0 256 0 128 128 0 1 0 -256 0zm128-80a80 80 0 1 1 0 160 80 80 0 1 1 0-160z" />
                             </svg>
-                            <span class="ms-3">Orígen</span>
+                            <span class="ms-3">Origen</span>
                         </a>
                     </li>
                 @endif
@@ -707,7 +707,7 @@
                                 <li>
                                     <a href="{{ route('certificadoMicrobiologia.index') }}"
                                         class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                                        Certificados Microbiologia</a>
+                                        Certificados Microbiología</a>
                                 </li>
                             @endif
                             @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 25)->where('permiso_id', 2)->isNotEmpty())
@@ -740,7 +740,7 @@
                                 <li>
                                     <a href="{{ route('microbiologia.index') }}"
                                         class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                                        Microbiologia</a>
+                                        Microbiología</a>
                                 </li>
                             @endif
                             @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 31)->where('permiso_id', 2)->isNotEmpty())
@@ -785,7 +785,7 @@
                             </svg>
 
 
-                            <span class="ms-3">Sustancias Quimicas</span>
+                            <span class="ms-3">Sustancias Químicas</span>
                         </a>
                     </li>
                 @endif
@@ -817,14 +817,14 @@
                             @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 38)->where('permiso_id', 2)->isNotEmpty())
                                 <li>
                                     <a href="{{ route('dispositivosMedicion.index') }}"
-                                        class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Administracion</a>
+                                        class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Administración</a>
 
                                 </li>
                             @endif
                             @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 38)->where('permiso_id', 2)->isNotEmpty())
                                 <li>
                                     <a href="{{ route('VerificacionAjuste.index') }}"
-                                        class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Verificacion</a>
+                                        class="flex items-center w-full py-1 px-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Verificación</a>
                                 </li>
                             @endif
 
@@ -848,7 +848,7 @@
                                     d="M128 0c13.3 0 24 10.7 24 24l0 40 144 0 0-40c0-13.3 10.7-24 24-24s24 10.7 24 24l0 40 40 0c35.3 0 64 28.7 64 64l0 16 0 48 0 256c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 192l0-48 0-16C0 92.7 28.7 64 64 64l40 0 0-40c0-13.3 10.7-24 24-24zM400 192L48 192l0 256c0 8.8 7.2 16 16 16l320 0c8.8 0 16-7.2 16-16l0-256zM329 297L217 409c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47 95-95c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" />
                             </svg>
 
-                            <span class="ms-3">Microbiologia UHT</span>
+                            <span class="ms-3">Microbiología UHT</span>
                         </a>
                     </li>
                 @endif
@@ -863,7 +863,7 @@
                                     d="M128 0c13.3 0 24 10.7 24 24l0 40 144 0 0-40c0-13.3 10.7-24 24-24s24 10.7 24 24l0 40 40 0c35.3 0 64 28.7 64 64l0 16 0 48 0 256c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 192l0-48 0-16C0 92.7 28.7 64 64 64l40 0 0-40c0-13.3 10.7-24 24-24zM400 192L48 192l0 256c0 8.8 7.2 16 16 16l320 0c8.8 0 16-7.2 16-16l0-256zM329 297L217 409c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47 95-95c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" />
                             </svg>
 
-                            <span class="ms-3">Microbiologia HTST</span>
+                            <span class="ms-3">Microbiología HTST</span>
                         </a>
                     </li>
                 @endif
@@ -880,7 +880,7 @@
                                     d="M128 0l64 0c17.7 0 32 14.3 32 32l0 96L96 128l0-96c0-17.7 14.3-32 32-32zM0 256c0-53 43-96 96-96l128 0c53 0 96 43 96 96l0 208c0 26.5-21.5 48-48 48L48 512c-26.5 0-48-21.5-48-48L0 256zm240 80A80 80 0 1 0 80 336a80 80 0 1 0 160 0zM256 64a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zM384 32a32 32 0 1 1 0 64 32 32 0 1 1 0-64zm64 32a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm32 64a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM448 256a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zM384 128a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
                             </svg>
 
-                            <span class="ms-3">Desinfeccion</span>
+                            <span class="ms-3">Desinfección</span>
                         </a>
                     </li>
                 @endif
@@ -936,7 +936,7 @@
                                     d="M96 80c0-26.5 21.5-48 48-48l288 0c26.5 0 48 21.5 48 48l0 304L96 384 96 80zm313 47c-9.4-9.4-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L409 161c9.4-9.4 9.4-24.6 0-33.9zM0 336c0-26.5 21.5-48 48-48l16 0 0 128 448 0 0-128 16 0c26.5 0 48 21.5 48 48l0 96c0 26.5-21.5 48-48 48L48 480c-26.5 0-48-21.5-48-48l0-96z" />
                             </svg>
 
-                            <span class="ms-3">Liberacion</span>
+                            <span class="ms-3">Liberación</span>
                         </a>
                     </li>
                 @endif

@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('titulo')
-certificados fisicoquimico
+Certificados Fisicoquímicos
 
 @endsection
 

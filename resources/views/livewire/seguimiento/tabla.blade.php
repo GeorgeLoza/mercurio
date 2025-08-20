@@ -103,7 +103,7 @@
                         Cabezal
                     </th>
                     <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700" nowrap>
-                        Numero
+                        Número
                     </th>
                     <th scope="col" class="px-1 py-3  sticky top-0 bg-white dark:bg-gray-700">
                         Producto

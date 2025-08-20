@@ -49,7 +49,7 @@
                         Producto
                     </th>
                     <th scope="col" class="px-1 py-3  sticky top-0 bg-white dark:bg-gray-700">
-                        Fecha de Produccion
+                        Fecha de Producción
                     </th>
 
                     <th scope="col" class="  gap-1 px-1 py-3 sticky top-0 bg-white dark:bg-gray-700 ">

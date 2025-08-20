@@ -1,6 +1,6 @@
 <div class="flex gap-2">
     <div class="w-2/5 p-2 rounded-lg border bg-white dark:bg-gray-800">
-        <h2 class="text-center font-semibold uppercase">agregar nueva informacion</h2>
+        <h2 class="text-center font-semibold uppercase">Agregar nueva información</h2>
         <div>
             <form wire:submit.prevent="save" class="max-w-md mx-auto">
                 <div class="relative z-0 w-full mb-5 group">
@@ -37,11 +37,11 @@
                 </div>
 
                 <div class="relative z-0 w-full mb-5 group">
-                    
+
                     <label for="user_id" class="sr-only">Underline select</label>
                     <select id="user_id" wire:model="user_id"
                         class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                        <option selected>Escoje un usuario</option>
+                        <option selected>Escoge un usuario</option>
                         @foreach ($usuarios as $usuario)
                             <option value="{{ $usuario->id }}">{{ $usuario->nombre }}</option>
                         @endforeach
@@ -65,7 +65,7 @@
                         Procedencia
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
-                        direccion
+                        Dirección
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
                         abreviatura

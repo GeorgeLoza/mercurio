@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('titulo')
-Sustancias Quimicas
+Sustancias Químicas
 @endsection
 
 @section('contenido')

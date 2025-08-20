@@ -10,7 +10,7 @@
                     </th>
 
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
-                        orígen
+                        origen
                     </th>
                     <th scope="col" class="px-6 py-3 sticky top-0 bg-white dark:bg-gray-700">
                         Proceso

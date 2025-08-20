@@ -19,7 +19,7 @@
                         Fecha de Siembra
                     </th>
                     <th scope="col" class="px-0 py-0 sticky left-20 z-30 bg-gray-50 dark:bg-gray-700" rowspan="2">
-                        Codigo Muestra
+                        Código Muestra
                     </th>
                     <th scope="col" class="px-0 py-0 sticky left-32 z-30 bg-gray-50 dark:bg-gray-700 " rowspan="2"
                         style="max-width: 15rem;">
@@ -50,10 +50,10 @@
                         Siembra
                     </th>
                     <th scope="col" class="px-1 py-0 border-x" colspan="5">
-                        Lectura dia 2
+                        Lectura día 2
                     </th>
                     <th scope="col" class="px-1 py-0 border-l" colspan="4">
-                        Lectura dia 5
+                        Lectura día 5
                     </th>
                     <th scope="col" class="px-1 py-0" rowspan="2">
                         Observaciones

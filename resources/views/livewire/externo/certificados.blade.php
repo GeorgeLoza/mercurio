@@ -10,7 +10,7 @@
                     <tr>
 
                         <th scope="col" class="px-0 py-0">
-                            Codigo
+                            Código
                         </th>
 
                         <th scope="col" class="px-0 py-0">

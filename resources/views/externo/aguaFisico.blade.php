@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('titulo')
-Actividad de Agua Fisico
+Actividad de Agua Físico
 
 @endsection
 

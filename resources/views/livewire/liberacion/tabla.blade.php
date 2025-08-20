@@ -17,7 +17,7 @@
                 <th class="p-2 text-left">ORP</th>
                 <th class="p-2 text-left">Fecha de Vencimiento</th>
                 <th class="p-2 text-left">Lote</th>
-                <th class="p-2 text-left">Fecha analisis</th>
+                <th class="p-2 text-left">Fecha análisis</th>
                 <th class="p-2 text-left">Acciones</th>
             </tr>
         </thead>
@@ -54,7 +54,7 @@
                     </td>
                 </tr>
 
-                
+
             @endforeach
         </tbody>
     </table>

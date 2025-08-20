@@ -15,7 +15,7 @@
                     </th>
                     <th scope="col" class="px-2 py-1 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('telefono')">
-                        telefono
+                        teléfono
                     </th>
                     <th scope="col" class="px-2 py-1 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('correo')">

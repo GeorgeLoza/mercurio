@@ -2,7 +2,7 @@
     @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 20)->where('permiso_id', 2)->isNotEmpty())
         <div class="flex mb-2 gap-2">
             <a href="{{ route('leche_analisis.index') }}" class="px-2 bg-green-600 text-white rounded-md">
-                Analisis de Leche
+                Análisis de Leche
             </a>
             @if ($pendiente)
                 <p class="bg-red-500 text-white p-1 rounded-md"> Tienes análisis de recepción de leche pendiente</p>

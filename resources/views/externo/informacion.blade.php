@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('titulo')
-Informacion Planta-Usuario
+Información Planta-Usuario
 
 @endsection
 

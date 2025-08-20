@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('titulo')
-Recepcion de Materia Prima
+Recepción de Materia Prima
 @endsection
 
 @section('contenido')

@@ -30,8 +30,8 @@
                     <th class="px-2 py-2">R.S.</th>
                     <th class="px-2 py-2">Cert.</th>
                     <th class="px-2 py-2">Estado</th>
-                    <th class="px-2 py-2">Observacion</th>
-                    <th class="px-2 py-2">Correccion</th>
+                    <th class="px-2 py-2">Observación</th>
+                    <th class="px-2 py-2">Corrección</th>
                     <th class="px-2 py-2">Cod. Cert.</th>
                     <th class="px-2 py-2">Acciones</th>
                 </tr>

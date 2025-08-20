@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('titulo')
-    Verificacion y ajuste de dispositivo
+    Verificación y ajuste de dispositivo
 @endsection
 
 @section('contenido')
@@ -50,7 +50,7 @@
                             'text-blue-600 border-b-2 border-blue-600 dark:text-blue-500 dark:border-blue-500' :
                             'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'"
                         class="inline-flex items-center justify-center p-4 rounded-t-lg group">
-                        Crioscopo
+                        Crioscópio
                     </a>
                 </li>
             </ul>

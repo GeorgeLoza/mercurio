@@ -65,7 +65,7 @@ Configuración Inicial
 
     <!--Etapa inicio-->
     <div class="">
-        <h2 class="text-xl">Etápa</h2>
+        <h2 class="text-xl">Etapa</h2>
         <div class="flex justify-end mb-2">
             <!--Boton Crear -->
             <button class="p-2 bg-green-500 rounded-lg"

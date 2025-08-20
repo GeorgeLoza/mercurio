@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('titulo')
-certificados microbiologia
+Certificados Microbiología
 
 @endsection
 

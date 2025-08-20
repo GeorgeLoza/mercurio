@@ -14,10 +14,10 @@
                 <table class="w-full text-center ">
                     <thead class="dark:bg-slate-700">
                         <tr class="text-2xs">
-                            <th>Codigo </th>
+                            <th>Número </th>
                             <th>Fecha <br> Muestra</th>
                             <th>Usuario <br> Muestra</th>
-                            <th>Codigo</th>
+                            <th>Código</th>
                             <th>Personal</th>
                             <th>Usuario <br> Siembra</th>
                             <th>Fecha <br> Siembra</th>
@@ -148,7 +148,7 @@
                     <table class="w-full">
                         <thead>
                             <tr>
-                                <th class="w-1/5">Codigo</th>
+                                <th class="w-1/5">Código</th>
                                 <th>Nombre</th>
                                 <th>Supervisor</th>
                                 <th>Acciones</th>
@@ -208,7 +208,7 @@
                 <table class="w-full ">
                     <thead>
                         <tr class="sticky z-20 top-5 dark:bg-gray-700 bg-white">
-                            <th>Codigo</th>
+                            <th>Código</th>
                             <th>Nombre</th>
                             <th>Acciones</th>
                         </tr>

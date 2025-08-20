@@ -65,7 +65,7 @@
 
                     <th scope="col" nowrap class="  px-2 py-1 sticky top-0 bg-white dark:bg-gray-700"
                         wire:click="sortBy('fecha_vencimiento1')">
-                        Fecha Vencimiento
+                        Fecha de Vencimiento
                     </th>
                     <th scope="col" class="px-2 py-1 sticky top-0 bg-white dark:bg-gray-700 "
                         wire:click="sortBy('estado')">
