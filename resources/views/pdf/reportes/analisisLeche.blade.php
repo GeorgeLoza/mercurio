@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Control UHT</title>
+    <title>ANÁLISIS DE LECHE</title>
     <style>
         @page {
             margin-top: 1cm;
@@ -202,6 +202,7 @@
 
         .table-container th {
             font-weight: normal;
+             text-transform:  uppercase;
             /* Alinea las tablas al tope */
         }
 
@@ -349,7 +350,7 @@
                         </th>
                         <th><p>Usuario</p>Solicitante</th>
                         <th>
-                            <p>Usuario</p>Analisis
+                            <p>Usuario</p>Análisis
                         </th>
                         <th>
                             <p>Usuario</p>Siembra
@@ -489,8 +490,8 @@
                 <table class="mi-tabla ">
                     <thead>
                         <tr>
-                            <th>Código</th>
-                            <th>Nombre</th>
+                            <th>CÓDIGO</th>
+                            <th>NOMBRE</th>
                         </tr>
                     </thead>
                     <tbody>

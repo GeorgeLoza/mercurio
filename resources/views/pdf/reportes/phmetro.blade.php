@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Sustancias Controladas</title>
+    <title>VERIFICACIÓN Y AJUSTE DE PHMETRO</title>
     <style>
         @page {
             margin-top: 1cm;
@@ -222,11 +222,12 @@
                 <tr>
                     <th class="cel-img" style="width: 25%;"><img src="img/logo/logocompleto.png" alt=""></th>
                     <th style="width: 50%;">REGISTRO</th>
-                    <th style="width: 25%; font-size: 0.8rem">PLL-REG-135 <br> Versión 002 </th>
+                    <th style="width: 25%; font-size: 0.8rem">PLL-REG-135 <br> Versión 002  <br>
+                        <div class="page-number"></th>
                 </tr>
                 <tr>
                     <td colspan="3" style="text-align: center; padding: 0.6rem;  font-weight:bold;">
-                        VERIFICACION Y AJUSTE DE PHMETRO
+                        VERIFICACIÓN Y AJUSTE DE PHMETRO
                     </td>
                 </tr>
             </table>
@@ -251,13 +252,13 @@
                             Dispositivo
                         </th>
                         <th colspan="4">
-                            Verificacion
+                            Verificación
                         </th>
                         <th rowspan="2">
                             Requiere Ajuste
                         </th>
                         <th colspan="4">
-                            Verificacion Ajuste
+                            Verificación Ajuste
                         </th>
                         <th rowspan="2">
                             Estado
@@ -268,7 +269,7 @@
                         <th rowspan="2">
                             Observaciones
                         </th>
-                        
+
                     </tr>
                     <tr>
                         <th>

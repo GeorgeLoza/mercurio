@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Analisi de Leche</title>
+    <title>Control de
+                calidad en proceso - Línea Ultra Pasteurizado UHT</title>
     <style>
         @page {
             margin-top: 1cm;
@@ -263,7 +264,7 @@
             <td colspan="3"
                 style="text-align: center; padding: 0.6rem;  font-weight:bold; text-transform: uppercase">
                 Control de
-                calidad en proceso - Linea Ultra Pasteurizado UHT</td>
+                calidad en proceso - Línea Ultra Pasteurizado UHT</td>
         </tr>
     </table>
 </header>
@@ -304,7 +305,7 @@
                                 @endif
 
                             </p>
-                            <p>Preparacion: {{ $informacion->lote / 1 }} </p>
+                            <p>Preparación: {{ $informacion->lote / 1 }} </p>
 
                             <p>Destino: {{ $informacion->producto->destinoProducto->nombre }}</p>
 
@@ -337,7 +338,7 @@
                 <thead>
                     <tr>
                         <th colspan="14" style="font-weight:bold;">
-                            Control de Calidad en Proceso - Línea Ultra Pasteurizado UHT
+                            CONTROL DE CALIDAD EN PROCESO - LÍNEA ULTRA PASTEURIZADO UHT
                         </th>
                     </tr>
                     <tr>
@@ -504,7 +505,7 @@
                 <thead>
                     <tr>
                         <th colspan="15" style="font-weight:bold;">
-                            Control de Calidad de Producto Envasado
+                          CONTROL DE CALIDAD DE PRODUCTO ENVASADO
                         </th>
                     </tr>
 
@@ -665,7 +666,7 @@
                         $buscador = 0;
                     @endphp
                     <tr>
-                        <th colspan="14" style="font-weight:bold;">Observaciones</th>
+                        <th colspan="14" style="font-weight:bold;">OBSERVACIONES</th>
                     </tr>
 
                     <tr>
@@ -761,8 +762,8 @@
             <table class="mi-tabla ">
                 <thead>
                     <tr>
-                        <th>Código</th>
-                        <th>Nombre</th>
+                        <th>CÓDIGO</th>
+                        <th>NOMBRE</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -410,8 +410,8 @@
                 <table class="mi-tabla">
                     <thead>
                         <tr>
-                            <th>Codigo</th>
-                            <th>Nombre</th>
+                            <th>CÓDIGO</th>
+                            <th>NOMBRE</th>
                         </tr>
                     </thead>
                     <tbody>

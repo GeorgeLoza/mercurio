@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Sustancias Controladas</title>
+    <title>PREPARACIÓN Y
+                        ENTREGA DE SOLUCIONES DE LIMPIEZA Y DESINFECCIÓN</title>
     <style>
         @page {
             margin-top: 1cm;
@@ -201,6 +202,7 @@
 
         .table-container th {
             font-weight: normal;
+             text-transform:  uppercase;
             /* Alinea las tablas al tope */
         }
 
@@ -225,7 +227,7 @@
                     <th style="width: 25%; font-size: 0.8rem">PLL-REG-203 <br> Versión 003 <br> Página 1 de 1 </th>
                 </tr>
                 <tr>
-                    <td colspan="3" style="text-align: center; padding: 0.6rem;  font-weight:bold;">PREPARACION Y
+                    <td colspan="3" style="text-align: center; padding: 0.6rem;  font-weight:bold;">PREPARACIÓN Y
                         ENTREGA DE SOLUCIONES DE LIMPIEZA Y DESINFECCIÓN
                     </td>
                 </tr>
@@ -435,8 +437,8 @@
                 <table class="mi-tabla">
                     <thead>
                         <tr>
-                            <th>Codigo</th>
-                            <th>Nombre</th>
+                            <th>CÓDIGO</th>
+                            <th>NOMBRE</th>
                         </tr>
                     </thead>
                     <tbody>

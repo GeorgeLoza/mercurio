@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Control HTST</title>
+    <title>Control de
+                calidad en proceso - LÍNEA HTST</title>
     <style>
         @page {
             margin-top: 1cm;
@@ -35,6 +36,7 @@
         .head th,
         .head td {
             border: 1px solid black;
+
         }
 
         .cuerpo {
@@ -45,6 +47,7 @@
         .cuerpo td {
             padding: 0.1rem 0.2rem;
             width: 15px;
+             text-transform:  uppercase;
 
         }
 
@@ -204,6 +207,7 @@
 
         .table-container th {
             font-weight: normal;
+             text-transform:  uppercase;
             /* Alinea las tablas al tope */
         }
 
@@ -275,7 +279,7 @@
         <tr>
             <th class="cel-img" style="width: 25%;"><img src="img/logo/logocompleto.png" alt=""></th>
             <th style="width: 50%;">REGISTRO</th>
-            <th style="width: 25%; font-size: 0.8rem">PLL-REG-035 <br> Versión 002 <br>
+            <th style="width: 25%; font-size: 0.8rem">PLL-REG-035 <br> Versión 003 <br>
                 <div class="page-number"></div>
             </th>
         </tr>
@@ -283,7 +287,7 @@
             <td colspan="3"
                 style="text-align: center; padding: 0.6rem;  font-weight:bold; text-transform: uppercase">
                 Control de
-                calidad en proceso - Linea HTST</td>
+                calidad en proceso - LÍNEA HTST</td>
         </tr>
     </table>
 </header>
@@ -347,7 +351,7 @@
 
 
             <table class="table-container " style="  font-wheight:0">
-                <thead>
+                <thead style="uppercase;">
                     <tr>
                         <th colspan="
                         @if (str_contains($informacion->producto->nombre, 'PREMEZCLA')) 11
@@ -644,7 +648,7 @@
                         <th>°Brix</th>
                         @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
                         @else
-                            <th>µ [s]</th>
+                            <th style=" text-transform:lowercase;">µ [s]</th>
                         @endif
                         @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
                         @else
@@ -793,7 +797,7 @@
 
                         @if (str_contains($informacion->producto->nombre, 'PREMEZCLA'))
                         @else
-                            <th>µ [s]</th>
+                            <th style=" text-transform:lowercase;">µ [s]</th>
                             <th>Color</th>
                             <th>Olor</th>
                             <th>Sabor</th>
@@ -957,7 +961,7 @@
                             <th>pH</th>
                             <th>Acidez [%]</th>
                             <th>°Brix</th>
-                            <th>µ [s]</th>
+                            <th style=" text-transform:lowercase;">µ [s]</th>
                             <th>Color</th>
                             <th>Olor</th>
                             <th>Sabor</th>
@@ -1175,8 +1179,8 @@
             <table class="mi-tabla ">
                 <thead>
                     <tr>
-                        <th>Código</th>
-                        <th>Nombre</th>
+                        <th>CÓDIGO</th>
+                        <th>NOMBRE</th>
                     </tr>
                 </thead>
                 <tbody>

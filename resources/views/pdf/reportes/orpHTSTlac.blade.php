@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Control HTST</title>
+    <title>Control de
+        calidad en proceso - LÍNEA HTST</title>
     <style>
         @page {
             margin-top: 1cm;
@@ -198,6 +199,7 @@
 
         .table-container th {
             font-weight: normal;
+             text-transform:  uppercase;
             /* Alinea las tablas al tope */
         }
 
@@ -210,51 +212,56 @@
 
 
         .table-container {
-        width: 100%;
-        table-layout: fixed; /* Para que las columnas tengan el mismo ancho */
-        border-collapse: collapse;
-    }
-    .table-container th, .table-container td {
-        text-align: center; /* Opcional, para centrar el contenido */
-        padding: 3px; /* Opcional, mejora legibilidad al imprimir */
-        white-space: nowrap;
-    }
+            width: 100%;
+            table-layout: fixed;
+            /* Para que las columnas tengan el mismo ancho */
+            border-collapse: collapse;
+        }
+
+        .table-container th,
+        .table-container td {
+            text-align: center;
+            /* Opcional, para centrar el contenido */
+            padding: 3px;
+            /* Opcional, mejora legibilidad al imprimir */
+            white-space: nowrap;
+        }
     </style>
-<style>
-    .capitalize {
-        text-transform: capitalize;
-    }
+    <style>
+        .capitalize {
+            text-transform: capitalize;
+        }
 
-    /* Estilo para la tabla con la clase "mi-tabla" */
-    table.mi-tabla {
-        page-break-inside: avoid;
-        width: 40%;
-        border-collapse: collapse;
-        /* Colapsa los bordes de las celdas */
-        border: 1px solid #000;
-        /* Borde externo de la tabla */
-    }
+        /* Estilo para la tabla con la clase "mi-tabla" */
+        table.mi-tabla {
+            page-break-inside: avoid;
+            width: 40%;
+            border-collapse: collapse;
+            /* Colapsa los bordes de las celdas */
+            border: 1px solid #000;
+            /* Borde externo de la tabla */
+        }
 
-    /* Estilo para las cabeceras de la tabla con la clase "mi-tabla" */
-    table.mi-tabla th {
-        padding: 8px;
-        text-align: left;
-        background-color: #f2f2f2;
-        /* Color de fondo para las cabeceras */
-    }
+        /* Estilo para las cabeceras de la tabla con la clase "mi-tabla" */
+        table.mi-tabla th {
+            padding: 8px;
+            text-align: left;
+            background-color: #f2f2f2;
+            /* Color de fondo para las cabeceras */
+        }
 
-    /* Estilo para las celdas del cuerpo de la tabla con la clase "mi-tabla" */
-    table.mi-tabla td {
-        padding: 4px;
-        text-align: left;
-    }
+        /* Estilo para las celdas del cuerpo de la tabla con la clase "mi-tabla" */
+        table.mi-tabla td {
+            padding: 4px;
+            text-align: left;
+        }
 
-    /* Estilo para las celdas de cabecera en la primera fila de la tabla con la clase "mi-tabla" */
-    table.mi-tabla thead th {
-        border-bottom: 2px solid #000;
-        /* Borde inferior más grueso para las cabeceras */
-    }
-</style>
+        /* Estilo para las celdas de cabecera en la primera fila de la tabla con la clase "mi-tabla" */
+        table.mi-tabla thead th {
+            border-bottom: 2px solid #000;
+            /* Borde inferior más grueso para las cabeceras */
+        }
+    </style>
 </head>
 
 <header>
@@ -262,22 +269,26 @@
         <tr>
             <th class="cel-img" style="width: 25%;"><img src="img/logo/logocompleto.png" alt=""></th>
             <th style="width: 50%;">REGISTRO</th>
-            <th style="width: 25%; font-size: 0.8rem">PLL-REG-035 <br> Versión 002 <br> <div class="page-number"></div> </th>
+            <th style="width: 25%; font-size: 0.8rem">PLL-REG-035 <br> Versión 002 <br>
+                <div class="page-number"></div>
+            </th>
         </tr>
         <tr>
-            <td colspan="3" style="text-align: center; padding: 0.6rem;  font-weight:bold; text-transform: uppercase">Control de
-                calidad en proceso - Linea HTST</td>
+            <td colspan="3"
+                style="text-align: center; padding: 0.6rem;  font-weight:bold; text-transform: uppercase">Control de
+                calidad en proceso - LÍNEA HTST</td>
         </tr>
     </table>
 </header>
 <footer>
     SOALPRO SRL - Planta Lácteos - Reporte generado el {{ date('d/m/Y') }}
 
-   @if ($informacion->revisor)
-
-Revisado por {{ $informacion->revisor->nombre }}  {{ $informacion->revisor->apellido }}
-@endif <div class="page-number"></div>
+    @if ($informacion->revisor)
+        Revisado por {{ $informacion->revisor->nombre }} {{ $informacion->revisor->apellido }}
+    @endif
+    <div class="page-number"></div>
 </footer>
+
 <body>
     <div class="page">
 
@@ -361,7 +372,6 @@ Revisado por {{ $informacion->revisor->nombre }}  {{ $informacion->revisor->apel
                         $contador = 1;
                     @endphp
                     @foreach ($mezclas as $dato)
-
                         <tr>
                             <th>
                                 @foreach ($dato->solicitudAnalisisLinea->estadoPlanta->estadoDetalle as $estado)
@@ -415,10 +425,10 @@ Revisado por {{ $informacion->revisor->nombre }}  {{ $informacion->revisor->apel
                                     <th>-</th>
                                 @endif
                                 @if ($analisis->acidez)
-                                <th>{{ $analisis->acidez }}</th>
-                            @else
-                                <th>-</th>
-                            @endif
+                                    <th>{{ $analisis->acidez }}</th>
+                                @else
+                                    <th>-</th>
+                                @endif
 
 
                                 <th></th>
@@ -547,27 +557,27 @@ Revisado por {{ $informacion->revisor->nombre }}  {{ $informacion->revisor->apel
                                 @endif
 
 
-                            @if ($analisis->color)
-                                @if ($analisis->color == true)
-                                    <th>C.</th>
-                                @else
-                                    <th>N.C.</th>
+                                @if ($analisis->color)
+                                    @if ($analisis->color == true)
+                                        <th>C.</th>
+                                    @else
+                                        <th>N.C.</th>
+                                    @endif
                                 @endif
-                            @endif
-                            @if ($analisis->olor)
-                                @if ($analisis->olor == true)
-                                    <th>C.</th>
-                                @else
-                                    <th>N.C.</th>
+                                @if ($analisis->olor)
+                                    @if ($analisis->olor == true)
+                                        <th>C.</th>
+                                    @else
+                                        <th>N.C.</th>
+                                    @endif
                                 @endif
-                            @endif
-                            @if ($analisis->sabor)
-                                @if ($analisis->sabor == true)
-                                    <th>C.</th>
-                                @else
-                                    <th>N.C.</th>
+                                @if ($analisis->sabor)
+                                    @if ($analisis->sabor == true)
+                                        <th>C.</th>
+                                    @else
+                                        <th>N.C.</th>
+                                    @endif
                                 @endif
-                            @endif
 
 
 
@@ -650,29 +660,28 @@ Revisado por {{ $informacion->revisor->nombre }}  {{ $informacion->revisor->apel
                             @php
                                 $contador = $contador + 1;
                             @endphp
-                        @if ($dato->solicitudAnalisisLinea->estadoPlanta->origen->alias == 'EMBOTELLADORA')
+                            @if ($dato->solicitudAnalisisLinea->estadoPlanta->origen->alias == 'EMBOTELLADORA')
+                                <th>EMB</th>
+                            @else
+                                <th>{{ $dato->solicitudAnalisisLinea->estadoPlanta->origen->alias }}</th>
+                            @endif
 
-                        <th>EMB</th>
-                        @else
-                        <th>{{ $dato->solicitudAnalisisLinea->estadoPlanta->origen->alias }}</th>
-                        @endif
-
-                        @if ($dato->solicitudAnalisisLinea)
-                        @php
-                            $analisis = $dato->solicitudAnalisisLinea->analisisLinea;
-                        @endphp
-                        @endif
-                        {{-- peso --}}
-                        @if ($analisis->peso)
-                        <th>{{ $analisis->peso /1}}</th>
-                    @else
-                        <th>-</th>
-                    @endif
+                            @if ($dato->solicitudAnalisisLinea)
+                                @php
+                                    $analisis = $dato->solicitudAnalisisLinea->analisisLinea;
+                                @endphp
+                            @endif
+                            {{-- peso --}}
+                            @if ($analisis->peso)
+                                <th>{{ $analisis->peso / 1 }}</th>
+                            @else
+                                <th>-</th>
+                            @endif
                             @php
                                 $fecha = new DateTime($dato->solicitudAnalisisLinea->tiempo);
                                 $diaDelAno = $fecha->format('z') + 1;
                             @endphp
-                            <th>{{$diaDelAno}}</th>
+                            <th>{{ $diaDelAno }}</th>
 
                             <th>{{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
                             </th>
@@ -743,19 +752,18 @@ Revisado por {{ $informacion->revisor->nombre }}  {{ $informacion->revisor->apel
 
 
 
-                                    @if ($dato->solicitudAnalisisLinea->user != null)
-                                    <th>  {{ $dato->solicitudAnalisisLinea->user->codigo }}</th>
-                                    @endif
+                                @if ($dato->solicitudAnalisisLinea->user != null)
+                                    <th> {{ $dato->solicitudAnalisisLinea->user->codigo }}</th>
+                                @endif
 
 
 
 
-                                    @if ($dato->solicitudAnalisisLinea->analisisLinea->user != null)
-                                <th>  {{ $dato->solicitudAnalisisLinea->analisisLinea->user->codigo }}</th>
+                                @if ($dato->solicitudAnalisisLinea->analisisLinea->user != null)
+                                    <th> {{ $dato->solicitudAnalisisLinea->analisisLinea->user->codigo }}</th>
                                 @else
-                                <th>-</th>
-                                    @endif
-
+                                    <th>-</th>
+                                @endif
                             @endif
 
 
@@ -825,7 +833,7 @@ Revisado por {{ $informacion->revisor->nombre }}  {{ $informacion->revisor->apel
 
             <br>
             <div class="justify-end">
-                <p align="right">C.&nbsp;&nbsp;&nbsp;:     Conforme &nbsp;&nbsp;&nbsp;  &nbsp; </p>
+                <p align="right">C.&nbsp;&nbsp;&nbsp;: Conforme &nbsp;&nbsp;&nbsp; &nbsp; </p>
                 <p align="right">N.C.: No Conforme</p>
             </div>
 
@@ -834,7 +842,7 @@ Revisado por {{ $informacion->revisor->nombre }}  {{ $informacion->revisor->apel
         </main>
     </div>
 
-    <div >
+    <div>
         <div style=" display: flex; justify-content: flex-end;  page-break-inside: avoid; ">
 
 
@@ -843,8 +851,8 @@ Revisado por {{ $informacion->revisor->nombre }}  {{ $informacion->revisor->apel
             <table class="mi-tabla ">
                 <thead>
                     <tr>
-                        <th>Código</th>
-                        <th>Nombre</th>
+                        <th>CÓDIGO</th>
+                        <th>NOMBRE</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -863,9 +871,9 @@ Revisado por {{ $informacion->revisor->nombre }}  {{ $informacion->revisor->apel
 
             <div style="padding-left: 500px; ">
                 <strong
-                        style=" border-top: 1px solid #000; padding-top: 7px; padding-right: 25px; padding-left: 25px; ">
-                        VERIFICADO </strong>
-                </div>
+                    style=" border-top: 1px solid #000; padding-top: 7px; padding-right: 25px; padding-left: 25px; ">
+                    VERIFICADO </strong>
+            </div>
 
 
         </div>

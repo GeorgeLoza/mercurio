@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Analisi de Leche</title>
+    <title>Control microbiologico de producto terminado uht</title>
     <style>
         @page {
             margin-top: 1cm;
@@ -329,8 +329,8 @@
         <table class="table-container ">
             <thead>
                 <tr>
-                    <th class="border px-2 right" rowspan="2">Lote</th>
-                    <th class="border px-2 right" rowspan="2">Numero</th>
+                    <th class="border px-2 right" rowspan="2">LOTE</th>
+                    <th class="border px-2 right" rowspan="2">NÚMERO</th>
                     @foreach ($origenes as $origenAlias)
                         <th class="border px-2 right" colspan="2">{{ $origenAlias }}</th>
                     @endforeach
@@ -443,9 +443,9 @@
                 <table class="table-container">
 
                     <tr>
-                        <th class="p-2 border">Usuarios Siembra</th>
-                        <th class="p-2 border">Usuarios Lectura 2 dias</th>
-                        <th class="p-2 border">Usuarios Lectura 5 dias</th>
+                        <th class="p-2 border">USUARIO SIEMBRA</th>
+                        <th class="p-2 border">USUARIOS LECTURA 2 DÍAS</th>
+                        <th class="p-2 border">USUARIOS LECTURA 5 DÍAS</th>
                     </tr>
 
                     <tbody>

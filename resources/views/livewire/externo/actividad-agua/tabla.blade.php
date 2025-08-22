@@ -6,7 +6,7 @@
                 <tr>
 
                     <th scope="col" class="px-2 py-1 sticky left-0 z-10 bg-gray-50 dark:bg-gray-700">
-                        Codigo Muestra
+                        Código Muestra
                     </th>
                     <th scope="col" class="px-2 py-1 sticky left-20   z-10 bg-gray-50 dark:bg-gray-700">
                         Producto / Servicio

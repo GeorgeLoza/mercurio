@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Solicitud de Analisis</title>
+    <title>SOLICITUD DE ANÁLISIS DE LABORATORIO</title>
 
     <style>
         @page {
@@ -97,8 +97,7 @@
                     <th style="width: 25%; font-size: 0.8rem">PLL-REG-143 <br> Version 003 <br> Pagina 1 de 1 </th>
                 </tr>
                 <tr>
-                    <td colspan="3" style="text-align: center; padding: 0.5rem 0">SOLICITUD DE ANALISIS DE
-                        LABORATORIO
+                    <td colspan="3" style="text-align: center; padding: 0.5rem 0">SOLICITUD DE ANÁLISIS DE LABORATORIO
                     </td>
                 </tr>
             </table>
@@ -109,7 +108,7 @@
                 <tr>
                     <th>Fecha:</th>
                     <td>{{ \Carbon\Carbon::parse($solicitud->tiempo)->format('d / M / y') }}</td>
-                    <th>Codigo:</th>
+                    <th>Código:</th>
                     <td style="font-size: 0.8rem; text-decoration: underline; font-weight: bold">
                         {{ $solicitud->codigo }}
                     </td>

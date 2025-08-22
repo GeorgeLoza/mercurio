@@ -106,7 +106,7 @@
                 <tr>
                     <th class="cel-img" style="width: 25%;"><img src="img/logocompleto.png" alt=""></th>
                     <th style="width: 50%;">REGISTRO</th>
-                    <th style="width: 25%; font-size: 0.8rem">PLL-REG-140 <br> Versión 003 <br> Pagina 1 de 1 </th>
+                    <th style="width: 25%; font-size: 0.8rem">PLL-REG-140 <br> Versión 003 <br> Página 1 de 1 </th>
                 </tr>
                 <tr>
                     <td colspan="3" style="text-align: center; padding: 0.5rem 0">INFORME DE ENSAYO</td>

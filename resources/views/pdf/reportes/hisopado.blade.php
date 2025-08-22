@@ -6,8 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Control UHT</title>
+    <title>CONTROL MICROBIOLÓGICO DE MANOS</title>
     <style>
+          .page-number {
+    text-transform: capitalize;
+}
         @page {
             margin-top: 1cm;
             margin-bottom: 0cm;
@@ -262,7 +265,7 @@
             </th>
         </tr>
         <tr>
-            <td colspan="3" style="text-align: center; padding: 0.6rem;  font-weight:bold;">CONTROL MICROBIOLOGICO DE MANOS</td>
+            <td colspan="3" style="text-align: center; padding: 0.6rem;  font-weight:bold;">CONTROL MICROBIOLÓGICO DE MANOS</td>
         </tr>
     </table>
 </header>

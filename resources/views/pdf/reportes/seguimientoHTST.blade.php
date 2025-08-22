@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Control UHT</title>
+    <title>CONTROL MICROBIOLÓGICO - PRODUCTO TERMINADO (HTST)
+</title>
     <style>
         @page {
             margin-top: 1cm;
@@ -250,6 +251,10 @@
         th {
         text-transform: uppercase;
     }
+
+    .page-number {
+    text-transform: capitalize;
+}
     </style>
 </head>
 <header>
@@ -262,7 +267,7 @@
             </th>
         </tr>
         <tr>
-            <td colspan="3" style="text-align: center; padding: 0.6rem;  font-weight:bold;">CONTROL MICROBIOLOGICO - PRODUCTO TERMINADO (HTST)</td>
+            <td colspan="3" style="text-align: center; padding: 0.6rem;  font-weight:bold;">CONTROL MICROBIOLÓGICO - PRODUCTO TERMINADO (HTST)</td>
         </tr>
     </table>
 </header>

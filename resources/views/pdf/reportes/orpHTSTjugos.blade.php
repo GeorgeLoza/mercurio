@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Control HTST</title>
+    <title>Control de
+                calidad en proceso - LÍNEA HTST</title>
     <style>
         @page {
             margin-top: 1cm;
@@ -198,6 +199,7 @@
 
         .table-container th {
             font-weight: normal;
+            text-transform:  uppercase;
             /* Alinea las tablas al tope */
         }
 
@@ -256,6 +258,7 @@
         /* Estilo para las celdas de cabecera en la primera fila de la tabla con la clase "mi-tabla" */
         table.mi-tabla thead th {
             border-bottom: 2px solid #000;
+
             /* Borde inferior más grueso para las cabeceras */
         }
     </style>
@@ -271,7 +274,7 @@
         <tr>
             <td colspan="3"
                 style="text-align: center; padding: 0.6rem;  font-weight:bold; text-transform: uppercase">Control de
-                calidad en proceso - Linea HTST</td>
+                calidad en proceso - LÍNEA HTST</td>
         </tr>
     </table>
 </header>
@@ -879,8 +882,8 @@ Revisado por {{ $informacion->revisor->nombre }}  {{ $informacion->revisor->apel
             <table class="mi-tabla ">
                 <thead>
                     <tr>
-                        <th>Código</th>
-                        <th>Nombre</th>
+                        <th>CÓDIGO</th>
+                        <th>NOMBRE</th>
                     </tr>
                 </thead>
                 <tbody>

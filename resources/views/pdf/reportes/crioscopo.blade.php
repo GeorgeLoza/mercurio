@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Sustancias Controladas</title>
+    <title>AJUSTE DE CRIÓSCOPO</title>
     <style>
         @page {
             margin-top: 1cm;
@@ -222,11 +222,12 @@
                 <tr>
                     <th class="cel-img" style="width: 25%;"><img src="img/logo/logocompleto.png" alt=""></th>
                     <th style="width: 50%;">REGISTRO</th>
-                    <th style="width: 25%; font-size: 0.8rem">PLL-REG-173 <br> Versión 002 </th>
+                    <th style="width: 25%; font-size: 0.8rem">PLL-REG-173 <br> Versión 002<br>
+                        <div class="page-number"> </th>
                 </tr>
                 <tr>
                     <td colspan="3" style="text-align: center; padding: 0.6rem;  font-weight:bold;">
-                        AJUSTE DE CRIOSCOPO
+                        AJUSTE DE CRIÓSCOPO
                     </td>
                 </tr>
             </table>
@@ -236,7 +237,7 @@
             <div class="page-number"></div>
         </footer>
 
-        
+
 
 
 
@@ -350,7 +351,7 @@
                     }
                 </style>
 
-                
+
             </div>
 
             <br>
