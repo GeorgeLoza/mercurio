@@ -24,10 +24,15 @@ class Tabla extends Component
     public $ruta;
     public $fechaInicio;
     public $fechaFin;
+    public $filtro = false;
+    public $f_item = '';
 
     // Lista de movimientos
     public $detallesAbiertos = []; // Almacena qué movimientos tienen sus detalles abiertos
-
+    public function show_filtro()
+    {
+        $this->filtro = !$this->filtro;
+    }
 
     #[On('actualizar_movimiento_sustancia')]
     public function mount()
@@ -54,10 +59,18 @@ class Tabla extends Component
     public function render()
     {
         $movimientos = Mov::with('detalleMovs.item')
+            ->when($this->f_item, function ($query) {
+                return $query->whereHas('detalleMovs.item', function ($query) {
+                    $query->where('id',  $this->f_item );
+                });
+            })
             ->orderBy('tiempo', 'desc') // Ordenar por fecha de creación descendente
             ->paginate(10);
+
+            $itemSolucion = Item::all();
         return view('livewire.sustancias.tabla', [
             'movimientos' => $movimientos,
+            'itemSolucion' => $itemSolucion,
         ]);
     }
 
@@ -218,8 +231,8 @@ class Tabla extends Component
 
 
                 $ruta = Item::query()
-                ->where('nombre', $this->ruta)
-                ->get();
+                    ->where('nombre', $this->ruta)
+                    ->get();
 
 
 
@@ -261,7 +274,7 @@ class Tabla extends Component
 
                 $variable = $query->get();
                 $pdf = App::make('dompdf.wrapper');
-                $pdf = Pdf::loadView('pdf.reportes.sustanciasReporte', compact(['variable', 'fechaInicio', 'fechaFin', 'usuariosUnicos','ruta']));
+                $pdf = Pdf::loadView('pdf.reportes.sustanciasReporte', compact(['variable', 'fechaInicio', 'fechaFin', 'usuariosUnicos', 'ruta']));
                 $pdf->setPaper('letter', 'portrait');
                 echo $pdf->stream();
             },

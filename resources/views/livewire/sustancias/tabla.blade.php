@@ -46,7 +46,16 @@
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    <th scope="col" class="px-4 py-2">Código</th>
+                    <th scope="col" class="px-4 py-2">Código
+
+                        <button wire:click="show_filtro">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-gray-700 dark:fill-gray-300"
+                                viewBox="0 0 512 512">
+                                <path
+                                    d="M3.9 54.9C10.5 40.9 24.5 32 40 32H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L320 320.9V448c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48c-8.1-6-12.8-15.5-12.8-25.6V320.9L9 97.3C-.7 85.4-2.8 68.8 3.9 54.9z" />
+                            </svg>
+                        </button>
+                    </th>
                     <th scope="col" class="px-4 py-2">Usuario</th>
                     <th scope="col" class="px-4 py-2">Tipo</th>
                     <th scope="col" class="px-4 py-2">Estado</th>
@@ -55,6 +64,36 @@
                 </tr>
             </thead>
             <tbody>
+                 @if ($filtro == true)
+                        <!-- fila de filtros -->
+                        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 sticky z-20 top-6">
+
+
+
+                            {{-- fin filtro fecha --}}
+                            <th class="p-1">
+                            </th>
+
+
+
+                            {{-- filtro categoria --}}
+                            <th class="p-1">
+                                <select wire:model.live='f_item'
+                                    class="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ">
+                                    <option selected class="font-light" value="">Todos</option>
+                                    @foreach ($itemSolucion as $item)
+                                        <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+
+                                    @endforeach
+
+
+                                </select>
+                            </th>
+                            <th colspan="9"></th>
+
+
+                        </tr>
+                    @endif
                 @foreach ($movimientos as $mov)
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <td class="px-4 py-2">SUS-{{ $mov->id }}</td>

@@ -17,13 +17,14 @@ class Tabla extends Component
 {
     use WithPagination;
 
-
+    public $filtro = false;
     public $ruta;
     public $fechaInicio;
     public $fechaFin;
 
     public $totalesPorItem = [];
     public $items;
+    public $f_item = '';
 
 
     #[On('actualizar_movimiento_desinfeccion')]
@@ -36,11 +37,18 @@ class Tabla extends Component
 
     }
 
+    public function show_filtro()
+    {
+        $this->filtro = !$this->filtro;
+    }
+
     public function render()
     {
         $movimientos = movSolucion::orderBy('tiempo', 'desc') // Ordenar por fecha de creación descendente
+            ->when($this->f_item, function ($query) {
+                return $query->where('item_solucion_id', $this->f_item );
+            })
             ->paginate(10);
-
 
 
         if (auth()->user()->planta->id != 1) {
@@ -50,8 +58,11 @@ class Tabla extends Component
                 ->orderBy('tiempo', 'desc')
                 ->paginate(10);
         }
+        $itemSolucion = itemSolucion::all();
         return view('livewire.desinfeccion.tabla', [
             'movimientos' => $movimientos,
+            'itemSolucion' => $itemSolucion,
+
         ]);
     }
 
@@ -205,10 +216,10 @@ class Tabla extends Component
                 }
 
                 $autorizantes = (clone $query)
-    ->select('autorizante', 'updated_at')  // Añadimos updated_at
-    ->whereNotNull('autorizante')
-    ->distinct()
-    ->pluck('autorizante');
+                    ->select('autorizante', 'updated_at')  // Añadimos updated_at
+                    ->whereNotNull('autorizante')
+                    ->distinct()
+                    ->pluck('autorizante');
 
 
 
@@ -222,11 +233,11 @@ class Tabla extends Component
                     });
                 }
 
-           $entregantes = (clone $query)
-    ->select('entregante', 'updated_at')  // Añadimos updated_at
-    ->whereNotNull('entregante')
-    ->distinct()
-    ->pluck('entregante');
+                $entregantes = (clone $query)
+                    ->select('entregante', 'updated_at')  // Añadimos updated_at
+                    ->whereNotNull('entregante')
+                    ->distinct()
+                    ->pluck('entregante');
 
 
                 $todosIds = $userIds->merge($autorizantes)->merge($entregantes)->unique();
