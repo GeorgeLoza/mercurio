@@ -19,7 +19,7 @@
             margin-top: 120px;
             margin-left: 0cm;
             margin-right: 0cm;
-            margin-bottom: 50px;
+            margin-bottom: 1.5cm;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             font-size: 9px;
             color: #353535;
@@ -202,9 +202,16 @@
 
         .table-container th {
             font-weight: normal;
-             text-transform:  uppercase;
+            /* text-transform: uppercase; */
             /* Alinea las tablas al tope */
         }
+
+        .table-container thead th {
+            font-weight: normal;
+            text-transform: uppercase;
+            /* Alinea las tablas al tope */
+        }
+
 
         .columna_principal {
             text-align: left;
@@ -299,7 +306,7 @@
                 <thead>
 
                     <tr>
-                        <th>Fecha y Hora</th>
+                        <th>Fecha - Hora</th>
                         <th>Ruta</th>
                         <th>
                             <p>Temperatura</p>
@@ -348,7 +355,9 @@
                             <p>R.A.M.</p>
                             <p>[UFC/ml]</p>
                         </th>
-                        <th><p>Usuario</p>Solicitante</th>
+                        <th>
+                            <p>Usuario</p>Solicitante
+                        </th>
                         <th>
                             <p>Usuario</p>Análisis
                         </th>
@@ -369,7 +378,7 @@
                             <th nowrap>
                                 {{ \Carbon\Carbon::parse($variables->tiempo)->isoFormat('DD-MM-YY HH:mm', 0, 'es') }}
                             </th>
-                            <th nowrap>
+                            <th nowrap style="text-align: left; padding-left: 5px;">
                                 {{ $variables->recepcion_leche->subruta_acopio->nombre }}
                             </th>
 
@@ -422,9 +431,21 @@
                             {{-- test antibiotico --}}
                             <th>-</th>
 
-
                             @if ($variables->recuento)
-                                <th>{{ $variables->recuento }}</th>
+                                <th nowrap>
+                                    @if ($variables->recuento >= 1000000)
+                                        MNPC
+                                    @elseif ($variables->recuento > 0 && $variables->recuento <= 10)
+                                        {{ $variables->recuento }}
+                                    @elseif ($variables->recuento != 0)
+                                        {{ $variables->recuento < 1
+                                            ? $variables->recuento * 10 ** (strlen(floor($variables->recuento)) - 1)
+                                            : $variables->recuento / 10 ** (strlen(floor($variables->recuento)) - 1) }}
+                                        x 10<sup>{{ strlen(floor($variables->recuento)) - 1 }}</sup>
+                                    @else
+                                        &lt; 1 x 10<sup>1</sup>
+                                    @endif
+                                </th>
                             @else
                                 <th>-</th>
                             @endif

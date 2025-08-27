@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <title>CONTROL MICROBIOLÓGICO - PRODUCTO TERMINADO (HTST)
-</title>
+    </title>
     <style>
         @page {
             margin-top: 1cm;
@@ -20,7 +20,7 @@
             margin-top: 120px;
             margin-left: 0cm;
             margin-right: 0cm;
-            margin-bottom: 50px;
+            margin-bottom: 1.5cm;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             font-size: 9px;
             color: #353535;
@@ -206,6 +206,12 @@
             /* Alinea las tablas al tope */
         }
 
+        .table-container thead th {
+            font-weight: normal;
+            text-transform: uppercase;
+            /* Alinea las tablas al tope */
+        }
+
         .columna_principal {
             text-align: left;
 
@@ -246,15 +252,14 @@
         table.mi-tabla thead th {
             border-bottom: 2px solid #000;
 
+            text-transform: uppercase;
             /* Borde inferior más grueso para las cabeceras */
         }
-        th {
-        text-transform: uppercase;
-    }
 
-    .page-number {
-    text-transform: capitalize;
-}
+
+        .page-number {
+            text-transform: capitalize;
+        }
     </style>
 </head>
 <header>
@@ -267,7 +272,8 @@
             </th>
         </tr>
         <tr>
-            <td colspan="3" style="text-align: center; padding: 0.6rem;  font-weight:bold;">CONTROL MICROBIOLÓGICO - PRODUCTO TERMINADO (HTST)</td>
+            <td colspan="3" style="text-align: center; padding: 0.6rem;  font-weight:bold;">CONTROL MICROBIOLÓGICO -
+                PRODUCTO TERMINADO (HTST)</td>
         </tr>
     </table>
 </header>
@@ -304,53 +310,53 @@
 
         <main>
             <table class="table-container  " style="  font-wheight:0 ">
-                <thead >
+                <thead>
 
-                    <tr >
-                        <th >Fecha de
-Análisis </th>
+                    <tr>
+                        <th>Fecha de
+                            Análisis </th>
 
                         <th>Analista de
-Siembra </th>
+                            Siembra </th>
                         <th>
                             Producto
                         </th>
                         <th>Fecha de
-Vencimiento
- </th>
+                            Vencimiento
+                        </th>
                         <th>
-                           ORP
+                            ORP
                         </th>
                         <th>
                             Lote
                         </th>
                         <th>
 
-                           Aerobios
-Mesófilos
-Totales
-[UFC/ml]
+                            Aerobios
+                            Mesófilos
+                            Totales
+                            [UFC/ml]
                         </th>
                         <th>
                             coliformes
-Totales
-[UFC/ml]
+                            Totales
+                            [UFC/ml]
                         </th>
                         <th>
                             Encargado
-de Lectura 2
-días
+                            de Lectura 2
+                            días
                         </th>
-                         <th>
-                           Mohos y
-Levaduras
-[UFC/ml]
+                        <th>
+                            Mohos y
+                            Levaduras
+                            [UFC/ml]
 
                         </th>
                         <th>
                             Encargado
-de Lectura 5
-días
+                            de Lectura 5
+                            días
                         </th>
                         <th>Observaciones</th>
 
@@ -367,64 +373,68 @@ días
 
 
                             <th>{{ $variables->usuarioSiembra->codigo ?? '-' }}</th>
-                            <th nowrap style="font-size: 8px;">{{ $variables->orp->producto->nombre ?? '-' }}</th>
-                            <th nowrap >
-                                @if ($variables->orp->fecha_vencimiento1 )
+                            <th nowrap style="font-size: 8px;  text-align: left; padding-left: 10px;">{{ $variables->orp->producto->nombre ?? '-' }}</th>
+                            <th nowrap>
+                                @if ($variables->orp->fecha_vencimiento1)
+                                    {{ \Carbon\Carbon::parse($variables->orp->fecha_vencimiento1)->isoFormat('DD-MM-YY', 0, 'es') }}
+                            </th>
+                    @endif
+                    <th nowrap>{{ $variables->orp->codigo ?? '-' }}</th>
+                    <th nowrap>{{ $variables->orp->lote / 1 ?? '-' }}</th>
 
 
-                                    {{ \Carbon\Carbon::parse( $variables->orp->fecha_vencimiento1)->isoFormat('DD-MM-YY', 0, 'es') }}</th>
-                                @endif
-                            <th nowrap >{{ $variables->orp->codigo ?? '-' }}</th>
-                            <th nowrap >{{ $variables->orp->lote/1 ?? '-' }}</th>
+                    <th>
+                        @if ($variables->rt >= 1000000)
+                            MNPC
+                        @elseif ($variables->rt > 0 && $variables->rt <= 10)
+                            {{ $variables->rt }}
+                        @elseif ($variables->rt != 0)
+                            {{ $variables->rt < 1
+                                ? $variables->rt * 10 ** (strlen(floor($variables->rt)) - 1)
+                                : $variables->rt / 10 ** (strlen(floor($variables->rt)) - 1) }}
+                            x 10
+                            <sup>{{ strlen(floor($variables->rt)) - 1 }}</sup>
+                        @else
+                            &lt; 1 x 10<sup>1</sup>
+                        @endif
+                    </th>
+                    <th>
+                        @if ($variables->col >= 1000000)
+                            MNPC
+                        @elseif ($variables->col > 0 && $variables->col <= 10)
+                            {{ $variables->col }}
+                        @elseif ($variables->col != 0)
+                            {{ $variables->col < 1
+                                ? $variables->col * 10 ** (strlen(floor($variables->col)) - 1)
+                                : $variables->col / 10 ** (strlen(floor($variables->col)) - 1) }}
+                            x 10
+                            <sup>{{ strlen(floor($variables->col)) - 1 }}</sup>
+                        @else
+                            &lt; 1 x 10<sup>1</sup>
+                        @endif
+                    </th>
+                    <th>{{ $variables->usuarioDia2->codigo ?? '-' }}</th>
+                    <th>
+                        @if ($variables->moho >= 1000000)
+                            MNPC
+                        @elseif ($variables->moho > 0 && $variables->moho <= 10)
+                            {{ $variables->moho }}
+                        @elseif ($variables->moho != 0)
+                            {{ $variables->moho < 1
+                                ? $variables->moho * 10 ** (strlen(floor($variables->moho)) - 1)
+                                : $variables->moho / 10 ** (strlen(floor($variables->moho)) - 1) }}
+                            x 10
+                            <sup>{{ strlen(floor($variables->moho)) - 1 }}</sup>
+                        @else
+                            &lt; 1 x 10<sup>1</sup>
+                        @endif
+                    </th>
+                    <th>{{ $variables->usuarioDia5->codigo ?? '-' }}</th>
+                    <th>{{ $variables->observaciones ?? '-' }}</th>
 
 
-                            <th > @if ($variables->rt >= 1000000)
-                                MNPC
-                            @elseif ($variables->rt > 0 && $variables->rt <= 10)
-                                {{ $variables->rt }}
-                            @elseif ($variables->rt != 0)
-                                {{ $variables->rt < 1
-                                    ? $variables->rt * 10 ** (strlen(floor($variables->rt)) - 1)
-                                    : $variables->rt / 10 ** (strlen(floor($variables->rt)) - 1) }}
-                                x 10
-                                <sup>{{ strlen(floor($variables->rt)) - 1 }}</sup>
-                            @else
-                                &lt; 1 x 10<sup>1</sup>
-                            @endif</th>
-                            <th > @if ($variables->col >= 1000000)
-                                MNPC
-                            @elseif ($variables->col > 0 && $variables->col <= 10)
-                                {{ $variables->col }}
-                            @elseif ($variables->col != 0)
-                                {{ $variables->col < 1
-                                    ? $variables->col * 10 ** (strlen(floor($variables->col)) - 1)
-                                    : $variables->col / 10 ** (strlen(floor($variables->col)) - 1) }}
-                                x 10
-                                <sup>{{ strlen(floor($variables->col)) - 1 }}</sup>
-                            @else
-                                &lt; 1 x 10<sup>1</sup>
-                            @endif</th>
 
-                            <th>{{ $variables->usuarioDia2->codigo ?? '-' }}</th>
-                             <th > @if ($variables->moho >= 1000000)
-                                MNPC
-                            @elseif ($variables->moho > 0 && $variables->moho <= 10)
-                                {{ $variables->moho }}
-                            @elseif ($variables->moho != 0)
-                                {{ $variables->moho < 1
-                                    ? $variables->moho * 10 ** (strlen(floor($variables->moho)) - 1)
-                                    : $variables->moho / 10 ** (strlen(floor($variables->moho)) - 1) }}
-                                x 10
-                                <sup>{{ strlen(floor($variables->moho)) - 1 }}</sup>
-                            @else
-                                &lt; 1 x 10<sup>1</sup>
-                            @endif</th>
-                            <th>{{ $variables->usuarioDia5->codigo ?? '-' }}</th>
-                            <th>{{ $variables->observaciones ?? '-' }}</th>
-
-
-
-                        </tr>
+                    </tr>
                     @endforeach
                 </tbody>
 

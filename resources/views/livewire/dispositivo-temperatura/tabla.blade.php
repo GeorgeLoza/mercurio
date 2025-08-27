@@ -63,7 +63,7 @@
                         error
                     </th>
                     <th scope="col" class="px-1 py-1 sticky top-0 bg-white dark:bg-gray-700">
-                        patron
+                        patrón
                     </th>
                     <th scope="col" class="px-1 py-1 sticky top-0 bg-white dark:bg-gray-700">
                         inst.
@@ -138,7 +138,7 @@
                         </td>
                         <td class="px-2 py-1">
                             @if ($temperatura->estado == 'Bien')
-                                <span class="text-green-600 dark:text-green-500">Bien</span>
+                                <span class="text-green-600 dark:text-green-500">Bueno</span>
                             @elseif ($temperatura->estado == 'Mal')
                                 <span class="text-red-600 dark:text-red-500">Mal</span>
                             @else

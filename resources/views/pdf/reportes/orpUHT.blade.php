@@ -504,7 +504,7 @@
 
                 <thead>
                     <tr>
-                        <th colspan="15" style="font-weight:bold;">
+                        <th colspan="16" style="font-weight:bold;">
                           CONTROL DE CALIDAD DE PRODUCTO ENVASADO
                         </th>
                     </tr>

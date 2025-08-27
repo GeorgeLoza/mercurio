@@ -19,7 +19,7 @@
 
             margin-left: 0cm;
             margin-right: 0cm;
-            margin-bottom: 1cm;
+            margin-bottom: 1.5cm;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             font-size: 9px;
             color: #353535;
@@ -213,6 +213,10 @@
     </style>
 
 </head>
+ <footer>
+            SOALPRO SRL - Planta Lácteos - Reporte generado el {{ date('d/m/y') }}
+            <div class="page-number"></div>
+        </footer>
 
 <body>
     <div class="page">
@@ -231,10 +235,6 @@
                 </tr>
             </table>
         </head>
-        <footer>
-            SOALPRO SRL - Planta Lácteos - Reporte generado el {{ date('d/m/y') }}
-            <div class="page-number"></div>
-        </footer>
 
         <fieldset>
             <legend style="font-weight:bold;"></legend>

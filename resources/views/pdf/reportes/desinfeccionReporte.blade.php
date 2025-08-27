@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <title>PREPARACIÓN Y
-                        ENTREGA DE SOLUCIONES DE LIMPIEZA Y DESINFECCIÓN</title>
+        ENTREGA DE SOLUCIONES DE LIMPIEZA Y DESINFECCIÓN</title>
     <style>
         @page {
             margin-top: 1cm;
@@ -20,7 +20,7 @@
 
             margin-left: 0cm;
             margin-right: 0cm;
-            margin-bottom: 1cm;
+            margin-bottom: 1.5cm;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             font-size: 9px;
             color: #353535;
@@ -202,7 +202,13 @@
 
         .table-container th {
             font-weight: normal;
-             text-transform:  uppercase;
+            /* text-transform:  uppercase; */
+            /* Alinea las tablas al tope */
+        }
+
+        .table-container head th {
+            font-weight: normal;
+            text-transform: uppercase;
             /* Alinea las tablas al tope */
         }
 
@@ -215,6 +221,10 @@
     </style>
 
 </head>
+<footer>
+    SOALPRO SRL - Planta Lácteos - Reporte generado el {{ date('d/m/y') }}
+    <div class="page-number"></div>
+</footer>
 
 <body>
     <div class="page">
@@ -233,11 +243,8 @@
                 </tr>
             </table>
         </head>
-        <footer>
-            SOALPRO SRL - Planta Lácteos - Reporte generado el {{ date('d/m/y') }}
-            <div class="page-number"></div>
-        </footer>
 
+ @if ($ruta != null)
         <fieldset>
             <legend style="font-weight:bold;"></legend>
             <div class="cont_div">
@@ -252,10 +259,9 @@
 
                         </td>
                         <td>
-@if ($ruta != null)
-                         CODIGO: {{ $ruta[0]->codigo }}
-
-@endif
+                            @if ($ruta != null)
+                                CODIGO: {{ $ruta[0]->codigo }}
+                            @endif
 
 
                         </td>
@@ -265,7 +271,7 @@
                 </table>
             </div>
         </fieldset>
-
+@endif
 
 
         <main style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100px;">
@@ -279,8 +285,7 @@
 
                             <p>
                                 @if ($ruta != null)
-
-                                [{{ $ruta[0]->unidad }}]
+                                    [{{ $ruta[0]->unidad }}]
                                 @endif
                             </p>
 
@@ -290,17 +295,15 @@
                             Consumo
                             <p>
 
- @if ($ruta != null)
-
-                                [{{ $ruta[0]->unidad }}]
+                                @if ($ruta != null)
+                                    [{{ $ruta[0]->unidad }}]
                                 @endif
                             </p>
                         <th>Saldo
                             <p>
 
- @if ($ruta != null)
-
-                                [{{ $ruta[0]->unidad }}]
+                                @if ($ruta != null)
+                                    [{{ $ruta[0]->unidad }}]
                                 @endif
                             </p>
                         </th>
@@ -329,7 +332,7 @@
                                 {{ \Carbon\Carbon::parse($variables->tiempo)->isoFormat('DD-MM-YY HH:mm', 0, 'es') }}
 
                             </th>
-                            <th nowrap>
+                            <th nowrap style="text-align: left; padding-left: 5px;">
                                 @if ($variables->destinoSolucion == null)
                                     Almacen Laboratorio
                                 @else

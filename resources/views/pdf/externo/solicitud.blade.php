@@ -107,7 +107,7 @@
             <table style="margin: 0.3rem 0; border:0; text-align:center; font-size:0.8rem;">
                 <tr>
                     <th>Fecha:</th>
-                    <td>{{ \Carbon\Carbon::parse($solicitud->tiempo)->format('d / M / y') }}</td>
+                    <td>{{ \Carbon\Carbon::parse($solicitud->tiempo)->isoFormat('DD / MMM / YY' , 0, 'es') }}</td>
                     <th>Código:</th>
                     <td style="font-size: 0.8rem; text-decoration: underline; font-weight: bold">
                         {{ $solicitud->codigo }}

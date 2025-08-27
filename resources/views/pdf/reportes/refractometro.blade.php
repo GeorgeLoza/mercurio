@@ -334,7 +334,7 @@
                         </td>
                         <td>
                             @if ($refractometro->estado == 'Bien')
-                                <span class="text-green-600 dark:text-green-500">Bien</span>
+                                <span class="text-green-600 dark:text-green-500">Bueno</span>
                             @elseif ($refractometro->estado == 'Mal')
                                 <span class="text-red-600 dark:text-red-500">Mal</span>
                             @else

@@ -71,7 +71,7 @@
                     <th scope="col" class="px-1 py-1 sticky top-0 bg-white dark:bg-gray-700">
                         25%
                     </th>
-                    
+
                 </tr>
             </thead>
             <tbody class=" text-center">
@@ -128,7 +128,7 @@
                         </td>
                         <td class="px-2 py-1">
                             @if ($refractometro->estado == 'Bien')
-                                <span class="text-green-600 dark:text-green-500">Bien</span>
+                                <span class="text-green-600 dark:text-green-500">Bueno</span>
                             @elseif ($refractometro->estado == 'Mal')
                                 <span class="text-red-600 dark:text-red-500">Mal</span>
                             @else
