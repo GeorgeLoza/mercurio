@@ -10,10 +10,12 @@ use App\Models\ParametroLinea;
 class Tabla extends Component
 {
     use WithPagination;
+    
  //filtros-busqueda
   public $f_producto_codigo = null;
   public $f_producto_nombre = null;
   public $f_etapa_nombre = null;
+  public $f_categoria = null;
   public $f_temperatura_min = null;
   public $f_temperatura_max = null;
   public $f_ph_min = null;
@@ -63,6 +65,12 @@ class Tabla extends Component
                 $query->where('nombre', 'like', '%' . $this->f_producto_nombre . '%');
             });
         })
+        ->when($this->f_categoria, function ($query) {
+            return $query->whereHas('producto.categoriaProducto', function ($query) {
+                $query->where('nombre', 'like', '%' . $this->f_categoria . '%');
+            });
+        })
+
         ->when($this->f_etapa_nombre, function ($query) {
             return $query->whereHas('Etapa', function ($query) {
                 $query->where('nombre', 'like', '%' . $this->f_etapa_nombre . '%');
