@@ -42,6 +42,9 @@ class Crear extends ModalComponent
     public $limpiezaTransporte = false;
 
 
+
+
+
     #[On('actualizar_crear_recepcion_materia_prima')]
     public function render()
     {
@@ -59,16 +62,34 @@ class Crear extends ModalComponent
 
 
 
+
+
+    public $lotes = [
+        ['fecha_elaboracion' => null, 'fecha_vencimiento' => null, 'lote' => null]
+    ];
+
+    public function addLote()
+    {
+        $this->lotes[] = ['fecha_elaboracion' => null, 'fecha_vencimiento' => null, 'lote' => null];
+    }
+
+    public function removeLote($index)
+    {
+        unset($this->lotes[$index]);
+        $this->lotes = array_values($this->lotes); // reindexar
+    }
+
+
     public function guardar()
     {
-        // $this->validate([
-        //     'item' => 'required',
+        $this->validate([
+            'item' => 'required',
         //     'cantidad' => 'required|numeric|min:1',
         //     'unidad' => 'required',
-        //     'proveedor' => 'required',
+            'proveedor' => 'required',
         //     'marca' => 'nullable|string|max:255',
         //     'lote' => 'nullable|string|max:255',
-        //     'ubicaion' => 'nullable|string|max:255',
+             'ubicacion' => 'required',
         //     'almacenero' => 'nullable|string|max:255',
         //     'fecha_elaboracion' => 'nullable|date',
         //     'fecha_vencimiento' => 'nullable|date|after_or_equal:fecha_elaboracion',
@@ -78,21 +99,21 @@ class Crear extends ModalComponent
         //     'observacion' => 'nullable|string|max:500',
         //     'correccion' => 'nullable|string|max:500',
         //     'codigo_certificado' => 'nullable|string|max:255'
-        // ]);
+         ]);
 
         try {
-            RecepcionMateriaPrima::create([
+            $recepcion = RecepcionMateriaPrima::create([
                 'tiempo' => now(),
                 'item_materia_prima_id' => $this->item,
                 'cantidad' => $this->cantidad,
                 'unidades' => $this->unidad,
                 'proveedor_materia_prima_id' => $this->proveedor,
                 'marca' => $this->marca,
-                'lote' => $this->lote,
+                // 'lote' => $this->lote,
                 'ubicacion' => $this->ubicacion,
                 'almacenero_materia_prima_id' => $this->almacenero,
-                'fecha_elaboracion' => $this->fechaElaboracion,
-                'fecha_vencimiento' => $this->fechaVencimiento,
+                // 'fecha_elaboracion' => $this->fechaElaboracion,
+                // 'fecha_vencimiento' => $this->fechaVencimiento,
                 'cerrado' => $this->cerrado,
                 'limpieza_transporte' => $this->limpiezaTransporte,
                 'sin_elementos' => $this->sinElementos,
@@ -105,6 +126,15 @@ class Crear extends ModalComponent
                 'user_id' => auth()->user()->id,
                 'almacenero' => 'Pendiente',
             ]);
+
+            // Guardar lotes en la tabla hija
+            foreach ($this->lotes as $lote) {
+                $recepcion->lotes()->create([
+                    'lote' => $lote['lote'],
+                    'fecha_elaboracion' => $lote['fecha_elaboracion'],
+                    'fecha_vencimiento' => $lote['fecha_vencimiento'],
+                ]);
+            }
 
             $this->dispatch('actualizar_tabla_recepcion_materia_prima');
             $this->closeModal();

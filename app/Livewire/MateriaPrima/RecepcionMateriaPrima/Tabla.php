@@ -9,6 +9,7 @@ use Livewire\Component;
 class Tabla extends Component
 {
     public $recepciones;
+     public $expanded = [];
     #[On('actualizar_tabla_recepcion_materia_prima')]
     public function render()
     {
@@ -20,6 +21,14 @@ class Tabla extends Component
         return view('livewire.materia-prima.recepcion-materia-prima.tabla');
     }
 
+ public function toggle($id)
+    {
+        if (in_array($id, $this->expanded)) {
+            $this->expanded = array_diff($this->expanded, [$id]);
+        } else {
+            $this->expanded[] = $id;
+        }
+    }
 
     public function eliminar($id)
     {

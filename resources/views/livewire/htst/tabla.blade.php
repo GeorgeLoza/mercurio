@@ -2,7 +2,7 @@
     <div class="flex justify-end mb-2 gap-2">
     </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg  overflow-y-auto h-[28rem] overflow-hidden">
-        <table class="w-full text-2xs text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
+        <table class="w-full text-2xs text-left rtl:text-right text-gray-500 dark:text-gray-400  bg-gray-200 dark:bg-gray-800">
             <thead class="text-2xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
 

@@ -55,12 +55,11 @@
     </div>
 
     <!-- DATOS BÁSICOS -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-        @foreach (['unidad' => 'Unidades', 'cantidad' => 'Cantidad', 'marca' => 'Marca', 'lote' => 'Lote'] as $field => $label)
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+        @foreach (['unidad' => 'Unidades', 'cantidad' => 'Cantidad', 'marca' => 'Marca'] as $field => $label)
             <div>
                 <label class="block text-xs md:text-sm font-semibold mb-1">{{ $label }}</label>
-                <input wire:model="{{ $field }}"
-                    type="{{ in_array($field, ['marca', 'lote']) ? 'text' : 'number' }}"
+                <input wire:model="{{ $field }}" type="{{ $field === 'cantidad' ? 'number' : 'text' }}"
                     class="w-full border rounded px-2 py-1.5 text-sm dark:bg-slate-800 border-gray-300 focus:ring focus:ring-blue-300">
                 @error($field)
                     <span class="text-red-500 text-xs">{{ $message }}</span>
@@ -116,7 +115,7 @@
 
         <!-- Almacenero -->
         <div class="flex items-end">
-            <div >
+            <div>
                 <label for="almacenero" class="block text-xs md:text-sm font-semibold mb-1">Almacenero</label>
                 <select wire:model.live="almacenero" id="almacenero"
                     class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm dark:bg-slate-800 focus:ring focus:ring-blue-300">
@@ -145,8 +144,8 @@
     </div>
 
 
-    <!-- FECHAS -->
-    <div class="grid grid-cols-2 md:grid-cols-2 gap-3">
+    <!-- FECHAS Y LOTE -->
+    {{-- <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
         <div>
             <label class="block text-xs md:text-sm font-semibold mb-1">F. Elaboración</label>
             <input type="date" wire:model="fechaElaboracion"
@@ -164,7 +163,60 @@
                 <p class="text-red-500 text-xs">Debe colocar una fecha</p>
             @enderror
         </div>
+
+        <div >
+            <label class="block text-xs md:text-sm font-semibold mb-1">Lote</label>
+            <input wire:model="lote" type="text"
+                class="w-full border rounded px-2 py-1.5 text-sm dark:bg-slate-800 border-gray-300 focus:ring focus:ring-blue-300">
+            @error('lote')
+                <span class="text-red-500 text-xs">{{ $message }}</span>
+            @enderror
+        </div>
+
+    </div> --}}
+
+
+    <!-- LOTES DINÁMICOS -->
+    <div class="space-y-3">
+        <label class="block text-xs md:text-sm font-semibold">Lotes</label>
+
+        @foreach ($lotes as $index => $lote)
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 items-end border p-2 rounded-md">
+                <div>
+                    <label class="text-xs">F. Elaboración</label>
+                    <input type="date" wire:model="lotes.{{ $index }}.fecha_elaboracion"
+                        class="w-full border rounded px-2 py-1 text-sm dark:bg-slate-800">
+                </div>
+
+                <div>
+                    <label class="text-xs">F. Vencimiento</label>
+                    <input type="date" wire:model="lotes.{{ $index }}.fecha_vencimiento"
+                        class="w-full border rounded px-2 py-1 text-sm dark:bg-slate-800">
+                </div>
+
+                <div>
+                    <label class="text-xs">Lote</label>
+                    <input type="text" wire:model="lotes.{{ $index }}.lote"
+                        class="w-full border rounded px-2 py-1 text-sm dark:bg-slate-800">
+                </div>
+
+                <div class="flex justify-end">
+                    @if ($index > 0)
+                        <button type="button" wire:click="removeLote({{ $index }})"
+                            class="bg-red-500 text-white px-2 py-1 rounded text-xs">
+                            Eliminar
+                        </button>
+                    @endif
+                </div>
+            </div>
+        @endforeach
+
+        <button type="button" wire:click="addLote"
+            class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm">
+            + Agregar Lote
+        </button>
     </div>
+
 
     <!-- CHECKBOXES -->
     <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">

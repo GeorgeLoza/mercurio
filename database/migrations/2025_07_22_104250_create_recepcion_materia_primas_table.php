@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('ubicacion');
             $table->foreignId('user_id')->constrained();
             $table->foreignId('item_materia_prima_id')->constrained();
-            $table->decimal('cantidad', 10, 3);
+            $table->decimal('cantidad', 10, 3)->nullable();
             $table->decimal('unidades', 10, 3)->nullable();
             $table->foreignId('proveedor_materia_prima_id')->constrained();
             $table->string('marca')->nullable();

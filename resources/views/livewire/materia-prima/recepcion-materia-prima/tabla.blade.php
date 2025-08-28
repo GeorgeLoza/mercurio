@@ -10,10 +10,10 @@
     @endif
 
     <div>
-        <table>
+        <table class="bg-white dark:bg-slate-900 rounded-lg">
             <thead>
-                <tr class="bg-gray-200 dark:bg-slate-700 text-2xs">
-                    <th class="px-2 py-2">Tiempo</th>
+                <tr class="bg-gray-100 dark:bg-slate-700 text-2xs ">
+                    <th class="px-2 py-2 rounded-tl-lg">Tiempo</th>
                     <th class="px-2 py-2">Almacen</th>
                     <th class="px-2 py-2">Calidad</th>
                     <th class="px-2 py-2">Item</th>
@@ -23,9 +23,7 @@
                     <th class="px-2 py-2">Limpieza</th>
                     <th class="px-2 py-2">Elem. Ext.</th>
                     <th class="px-2 py-2">Cerrado</th>
-                    <th class="px-2 py-2">Lote</th>
-                    <th class="px-2 py-2">F. Elab.</th>
-                    <th class="px-2 py-2">F. Venc.</th>
+
                     <th class="px-2 py-2">NIT</th>
                     <th class="px-2 py-2">R.S.</th>
                     <th class="px-2 py-2">Cert.</th>
@@ -33,12 +31,13 @@
                     <th class="px-2 py-2">Observación</th>
                     <th class="px-2 py-2">Corrección</th>
                     <th class="px-2 py-2">Cod. Cert.</th>
-                    <th class="px-2 py-2">Acciones</th>
+                    <th class="px-2 py-2 rounded-tr-lg">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($recepciones as $recepcion)
-                    <tr class="border-b dark:border-gray-600 text-2xs text-center">
+                    <tr class="border-t dark:border-gray-600 text-2xs text-center cursor-pointer"
+                        wire:click="toggle({{ $recepcion->id }})">
                         <td class="px-2 py-2" nowrap>
 
                             @if ($recepcion->tiempo)
@@ -73,17 +72,7 @@
                                 ✔️
                             @endif
                         </td>
-                        <td class="px-2 py-2">{{ $recepcion->lote }}</td>
-                        <td class="px-2 py-2" nowrap>
-                            @if ($recepcion->fecha_elaboracion)
-                                {{ \Carbon\Carbon::parse($recepcion->fecha_elaboracion)->isoFormat('DD-MM-YY') }}
-                            @endif
-                        </td>
-                        <td class="px-2 py-2" nowrap>
-                            @if ($recepcion->fecha_vencimiento)
-                                {{ \Carbon\Carbon::parse($recepcion->fecha_vencimiento)->isoFormat('DD-MM-YY') }}
-                            @endif
-                        </td>
+
                         <td class="px-2 py-2">
 
                             @if ($recepcion->nit == '0')
@@ -116,6 +105,7 @@
 
                                 {{ $recepcion->almacenero ?? '' }}
                             </span>
+                            <br>
                             @if ($recepcion->almacenero == 'Pendiente')
                                 <button wire:click="aceptado({{ $recepcion->id }})"
                                     class="bg-green-500 hover:bg-green-700 text-white p-1 rounded"
@@ -136,7 +126,8 @@
 
                         <td class="px-2 py-2">{{ $recepcion->codigo_certificado }}</td>
                         <td class="px-2 py-2" nowrap>
-                            @if (
+
+                            {{-- @if (
                                 (now()->diffInMinutes($recepcion->created_at) < 480 && auth()->user()->id == $recepcion->user->id) ||
                                     auth()->user()->role->rolModuloPermisos->where('modulo_id', 35)->where('permiso_id', 3)->isNotEmpty())
                                 <button>
@@ -150,7 +141,9 @@
                                     </svg>
 
                                 </button>
-                            @endif
+                            @endif --}}
+
+
                             @if (
                                 (now()->diffInMinutes($recepcion->created_at) < 1440 && auth()->user()->id == $recepcion->user->id) ||
                                     auth()->user()->role->rolModuloPermisos->where('modulo_id', 35)->where('permiso_id', 4)->isNotEmpty())
@@ -167,6 +160,38 @@
 
                         </td>
                     </tr>
+
+                    @if (in_array($recepcion->id, $expanded))
+                        <tr class="bg-white dark:bg-gray-900 text-2xs">
+                            <td colspan="18">
+                                <div class="p-2 pt-0">
+
+                                    <table class="w-full text-left text-2xs mt-1 ">
+                                        <thead>
+                                            <tr class="text-2xs">
+                                                <th class="px-1 ">Lote</th>
+                                                <th class="px-1 ">F. Elaboración</th>
+                                                <th class="px-1 ">F. Vencimiento</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($recepcion->lotes as $lote)
+                                                <tr class="text-2xs">
+                                                    <td class="px-1 py-1">{{ $lote->lote }}</td>
+                                                    <td class="px-1 py-1">
+                                                        {{ \Carbon\Carbon::parse($lote->fecha_elaboracion)->isoFormat('DD-MM-YY') }}
+                                                    </td>
+                                                    <td class="px-1 py-1">
+                                                        {{ \Carbon\Carbon::parse($lote->fecha_vencimiento)->isoFormat('DD-MM-YY') }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    @endif
                 @endforeach
             </tbody>
         </table>

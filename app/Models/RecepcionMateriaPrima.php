@@ -48,5 +48,8 @@ class RecepcionMateriaPrima extends Model
         return $this->belongsTo(User::class);
     }
 
-
+    public function lotes()
+    {
+        return $this->hasMany(RecepcionLote::class);
+    }
 }
