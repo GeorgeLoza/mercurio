@@ -125,11 +125,14 @@
             <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700">
                 Guardar en todos los productos
             </button>
-            <button type="button" class="bg-red-600 text-white px-4 py-2 rounded text-sm hover:bg-red-700"
+            <button type="button" class="bg-red-600 text-white px-4 py-2 rounded text-sm hover:bg-red-700 @if (auth()->user()->rol_id != 1) hidden
+
+            @endif"
                 wire:click="deleteParametro"
                 onclick="return confirm('¿Seguro de eliminar los parámetros de esta etapa en todos los productos?')">
                 Eliminar
             </button>
+
         </div>
     </form>
 </div>

@@ -1,12 +1,20 @@
 <div>
     @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 35)->where('permiso_id', 1)->isNotEmpty())
-        <button class="bg-green-500 rounded-md text-white  py-1.5 px-2 text-lg mb-2"
-            onclick="Livewire.dispatch('openModal', { component: 'materiaPrima.recepcionMateriaPrima.crear' })">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-white" viewBox="0 0 448 512">
-                <path
-                    d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
-            </svg>
-        </button>
+        <div class="flex justify-between mb-2">
+
+            <button class="bg-green-500 rounded-md text-white  py-1.5 px-2 text-lg mb-2"
+                onclick="Livewire.dispatch('openModal', { component: 'materiaPrima.recepcionMateriaPrima.crear' })">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-white" viewBox="0 0 448 512">
+                    <path
+                        d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+                </svg>
+            </button>
+
+            <button class="bg-green-500 rounded-md text-white  py-1 px-2 text-sm mb-2"
+                onclick="Livewire.dispatch('openModal', { component: 'materiaPrima.items.parametros' })">
+                Items
+            </button>
+        </div>
     @endif
 
     <div>
@@ -107,17 +115,20 @@
                             </span>
                             <br>
                             @if ($recepcion->almacenero == 'Pendiente')
-                                <button wire:click="aceptado({{ $recepcion->id }})"
-                                    class="bg-green-500 hover:bg-green-700 text-white p-1 rounded"
-                                    wire:confirm="Este elemento ingresara al almacen?">
-                                    Ingreso
-                                </button>
+                                <div class="flex gap-2">
 
-                                <button wire:click="rechazado({{ $recepcion->id }})"
-                                    class="bg-red-500 hover:bg-red-700 text-white p-1 rounded"
-                                    wire:confirm="Este elemento sera rechazad de almacen?">
-                                    Rechazo
-                                </button>
+                                    <button wire:click="aceptado({{ $recepcion->id }})"
+                                        class="bg-green-500 hover:bg-green-700 text-white p-1 rounded"
+                                        wire:confirm="Este elemento ingresara al almacen?">
+                                        Ingreso
+                                    </button>
+
+                                    <button wire:click="rechazado({{ $recepcion->id }})"
+                                        class="bg-red-500 hover:bg-red-700 text-white p-1 rounded"
+                                        wire:confirm="Este elemento sera rechazad de almacen?">
+                                        Rechazo
+                                    </button>
+                                </div>
                             @endif
 
                         </td>
@@ -127,9 +138,7 @@
                         <td class="px-2 py-2">{{ $recepcion->codigo_certificado }}</td>
                         <td class="px-2 py-2" nowrap>
 
-                            {{-- @if (
-                                (now()->diffInMinutes($recepcion->created_at) < 480 && auth()->user()->id == $recepcion->user->id) ||
-                                    auth()->user()->role->rolModuloPermisos->where('modulo_id', 35)->where('permiso_id', 3)->isNotEmpty())
+                            {{-- @if ((now()->diffInMinutes($recepcion->created_at) < 480 && auth()->user()->id == $recepcion->user->id) || auth()->user()->role->rolModuloPermisos->where('modulo_id', 35)->where('permiso_id', 3)->isNotEmpty())
                                 <button>
 
                                     <svg onclick="Livewire.dispatch('openModal', { component: 'materiaPrima.recepcionMateriaPrima.crear', arguments: { id: {{ $recepcion->id }} } })"

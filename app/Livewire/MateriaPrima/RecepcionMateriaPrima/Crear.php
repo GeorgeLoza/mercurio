@@ -17,7 +17,10 @@ class Crear extends ModalComponent
 
     public $categorias;
     public $categoria;
+    public $unidadMedida;
     public $items;
+    public $f_proveedor;
+    public $f_item;
     public $item;
     public $cantidad;
     public $unidad;
@@ -49,19 +52,33 @@ class Crear extends ModalComponent
     public function render()
     {
 
-        $this->proveedores = ProveedorMateriaPrima::all()->sortBy('nombre');
+        $this->proveedores = ProveedorMateriaPrima::where('nombre', 'like', "%{$this->f_proveedor}%")
+            ->orderBy('nombre')
+            ->get();
         $this->almaceneros = AlmaceneroMateriaPrima::all();
         $this->categorias = CategoriaMateriaPrima::all();
         $this->items = ItemMateriaPrima::when($this->categoria, function ($query) {
             $query->where('categoria_materia_prima_id', $this->categoria);
         })
+            ->when($this->f_item, function ($query) {
+                $query->where(function ($q) {
+                    $q->where('nombre', 'like', "%{$this->f_item}%")
+                        ->orWhere('descripcion', 'like', "%{$this->f_item}%");
+                });
+            })
             ->get();
+
 
         return view('livewire.materia-prima.recepcion-materia-prima.crear');
     }
 
 
+    public function updatedItem($value)
+    {
+        $item = ItemMateriaPrima::find($value);
+        $this->unidadMedida = $item ? $item->unidad->abreviatura : '';
 
+    }
 
 
     public $lotes = [
@@ -84,22 +101,22 @@ class Crear extends ModalComponent
     {
         $this->validate([
             'item' => 'required',
-        //     'cantidad' => 'required|numeric|min:1',
-        //     'unidad' => 'required',
+            //     'cantidad' => 'required|numeric|min:1',
+            //     'unidad' => 'required',
             'proveedor' => 'required',
-        //     'marca' => 'nullable|string|max:255',
-        //     'lote' => 'nullable|string|max:255',
-             'ubicacion' => 'required',
-        //     'almacenero' => 'nullable|string|max:255',
-        //     'fecha_elaboracion' => 'nullable|date',
-        //     'fecha_vencimiento' => 'nullable|date|after_or_equal:fecha_elaboracion',
-        //     'nit' => 'nullable|string|max:255',
-        //     'rs' => 'nullable|string|max:255',
-        //     'certificado' => 'nullable|string|max:255',
-        //     'observacion' => 'nullable|string|max:500',
-        //     'correccion' => 'nullable|string|max:500',
-        //     'codigo_certificado' => 'nullable|string|max:255'
-         ]);
+            //     'marca' => 'nullable|string|max:255',
+            //     'lote' => 'nullable|string|max:255',
+            'ubicacion' => 'required',
+            //     'almacenero' => 'nullable|string|max:255',
+            //     'fecha_elaboracion' => 'nullable|date',
+            //     'fecha_vencimiento' => 'nullable|date|after_or_equal:fecha_elaboracion',
+            //     'nit' => 'nullable|string|max:255',
+            //     'rs' => 'nullable|string|max:255',
+            //     'certificado' => 'nullable|string|max:255',
+            //     'observacion' => 'nullable|string|max:500',
+            //     'correccion' => 'nullable|string|max:500',
+            //     'codigo_certificado' => 'nullable|string|max:255'
+        ]);
 
         try {
             $recepcion = RecepcionMateriaPrima::create([

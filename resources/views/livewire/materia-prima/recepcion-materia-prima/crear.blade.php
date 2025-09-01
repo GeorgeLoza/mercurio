@@ -6,7 +6,7 @@
     </h2>
 
     <!-- CATEGORÍA & MATERIA PRIMA -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
         <div>
             <label for="categoria" class="block text-xs md:text-sm font-semibold mb-1 text-gray-700 dark:text-gray-300">
                 Categoría
@@ -19,6 +19,18 @@
                 @endforeach
             </select>
             @error('categoria')
+                <span class="text-red-500 text-xs">{{ $message }}</span>
+            @enderror
+        </div>
+        <div>
+            <label for="f_item" class="block text-xs md:text-sm font-semibold mb-1 text-gray-700 dark:text-gray-300">
+                Filtro Materia Prima
+            </label>
+            <input type="text" wire:model.live="f_item" id="f_item"
+                class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm dark:bg-slate-800 focus:ring focus:ring-blue-300"
+                placeholder="Filtrar materia prima...">
+
+            @error('f_item')
                 <span class="text-red-500 text-xs">{{ $message }}</span>
             @enderror
         </div>
@@ -55,21 +67,66 @@
     </div>
 
     <!-- DATOS BÁSICOS -->
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-        @foreach (['unidad' => 'Unidades', 'cantidad' => 'Cantidad', 'marca' => 'Marca'] as $field => $label)
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div>
+            <label class="block text-xs md:text-sm font-semibold mb-1">Unidades</label>
+            <input wire:model="unidad" type="text"
+                class="w-full border rounded px-2 py-1.5 text-sm dark:bg-slate-800 border-gray-300 focus:ring focus:ring-blue-300">
+            @error('unidad')
+                <span class="text-red-500 text-xs">{{ $message }}</span>
+            @enderror
+        </div>
+
+        <div class="flex flex-col">
             <div>
-                <label class="block text-xs md:text-sm font-semibold mb-1">{{ $label }}</label>
-                <input wire:model="{{ $field }}" type="{{ $field === 'cantidad' ? 'number' : 'text' }}"
-                    class="w-full border rounded px-2 py-1.5 text-sm dark:bg-slate-800 border-gray-300 focus:ring focus:ring-blue-300">
-                @error($field)
-                    <span class="text-red-500 text-xs">{{ $message }}</span>
-                @enderror
+                <label class="block text-xs md:text-sm font-semibold mb-1">Cantidad</label>
             </div>
-        @endforeach
+            <div class="flex items-center gap-1">
+                <div>
+
+                    <input wire:model="cantidad" type="number"
+                        class="w-full border rounded px-2 py-1.5 text-sm dark:bg-slate-800 border-gray-300 focus:ring focus:ring-blue-300">
+                    @error('cantidad')
+                        <span class="text-red-500 text-xs">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="">
+
+                    {{ $unidadMedida ?? '' }}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div>
+            <label class="block text-xs md:text-sm font-semibold mb-1">Marca</label>
+            <input wire:model="marca" type="text"
+                class="w-full border rounded px-2 py-1.5 text-sm dark:bg-slate-800 border-gray-300 focus:ring focus:ring-blue-300">
+            @error('marca')
+                <span class="text-red-500 text-xs">{{ $message }}</span>
+            @enderror
+        </div>
     </div>
 
     <!-- PROVEEDOR / UBICACIÓN / ALMACENERO -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+
+        {{-- filtro proveedor --}}
+        <div>
+            <label for="f_proveedor"
+                class="block text-xs md:text-sm font-semibold mb-1 text-gray-700 dark:text-gray-300">
+                Filtro Proveedor
+            </label>
+            <input type="text" wire:model.live="f_proveedor" id="f_proveedor"
+                class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm dark:bg-slate-800 focus:ring focus:ring-blue-300"
+                placeholder="Filtrar proveedor...">
+
+            @error('f_proveedor')
+                <span class="text-red-500 text-xs">{{ $message }}</span>
+            @enderror
+        </div>
         <!-- Proveedor -->
         <div class="flex items-end">
             <div>
@@ -144,36 +201,7 @@
     </div>
 
 
-    <!-- FECHAS Y LOTE -->
-    {{-- <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-        <div>
-            <label class="block text-xs md:text-sm font-semibold mb-1">F. Elaboración</label>
-            <input type="date" wire:model="fechaElaboracion"
-                class="w-full border rounded px-2 py-1.5 text-sm dark:bg-slate-800 border-gray-300 focus:ring focus:ring-blue-300" />
-            @error('fechaElaboracion')
-                <p class="text-red-500 text-xs">Debe colocar una fecha</p>
-            @enderror
-        </div>
 
-        <div>
-            <label class="block text-xs md:text-sm font-semibold mb-1">F. Vencimiento</label>
-            <input type="date" wire:model="fechaVencimiento"
-                class="w-full border rounded px-2 py-1.5 text-sm dark:bg-slate-800 border-gray-300 focus:ring focus:ring-blue-300" />
-            @error('fechaVencimiento')
-                <p class="text-red-500 text-xs">Debe colocar una fecha</p>
-            @enderror
-        </div>
-
-        <div >
-            <label class="block text-xs md:text-sm font-semibold mb-1">Lote</label>
-            <input wire:model="lote" type="text"
-                class="w-full border rounded px-2 py-1.5 text-sm dark:bg-slate-800 border-gray-300 focus:ring focus:ring-blue-300">
-            @error('lote')
-                <span class="text-red-500 text-xs">{{ $message }}</span>
-            @enderror
-        </div>
-
-    </div> --}}
 
 
     <!-- LOTES DINÁMICOS -->

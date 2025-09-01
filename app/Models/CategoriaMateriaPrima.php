@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class CategoriaMateriaPrima extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'nombre',
+        'descripcion',
+
+    ];
+    public function materiaPrima()
+    {
+        return $this->hasMany(ItemMateriaPrima::class);
+    }
 }

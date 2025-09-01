@@ -16,4 +16,9 @@ class Unidad extends Model
     {
         return $this->hasMany(Producto::class);
     }
+
+    public function materiaPrima()
+    {
+        return $this->hasMany(ItemMateriaPrima::class);
+    }
 }
