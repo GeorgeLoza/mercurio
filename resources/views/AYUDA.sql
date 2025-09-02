@@ -333,8 +333,8 @@ INSERT INTO `item_materia_primas` (`id`, `codigo`, `nombre`, `descripcion`, `cat
 
 
 INSERT INTO `almacenero_materia_primas` (`id`, `nombre`) VALUES
-(1, 'PEDRO'),
-(2, 'CIRILO'),
+(1, 'CIRILO'),
+(2, 'PEDRO'),
 (3, 'JULIO'),
 (4, 'RONAL'),
 (5, 'MARCO'),

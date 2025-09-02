@@ -90,10 +90,24 @@
                             @endif
                         </td>
                         <td class="px-2 py-2">
-                            @if ($recepcion->rs == '0')
-                                ❌
+
+
+                            @if ($recepcion->itemMateriaPrima->categoria_materia_prima_id == 8)
+                                @if ($recepcion->proveedorMateriaPrima->nombre == 'PREFORSA')
+                                    @if ($recepcion->rs == '0')
+                                        ❌
+                                    @else
+                                        ✔️
+                                    @endif
+                                @else
+                                    N/A
+                                @endif
                             @else
-                                ✔️
+                                @if ($recepcion->rs == '0')
+                                    ❌
+                                @else
+                                    ✔️
+                                @endif
                             @endif
                         </td>
                         <td class="px-2 py-2">
