@@ -19,6 +19,7 @@ class Perfil extends ModalComponent
     public $telefono;
     public $correo;
     public $password;
+    public $color;
     public $password_confirmation;
     public function mount()
     {
@@ -29,7 +30,9 @@ class Perfil extends ModalComponent
         $this->apellido = $usuario->apellido;
         $this->telefono = $usuario->telefono;
         $this->correo = $usuario->correo;
-        
+        $this->color = $usuario->color ?? '#000000';
+
+
     }
 
     public function render()
@@ -48,7 +51,7 @@ class Perfil extends ModalComponent
             'correo' => 'required|email',
 
         ]);
-        
+
         if ($this->password != null) {
             $this->validate([
                 'password' => 'confirmed',
@@ -63,6 +66,7 @@ class Perfil extends ModalComponent
             $usuario->apellido = $this->apellido;
             $usuario->telefono = $this->telefono;
             $usuario->correo = $this->correo;
+            $usuario->color = $this->color;
 
             if ($this->password != null) {
                 $usuario->password = Hash::make($this->password);

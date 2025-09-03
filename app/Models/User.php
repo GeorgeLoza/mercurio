@@ -21,6 +21,7 @@ class User extends Authenticatable
         'codigo',
         'nombre',
         'apellido',
+        'color',
         'telefono',
         'correo',
         'rol',
@@ -144,4 +145,35 @@ public function seguimientoHtst()
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+
+
+
+    public function getInicialesAttribute()
+{
+    $nombre = trim($this->nombre ?? '');
+    $apellido = trim($this->apellido ?? '');
+
+    $inicialNombre = $this->obtenerInicial($nombre);
+    $inicialApellido = $this->obtenerInicial($apellido);
+
+    return strtoupper($inicialNombre ." ". $inicialApellido);
+}
+
+private function obtenerInicial($texto)
+{
+    $texto = strtolower($texto);
+
+    if (str_starts_with($texto, 'ch')) {
+        return 'CH';
+    }
+
+    if (str_starts_with($texto, 'll')) {
+        return 'LL';
+    }
+
+    return mb_substr($texto, 0, 1);
+}
+
 }
