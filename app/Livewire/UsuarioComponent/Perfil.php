@@ -77,6 +77,7 @@ class Perfil extends ModalComponent
             $this->dispatch('actualizar_tabla_usuarios');
             $this->dispatch('success', mensaje: 'Se actualizo el usuario exitosamente ');
             $this->closeModal();
+             return redirect(request()->header('Referer'));
         } catch (\Throwable $th) {
             $this->closeModal();
             $this->dispatch('error_mensaje', mensaje: 'problema'.$th->getMessage());

@@ -256,10 +256,31 @@
                             <div class="flex justify-center content-center gap-3 ">
                                 <button type="button" class="flex text-sm" aria-expanded="false"
                                     data-dropdown-toggle="dropdown-user">
-                                   <div class="flex items-center justify-center w-8 h-8 rounded-full text-white font-bold text-2xs"
-                                style="background-color: {{ auth()->user()->color }}">
-                                {{ auth()->user()->iniciales }}
-                            </div>
+                                    @php
+                                        $bgColor = auth()->user()->color; // ejemplo: #RRGGBB
+                                        $hex = str_replace('#', '', $bgColor);
+
+                                        if (strlen($hex) == 3) {
+                                            $r = hexdec(str_repeat(substr($hex, 0, 1), 2));
+                                            $g = hexdec(str_repeat(substr($hex, 1, 1), 2));
+                                            $b = hexdec(str_repeat(substr($hex, 2, 1), 2));
+                                        } else {
+                                            $r = hexdec(substr($hex, 0, 2));
+                                            $g = hexdec(substr($hex, 2, 2));
+                                            $b = hexdec(substr($hex, 4, 2));
+                                        }
+
+                                        // fórmula simple de luminosidad
+                                        $luminance = (0.299 * $r + 0.587 * $g + 0.114 * $b) / 255;
+
+                                        $textColor = $luminance > 0.5 ? '#000000' : '#FFFFFF';
+                                    @endphp
+
+                                    <div class="flex items-center justify-center w-8 h-8 rounded-full font-bold text-2xs"
+                                        style="background-color: {{ $bgColor }}; color: {{ $textColor }}">
+                                        {{ auth()->user()->iniciales }}
+                                    </div>
+
                                 </button>
                             </div>
 
