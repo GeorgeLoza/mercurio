@@ -60,4 +60,20 @@ class SwitchUser extends Component
     {
         return view('livewire.switch-user');
     }
+    public function logoutUser($userId)
+{
+    // Remover el usuario de la lista de usuarios disponibles
+    $availableUserIds = session('available_user_ids', []);
+    $updatedUserIds = array_diff($availableUserIds, [$userId]);
+    session(['available_user_ids' => $updatedUserIds]);
+
+    // Cerrar sesión si el usuario actual es el que se está removiendo
+    if (Auth::id() == $userId) {
+        Auth::logout();
+        session()->forget('selected_user_id');
+        $this->redirect('/login');
+    } else {
+        $this->loadAvailableUsers();
+    }
+}
 }
