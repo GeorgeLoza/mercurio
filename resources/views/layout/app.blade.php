@@ -23,7 +23,37 @@
 
 <body class="bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-300 min-h-screen ">
 
-    <nav class="fixed top-0 z-50 w-full bg-gray-100  dark:bg-gray-900  shadow-sm dark:shadow-gray-800">
+    <nav class="fixed top-0 z-50 w-full
+
+
+
+    shadow-sm dark:shadow-gray-800 bg-gray-100  dark:bg-gray-900  "
+@if (auth()->user()->barra)
+
+
+
+       @php
+                                        $bgColor = auth()->user()->color; // ejemplo: #RRGGBB
+                                        $hex = str_replace('#', '', $bgColor);
+
+                                        if (strlen($hex) == 3) {
+                                            $r = hexdec(str_repeat(substr($hex, 0, 1), 2));
+                                            $g = hexdec(str_repeat(substr($hex, 1, 1), 2));
+                                            $b = hexdec(str_repeat(substr($hex, 2, 1), 2));
+                                        } else {
+                                            $r = hexdec(substr($hex, 0, 2));
+                                            $g = hexdec(substr($hex, 2, 2));
+                                            $b = hexdec(substr($hex, 4, 2));
+                                        }
+
+                                        // fórmula simple de luminosidad
+                                        $luminance = (0.299 * $r + 0.587 * $g + 0.114 * $b) / 255;
+
+                                        $textColor = $luminance > 0.5 ? '#000000' : '#FFFFFF';
+                                    @endphp  style="background-color: {{ $bgColor }}; color: {{ $textColor }}"
+
+  @endif
+      >
         <div class="px-3 py-1 lg:px-5 lg:pl-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center justify-start rtl:justify-end">
@@ -41,7 +71,7 @@
 
                     <a @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 1)->where('permiso_id', 2)->isNotEmpty()) href="{{ route('inicio') }}" @endif class="flex ms-2 md:me-24">
                         <span
-                            class="flex self-center text-base font-semibold sm:text-base whitespace-nowrap dark:text-white">SOALPRO
+                            class="flex self-center text-base font-semibold sm:text-base whitespace-nowrap ">SOALPRO
                             <span class="hidden md:flex ml-1">- PLANTA LÁCTEOS</span></span>
 
 
@@ -372,7 +402,7 @@
                                         $textColor = $luminance > 0.5 ? '#000000' : '#FFFFFF';
                                     @endphp
 
-                                    <div class="flex items-center justify-center w-8 h-8 rounded-full font-bold text-2xs"
+                                    <div class="flex items-center justify-center w-8 h-8 rounded-full font-bold text-2xs border border-white border-2"
                                         style="background-color: {{ $bgColor }}; color: {{ $textColor }}">
                                         {{ auth()->user()->iniciales }}
                                     </div>

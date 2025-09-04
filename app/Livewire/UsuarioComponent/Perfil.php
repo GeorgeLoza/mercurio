@@ -20,6 +20,7 @@ class Perfil extends ModalComponent
     public $correo;
     public $password;
     public $color;
+    public $barra;
     public $password_confirmation;
     public function mount()
     {
@@ -30,6 +31,7 @@ class Perfil extends ModalComponent
         $this->apellido = $usuario->apellido;
         $this->telefono = $usuario->telefono;
         $this->correo = $usuario->correo;
+        $this->barra = (bool) $usuario->barra;
         $this->color = $usuario->color ?? '#000000';
 
 
@@ -47,8 +49,8 @@ class Perfil extends ModalComponent
             'codigo' => 'required|min:4|max:7',
             'nombre' => 'required',
             'apellido' => 'required',
-            'telefono' => 'required',
-            'correo' => 'required|email',
+            // 'telefono' => 'required',
+            // 'correo' => 'required|email',
 
         ]);
 
@@ -66,6 +68,7 @@ class Perfil extends ModalComponent
             $usuario->apellido = $this->apellido;
             $usuario->telefono = $this->telefono;
             $usuario->correo = $this->correo;
+            $usuario->barra = $this->barra ? 1 : 0;
             $usuario->color = $this->color;
 
             if ($this->password != null) {

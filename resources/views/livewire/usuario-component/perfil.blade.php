@@ -73,6 +73,12 @@
 
 
                     </div>
+
+                    <div class="ml-3 mr-3 text-gray-500 dark:text-gray-400 text-xs">
+                        Pintar toda la bara:
+                    </div>
+                    <input type="checkbox" wire:model="barra" class="h-5 w-5 border rounded">
+
                 </div>
 
                 <div class="md:flex">
