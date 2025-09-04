@@ -9,7 +9,7 @@
                     @if ($cambio->imagen1)
                         <div class="relative">
                             <img src="{{ asset('storage/' . $cambio->imagen1) }}" alt="Imagen"
-                                class="mx-auto mb-4 h-96 w-full max-w-2xl object-cover rounded shadow">
+    class="mx-auto mb-4 h-96 w-full max-w-2xl object-contain rounded shadow">
                             {{-- Botón anterior --}}
                             <button type="button"
                                 class="absolute top-1/2 left-2 -translate-y-1/2 bg-white/60 hover:bg-white/80 dark:bg-gray-800/60 dark:hover:bg-gray-800/80 text-gray-700 dark:text-gray-200 rounded-full p-2 shadow transition"
