@@ -5,7 +5,7 @@
         <div class="overflow-hidden rounded-lg shadow-lg bg-gray-50 dark:bg-gray-800">
             @foreach ($cambios->values() as $i => $cambio)
                 <div x-show="idx === {{ $i }}" x-transition class="text-center">
-                    <h3 class="text-lg font-semibold mb-2">{{ $cambio->titulo }}</h3>
+                    
                     @if ($cambio->imagen1)
                         <div class="relative">
                             <img src="{{ asset('storage/' . $cambio->imagen1) }}" alt="Imagen"
