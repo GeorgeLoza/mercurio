@@ -214,6 +214,82 @@
                     @livewire('date-time-display')
                 </div>
                 <div class="hidden md:block">@livewire('calculadora-juliano')</div>
+                @php
+                    use App\Models\Cambio;
+                    
+
+                    $mostrarBoton = false;
+                    $mostrarModal = false;
+                    $userRoleId = auth()->user()->rol_id;
+                    $hoy = Carbon::today();
+
+                    $ultimoCambioVigente = null;
+
+                    foreach (Cambio::all() as $cambio) {
+                        // Procesar roles
+                        $roles = $cambio->roles;
+                        if (is_null($roles)) {
+                            $roles = [];
+                        } elseif (!is_array($roles)) {
+                            $roles = json_decode($roles, true) ?: [];
+                        }
+                        $rolesInt = array_map('intval', $roles);
+
+                        // Procesar fechas
+                        $inicio = $cambio->fecha_inicio ? Carbon::parse($cambio->fecha_inicio) : null;
+                        $fin = $cambio->fecha_fin ? Carbon::parse($cambio->fecha_fin) : null;
+
+                        $vigente = true;
+                        if ($inicio && $fin) {
+                            $vigente = $hoy->between($inicio, $fin);
+                        } elseif ($inicio) {
+                            $vigente = $hoy->gte($inicio);
+                        } elseif ($fin) {
+                            $vigente = $hoy->lte($fin);
+                        }
+
+                        // Si el usuario tiene el rol y el aviso está vigente
+                        if (in_array($userRoleId, $rolesInt) && $vigente) {
+                            $mostrarBoton = true;
+                            $ultimoCambioVigente = $cambio;
+                            break;
+                        }
+                    }
+
+                    // Mostrar el modal solo si hay un cambio vigente y el usuario no lo ha visto
+                    if ($mostrarBoton && $ultimoCambioVigente) {
+                        $user = auth()->user();
+                        if (!$user->last_cambio_visto || $user->last_cambio_visto < $ultimoCambioVigente->id) {
+                            $mostrarModal = true;
+                        }
+                    }
+                @endphp
+
+                @if ($mostrarBoton)
+                    <button type="button"
+                        onclick="Livewire.dispatch('openModal', { component: 'cambios.avisoModal' })"
+                        class="relative inline-flex items-center px-2 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="currentColor"
+                            viewBox="0 0 448 512">
+                            <path
+                                d="M224 0c-17.7 0-32 14.3-32 32l0 3.2C119 50 64 114.6 64 192l0 21.7c0 48.1-16.4 94.8-46.4 132.4L7.8 358.3C2.7 364.6 0 372.4 0 380.5 0 400.1 15.9 416 35.5 416l376.9 0c19.6 0 35.5-15.9 35.5-35.5 0-8.1-2.7-15.9-7.8-22.2l-9.8-12.2C400.4 308.5 384 261.8 384 213.7l0-21.7c0-77.4-55-142-128-156.8l0-3.2c0-17.7-14.3-32-32-32zM162 464c7.1 27.6 32.2 48 62 48s54.9-20.4 62-48l-124 0z" />
+                        </svg>
+                        <span class="sr-only">Notifications</span>
+                        <div
+                            class="absolute inline-flex items-center justify-center w-3 h-3 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-0 -end-0 dark:border-gray-900">
+                        </div>
+                    </button>
+                @endif
+
+                @if ($mostrarModal)
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            Livewire.dispatch('openModal', {
+                                component: 'cambios.avisoModal'
+                            });
+                        });
+                    </script>
+                @endif
 
                 <div class="flex gap-2">
 

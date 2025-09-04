@@ -197,6 +197,8 @@ Configuración Inicial
     </div>
     <!--subruta fin-->
 
+    <!--Cambios inicio-->
+    @livewire('cambios.index')
 
 
 </div>

@@ -29,6 +29,7 @@ class User extends Authenticatable
         'division_id',
         'password',
         'rol_id', //
+        'last_cambio_visto', //
     ];
     public function planta()
     {
