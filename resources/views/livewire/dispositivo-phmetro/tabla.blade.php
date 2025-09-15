@@ -122,9 +122,9 @@
                         </td>
                         <td class="px-2 py-1">
                             @if ($phmetro->requerido_ajuste)
-                                <span class="text-red-600 dark:text-red-500">Si</span>
+                                <span>No</span>
                             @else
-                                <span class="text-green-600 dark:text-green-500">No</span>
+                                <span>Si</span>
                             @endif
                         </td>
                         <td class="px-2 py-1">

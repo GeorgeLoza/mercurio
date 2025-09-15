@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <title>Control de
-                calidad en proceso - Línea Ultra Pasteurizado UHT</title>
+        calidad en proceso - Línea Ultra Pasteurizado UHT</title>
     <style>
         @page {
             margin-top: 1cm;
@@ -505,7 +505,7 @@
                 <thead>
                     <tr>
                         <th colspan="16" style="font-weight:bold;">
-                          CONTROL DE CALIDAD DE PRODUCTO ENVASADO
+                            CONTROL DE CALIDAD DE PRODUCTO ENVASADO
                         </th>
                     </tr>
 
@@ -685,19 +685,34 @@
                                 @foreach ($obs as $dato)
                                     @if ($dato->solicitudAnalisisLinea->analisisLinea->observaciones == null)
                                     @else
-                    <tr>
+                                        {{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->analisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
+                                        {{ $dato->solicitudAnalisisLinea->analisisLinea->user->nombre }}:
+                                        {{ $dato->solicitudAnalisisLinea->analisisLinea->observaciones }}
+                                    @endif
+                                @endforeach
 
-                        <th colspan="14">
-                            {{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->analisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
-                            {{ $dato->solicitudAnalisisLinea->analisisLinea->user->nombre }}:
-                            {{ $dato->solicitudAnalisisLinea->analisisLinea->observaciones }}
+
+                                @if ($dato->solicitudAnalisisLinea->analisisLinea->tempUHT != null)
+                                    Temperaturas de UHT:
+                                @endif
+                                @foreach ($envasados as $dato)
+                                    @if ($dato->solicitudAnalisisLinea->analisisLinea->tempUHT != null)
+                                        {{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
+                                        -
+                                        {{ $dato->solicitudAnalisisLinea->analisisLinea->tempUHT / 1 }}
+                                    @else
+                                    @endif
+                                @endforeach
+
+
+                            @endif
                         </th>
 
-                    </tr>
-                    @endif
-                    @endforeach
-                    <tr>
-                        <th colspan="14">
+
+                        @if ($buscador == 0)
+                            Sin Observaciones
+                            <br>
+
                             @if ($dato->solicitudAnalisisLinea->analisisLinea->tempUHT != null)
                                 Temperaturas de UHT:
                             @endif
@@ -709,32 +724,13 @@
                                 @else
                                 @endif
                             @endforeach
-                        </th>
-                    </tr>
 
-                    @endif
-                    @if ($buscador == 0)
-                        Sin Observaciones
-                        <br>
-
-                        @if ($dato->solicitudAnalisisLinea->analisisLinea->tempUHT != null)
-                            Temperaturas de UHT:
                         @endif
-                        @foreach ($envasados as $dato)
-                            @if ($dato->solicitudAnalisisLinea->analisisLinea->tempUHT != null)
-                                {{ \Carbon\Carbon::parse($dato->solicitudAnalisisLinea->tiempo)->isoFormat('HH:mm', 0, 'es') }}
-                                -
-                                {{ $dato->solicitudAnalisisLinea->analisisLinea->tempUHT / 1 }}
-                            @else
-                            @endif
-                        @endforeach
-
-                    @endif
 
 
 
 
-                    </th>
+                        </th>
                     </tr>
 
                 </tbody>
