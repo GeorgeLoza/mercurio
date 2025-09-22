@@ -17,14 +17,22 @@
         </div>
     @endif
 
-    <div>
+    <div class="max-h-[70vh] max-w-full overflow-x-auto overflow-y-auto">
         <table class="bg-white dark:bg-slate-900 rounded-lg">
             <thead>
                 <tr class="bg-gray-100 dark:bg-slate-700 text-2xs ">
                     <th class="px-2 py-2 rounded-tl-lg">Tiempo</th>
                     <th class="px-2 py-2">Almacen</th>
                     <th class="px-2 py-2">Calidad</th>
-                    <th class="px-2 py-2">Item</th>
+                    <th class="px-2 py-2">Item
+                        <button wire:click="show_filtro">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-gray-700 dark:fill-gray-300"
+                                viewBox="0 0 512 512">
+                                <path
+                                    d="M3.9 54.9C10.5 40.9 24.5 32 40 32H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L320 320.9V448c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48c-8.1-6-12.8-15.5-12.8-25.6V320.9L9 97.3C-.7 85.4-2.8 68.8 3.9 54.9z" />
+                            </svg>
+                        </button>
+                    </th>
                     <th class="px-2 py-2">Cantidad</th>
                     <th class="px-2 py-2">Unidad</th>
                     <th class="px-2 py-2">Proveedor</th>
@@ -43,6 +51,30 @@
                 </tr>
             </thead>
             <tbody>
+                @if ($filtro == true)
+                    <!-- fila de filtros -->
+                    <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 sticky z-20 top-6">
+
+
+
+                        {{-- fin filtro fecha --}}
+                        <th class="p-1">
+                        </th>
+                        <th></th>
+                        <th></th>
+
+
+                        {{-- filtro categoria --}}
+                        <th class="p-1">
+                            <input type="text" wire:model.live='f_item' placeholder="Filtrar por Nombre"
+                                class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+                        </th>
+                        <th></th>
+
+
+                    </tr>
+                @endif
                 @foreach ($recepciones as $recepcion)
                     <tr class="border-t dark:border-gray-600 text-2xs text-center cursor-pointer"
                         wire:click="toggle({{ $recepcion->id }})">
@@ -92,7 +124,9 @@
                         <td class="px-2 py-2">
 
 
-                            @if ($recepcion->itemMateriaPrima->categoria_materia_prima_id == 8)
+                            @if (
+                                $recepcion->itemMateriaPrima->categoria_materia_prima_id == 8 ||
+                                    $recepcion->itemMateriaPrima->categoria_materia_prima_id == 17)
                                 @if ($recepcion->proveedorMateriaPrima->nombre == 'PREFORSA')
                                     @if ($recepcion->rs == '0')
                                         ❌
@@ -152,10 +186,10 @@
                         <td class="px-2 py-2">{{ $recepcion->codigo_certificado }}</td>
                         <td class="px-2 py-2" nowrap>
 
-                            {{-- @if ((now()->diffInMinutes($recepcion->created_at) < 480 && auth()->user()->id == $recepcion->user->id) || auth()->user()->role->rolModuloPermisos->where('modulo_id', 35)->where('permiso_id', 3)->isNotEmpty())
+                             @if ((now()->diffInMinutes($recepcion->created_at) < 480 && auth()->user()->id == $recepcion->user->id) || auth()->user()->role->rolModuloPermisos->where('modulo_id', 35)->where('permiso_id', 3)->isNotEmpty())
                                 <button>
 
-                                    <svg onclick="Livewire.dispatch('openModal', { component: 'materiaPrima.recepcionMateriaPrima.crear', arguments: { id: {{ $recepcion->id }} } })"
+                                    <svg onclick="Livewire.dispatch('openModal', { component: 'materiaPrima.recepcionMateriaPrima.crear', arguments: { recepcionId: {{ $recepcion->id }} } })"
                                         xmlns="http://www.w3.org/2000/svg"
                                         class="h-4 w-4 fill-blue-600 dark:fill-blue-500 cursor-pointer"
                                         viewBox="0 0 512 512">
@@ -164,7 +198,7 @@
                                     </svg>
 
                                 </button>
-                            @endif --}}
+                            @endif
 
 
                             @if (
@@ -182,6 +216,7 @@
 
 
                         </td>
+
                     </tr>
 
                     @if (in_array($recepcion->id, $expanded))
@@ -218,6 +253,9 @@
                 @endforeach
             </tbody>
         </table>
+    </div>
+    <div class="mt-2">
+        {{ $recepciones->links() }}
     </div>
 
 

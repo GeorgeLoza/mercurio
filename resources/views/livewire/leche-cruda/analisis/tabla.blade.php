@@ -255,9 +255,9 @@
                                     </svg>
 
                             @endif
-                            @if (($registro->tiempo_sembrado == null && now()->diffInMinutes($registro->created_at) < 2800 && auth()->user()->role->rolModuloPermisos->where('modulo_id', 20)->where('permiso_id', 1)->isNotEmpty()) || auth()->user()->role->id == 1)
+                            @if (($registro->tiempo_sembrado == null && now()->diffInMinutes($registro->created_at) < 1440 && auth()->user()->role->rolModuloPermisos->where('modulo_id', 20)->where('permiso_id', 1)->isNotEmpty()) || auth()->user()->role->id == 1)
 
-                            <button class=" bg-blue-400 rounded p-1 py-0 text-gray-700 "
+                            <button class=" bg-green-400 rounded p-1 py-0 text-gray-700 "
                             wire:click="sembrar({{ $registro->id }})">
 
                                 Sembrar

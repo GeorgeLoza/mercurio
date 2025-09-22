@@ -1,5 +1,6 @@
 <div>
-    <div class="flex gap-2 mt-2">
+    <div class="flex gap-2 mt-2 justify-between">
+        <div>
         <button class="bg-green-500 rounded-md text-white  py-1.5 px-2 text-lg mb-2"
             onclick="Livewire.dispatch('openModal', { component: 'seguimiento.crear' })">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-white" viewBox="0 0 448 512">
@@ -7,6 +8,8 @@
                     d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
             </svg>
         </button>
+        </div>
+        <div class="flex gap-2">
         <button class="bg-green-500 rounded-md text-sm text-white py-1 px-2  mb-2 flex" wire:click="firmar">
             Confirmar RTS del {{ \Carbon\Carbon::now()->subDays(2)->format('d-m') }}
 
@@ -77,6 +80,7 @@
 
 
         </button>
+        </div>
     </div>
     <div>
 

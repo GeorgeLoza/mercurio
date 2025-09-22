@@ -46,7 +46,7 @@
                     class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm dark:bg-slate-800 focus:ring focus:ring-blue-300">
                     <option value="">Seleccione una Materia Prima</option>
                     @foreach ($items as $item)
-                        <option value="{{ $item->id }}">{{ $item->descripcion }}</option>
+                        <option value="{{ $item->id }}">{{ $item->descripcion }} - {{ $item->nombre }}</option>
                     @endforeach
                 </select>
                 @error('item')

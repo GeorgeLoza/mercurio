@@ -14,7 +14,7 @@ use LivewireUI\Modal\ModalComponent;
 
 class Crear extends ModalComponent
 {
-
+    public $recepcionId = null; // null = crear, número = editar
     public $categorias;
     public $categoria;
     public $unidadMedida;
@@ -44,6 +44,43 @@ class Crear extends ModalComponent
     public $sinElementos = false;
     public $limpiezaTransporte = false;
 
+    public function mount($recepcionId = null)
+    {
+        $this->recepcionId = $recepcionId;
+
+        if ($this->recepcionId) {
+            $recepcion = RecepcionMateriaPrima::with('lotes')->findOrFail($this->recepcionId);
+
+            // Rellenar variables con los valores actuales
+            $this->item         = $recepcion->item_materia_prima_id;
+            $this->cantidad     = $recepcion->cantidad;
+            $this->unidad       = $recepcion->unidades;
+            $this->proveedor    = $recepcion->proveedor_materia_prima_id;
+            $this->marca        = $recepcion->marca;
+            $this->ubicacion    = $recepcion->ubicacion;
+            $this->almacenero   = $recepcion->almacenero_materia_prima_id;
+
+            $this->cerrado            = (bool)$recepcion->cerrado;
+            $this->limpiezaTransporte = (bool)$recepcion->limpieza_transporte;
+            $this->sinElementos       = (bool)$recepcion->sin_elementos;
+            $this->nit                = (bool)$recepcion->nit;
+            $this->rs                 = (bool)$recepcion->rs;
+            $this->certificado        = (bool)$recepcion->certificado;
+
+            $this->observacion        = $recepcion->observacion;
+            $this->correccion         = $recepcion->correccion;
+            $this->codigo_certificado = $recepcion->codigo_certificado;
+
+            // Lotes
+            $this->lotes = $recepcion->lotes->map(function ($lote) {
+                return [
+                    'fecha_elaboracion' => $lote->fecha_elaboracion,
+                    'fecha_vencimiento' => $lote->fecha_vencimiento,
+                    'lote' => $lote->lote,
+                ];
+            })->toArray();
+        }
+    }
 
 
 
@@ -77,7 +114,6 @@ class Crear extends ModalComponent
     {
         $item = ItemMateriaPrima::find($value);
         $this->unidadMedida = $item ? $item->unidad->abreviatura : '';
-
     }
 
 
@@ -101,64 +137,75 @@ class Crear extends ModalComponent
     {
         $this->validate([
             'item' => 'required',
-            //     'cantidad' => 'required|numeric|min:1',
-            //     'unidad' => 'required',
             'proveedor' => 'required',
-            //     'marca' => 'nullable|string|max:255',
-            //     'lote' => 'nullable|string|max:255',
             'ubicacion' => 'required',
-            //     'almacenero' => 'nullable|string|max:255',
-            //     'fecha_elaboracion' => 'nullable|date',
-            //     'fecha_vencimiento' => 'nullable|date|after_or_equal:fecha_elaboracion',
-            //     'nit' => 'nullable|string|max:255',
-            //     'rs' => 'nullable|string|max:255',
-            //     'certificado' => 'nullable|string|max:255',
-            //     'observacion' => 'nullable|string|max:500',
-            //     'correccion' => 'nullable|string|max:500',
-            //     'codigo_certificado' => 'nullable|string|max:255'
         ]);
 
         try {
-            $recepcion = RecepcionMateriaPrima::create([
-                'tiempo' => now(),
-                'item_materia_prima_id' => $this->item,
-                'cantidad' => $this->cantidad,
-                'unidades' => $this->unidad,
-                'proveedor_materia_prima_id' => $this->proveedor,
-                'marca' => $this->marca,
-                // 'lote' => $this->lote,
-                'ubicacion' => $this->ubicacion,
-                'almacenero_materia_prima_id' => $this->almacenero,
-                // 'fecha_elaboracion' => $this->fechaElaboracion,
-                // 'fecha_vencimiento' => $this->fechaVencimiento,
-                'cerrado' => $this->cerrado,
-                'limpieza_transporte' => $this->limpiezaTransporte,
-                'sin_elementos' => $this->sinElementos,
-                'nit' => $this->nit,
-                'rs' => $this->rs,
-                'certificado' => $this->certificado,
-                'observacion' => $this->observacion,
-                'correccion' => $this->correccion,
-                'codigo_certificado' => $this->codigo_certificado,
-                'user_id' => auth()->user()->id,
-                'almacenero' => 'Pendiente',
-            ]);
-
-            // Guardar lotes en la tabla hija
-            foreach ($this->lotes as $lote) {
-                $recepcion->lotes()->create([
-                    'lote' => $lote['lote'],
-                    'fecha_elaboracion' => $lote['fecha_elaboracion'],
-                    'fecha_vencimiento' => $lote['fecha_vencimiento'],
+            if ($this->recepcionId) {
+                // EDITAR
+                $recepcion = RecepcionMateriaPrima::findOrFail($this->recepcionId);
+                $recepcion->update([
+                    'item_materia_prima_id' => $this->item,
+                    'cantidad' => $this->cantidad,
+                    'unidades' => $this->unidad,
+                    'proveedor_materia_prima_id' => $this->proveedor,
+                    'marca' => $this->marca,
+                    'ubicacion' => $this->ubicacion,
+                    'almacenero_materia_prima_id' => $this->almacenero,
+                    'cerrado' => $this->cerrado,
+                    'limpieza_transporte' => $this->limpiezaTransporte,
+                    'sin_elementos' => $this->sinElementos,
+                    'nit' => $this->nit,
+                    'rs' => $this->rs,
+                    'certificado' => $this->certificado,
+                    'observacion' => $this->observacion,
+                    'correccion' => $this->correccion,
+                    'codigo_certificado' => $this->codigo_certificado,
                 ]);
+
+                // Actualizar lotes: borrar y volver a crear o manejarlo como prefieras
+                $recepcion->lotes()->delete();
+                foreach ($this->lotes as $lote) {
+                    $recepcion->lotes()->create($lote);
+                }
+
+                $msg = 'Recepción actualizada correctamente';
+            } else {
+                // CREAR
+                $recepcion = RecepcionMateriaPrima::create([
+                    'tiempo' => now(),
+                    'item_materia_prima_id' => $this->item,
+                    'cantidad' => $this->cantidad,
+                    'unidades' => $this->unidad,
+                    'proveedor_materia_prima_id' => $this->proveedor,
+                    'marca' => $this->marca,
+                    'ubicacion' => $this->ubicacion,
+                    'almacenero_materia_prima_id' => $this->almacenero,
+                    'cerrado' => $this->cerrado,
+                    'limpieza_transporte' => $this->limpiezaTransporte,
+                    'sin_elementos' => $this->sinElementos,
+                    'nit' => $this->nit,
+                    'rs' => $this->rs,
+                    'certificado' => $this->certificado,
+                    'observacion' => $this->observacion,
+                    'correccion' => $this->correccion,
+                    'codigo_certificado' => $this->codigo_certificado,
+                    'user_id' => auth()->id(),
+                    'almacenero' => 'Pendiente',
+                ]);
+                foreach ($this->lotes as $lote) {
+                    $recepcion->lotes()->create($lote);
+                }
+                $msg = 'Recepción registrada exitosamente';
             }
 
             $this->dispatch('actualizar_tabla_recepcion_materia_prima');
             $this->closeModal();
-            $this->dispatch('success', mensaje: 'recepcion registrado exitosamente');
+            $this->dispatch('success', mensaje: $msg);
         } catch (\Throwable $th) {
             $this->closeModal();
-            $this->dispatch('error_mensaje', mensaje: 'problema' . $th->getMessage());
+            $this->dispatch('error_mensaje', mensaje: 'Problema: ' . $th->getMessage());
         }
     }
 }
