@@ -245,4 +245,19 @@ class Tabla extends Component
         $this->fechaSiembra = null;
     }
 
+
+
+    public function actualizarLote($id, $nuevoLote)
+{
+    try {
+        $seguimiento = Seguimiento::findOrFail($id);
+        $seguimiento->lote = $nuevoLote;
+        $seguimiento->save();
+
+        $this->dispatch('success', mensaje: 'Lote actualizado correctamente.');
+    } catch (\Throwable $th) {
+        $this->dispatch('error_mensaje', mensaje: 'Error al actualizar lote: ' . $th->getMessage());
+    }
+}
+
 }

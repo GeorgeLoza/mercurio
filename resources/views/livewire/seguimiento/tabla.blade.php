@@ -1,91 +1,92 @@
 <div>
     <div class="flex gap-2 mt-2 justify-between">
         <div>
-        <button class="bg-green-500 rounded-md text-white  py-1.5 px-2 text-lg mb-2"
-            onclick="Livewire.dispatch('openModal', { component: 'seguimiento.crear' })">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-white" viewBox="0 0 448 512">
-                <path
-                    d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
-            </svg>
-        </button>
+            <button class="bg-green-500 rounded-md text-white  py-1.5 px-2 text-lg mb-2"
+                onclick="Livewire.dispatch('openModal', { component: 'seguimiento.crear' })">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-white" viewBox="0 0 448 512">
+                    <path
+                        d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+                </svg>
+            </button>
         </div>
         <div class="flex gap-2">
-        <button class="bg-green-500 rounded-md text-sm text-white py-1 px-2  mb-2 flex" wire:click="firmar">
-            Confirmar RTS del {{ \Carbon\Carbon::now()->subDays(2)->format('d-m') }}
+            <button class="bg-green-500 rounded-md text-sm text-white py-1 px-2  mb-2 flex" wire:click="firmar">
+                Confirmar RTS del {{ \Carbon\Carbon::now()->subDays(2)->format('d-m') }}
 
-            @php
-                use App\Models\Seguimiento;
-                use Carbon\Carbon;
-                $datos = Seguimiento::where(function ($query) {
-                    $query->whereBetween('fechaSiembra', [
-                        Carbon::now()->subDays(2)->startOfDay(),
-                        Carbon::now()->subDays(2)->endOfDay(),
-                    ]);
-
-                    // Si hoy es lunes, también traemos los del día de hace 4 días
-                    if (Carbon::now()->isMonday()) {
-                        $query->orWhereBetween('fechaSiembra', [
-                            Carbon::now()->subDays(3)->startOfDay(),
-                            Carbon::now()->subDays(3)->endOfDay(),
+                @php
+                    use App\Models\Seguimiento;
+                    use Carbon\Carbon;
+                    $datos = Seguimiento::where(function ($query) {
+                        $query->whereBetween('fechaSiembra', [
+                            Carbon::now()->subDays(2)->startOfDay(),
+                            Carbon::now()->subDays(2)->endOfDay(),
                         ]);
-                    }
-                })
 
-                    ->whereNull('usuario_rt')
-                    ->get();
+                        // Si hoy es lunes, también traemos los del día de hace 4 días
+                        if (Carbon::now()->isMonday()) {
+                            $query->orWhereBetween('fechaSiembra', [
+                                Carbon::now()->subDays(3)->startOfDay(),
+                                Carbon::now()->subDays(3)->endOfDay(),
+                            ]);
+                        }
+                    })
 
-            @endphp
-            @foreach ($datos as $dato)
-                @if ($dato)
-                    <span class="flex w-2 h-2 bg-orange-600 rounded-full  flex-shrink-0 mr-2 text-sm"></span>
-                    @break
-                @endif
-            @endforeach
+                        ->whereNull('usuario_rt')
+                        ->get();
+
+                @endphp
+                @foreach ($datos as $dato)
+                    @if ($dato)
+                        <span class="flex w-2 h-2 bg-orange-600 rounded-full  flex-shrink-0 mr-2 text-sm"></span>
+                        @break
+                    @endif
+                @endforeach
 
 
 
-        </button>
-        <button class="bg-green-500 rounded-md text-white py-1 px-2 text-sm mb-2 flex" wire:click="firmah">
-            Confirmar MOHOS del {{ \Carbon\Carbon::now()->subDays(5)->format('d-m') }}
+            </button>
+            <button class="bg-green-500 rounded-md text-white py-1 px-2 text-sm mb-2 flex" wire:click="firmah">
+                Confirmar MOHOS del {{ \Carbon\Carbon::now()->subDays(5)->format('d-m') }}
 
 
 
-            @php
+                @php
 
-                $datos2 = Seguimiento::where(function ($query) {
-                    $query->whereBetween('fechaSiembra', [
-                        Carbon::now()->subDays(5)->startOfDay(),
-                        Carbon::now()->subDays(5)->endOfDay(),
-                    ]);
-
-                    // Si hoy es lunes, también traemos los del día de hace 4 días
-                    if (Carbon::now()->isMonday()) {
-                        $query->orWhereBetween('fechaSiembra', [
-                            Carbon::now()->subDays(6)->startOfDay(),
-                            Carbon::now()->subDays(6)->endOfDay(),
+                    $datos2 = Seguimiento::where(function ($query) {
+                        $query->whereBetween('fechaSiembra', [
+                            Carbon::now()->subDays(5)->startOfDay(),
+                            Carbon::now()->subDays(5)->endOfDay(),
                         ]);
-                    }
-                })
-                    ->where('moho', 0)
-                    ->whereNull('usuario_moho')
-                    ->get();
 
-            @endphp
-            @foreach ($datos2 as $dato)
-                @if ($dato)
-                    <span class="flex w-2 h-2 bg-orange-600 rounded-full  flex-shrink-0 mr-2 text-sm"></span>
-                    @break
-                @endif
-            @endforeach
+                        // Si hoy es lunes, también traemos los del día de hace 4 días
+                        if (Carbon::now()->isMonday()) {
+                            $query->orWhereBetween('fechaSiembra', [
+                                Carbon::now()->subDays(6)->startOfDay(),
+                                Carbon::now()->subDays(6)->endOfDay(),
+                            ]);
+                        }
+                    })
+                        ->where('moho', 0)
+                        ->whereNull('usuario_moho')
+                        ->get();
+
+                @endphp
+                @foreach ($datos2 as $dato)
+                    @if ($dato)
+                        <span class="flex w-2 h-2 bg-orange-600 rounded-full  flex-shrink-0 mr-2 text-sm"></span>
+                        @break
+                    @endif
+                @endforeach
 
 
-        </button>
+            </button>
         </div>
     </div>
     <div>
 
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 text-2xs ">
-            <thead class="text-xs text-gray-700 capitalize bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-center sticky top-10  shadow z-10">
+            <thead
+                class="text-xs text-gray-700 capitalize bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-center sticky top-10  shadow z-10">
                 <tr>
                     <th scope="col" class="px-1 py-3 sticky top-0 bg-white dark:bg-gray-700" nowrap>
                         F. Siembra
@@ -247,9 +248,8 @@
                         <td class=" px-1 py-1">
                             @if (!empty($seguimiento->orp_ids))
                                 @foreach ($seguimiento->orps() as $orp)
-
                                     @if ($orp->fecha_vencimiento1)
-                                    {{ \Carbon\Carbon::parse($orp->fecha_vencimiento1)->isoFormat('DD-MM-YY', 0, 'es') }}
+                                        {{ \Carbon\Carbon::parse($orp->fecha_vencimiento1)->isoFormat('DD-MM-YY', 0, 'es') }}
                                     @endif
                                     @if (!$loop->last)
                                         <br>
@@ -272,7 +272,7 @@
                             @endif
                         </td>
                         <td class=" px-1 py-1">{{ $seguimiento->origen->alias ?? '-' }}</td>
-                         <td class=" px-1 py-1">{{ $seguimiento->numero ?? '-' }}</td>
+                        <td class=" px-1 py-1">{{ $seguimiento->numero ?? '-' }}</td>
 
 
                         <td class="px-1 py-1  truncate  text-ellipsis" nowrap>
@@ -289,8 +289,13 @@
                             @endif
                         </td>
 
-                        <td class=" px-1 py-1">{{ $seguimiento->lote ?? '-' }}</td>
-
+                      <td
+    contenteditable="true"
+    class="border px-1 py-1"
+    wire:blur="actualizarLote({{ $seguimiento->id }}, $event.target.innerText)"
+>
+    {{ $seguimiento->lote ?? '-' }}
+</td>
                         @if (auth()->user()->role->id != 9)
                             <td class="px-1 py-1" nowrap>
                                 <div class="flex justify-between items-center w-full">
