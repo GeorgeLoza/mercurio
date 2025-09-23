@@ -154,6 +154,22 @@ class Tabla extends Component
         $this->filtro = !$this->filtro;
     }
 
+// eliminar hisopado
+    public function eliminar($id)
+    {
+        try {
+            $hisopado = Hisopado::findOrFail($id);
+            $personal = Personal::find($hisopado->personal_id);
+            // $personal->hisopado = 'No';
+            $personal->save();
+            $hisopado->delete();
+            $this->dispatch('success', mensaje: 'Hisopado eliminado exitosamente.');
+        } catch (\Throwable $th) {
+            $this->dispatch('error_mensaje', mensaje: 'Problema: ' . $th->getMessage());
+        }
+    }
+
+
     public function generatePDFHisopados()
     {
 
