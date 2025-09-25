@@ -23,6 +23,7 @@ class LiberacionDetalle extends Model
         'sabor',
         'observaciones',
         'user_id',
+        'lote',
     ];
 
     public function liberacion()

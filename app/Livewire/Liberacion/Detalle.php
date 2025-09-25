@@ -5,136 +5,91 @@ namespace App\Livewire\Liberacion;
 use App\Models\Liberacion;
 use App\Models\LiberacionDetalle;
 use App\Models\Origen;
-use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
 
 class Detalle extends ModalComponent
 {
-    public $editing = null;           // [detalle_id, campo]
-    public $editedValue = '';
     public $id;
     public $liberacion;
     public $origenes;
-    public $lastEditedCell = null;
+    public $mode = [];      // 'all' o array de campos
+    public $values = [];    // valores temporales por detalle_id
 
-    protected function getListeners()
-    {
-        return [
-            'editCell',
-            'saveCell',
-        ];
-    }
-
-    public function mount($id)
+    public function mount($id, $mode = 'all')
     {
         $this->id = $id;
+        $this->mode = $mode;
         $this->loadData();
     }
 
     public function loadData()
     {
         $this->liberacion = Liberacion::with('detalles.origen')->findOrFail($this->id);
-        $this->origenes = Origen::whereHas('estadoPlanta.estadoDetalle', function ($query) {
-            $query->where('orp_id', $this->liberacion->orp_id);
+
+        $this->origenes = Origen::whereHas('estadoPlanta.estadoDetalle', function ($q) {
+            $q->where('orp_id', $this->liberacion->orp_id);
         })
-        ->where('descripcion', 'like', '%ENVASADORA%')
-        ->get();
-    }
+            ->where('descripcion', 'like', '%ENVASADORA%')
+            ->get();
 
-    // Pone el cell en modo edición y carga editedValue
-    public function editCell($detalleId, $field, $value)
-    {
-        $this->editing        = [$detalleId, $field];
-        $this->editedValue    = in_array($field, ['color','olor','sabor'])
-                                 ? (int)$value
-                                 : $value;
-        $this->lastEditedCell = [$detalleId, $field];
-    }
-
-    // Guarda y avanza internamente por Livewire
-    public function saveCell()
-    {
-        $this->performSave();
-        $this->moveNext();
-    }
-
-    private function performSave()
-    {
-        if (! $this->editing) return;
-
-        [$detalleId, $field] = $this->editing;
-        $detalle = LiberacionDetalle::find($detalleId);
-
-        if ($detalle) {
-            $value = match ($field) {
-                'color','olor','sabor' => (bool)$this->editedValue,
-                'peso','temperatura','ph','brix','acidez','viscosidad' => (float)$this->editedValue,
-                default => $this->editedValue,
-            };
-            $detalle->update([$field => $value]);
-            $this->loadData();
+        $this->values = [];
+        foreach ($this->liberacion->detalles as $detalle) {
+            $this->values[$detalle->id] = [
+                'origen_id'    => $detalle->origen_id,
+                'hora_sachet'  => $detalle->hora_sachet,
+                'peso'         => $detalle->peso,
+                'lote'         => $detalle->lote,
+                'temperatura'  => $detalle->temperatura,
+                'ph'           => $detalle->ph,
+                'brix'         => $detalle->brix,
+                'acidez'       => $detalle->acidez,
+                'viscosidad'   => $detalle->viscosidad,
+                'color'        => (bool)$detalle->color,
+                'olor'         => (bool)$detalle->olor,
+                'sabor'        => (bool)$detalle->sabor,
+                'observaciones' => $detalle->observaciones ?? '',
+            ];
         }
-
-        $this->editing = null;
     }
 
-    private function moveNext()
+    /**
+     * Guarda todos los valores (botón Guardar)
+     */
+    public function saveAll()
     {
-        if (! $this->lastEditedCell) return;
+        foreach ($this->values as $detalleId => $data) {
+            $detalle = LiberacionDetalle::find($detalleId);
+            if (!$detalle) continue;
 
-        [$currentId, $currentField] = $this->lastEditedCell;
-        $fields = [
-            'origen_id','hora_sachet','peso','temperatura','ph',
-            'brix','acidez','viscosidad','color','olor','sabor'
-        ];
-        $i = array_search($currentField, $fields);
-        $nextField = $fields[($i + 1) % count($fields)];
-
-        // misma fila, mismo id si no es wrap-around de campo
-        $nextId = $currentId;
-
-        // si era última columna, avanzar fila
-        if ($i === count($fields) - 1) {
-            $detalle = LiberacionDetalle::find($currentId);
-            $siguiente = LiberacionDetalle::where('liberacion_id', $detalle->liberacion_id)
-                ->where('id', '>', $currentId)
-                ->orderBy('id')
-                ->first();
-
-            if ($siguiente) {
-                $nextId = $siguiente->id;
-            } else {
-                // crear nuevo detalle
-                $new = LiberacionDetalle::create([
-                    'liberacion_id' => $detalle->liberacion_id,
-                    'origen_id'     => $detalle->origen_id,
-                    'hora_sachet'   => now()->format('H:i'),
-                    'peso'          => 0,
-                    'temperatura'   => 0,
-                    'ph'            => 0,
-                    'brix'          => 0,
-                    'acidez'        => 0,
-                    'viscosidad'    => 0,
-                    'color'         => true,
-                    'olor'          => true,
-                    'sabor'         => true,
-                    'user_id'       => auth()->id(),
-                ]);
-                $nextId = $new->id;
-                $this->loadData();
+            // Normalizar booleanos (checkboxes pueden venir como "on" o true/false)
+            foreach (['color', 'olor', 'sabor'] as $b) {
+                if (array_key_exists($b, $data)) {
+                    $data[$b] = filter_var($data[$b], FILTER_VALIDATE_BOOLEAN);
+                }
             }
+
+            // Campos nullable que deben convertirse a null si vienen vacíos o como "null"
+            $nullableFields = ['origen_id', 'peso','lote', 'temperatura', 'ph', 'brix', 'acidez', 'viscosidad'];
+            foreach ($nullableFields as $field) {
+                if (array_key_exists($field, $data)) {
+                    if ($data[$field] === '' || $data[$field] === 'null') {
+                        $data[$field] = null;
+                    }
+                }
+            }
+
+              // Asignar siempre el user_id autenticado
+        $data['user_id'] = auth()->id();
+            // Para otros campos que no son nullable, dejar los valores tal como vienen
+            $detalle->update($data);
         }
 
-        // Disparar JS para reestablecer foco en el siguiente
-        $this->dispatch('focus-cell');
-        $this->editCell($nextId, $nextField, $this->getValue($nextId, $nextField));
+        $this->loadData();
+        $this->dispatch('saved');
+        $this->dispatch('actualizar_tabla_liberacion');
+        $this->closeModal();
     }
 
-    private function getValue($detalleId, $field)
-    {
-        $det = LiberacionDetalle::find($detalleId);
-        return $det ? $det->$field : '';
-    }
 
     public function render()
     {

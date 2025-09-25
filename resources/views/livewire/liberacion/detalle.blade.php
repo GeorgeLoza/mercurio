@@ -1,145 +1,180 @@
-<div>
-  <h1 class="font-bold uppercase">Liberación</h1>
-  <p><span class="font-bold">ORP:</span> {{ $liberacion->orp->codigo }}</p>
+<div class="p-3 liberacion-detalle"> {{-- clase para el CSS/JS específico --}}
+    <style>
+        /* --- Ocultar flechitas (spinners) SOLO en esta sección --- */
+        .liberacion-detalle input[type=number]::-webkit-inner-spin-button,
+        .liberacion-detalle input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none !important;
+            margin: 0 !important;
+        }
 
-  @if($liberacion->detalles->count())
-  <table class="w-full text-xs border-collapse">
-    <thead class="bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-400 text-center">
-      <tr>
-        <th class="p-1 border">Cabezal</th>
-        <th class="p-1 border">Hora</th>
-        <th class="p-1 border">Peso</th>
-        <th class="p-1 border">Temp</th>
-        <th class="p-1 border">pH</th>
-        <th class="p-1 border">Brix</th>
-        <th class="p-1 border">Acidez</th>
-        <th class="p-1 border">Viscosidad</th>
-        <th class="p-1 border">Color</th>
-        <th class="p-1 border">Olor</th>
-        <th class="p-1 border">Sabor</th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach($liberacion->detalles as $detalle)
-      <tr wire:key="detalle-{{ $detalle->id }}">
-        {{-- Origen_id --}}
-        <td class="p-1 border">
-          <select
-            data-row="{{ $detalle->id }}"
-            data-field="origen_id"
-            class="cell-input w-full p-1 border rounded text-xs"
-            wire:ignore
-          >
-            @foreach($origenes as $o)
-              <option value="{{ $o->id }}" @selected($detalle->origen_id == $o->id)>{{ $o->alias }}</option>
-            @endforeach
-          </select>
-        </td>
-        {{-- Hora --}}
-        <td class="p-1 border">
-          <input
-            data-row="{{ $detalle->id }}"
-            data-field="hora_sachet"
-            type="time"
-            class="cell-input w-full p-1 border rounded text-xs"
-            value="{{ $detalle->hora_sachet }}"
-            wire:ignore
-          />
-        </td>
-        {{-- Numéricos --}}
-        @foreach(['peso','temperatura','ph','brix','acidez','viscosidad'] as $f)
-        <td class="p-1 border">
-          <input
-            data-row="{{ $detalle->id }}"
-            data-field="{{ $f }}"
-            type="number"
-            step="0.01"
-            class="cell-input w-full p-1 border rounded text-xs"
-            value="{{ $detalle->$f }}"
-            wire:ignore
-          />
-        </td>
-        @endforeach
-        {{-- Booleanos --}}
-        @foreach(['color','olor','sabor'] as $f)
-        <td class="p-1 border text-center">
-          <input
-            data-row="{{ $detalle->id }}"
-            data-field="{{ $f }}"
-            type="checkbox"
-            class="cell-input"
-            @checked($detalle->$f)
-            wire:ignore
-          />
-        </td>
-        @endforeach
-      </tr>
-      @endforeach
-    </tbody>
-  </table>
-  @else
-    <p class="text-gray-500">No hay detalles registrados.</p>
-  @endif
+        .liberacion-detalle input[type=number] {
+            -moz-appearance: textfield !important;
+            appearance: textfield !important;
+            -webkit-appearance: none !important;
+        }
+    </style>
+
+    <h1 class="font-bold uppercase mb-3 text-gray-800 dark:text-gray-100">
+        Liberación: {{ $liberacion->orp->codigo }}
+    </h1>
+
+    @if ($liberacion->detalles->count())
+        <div class="overflow-x-auto">
+            <table class="w-full text-xs border-collapse bg-white dark:bg-gray-800 rounded">
+                <thead class="bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-center">
+                    <tr>
+                        <th class="p-1 border">Cabezal</th>
+                        <th class="p-1 border">Hora</th>
+                        <th class="px-2 border">Peso</th>
+                        <th class="px-1 border">Lote</th>
+                        <th class="p-1 border">Temp</th>
+                        <th class="px-3 border">pH</th>
+                        <th class="px-2 border">Brix</th>
+                        <th class="p-1 border">Acidez</th>
+                        <th class="p-1 border">Visc.</th>
+                        <th class="p-1 border">C</th>
+                        <th class="p-1 border">O</th>
+                        <th class="p-1 border">S</th>
+                        <th class="p-1 border">Observacion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($liberacion->detalles as $detalle)
+                        <tr wire:key="detalle-{{ $detalle->id }}"
+                            class="odd:bg-white even:bg-gray-50 dark:odd:bg-gray-800 dark:even:bg-gray-900">
+                            <td class="p-1 border text-xs">
+                                <select wire:model.defer="values.{{ $detalle->id }}.origen_id"
+                                    class="editable w-full p-1 border rounded text-xs
+                                       bg-white text-gray-900 border-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600"
+                                    @if (!($mode === 'all' || in_array('origen_id', (array) $mode))) disabled @endif>
+                                    <option value="" class="">N/A</option>
+                                    @foreach ($origenes as $o)
+                                        <option value="{{ $o->id }}">{{ $o->alias }}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+
+                            <td class="p-1 border">
+                                <input type="time" wire:model.defer="values.{{ $detalle->id }}.hora_sachet"
+                                    class="editable w-full p-1 border rounded text-xs
+                                      bg-white text-gray-900 border-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600"
+                                    @if (!($mode === 'all' || in_array('hora_sachet', (array) $mode))) disabled @endif>
+                            </td>
+
+                            <!-- peso -->
+                            <td class="p-1 border">
+                                <input type="number" step="0.01" wire:model.defer="values.{{ $detalle->id }}.peso"
+                                    class="editable w-full p-1 border rounded text-xs
+                      bg-white text-gray-900 border-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600"
+                                    @if (!($mode === 'all' || in_array('peso', (array) $mode))) disabled @endif>
+                            </td>
+
+                            <!-- lote NUEVO -->
+                            <td class="p-1 border">
+                                <input type="number" wire:model.defer="values.{{ $detalle->id }}.lote"
+                                    class="editable w-full p-1 border rounded text-xs
+                      bg-white text-gray-900 border-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600"
+                                    @if (!($mode === 'all' || in_array('lote', (array) $mode))) disabled @endif>
+                            </td>
+
+
+                            @foreach (['temperatura', 'ph', 'brix', 'acidez', 'viscosidad'] as $f)
+                                <td class="p-1 border">
+                                    <input type="number" step="0.01"
+                                        wire:model.defer="values.{{ $detalle->id }}.{{ $f }}"
+                                        class="editable w-full p-1 border rounded text-xs
+                                      bg-white text-gray-900 border-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600"
+                                        @if (!($mode === 'all' || in_array($f, (array) $mode))) disabled @endif>
+                                </td>
+                            @endforeach
+
+                            @foreach (['color', 'olor', 'sabor'] as $f)
+                                <td class="p-1 border text-center">
+                                    <input type="checkbox"
+                                        wire:model.defer="values.{{ $detalle->id }}.{{ $f }}"
+                                        class="editable h-4 w-4" @if (!($mode === 'all' || in_array($f, (array) $mode))) disabled @endif>
+                                </td>
+                            @endforeach
+
+                            <!-- Observaciones -->
+                            <td class="p-1 border">
+                                <textarea rows="1" wire:model.defer="values.{{ $detalle->id }}.observaciones"
+                                    class="editable w-full p-1 border rounded text-xs resize-y
+                                         bg-white text-gray-900 border-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600"
+                                    @if (!($mode === 'all' || in_array('observaciones', (array) $mode))) disabled @endif></textarea>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Botón Guardar -->
+        <div class="mt-3 flex justify-end">
+            <button wire:click="saveAll" data-role="save-btn"
+                class="bg-green-500 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-500 text-white font-bold py-1 px-4 rounded">
+                Guardar / Aceptar
+            </button>
+        </div>
+    @else
+        <p class="text-gray-500 dark:text-gray-300">No hay detalles registrados.</p>
+    @endif
 </div>
 
-@script
-<script>
-document.addEventListener('livewire:load', () => {
-  const fields = [
-    'origen_id','hora_sachet','peso','temperatura','ph',
-    'brix','acidez','viscosidad','color','olor','sabor'
-  ];
+@push('scripts')
+    <script>
+        document.addEventListener('livewire:load', () => {
 
-  let active = { row: null, field: null };
+            function enabledInputs() {
+                return Array.from(document.querySelectorAll('.liberacion-detalle .editable')).filter(i => !i
+                    .disabled);
+            }
 
-  function focusFirst() {
-    const first = document.querySelector('.cell-input');
-    if (first) { first.focus(); updateActive(first); }
-  }
+            // foco inicial en el primer input habilitado
+            const arr0 = enabledInputs();
+            if (arr0.length) arr0[0].focus();
 
-  function updateActive(el) {
-    active.row = parseInt(el.dataset.row);
-    active.field = el.dataset.field;
-  }
+            // Previene que la rueda del mouse cambie el valor (solo cuando el input está enfocado)
+            document.querySelectorAll('.liberacion-detalle input[type=number]').forEach(input => {
+                input.addEventListener('wheel', function(e) {
+                    // solo prevenir cuando el input tiene foco
+                    if (document.activeElement === this) {
+                        e.preventDefault();
+                    }
+                }, {
+                    passive: false
+                });
+                // prevenir flechas ↑ ↓ que cambian el valor
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+                        e.preventDefault();
+                    }
+                });
+            });
 
-  function saveCell(el) {
-    const { row, field } = active;
-    let val = el.type==='checkbox' ? (el.checked?1:0) : el.value;
-    Livewire.emit('editCell', row, field, val);
-    Livewire.emit('saveCell');
-  }
+            document.addEventListener('keydown', e => {
+                const enabled = enabledInputs();
+                if (!enabled.length) return;
 
-  function move(dir) {
-    const rows = Array.from(document.querySelectorAll('tr[wire\\:key^="detalle-"]'));
-    const ids = rows.map(r => parseInt(r.getAttribute('wire:key').split('-')[1]));
-    const ri = ids.indexOf(active.row), ci = fields.indexOf(active.field);
-    let nr=active.row, nf=active.field;
+                const el = document.activeElement;
+                if (!el.classList.contains('editable') || el.disabled) return;
 
-    if(dir==='left' && ci>0) nf=fields[ci-1];
-    else if(dir==='right'&&ci<fields.length-1) nf=fields[ci+1];
-    else if(dir==='up')    nr=ids[(ri-1+ids.length)%ids.length];
-    else if(dir==='down')  nr=ids[(ri+1)%ids.length];
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const idx = enabled.indexOf(el);
+                    if (idx === -1) return;
 
-    const sel = `.cell-input[data-row="${nr}"][data-field="${nf}"]`;
-    const nxt = document.querySelector(sel);
-    if(nxt) setTimeout(()=>{ nxt.focus(); updateActive(nxt); },50);
-  }
-
-  document.addEventListener('keydown', e=>{
-    const el = document.activeElement;
-    if(!el.classList.contains('cell-input')) return;
-
-    switch(e.key) {
-      case 'Enter':
-        e.preventDefault(); saveCell(el); move('right'); break;
-      case '/': e.preventDefault(); saveCell(el); move('left');  break;
-      case '*': e.preventDefault(); saveCell(el); move('right'); break;
-      case '-': e.preventDefault(); saveCell(el); move('up');    break;
-      case '+': e.preventDefault(); saveCell(el); move('down');  break;
-    }
-  });
-
-  focusFirst();
-});
-</script>
-@endscript
+                    if (idx === enabled.length - 1) {
+                        // si estamos en el último input habilitado -> disparar guardar
+                        const saveBtn = document.querySelector('[data-role="save-btn"]');
+                        if (saveBtn) saveBtn.click();
+                    } else {
+                        // enfocar siguiente habilitado
+                        enabled[idx + 1].focus();
+                    }
+                }
+                // dejamos Tab nativo (accesibilidad)
+            });
+        });
+    </script>
+@endpush

@@ -670,7 +670,9 @@
                     </tr>
 
                     <tr>
+
                         <th colspan="14">
+
                             @foreach ($obs as $dato)
                                 @if ($dato->solicitudAnalisisLinea->analisisLinea->observaciones != null)
                                     @php
@@ -706,12 +708,13 @@
 
 
                             @endif
-                        </th>
+
 
 
                         @if ($buscador == 0)
                             Sin Observaciones
                             <br>
+
 
                             @if ($dato->solicitudAnalisisLinea->analisisLinea->tempUHT != null)
                                 Temperaturas de UHT:

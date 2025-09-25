@@ -53,6 +53,7 @@ class Crear extends ModalComponent
             } else {
                 Liberacion::create([
                     'orp_id' => $this->orp_id,
+                    'estado' => 'No liberado',
                 ]);
 
                 $this->dispatch('success', mensaje: 'Liberación creada exitosamente');

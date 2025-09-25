@@ -122,7 +122,10 @@ class Agregar extends ModalComponent
                 LiberacionDetalle::create([
                     // Aquí defines los campos que se llenarán por defecto
                     'liberacion_id' => $this->id,
-                    'user_id' => auth()->user()->id
+                    // 'user_id' => auth()->user()->id,
+                    'color' => true,
+                    'olor' => true,
+                    'sabor' => true,
 
                 ]);
             }
