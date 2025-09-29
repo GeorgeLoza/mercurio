@@ -15,7 +15,10 @@
     </style>
 
     <h1 class="font-bold uppercase mb-3 text-gray-800 dark:text-gray-100">
-        Liberación: {{ $liberacion->orp->codigo }}
+        Liberación:
+        @foreach ($liberacion->orps as $orp)
+            {{ $orp->codigo }} -
+        @endforeach
     </h1>
 
     @if ($liberacion->detalles->count())

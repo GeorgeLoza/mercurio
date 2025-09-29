@@ -13,6 +13,7 @@
     <table class="w-full text-xs text-left text-gray-500 dark:text-gray-400">
         <thead class="text-2xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
+                <th class="p-2 text-left">Fecha</th>
                 <th class="p-2 text-left">Producto</th>
                 <th class="p-2 text-left">ORP</th>
                 <th class="p-2 text-left">Fecha de Ven.</th>
@@ -28,15 +29,33 @@
                 {{-- Fila principal --}}
                 <tr wire:click="toggleExpand({{ $liberacion->id }})"
                     class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer text-xs">
-                    <td class="p-2 max-w-[250px]">{{ $liberacion->orp->producto->nombre }}</td>
-                    <td class="p-2">{{ $liberacion->orp->codigo ?? '—' }}</td>
+                    <td class="p-2 max-w-[250px]">
+  {{ \Carbon\Carbon::parse($liberacion->created_at)->format('d-m-y') }}
+
+
+
+                    </td>
+                    <td class="p-2 max-w-[250px]">
+                        @foreach ($liberacion->orps as $orp)
+                            {{ $orp->producto->nombre }} <br>
+                        @endforeach
+                    </td>
 
                     <td class="p-2">
-                        @if ($liberacion->orp->fecha_vencimiento1)
-                            {{ \Carbon\Carbon::parse($liberacion->orp->fecha_vencimiento1)->format('d-m-y') }}
-                        @else
-                            —
-                        @endif
+                        @foreach ($liberacion->orps as $orp)
+                            {{ $orp->codigo }} <br>
+                        @endforeach
+                    </td>
+
+                    <td class="p-2">
+                        @foreach ($liberacion->orps as $orp)
+                            @if ($orp->fecha_vencimiento1)
+                                {{ \Carbon\Carbon::parse($orp->fecha_vencimiento1)->format('d-m-y') }}
+                            @else
+                                —
+                            @endif <br>
+                        @endforeach
+
                     </td>
                     <td class="p-2">{{ $liberacion->estado ?? '-' }} - {{ $liberacion->tipo ?? '' }} </td>
                     <td class="p-2">
@@ -162,7 +181,7 @@
                 {{-- Fila expandida --}}
                 @if (!empty($expanded[$liberacion->id]))
                     <tr class="bg-gray-50 dark:bg-gray-800 text-2xs">
-                        <td colspan="8" class="p-4">
+                        <td colspan="9" class="p-4">
                             <div class="text-sm text-gray-700 dark:text-gray-200">
                                 {{-- <h3 class="font-semibold">Detalles de seguimiento
                                     ({{ $liberacion->detalles->count() }})
@@ -170,30 +189,30 @@
                                 <div class="mt-2 overflow-x-auto">
                                     <table class="w-full text-2xs border-collapse">
                                         <thead class="text-left text-gray-600 dark:text-gray-300">
-                                            <tr>
-                                                <th class="px-2 py-1 border">Cabezal </th>
-                                                <th class="px-2 py-1 border">Hora</th>
-                                                <th class="px-2 py-1 border">Peso</th>
-                                                <th class="px-2 py-1 border">lote</th>
-                                                <th class="px-2 py-1 border">Temp</th>
-                                                <th class="px-2 py-1 border">pH</th>
-                                                <th class="px-2 py-1 border">Brix</th>
-                                                <th class="px-2 py-1 border">Acidez</th>
-                                                <th class="px-2 py-1 border">Visc.</th>
-                                                <th class="px-2 py-1 border">C / O / S</th>
-                                                <th class="px-2 py-1 border">Obs.</th>
-                                                <th class="px-2 py-1 border">Usuario</th>
-                                                <th class="px-2 py-1 border">Acciones</th>
+                                            <tr class="border-b">
+                                                <th class="px-2 py-1 ">Hora</th>
+                                                <th class="px-2 py-1 ">Cabezal </th>
+                                                <th class="px-2 py-1 ">Peso</th>
+                                                <th class="px-2 py-1 ">lote</th>
+                                                <th class="px-2 py-1 ">Temp</th>
+                                                <th class="px-2 py-1 ">pH</th>
+                                                <th class="px-2 py-1 ">Brix</th>
+                                                <th class="px-2 py-1 ">Acidez</th>
+                                                <th class="px-2 py-1 ">Visc.</th>
+                                                <th class="px-2 py-1 ">C / O / S</th>
+                                                <th class="px-2 py-1 ">Obs.</th>
+                                                <th class="px-2 py-1 ">Usuario</th>
+                                                <th class="px-2 py-1 ">Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @forelse($liberacion->detalles as $d)
                                                 <tr
                                                     class="odd:bg-white even:bg-gray-100 dark:odd:bg-gray-800 dark:even:bg-gray-900">
-                                                    <td class="px-2 py-1 border text-2xs">
+                                                    <td class="px-2 py-1 text-2xs">
                                                         {{ $d->origen->alias ?? '-' }}
                                                     </td>
-                                                    <td class="px-2 py-1 border text-2xs">
+                                                    <td class="px-2 py-1 text-2xs">
                                                         @if ($d->hora_sachet)
                                                             {{ \Carbon\Carbon::parse($d->hora_sachet)->format('H:i') }}
                                                         @else
@@ -201,26 +220,26 @@
                                                         @endif
                                                     </td>
 
-                                                    <td class="px-2 py-1 border text-2xs">{{ $d->peso ?? '-' }}</td>
-                                                    <td class="px-2 py-1 border text-2xs">{{ $d->lote ?? '-' }}</td>
-                                                    <td class="px-2 py-1 border text-2xs">{{ $d->temperatura ?? '-' }}
+                                                    <td class="px-2 py-1  text-2xs">{{ $d->peso ?? '-' }}</td>
+                                                    <td class="px-2 py-1  text-2xs">{{ $d->lote ?? '-' }}</td>
+                                                    <td class="px-2 py-1  text-2xs">{{ $d->temperatura ?? '-' }}
                                                     </td>
-                                                    <td class="px-2 py-1 border text-2xs">{{ $d->ph ?? '-' }}</td>
-                                                    <td class="px-2 py-1 border text-2xs">{{ $d->brix ?? '-' }}</td>
-                                                    <td class="px-2 py-1 border text-2xs">{{ $d->acidez ?? '-' }}</td>
-                                                    <td class="px-2 py-1 border text-2xs">{{ $d->viscosidad ?? '-' }}
+                                                    <td class="px-2 py-1  text-2xs">{{ $d->ph ?? '-' }}</td>
+                                                    <td class="px-2 py-1  text-2xs">{{ $d->brix ?? '-' }}</td>
+                                                    <td class="px-2 py-1  text-2xs">{{ $d->acidez ?? '-' }}</td>
+                                                    <td class="px-2 py-1  text-2xs">{{ $d->viscosidad ?? '-' }}
                                                     </td>
-                                                    <td class="px-2 py-1 border text-2xs">
+                                                    <td class="px-2 py-1  text-2xs">
                                                         {{ $d->color ? 'C' : '-' }} /
                                                         {{ $d->olor ? 'O' : '-' }} /
                                                         {{ $d->sabor ? 'S' : '-' }}
                                                     </td>
-                                                    <td class="px-2 py-1 border text-2xs">
+                                                    <td class="px-2 py-1  text-2xs">
                                                         {{ Str::limit($d->observaciones ?? '-', 80) }}</td>
-                                                    <td class="px-2 py-1 border text-2xs">
+                                                    <td class="px-2 py-1  text-2xs">
                                                         {{ $d->user->codigo ?? '-' }}
                                                     </td>
-                                                    <td class="p-1 border text-center">
+                                                    <td class="p-1  text-center">
                                                         @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 37)->where('permiso_id', 4)->isNotEmpty() ||
                                                                 now()->diffInMinutes($d->created_at) < 60)
                                                             <button wire:click="deleteDetalle({{ $d->id }})"

@@ -9,7 +9,6 @@ class Liberacion extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'orp_id',
 
         'liberador_id',
         'autorizador_id',
@@ -29,13 +28,15 @@ class Liberacion extends Model
     {
         return $this->belongsTo(User::class, 'autorizador_id');
     }
-    public function orp()
-    {
-        return $this->belongsTo(Orp::class);
-    }
+
 
     public function detalles()
     {
         return $this->hasMany(LiberacionDetalle::class);
+    }
+
+    public function orps()
+    {
+        return $this->belongsToMany(Orp::class, 'liberacion_orps');
     }
 }

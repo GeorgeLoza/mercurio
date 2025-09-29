@@ -19,11 +19,10 @@ class Tabla extends Component
     public function render()
     {
         $liberaciones = Liberacion::with([
-            'orp:id,id,codigo,producto_id,fecha_vencimiento1,tiempo_elaboracion',
-            'orp.producto:id,id,nombre',
+
             'detalles',
             'detalles.origen:id,id,alias',
-            'detalles.user:id,id,nombre',
+            'detalles.user:id,id,nombre,codigo',
         ])
         ->orderByDesc('id')
         ->paginate(9);

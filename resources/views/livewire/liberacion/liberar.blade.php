@@ -3,8 +3,8 @@
         <h2 class="text-lg font-semibold mb-4">Liberar Producto</h2>
 
         <div class="mb-4">
-            <label for="tipo" class="block text-sm font-medium text-gray-700 mb-1">Tipo de Liberación:</label>
-            <select id="tipo" wire:model="tipo" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
+            <label for="tipo" class="block text-sm font-medium  mb-1">Tipo de Liberación:</label>
+            <select id="tipo" wire:model="tipo" class="mt-1 block w-full border border-gray-300 dark:bg-gray-800 rounded-md shadow-sm p-2">
                 <option value="">Seleccione un tipo</option>
                 <option value="Regular">Regular</option>
                 <option value="Extraordinaria">Extraordinaria</option>

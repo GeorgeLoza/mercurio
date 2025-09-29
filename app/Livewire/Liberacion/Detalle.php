@@ -69,7 +69,7 @@ class Detalle extends ModalComponent
             }
 
             // Campos nullable que deben convertirse a null si vienen vacíos o como "null"
-            $nullableFields = ['origen_id', 'peso','lote', 'temperatura', 'ph', 'brix', 'acidez', 'viscosidad'];
+            $nullableFields = ['origen_id', 'peso', 'lote', 'temperatura', 'ph', 'brix', 'acidez', 'viscosidad'];
             foreach ($nullableFields as $field) {
                 if (array_key_exists($field, $data)) {
                     if ($data[$field] === '' || $data[$field] === 'null') {
@@ -78,8 +78,8 @@ class Detalle extends ModalComponent
                 }
             }
 
-              // Asignar siempre el user_id autenticado
-        $data['user_id'] = auth()->id();
+            // Asignar siempre el user_id autenticado
+            $data['user_id'] = auth()->id();
             // Para otros campos que no son nullable, dejar los valores tal como vienen
             $detalle->update($data);
         }

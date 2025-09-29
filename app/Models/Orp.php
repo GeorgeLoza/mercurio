@@ -45,4 +45,6 @@ class Orp extends Model
         return $this->belongsTo(User::class, 'revisor_id');
     }
 
+
+
 }
