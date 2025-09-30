@@ -22,7 +22,7 @@ class Liberar extends ModalComponent
         $liberacion->estado = 'Por Liberar';
         $liberacion->tipo = $this->tipo;
         $liberacion->liberador_id = auth()->user()->id;
-        $liberacion->fecha_liberacion = now();
+        // $liberacion->fecha_liberacion = now();
         $liberacion->save();
 
 

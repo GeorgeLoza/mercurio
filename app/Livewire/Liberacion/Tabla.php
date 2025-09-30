@@ -85,6 +85,24 @@ class Tabla extends Component
     // opcional: lanzar evento JS o cerrar modal
     $this->dispatch('deleted');
 }
+
+
+    public function delete($id)
+    {
+
+        $liberacion = Liberacion::find($id);
+        if ($liberacion) {
+            // Eliminar todos los detalles asociados
+            $liberacion->detalles()->delete();
+            // Luego eliminar la liberación
+            $liberacion->delete();
+        }
+
+        $this->dispatch('actualizar_tabla_liberacion');
+
+        session()->flash('success', 'Liberación eliminada correctamente.');
+        $this->reset();
+    }
 }
 
 

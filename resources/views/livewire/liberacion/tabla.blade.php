@@ -30,7 +30,7 @@
                 <tr wire:click="toggleExpand({{ $liberacion->id }})"
                     class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer text-xs">
                     <td class="p-2 max-w-[250px]">
-  {{ \Carbon\Carbon::parse($liberacion->created_at)->format('d-m-y') }}
+                        {{ \Carbon\Carbon::parse($liberacion->created_at)->format('d-m-y') }}
 
 
 
@@ -78,8 +78,12 @@
                     <td class="p-2">
                         @if ($liberacion->estado == 'Por Liberar')
                             @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 37)->where('permiso_id', 5)->isNotEmpty())
+                                @php
+                                    $orpsCodigos = $liberacion->orps->pluck('codigo')->implode(', ');
+                                @endphp
+
                                 <button wire:click.stop="autorizar({{ $liberacion->id }})"
-                                    wire:confirm="¿Confirmar liberación de la Orp {{ $liberacion->orp->codigo }}?"
+                                    wire:confirm="¿Confirmar liberación de la(s) Orp {{ $orpsCodigos }}?"
                                     class="bg-blue-500 text-white px-2 py-1 rounded">
                                     Autorizar
                                 </button>
@@ -91,7 +95,7 @@
                     </td>
                     <td class="p-2">
                         @if ($liberacion->fecha_liberacion)
-                            {{ \Carbon\Carbon::parse($liberacion->orp->fecha_liberacion)->format('d-m-y') }}
+                            {{ \Carbon\Carbon::parse($liberacion->fecha_liberacion)->format('d-m-y') }}
                         @else
                             -
                         @endif
@@ -174,6 +178,19 @@
                                         d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
                                 </svg>
                             </button>
+                            {{-- boton de eliminar liberacion --}}
+                            @if (auth()->user()->role->rolModuloPermisos->where('modulo_id', 37)->where('permiso_id', 4)->isNotEmpty() ||
+                                    now()->diffInMinutes($liberacion->created_at) < 60)
+                                <button wire:click.stop="delete({{ $liberacion->id }})"
+                                    wire:confirm="¿Seguro que deseas eliminar esta liberación?"
+                                    class="py-1 px-2 mr-2  rounded-md">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4  fill-red-500"
+                                        viewBox="0 0 448 512">
+                                        <path
+                                            d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z" />
+                                    </svg>
+                                </button>
+                            @endif
                         @endif
                     </td>
                 </tr>

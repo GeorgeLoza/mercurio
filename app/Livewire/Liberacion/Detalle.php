@@ -25,9 +25,10 @@ class Detalle extends ModalComponent
     public function loadData()
     {
         $this->liberacion = Liberacion::with('detalles.origen')->findOrFail($this->id);
+        $orpIds = $this->liberacion->orps->pluck('id')->toArray();
 
-        $this->origenes = Origen::whereHas('estadoPlanta.estadoDetalle', function ($q) {
-            $q->where('orp_id', $this->liberacion->orp_id);
+        $this->origenes = Origen::whereHas('estadoPlanta.estadoDetalle', function ($q) use ($orpIds) {
+            $q->whereIn('orp_id', $orpIds);
         })
             ->where('descripcion', 'like', '%ENVASADORA%')
             ->get();
