@@ -10,9 +10,7 @@
 
                 <form novalidate wire:submit="dia2">
                     <!--para simples-->
-                    @if (
-                        $data->detalleSolicitudPlanta->solicitudPlanta->user->id == 49 &&
-                            $data->detalleSolicitudPlanta->tipoMuestra->id == 8)
+                    @if ( $data->detalleSolicitudPlanta->tipoMuestra->id == 19)
                         <h3 class="mb-2 text-md font-medium text-gray-900 dark:text-white">Analisis de
                             Superficie</h3>
                     @endif
@@ -84,9 +82,7 @@
 
                         </div>
                     @endif
-                    @if (
-                        $data->detalleSolicitudPlanta->solicitudPlanta->user->id == 49 &&
-                            $data->detalleSolicitudPlanta->tipoMuestra->id == 8)
+                    @if ( $data->detalleSolicitudPlanta->tipoMuestra->id == 19)
                         <h3 class="mb-2 text-md font-medium text-gray-900 dark:text-white">Analisis de
                             Profundidad</h3>
                         <div>
@@ -212,9 +208,7 @@
                         </div>
                     </div>
                     @endif
-                    @if (
-                        $data->detalleSolicitudPlanta->solicitudPlanta->user->id == 49 &&
-                            $data->detalleSolicitudPlanta->tipoMuestra->id == 8)
+                    @if ( $data->detalleSolicitudPlanta->tipoMuestra->id == 19)
                         <div>
                             <input type="number" name="tipo" value="3" hidden>
                             <label for="moh_lev2"

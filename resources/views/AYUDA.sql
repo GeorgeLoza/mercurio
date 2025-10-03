@@ -1,3 +1,7 @@
+INSERT INTO `tipo_muestras` (`id`, `nombre`, `norma_referencial`, `unidad`, `aclaUni`, `min_mes`, `min_mes_e`, `max_mes`, `max_mes_e`, `min_colTot`, `min_colTot_e`, `max_colTot`, `max_colTot_e`, `min_mohLev`, `min_mohLev_e`, `max_mohLev`, `max_mohLev_e`, `created_at`, `updated_at`) VALUES
+(19, 'PANETONES', ' Referencia Norma Boliviana 39007, Harina y Derivados - Productos Panificados Requisitos.', 'UFC/g', ' Unidades formadoras de colonia por cada gramo.', 'S/R', NULL, 'S/R', NULL, '--', NULL, '10', NULL, '--', NULL, '1X10', 2, NULL, '2025-04-04 11:48:28');
+
+
 INSERT INTO `item_materia_primas` (`id`, `codigo`, `nombre`, `descripcion`, `categoria_materia_prima_id`, `nivel_inspeccion`, `nca_max`, `nca_min`, `Nivel_dilucion`, `temp_max`, `temp_min`, `ph_max`, `ph_min`, `solidos_max`, `solidos_min`, `acidez_max`, `acidez_min`, `densidad_max`, `densidad_min`, `viscosidad_max`, `viscosidad_min`, `organoleptica`, `unidad_id`) VALUES
 (180, 'EN00007', '', 'ASA BOTELLA 2-2,5L', 8, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 5),
 (181, 'EN00241', '', 'BOBINA LECHE KREAM NATURAL 946ML 5,80 BS 32X100µ', 8, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 4),

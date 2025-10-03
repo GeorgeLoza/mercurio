@@ -383,9 +383,7 @@
                                 @if ($micro->detalleSolicitudPlanta->estado == 'Terminado')
                                     @if ($micro->detalleSolicitudPlanta->user->planta->nombre != 'Carsa')
                                         <a class="p-1"
-                                            @if (
-                                                $micro->detalleSolicitudPlanta->solicitudPlanta->user->id == 49 &&
-                                                    $micro->detalleSolicitudPlanta->tipoMuestra->id == 8) href="{{ route('certificado.pdf_cer2', $micro->detalleSolicitudPlanta->id) }}"
+                                            @if ($micro->detalleSolicitudPlanta->tipoMuestra->id == 19) href="{{ route('certificado.pdf_cer2', $micro->detalleSolicitudPlanta->id) }}"
                                 @else
                                 href="{{ route('certificado.pdf_cer', $micro->detalleSolicitudPlanta->id) }}" @endif>
                                             <button class="p-1 rounded-md bg-red-600">
