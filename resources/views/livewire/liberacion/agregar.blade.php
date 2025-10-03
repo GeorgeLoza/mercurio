@@ -137,6 +137,16 @@
         @enderror
 
     </div>
+    {{-- input de lote para todas los detalle --}}
+    <div class="mb-4">
+        <label for="lote" class="block text-sm font-medium">Lote:</label>
+        <input type="text" wire:model="lote" id="lote" placeholder="lote"
+            class="w-full border border-gray-500 rounded p-2 dark:bg-slate-800" />
+        @error('lote')
+            <span class="text-red-500 text-sm">{{ $message }}</span>
+        @enderror
+
+
 
     <div class="flex justify-end space-x-2 mt-4">
         <button wire:click="save" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">

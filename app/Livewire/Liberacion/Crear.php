@@ -14,6 +14,7 @@ class Crear extends ModalComponent
     public $buscar_orp = '';
     public $liberacion;
     public $orp_seleccionadas = []; // array de ORPs seleccionadas temporalmente
+    public $camara;
 
     public function render()
     {
@@ -48,6 +49,7 @@ class Crear extends ModalComponent
         $this->validate([
             'orp_seleccionadas' => 'required|array|min:1',
             'orp_seleccionadas.*' => 'exists:orps,id',
+            'camara' => 'required',
         ]);
 
         // comprobar si alguna ORP ya está asociada
@@ -64,9 +66,11 @@ class Crear extends ModalComponent
         }
 
         try {
+
             // Crear la liberación
             $lib = Liberacion::create([
                 'estado' => 'No liberado',
+                'camara' => $this->camara,
             ]);
 
             // Guardar todas las ORPs seleccionadas en la tabla pivote

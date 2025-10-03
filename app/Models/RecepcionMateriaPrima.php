@@ -52,4 +52,8 @@ class RecepcionMateriaPrima extends Model
     {
         return $this->hasMany(RecepcionLote::class);
     }
+    public function almaceneroMateriaPrima()
+    {
+        return $this->belongsTo(AlmaceneroMateriaPrima::class);
+    }
 }

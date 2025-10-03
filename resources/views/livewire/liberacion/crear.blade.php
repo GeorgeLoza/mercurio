@@ -39,6 +39,19 @@
             @endforeach
         </ul>
     </div>
+    {{-- elegir camara --}}
+    <div class="mb-2">
+        <label for="camara" class="block text-sm font-medium">Cámara</label>
+        <select wire:model.live="camara" id="camara"
+                class="w-full border border-gray-500 rounded p-2 dark:bg-slate-800">
+           <option value="">Seleccione una cámara</option>
+        <option value="Ambiente">Ambiente</option>
+        <option value="Frio">Frio</option>
+        <option value="Linea">Linea</option>
+        </select>
+        @error('camara')
+            <span class="text-red-500 text-sm">{{ $message }}</span>
+        @enderror
 
     {{-- Botones --}}
     <div class="flex justify-end space-x-2 mt-4">

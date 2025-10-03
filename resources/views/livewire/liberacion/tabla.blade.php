@@ -57,7 +57,8 @@
                         @endforeach
 
                     </td>
-                    <td class="p-2">{{ $liberacion->estado ?? '-' }} - {{ $liberacion->tipo ?? '' }} </td>
+                    <td class="p-2">{{ $liberacion->camara }} <br>{{ $liberacion->estado ?? '-' }} -
+                        {{ $liberacion->tipo ?? '' }} </td>
                     <td class="p-2">
 
                         @if ($liberacion->estado == 'No liberado')
@@ -107,13 +108,15 @@
                                 now() - diffInDays($liberacion->created_at) < 7)
                             <!-- Ejemplo: cada botón debe detener la propagación para evitar toggle -->
                             <button class="bg-blue-500 text-white px-2 py-1 rounded"
-                                onclick="event.stopPropagation(); Livewire.dispatch('openModal', { component: 'liberacion.detalle', arguments: { id: {{ $liberacion->id }}, mode: ['hora_sachet','origen_id','peso','lote'] } })">
+                                onclick="event.stopPropagation(); Livewire.dispatch('openModal', { component: 'liberacion.detalle', arguments: { id: {{ $liberacion->id }}, mode: ['hora_sachet','origen_id','peso'] } })">
                                 <!-- icono -->
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="h-4 fill-white">
                                     <path
                                         d="M320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576C178.6 576 64 461.4 64 320C64 178.6 178.6 64 320 64zM296 184L296 320C296 328 300 335.5 306.7 340L402.7 404C413.7 411.4 428.6 408.4 436 397.3C443.4 386.2 440.4 371.4 429.3 364L344 307.2L344 184C344 170.7 333.3 160 320 160C306.7 160 296 170.7 296 184z" />
                                 </svg>
                             </button>
+
+
 
                             <button class="bg-purple-500 text-white px-2 py-1 rounded"
                                 onclick="event.stopPropagation(); Livewire.dispatch('openModal', { component: 'liberacion.detalle', arguments: { id: {{ $liberacion->id }}, mode: ['temperatura','ph'] } })">
@@ -203,12 +206,15 @@
                                 {{-- <h3 class="font-semibold">Detalles de seguimiento
                                     ({{ $liberacion->detalles->count() }})
                                 </h3> --}}
+
+
                                 <div class="mt-2 overflow-x-auto">
                                     <table class="w-full text-2xs border-collapse">
                                         <thead class="text-left text-gray-600 dark:text-gray-300">
                                             <tr class="border-b">
-                                                <th class="px-2 py-1 ">Hora</th>
+                                                <th class="px-2 py-1 "># </th>
                                                 <th class="px-2 py-1 ">Cabezal </th>
+                                                {{-- <th class="px-2 py-1 ">Hora</th> --}}
                                                 <th class="px-2 py-1 ">Peso</th>
                                                 <th class="px-2 py-1 ">lote</th>
                                                 <th class="px-2 py-1 ">Temp</th>
@@ -223,19 +229,32 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @php
+                                                $contador=0
+                                            @endphp
                                             @forelse($liberacion->detalles as $d)
                                                 <tr
                                                     class="odd:bg-white even:bg-gray-100 dark:odd:bg-gray-800 dark:even:bg-gray-900">
+                                                    {{-- numerar cada detalle --}}
+                                                    <td>
+                                                        @php
+                                                            $contador = $contador + 1;
+                                                        @endphp
+                                                        {{ $contador }}
+
+
+                                                    </td>
+
                                                     <td class="px-2 py-1 text-2xs">
                                                         {{ $d->origen->alias ?? '-' }}
                                                     </td>
-                                                    <td class="px-2 py-1 text-2xs">
+                                                    {{-- <td class="px-2 py-1 text-2xs">
                                                         @if ($d->hora_sachet)
-                                                            {{ \Carbon\Carbon::parse($d->hora_sachet)->format('H:i') }}
+                                                            {{ substr($d->hora_sachet, 0, 2) }}:{{ substr($d->hora_sachet, 2, 2) }}
                                                         @else
                                                             -
                                                         @endif
-                                                    </td>
+                                                    </td> --}}
 
                                                     <td class="px-2 py-1  text-2xs">{{ $d->peso ?? '-' }}</td>
                                                     <td class="px-2 py-1  text-2xs">{{ $d->lote ?? '-' }}</td>

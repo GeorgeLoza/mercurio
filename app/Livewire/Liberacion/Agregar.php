@@ -29,6 +29,8 @@ class Agregar extends ModalComponent
     public $sabor = true;
     public $observaciones;
     public $numero;
+    public $orp;
+    public $lote;
 
     // public function mount()
     // {
@@ -57,6 +59,20 @@ class Agregar extends ModalComponent
     //         ->where('descripcion', 'like', '%ENVASADORA%')
     //         ->get();
     // }
+
+
+
+
+    public function mount()
+    {
+        $this->liberacion = Liberacion::find($this->id);
+
+        $this->origens = Origen::whereHas('estadoPlanta.estadoDetalle', function ($query) {
+            $query->where('orp_id', $this->liberacion->orp_id);
+        })
+            ->where('descripcion', 'like', '%ENVASADORA%')
+            ->get();
+    }
     public function render()
     {
         return view('livewire.liberacion.agregar');
@@ -126,6 +142,7 @@ class Agregar extends ModalComponent
                     'color' => true,
                     'olor' => true,
                     'sabor' => true,
+                    'lote' => $this->lote,
 
                 ]);
             }

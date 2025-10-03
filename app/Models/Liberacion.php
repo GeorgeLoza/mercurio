@@ -14,8 +14,8 @@ class Liberacion extends Model
         'autorizador_id',
         'estado',
         'tipo',
-        'fecha_liberacion'
-
+        'fecha_liberacion',
+        'camara'
 
     ];
 

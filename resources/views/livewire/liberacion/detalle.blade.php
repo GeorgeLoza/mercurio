@@ -21,13 +21,15 @@
         @endforeach
     </h1>
 
+
+
     @if ($liberacion->detalles->count())
         <div class="overflow-x-auto">
             <table class="w-full text-xs border-collapse bg-white dark:bg-gray-800 rounded">
                 <thead class="bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-center">
                     <tr>
                         <th class="p-1 border">Cabezal</th>
-                        <th class="p-1 border">Hora</th>
+                        {{-- <th class="p-1 border">Hora</th> --}}
                         <th class="px-2 border">Peso</th>
                         <th class="px-1 border">Lote</th>
                         <th class="p-1 border">Temp</th>
@@ -57,12 +59,15 @@
                                 </select>
                             </td>
 
-                            <td class="p-1 border">
-                                <input type="time" wire:model.defer="values.{{ $detalle->id }}.hora_sachet"
+                            {{-- <td class="p-1 border">
+                                <input type="text" wire:model.defer="values.{{ $detalle->id }}.hora_sachet"
+                                    maxlength="4" pattern="\d{4}" inputmode="numeric"
                                     class="editable w-full p-1 border rounded text-xs
                                       bg-white text-gray-900 border-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600"
-                                    @if (!($mode === 'all' || in_array('hora_sachet', (array) $mode))) disabled @endif>
-                            </td>
+                                    @if (!($mode === 'all' || in_array('hora_sachet', (array) $mode))) disabled @endif
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 4);"
+                                    placeholder="HHMM">
+                            </td> --}}
 
                             <!-- peso -->
                             <td class="p-1 border">
